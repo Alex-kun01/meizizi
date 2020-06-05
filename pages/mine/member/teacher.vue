@@ -1,0 +1,166 @@
+<template>
+	<view class="content">
+		<!-- <view class="titleNview-placing"></view> -->
+		<!-- 讲师 -->
+		<view class="show_list">
+			<view class="item"
+			v-for="(item, index) in showList"
+			:key='index'
+			>
+				<view class="title">
+					{{item.store}}
+				</view>
+				<view class="con_box">
+					<image :src="item.img" mode=""></image>
+					<view class="con_con">
+						<view class="address">
+							{{item.address}}
+						</view>
+						<view class="item">
+							<image src="../../../static/mine/dianhua@2x.png" mode=""></image>
+							<text>{{item.phone}}</text>
+						</view>
+						<view class="item">
+							<image src="../../../static/mine/weixin@2x.png" mode=""></image>
+							<text>{{item.weixin}}</text>
+						</view>
+					</view>
+					<view class="btn_r"
+					@click="gotpage"
+					>
+						查看数据
+					</view>
+				</view>
+			</view>
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	export default {
+		data () {
+			return {
+				showList: [
+					{
+						store: '屈臣氏(成都百盛店)',
+						img: '../../../static/index/item4.png',
+						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
+						phone: 15435127231,
+						weixin: 1537586351
+					},
+					{
+						store: '屈臣氏(成都百盛店)',
+						img: '../../../static/index/item4.png',
+						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
+						phone: 15435127231,
+						weixin: 1537586351
+					},
+					{
+						store: '屈臣氏(成都百盛店)',
+						img: '../../../static/index/item4.png',
+						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
+						phone: 15435127231,
+						weixin: 1537586351
+					},
+					{
+						store: '屈臣氏(成都百盛店)',
+						img: '../../../static/index/item4.png',
+						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
+						phone: 15435127231,
+						weixin: 1537586351
+					}
+				]
+			}
+		},
+		onLoad(){
+			
+		},
+		onShow(){
+			
+		},
+		methods:{
+			//跳转店铺详情
+			gotpage(){
+				uni.navigateTo({
+					url: './storeinfo'
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="less" scoped>
+	// 适配异形屏幕
+	.titleNview-placing {
+		height: var(--status-bar-height);
+		background: #FFFFFF;
+		padding-top: 0;
+		box-sizing: content-box;
+	 }
+	page{
+		width: 100%;
+		background-color: #F4F4F4;
+		.content{
+			width: 100%;
+			height: 100vh;
+			background-color: #F4F4F4;
+			box-sizing: border-box;
+			padding: 24rpx;
+			.show_list{
+				width: 100%;
+				.item{
+					width: 100%;
+					background-color: #FFFFFF;
+					box-sizing: border-box;
+					padding: 25rpx 15rpx;
+					margin-bottom: 24rpx;
+					.title{
+						font-size: 34rpx;
+						font-weight: 500;
+						color: #111111;
+						margin-bottom: 24rpx;
+					}
+					.con_box{
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						image{
+							width: 180rpx;
+							height: 180rpx;
+							margin-right: 24rpx;
+						}
+						.con_con{
+							font-size: 24rpx;
+							.address{
+								width: 380rpx;
+								font-weight: 500;
+								margin-bottom: 10rpx;
+							}
+							.item{
+								margin: 0;
+								padding: 0;
+								margin-bottom: 15rpx;
+								image{
+									width: 28rpx;
+									height: 23rpx;
+								}
+							}
+						}
+						.btn_r{
+							width:107rpx;
+							height:31rpx;
+							line-height: 31rpx;
+							text-align: center;
+							color: #FFFFFF;
+							font-size: 22rpx;
+							background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
+							border-radius:16rpx;
+							align-self: flex-end;
+						}
+					}
+				}
+			}
+		}
+	}
+</style>
