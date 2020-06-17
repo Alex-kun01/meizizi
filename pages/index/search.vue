@@ -5,7 +5,7 @@
 		<view class="top_search">
 			<view class="search_box">
 				<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-				<input type="text" v-model="searchValue" placeholder="神仙水" />
+				<input type="text" v-model="searchValue" placeholder="搜索"/>
 			</view>
 			<view class="quxiao"
 			@click="goback"
@@ -20,12 +20,12 @@
 			</view>
 			<view class="list">
 				<view class="item"
-				v-for="(item, index) in hortList"
+				v-for="(item, index) in search_list"
 				:key="index"
-				@click="gotoDetalus"
+				@click="gotoDetalus(item,1)"
 				>
-					<image v-if="item.img" style="width: 18rpx;height: 24rpx;margin-right: 25rpx;" :src="item.img" mode=""></image>
-					<text>{{item.text}}</text>
+					<image style="width: 18rpx;height: 24rpx;margin-right: 25rpx;" src="../../static/index/remen.png" mode=""></image>
+					<text>{{item.title}}</text>
 				</view>
 			</view>
 		</view>
@@ -37,11 +37,11 @@
 			</view>
 			<view class="list">
 				<view class="item"
-				v-for="(item, index) in hostoryList"
+				v-for="(item, index) in history_list"
 				:key="index"
+				@click="gotoDetalus(item,2)"
 				>
-					<image v-if="item.img" style="width: 18rpx;height: 24rpx;margin-right: 25rpx;" :src="item.img" mode=""></image>
-					<text>{{item.text}}</text>
+					<text>{{item.title}}</text>
 				</view>
 			</view>
 		</view>
@@ -53,11 +53,11 @@
 			</view>
 			<view class="list">
 				<view class="item"
-				v-for="(item, index) in usedList"
+				v-for="(item, index) in common_list"
 				:key="index"
+				@click="gotoDetalus(item,3)"
 				>
-					<image v-if="item.img" style="width: 18rpx;height: 24rpx;margin-right: 25rpx;" :src="item.img" mode=""></image>
-					<text>{{item.text}}</text>
+					<text>{{item.title}}</text>
 				</view>
 			</view>
 		</view>
@@ -71,117 +71,66 @@
 			return {
 				searchValue: '', //搜索value
 				// 热门列表
-				hortList: [
-					{
-						img: '../../static/index/remen@2x(1).png',
-						text: '杨幂同款包￥998'
-					},
-					{
-						img: '../../static/index/remen.png',
-						text: '杨幂同款包￥998'
-					},
-					{
-						img: '../../static/index/remen.png',
-						text: '潮牌 T 恤 3折起'
-					},
-					{
-						img: '../../static/index/remen.png',
-						text: '杨幂同款包￥998'
-					},
-					{
-						img: '../../static/index/remen.png',
-						text: '纸品清洁9.9元'
-					},
-					{
-						img: '../../static/index/remen.png',
-						text: '杨幂同款包￥998'
-					},
-					{
-						img: '',
-						text: '杨幂同款'
-					},
-					{
-						img: '',
-						text: '杨幂同款'
-					},
-					{
-						img: '',
-						text: '杨幂同款包'
-					},
-					{
-						img: '',
-						text: '杨幂同款'
-					},
-				],
+				search_list: [],
 				// 历史记录列表
-				hostoryList: [
-					{
-						img: '',
-						text: '口红 / 唇膏'
-					},
-					{
-						img: '',
-						text: '神仙水'
-					},
-					{
-						img: '',
-						text: '阿玛尼'
-					},
-					{
-						img: '',
-						text: 'ysl 小金条'
-					},
-				],
+				history_list: [],
 				// 常用分类列表
-				usedList: [
-					{
-						img: '',
-						text: '彩妆套装'
-					},
-					{
-						img: '',
-						text: '口红 / 唇膏'
-					},
-					{
-						img: '',
-						text: '眼部护理'
-					},
-					{
-						img: '',
-						text: '面膜'
-					},
-					{
-						img: '',
-						text: '精华'
-					},
-					{
-						img: '',
-						text: '男士护肤'
-					},
-					{
-						img: '',
-						text: '洗面奶'
-					},
-				]
+				common_list: []
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
-			search(){
-				console.log(this.searchValue)
-				uni.navigateTo({
-					url: './productlist'
+			getData(){
+				let _this = this
+				uni.request({
+					url: this.$http + '/api/search/keyword',
+					method: 'GET',
+					success(res) {
+						console.log('搜索列表数据', res)
+						if(res.data.status === 200){
+							// 热门搜索列表
+							_this.search_list = res.data.data.search_list
+							// 历史记录列表
+							_this.history_list = res.data.data.history_list
+							// 常用分类列表
+							_this.common_list = res.data.data.common_list
+						}
+					}
 				})
 			},
+			// 搜索按钮
+			search(){
+				let _this = this
+					console.log(this.$store.state.userInfo)
+					let userInfo = this.$store.state.userInfo
+					uni.request({
+						url: this.$http + '/api/goods/userAddSearch',
+						method: 'POST',
+						data: {
+							uid: userInfo.uid,
+							value: this.searchValue
+						},
+						success(res){
+							console.log('搜索按钮返回数据',res)
+							if(res.data.status === 200){
+								uni.navigateTo({
+									url: './productlist?value=' + _this.searchValue + '&type=' + '0' 
+								})
+							}
+						}
+					})
+			},
 			// 热门搜索跳转详情
-			gotoDetalus(){
+			gotoDetalus(item,type){
+				let id = item.id
+				
 				uni.navigateTo({
-					url: './productlist'
+					url: './productlist?value=' + id + '&type=' + type
 				})
 			},
 			goback(){

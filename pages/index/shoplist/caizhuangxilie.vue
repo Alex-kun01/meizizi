@@ -21,26 +21,17 @@
 		<!-- 导航 -->
 		<view class="navigater_box">
 			<swiper class="swiper">
-				<swiper-item>
+				<swiper-item
+				v-for="(item, index) in menus"
+				:key="index"
+				>
 					<view class="item">
 						<view class="box"
-						v-for="(item, index) in navigaterList[0]"
-						:key="index"
+						v-for="(box,iox) in item"
+						:key='iox'
 						>
-							<image :src="item.img" mode=""></image>
-							<text>{{item.menuName}}</text>
-						</view>
-						
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="item">
-						<view class="box"
-						v-for="(item, index) in navigaterList[1]"
-						:key="index"
-						>
-							<image :src="item.img" mode=""></image>
-							<text>{{item.menuName}}</text>
+							<image :src="box.img" mode=""></image>
+							<text>{{box.menuName}}</text>
 						</view>
 						
 					</view>
@@ -99,76 +90,65 @@
 					'../../../static/index/shop44.png',
 					'../../../static/index/shop44.png'
 				],
+				// 菜单二维数组
+				menus:[],
 				navigaterList: [
-					[
-						{
-							img: '../../../static/public/anniu@2x.png',
-							menuName: '彩妆套装'
-						},
-						{
-							img: '../../../static/public/anniu@2x(1).png',
-							menuName: '喷雾'
-						},
-						{
-							img: '../../../static/public/annniu@2x.png',
-							menuName: '气BB'
-						},
-						{
-							img: '../../../static/public/anniu@2x(2).png',
-							menuName: '粉底'
-						},
-						{
-							img: '../../../static/public/anniu@2x(6).png',
-							menuName: '散粉'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(4).png',
-							menuName: '眼影'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(5).png',
-							menuName: '眉笔'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(3).png',
-							menuName: '睫毛膏'
-						},	
-					],
-					[
-						{
-							img: '../../../static/public/anniu@2x.png',
-							menuName: '彩妆套装'
-						},
-						{
-							img: '../../../static/public/anniu@2x(1).png',
-							menuName: '喷雾'
-						},
-						{
-							img: '../../../static/public/annniu@2x.png',
-							menuName: '气BB'
-						},
-						{
-							img: '../../../static/public/anniu@2x(2).png',
-							menuName: '粉底'
-						},
-						{
-							img: '../../../static/public/anniu@2x(6).png',
-							menuName: '散粉'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(4).png',
-							menuName: '眼影'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(5).png',
-							menuName: '眉笔'
-						},	
-						{
-							img: '../../../static/public/anniu@2x(3).png',
-							menuName: '睫毛膏'
-						},	
-						
-					]
+					{
+						img: '../../../static/public/anniu@2x.png',
+						menuName: '彩妆套装'
+					},
+					{
+						img: '../../../static/public/anniu@2x(1).png',
+						menuName: '喷雾'
+					},
+					{
+						img: '../../../static/public/annniu@2x.png',
+						menuName: '气BB'
+					},
+					{
+						img: '../../../static/public/anniu@2x(2).png',
+						menuName: '粉底'
+					},
+					{
+						img: '../../../static/public/anniu@2x(6).png',
+						menuName: '散粉'
+					},	
+					{
+						img: '../../../static/public/anniu@2x(4).png',
+						menuName: '眼影'
+					},	
+					{
+						img: '../../../static/public/anniu@2x(5).png',
+						menuName: '眉笔'
+					},	
+					{
+						img: '../../../static/public/anniu@2x(3).png',
+						menuName: '睫毛膏'
+					},
+					{
+						img: '../../../static/public/anniu@2x.png',
+						menuName: '彩妆套装'
+					},
+					{
+						img: '../../../static/public/anniu@2x(1).png',
+						menuName: '喷雾'
+					},
+					{
+						img: '../../../static/public/annniu@2x.png',
+						menuName: '气BB'
+					},
+					{
+						img: '../../../static/public/anniu@2x(2).png',
+						menuName: '粉底'
+					},
+					{
+						img: '../../../static/public/anniu@2x(6).png',
+						menuName: '散粉'
+					},	
+					{
+						img: '../../../static/public/anniu@2x(4).png',
+						menuName: '眼影'
+					}
 				],
 				caiList: [
 					{
@@ -211,7 +191,8 @@
 			}
 		},
 		onLoad(){
-			
+			// 模拟真实数据请求截取
+			this.menus = this.getTargetData(this.navigaterList, 8)
 		},
 		onShow(){
 			
@@ -226,7 +207,30 @@
 				uni.navigateTo({
 					url: '../productdetails'
 				})
-			}
+			},
+			// 将菜单数据截取成展示结构 传入一维数组，返回想要的二维数组结构
+			// arr 目标数组 
+			// mnum 一页展示个数
+			getTargetData(arr, mnum){
+				let staticArr = arr
+				let newArr = []
+				var num = Math.ceil(arr.length / mnum)
+				console.log('计算出的页数',arr.length, num)
+				for(let i = 0; i < num; i++){
+					let narr
+					if(staticArr.length >= mnum){
+						narr = staticArr.splice(0,mnum)
+					}else{
+						narr = staticArr
+					}
+					
+					newArr.push(narr)
+				}
+				console.log('目标二维数组', newArr)
+				
+				
+				return newArr
+			},
 		}
 	}
 </script>
@@ -245,14 +249,14 @@
 		.content{
 			width: 100%;
 			height: 100%;
-			background-color: #F4F4F4;
+			background-color: #FFFFFF;
 			.search_box{
 				width: 690rpx;
 				margin-left: 30rpx;
 				box-sizing: border-box;
 				padding: 30rpx;
 				height:69rpx;
-				background: #FFFFFF;
+				background:  #F4F4F4;
 				// background-color: pink;
 				border-radius:35rpx;
 				display: flex;
@@ -268,16 +272,17 @@
 			}
 			.lunbo{
 				width: 100%;
-				height: 312rpx;
+				// height: 267rpx;
 				border-radius: 12rpx;
 				// margin-left: 25rpx;
 				// margin-top: 30rpx;
 				padding: 30rpx 0 0 25rpx;
 				// background-color: blue;
 				box-sizing: border-box;
+				
 				image{
-					width: 700rpx;
-					height: 312rpx;
+					width: 100%;
+					height: 267rpx;
 				}
 			}
 			.navigater_box{
@@ -285,14 +290,15 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 24rpx;
+				background-color: #FFFFFF;
 				// background-color: pink;
 				.item{
 					// background-color: green;
 					display: flex;
-					justify-content: space-between;
+					justify-content: flex-start;
 					flex-wrap: wrap;
 					.box{
-						width: 175rpx;
+						width: 178rpx;
 						display: flex;
 						flex-direction: column;
 						align-items: center;

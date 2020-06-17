@@ -64,6 +64,28 @@
 				</view>
 			</view>
 		</view>
+		<!-- 绑定账号弹窗 -->
+		<view class="band_box"
+		v-if="isFloatShow"
+		>
+			<view class="box">
+				<view class="title">
+					请填写您的支付宝账号（非支付宝名）
+				</view>
+				<input type="text" v-model="zhifuValue" placeholder="请输入支付宝账号" />
+				<view class="btn_box">
+					<view class="items on" @click="isFloatShow = false">
+						取消
+					</view>
+					<view class="items ok"
+					@click="bandOkClick"
+					>
+						绑定
+					</view>
+				</view>
+			</view>
+			
+		</view>
 		
 		
 		
@@ -78,6 +100,8 @@
 				isbandzhifu: false, // 支付宝是否绑定
 				isShowFloat: false, //控制解绑弹窗
 				showType: 1, // 1微信 2 支付宝
+				isFloatShow: false, // 绑定账号弹窗
+				zhifuValue: '', // 支付宝账号
 			}
 		},
 		onLoad(){
@@ -107,6 +131,7 @@
 						this.showType = 2
 					}else{
 						// 跳转绑定
+						this.isFloatShow = true
 					}
 					
 				}
@@ -117,6 +142,57 @@
 			},
 			okClick(){
 				this.isShowFloat = false
+			},
+			// 确认绑定账号
+			bandOkClick(){
+				let _this = this
+				if(!this.zhifuValue){
+					uni.showModal({
+						title: '提示',
+						content: '请输入您的支付宝账号'
+					})
+					return
+				}
+				uni.showModal({
+					title: '提示',
+					content: '请确认' + this.zhifuValue + '是您的支付宝账号',
+					success(reg){
+						console.log('reg',reg)
+						if(reg.confirm){
+							// 确认绑定
+							uni.getStorage({
+								key: 'userInfo',
+								success(ree){
+									uni.request({
+										url: _this.$http + '/api/index/alipayName',
+										method: 'POST',
+										data: {
+											token: ree.data.token,
+											number: _this.zhifuValue
+										},
+										success(res){
+											console.log('绑定支付宝账号返回数据', res)
+											if(res.data.status === 200){
+												uni.showToast({
+													title: '绑定成功'
+												})
+												_this.isFloatShow = false
+												_this.isbandzhifu = true
+											}else{
+												uni.showModal({
+													title: "提示",
+													content: '绑定失败'
+												})
+											}
+										}
+									})
+								}
+							})
+						}else{
+							this.isShowFloat = false
+						}
+					}
+				})
 			}
 		}
 	}
@@ -136,8 +212,60 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
-			height: 100vh;
+			height: 100%;
+			min-height: 100vh;
 			background-color: #FFFFFF;
+			.band_box{
+				width: 100%;
+				height: 100vh;
+				background: rgba(0,0,0,.8);
+				position: absolute;
+				top: 0;
+				.box{
+					width: 650rpx;
+					height: 450rpx;
+					background-color: #FFFFFF;
+					border-radius: 5rpx;
+					position: absolute;
+					top: calc(50% - 400rpx);
+					left: calc(50% - 325rpx);
+					box-sizing: border-box;
+					padding: 24rpx;
+					.btn_box{
+						width: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						margin-top: 100rpx;
+						.items{
+							width: 200rpx;
+							height: 80rpx;
+							border: 1rpx solid #eee;
+							border-radius: 35rpx;
+							text-align: center;
+							line-height: 80rpx;
+							font-size: 36rpx;
+						}
+						.items.on{
+							background-color: #eee;
+						}
+						.items.ok{
+							background-color: #4CD964;
+						}
+						
+					}
+					.title{
+						font-size: 32rpx;
+						font-weight: 500;
+						margin: 50rpx 0;
+					}
+					input{
+						background-color: #eee;
+						font-size: 30rpx;
+						padding: 10rpx 15rpx;
+					}
+				}
+			}
 			.item{
 				width: 100%;
 				height: 80rpx;

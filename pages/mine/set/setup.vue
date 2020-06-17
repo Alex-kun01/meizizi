@@ -82,7 +82,25 @@
 			},
 			// 退出账号
 			logOut(){
-				
+				uni.showModal({
+					title: '提示',
+					content: '是否退出当前账号？',
+					success(res) {
+						
+						if(res.confirm){
+							console.log('已退出')
+							uni.removeStorage({
+								key: 'userInfo'
+							})
+							uni.navigateTo({
+								url: '../login/login'
+							})
+						}else{
+							console.log('已取消')
+						}
+					}
+					
+				})
 			},
 			// 清除缓存
 			clearCache(){

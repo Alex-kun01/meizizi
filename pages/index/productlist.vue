@@ -31,23 +31,25 @@
 		</view>
 		<!-- 商品列表 -->
 		<view class="shop_num">
-			共找到2627件商品
+			
+			<text v-if="idNull">您搜索的商品不存在/已下架</text>
+			<text v-else>共找到{{shopingNum}}件商品</text>
 		</view>
 		<view class="shop_list">
 			<view class="item"
 			v-for="(item, index) in shopList"
 			:key="index"
-			@click="gotdetalus(item,index)"
+			@click="gotdetalus(item)"
 			>
 				<view class="img">
-					<image style="width: 193rpx;height: 201rpx;" :src="item.img" mode=""></image>
+					<image style="width: 193rpx;height: 201rpx;" :src="item.image" mode=""></image>
 				</view>
 				<view class="text_con">
 					<view class="title">
-						{{item.title}}
+						{{item.store_name}}
 					</view>
 					<view class="old_price">
-						原价￥{{item.oldPrice}}
+						原价￥{{item.price}}
 					</view>
 				</view>
 				
@@ -56,12 +58,15 @@
 						<image style="width: 25rpx;height: 24rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
 						<view class="price">
 							<text style="font-size: 26rpx;font-weight: 500;">￥</text>
-							{{item.price}}
+							{{item.vip_price}}
 						</view>
 					</view>
 					<!-- <image style="width: 47rpx;height: 47rpx;" src="../../static/index/tianjia@2x(3).png" mode=""></image> -->
 				</view>
-				<image v-if="item.miaoshaImg" style="width: 93rpx;height: 89rpx;position: absolute;top: 0;right: 0;" :src="item.miaoshaImg" mode=""></image>
+				<!-- <image v-if="item.miaoshaImg" style="width: 93rpx;height: 89rpx;position: absolute;top: 0;right: 0;" :src="item.miaoshaImg" mode=""></image> -->
+			</view>
+			<view v-if="isLoading" class="loging_bom">
+				加载中...
 			</view>
 		</view>
 		
@@ -94,80 +99,93 @@
 			return {
 				searchValue: '',
 				isActive: 1, //导航菜单显示
+				typeIndex: 1, // 1.默认 2：销量高到低  4：最新高到低 6：价格高到低，7：价格低到高
 				isShowFloat: false, // 遮罩层显示
 				isPrice: 1, //价格排序
-				shopList:[
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '../../static/index/miaosha.png',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '../../static/index/miaosha.png',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '../../static/index/miaosha.png',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '../../static/index/miaosha.png',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '',
-						oldPrice: 238,
-						price: 198
-					},
-					{
-						img: '../../static/index/picu5.png',
-						title: 'MAC/魅可全色号子弹头口红打牌唇膏 小辣椒小辣椒小辣椒',
-						miaoshaImg: '',
-						oldPrice: 238,
-						price: 198
-					}
-				]
+				shopingNum: '', //查询到的商品数量
+				limit:10, // 条数
+				p: 1, //页码
+				isLoading: false, // 底部加载中显示
+				// 产品列表
+				shopList:[],
+				opt: {}, //页面跳转接受参数
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			console.log('产品列表opt',opt)
+			this.getData(opt)
+			this.opt = opt
 		},
 		onShow(){
 			
 		},
+		computed:{
+			// 判断是否查询到了数据
+			idNull(){
+				if(this.shopList.length === 0){
+					return true
+				}else{
+					return false
+				}
+			}
+		},
 		methods:{
+			getData(opt){
+				let _this = this
+				let userInfo = this.$store.state.userInfo
+				uni.request({
+					url: this.$http + '/api/goods/goodsList',
+					method:'POST',
+					data: {
+						search_type: opt.type,
+						content: opt.value || '',
+						type: _this.typeIndex,
+						p: _this.p,
+						limit: _this.limit,
+					},
+					success(res){
+						console.log('产品详情返回数据1', res)
+						if(res.data.status === 200){
+							if(_this.p === 1){
+								_this.shopList = res.data.data.list
+							}else{
+								_this.shopList = _this.shopList.concat(res.data.data.list)
+							}
+							
+							_this.shopingNum = res.data.data.total_count
+							_this.isLoading = false
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: res.data.msg
+							})
+							_this.shopList = []
+						}
+					}
+				})
+			},
 			search(){
 				console.log(this.searchValue)
 			},
 			// 导航改变
 			changeActive(index){
+				// 筛选 综合 销量 最新 价格
+				if(index === 1){
+					this.typeIndex = 1
+					this.p = 1
+					this.getData(this.opt)
+					
+				}
+				if(index === 2){
+					this.typeIndex = 2
+					this.p = 1
+					this.getData(this.opt)
+				}
+				if(index === 3){
+					this.typeIndex = 4
+					this.p = 1
+					this.getData(this.opt)
+				}
 				this.isActive = index
 				if(index === 4){
 					this.isShowFloat = !this.isShowFloat
@@ -177,12 +195,22 @@
 			},
 			// 选择价格排序
 			changeIsPrice(index){
+				if(index === 1){
+					this.typeIndex = 6
+					this.p = 1
+					this.getData(this.opt)
+				}
+				if(index === 2){
+					this.typeIndex = 7
+					this.p = 1
+					this.getData(this.opt)
+				}
 				this.isPrice = index
 				this.isShowFloat = false
 			},
-			gotdetalus(item,index){
+			gotdetalus(item){
 				uni.navigateTo({
-					url: './productdetails'
+					url: './productdetails?id=' + item.id 
 				})
 			},
 			moveHandle(){},
@@ -190,7 +218,13 @@
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.p++
+				this.getData(this.opt)
+			},
 		}
 	}
 </script>
@@ -302,6 +336,14 @@
 				box-sizing: border-box;
 				padding-left: 30rpx;
 				// font-weight: 500;
+			}
+			.loging_bom{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				font-size: 24rpx;
+				text-align: center;
 			}
 			.shop_list{
 				width: 100%;

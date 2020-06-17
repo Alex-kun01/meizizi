@@ -146,18 +146,19 @@
 				margin-left: 25rpx;
 				image{
 					width: 700rpx;
-					height: 312rpx;
+					// height: 312rpx;
 				}
 			}
 			.shop_list{
 				width: 100%;
 				padding: 0 24rpx;
 				box-sizing: border-box;
-				margin-top: 24rpx;
+				margin-top: 70rpx;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				flex-wrap: wrap;
+				
 				.item{
 					width: 222rpx;
 					// height: 368rpx;

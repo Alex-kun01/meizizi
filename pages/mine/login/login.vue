@@ -5,6 +5,7 @@
 		<view class="title">
 			<text v-if="loginType === 1">密码登录</text>
 			<text v-else>验证码登录</text>
+			
 		</view>
 		<view class="box">
 			<view class="item">
@@ -35,6 +36,7 @@
 					<input type="text" placeholder="请输入验证码" v-model="invitationCode" />
 				</view>
 				<view class="r_item"
+				v-if="phoneIsOk"
 				@click="getinvitation"
 				>
 					获取验证码
@@ -50,6 +52,7 @@
 		>
 			<text @click="changeLoginType(2)" v-if="loginType === 1">验证码登录</text>
 			<text @click="changeLoginType(1)" v-else>密码登录</text>
+			<text @click="gotoregin" style="color: #007AFF;">去注册</text>
 		</view>
 		
 	</view>
@@ -60,12 +63,13 @@
 		data () {
 			return {
 				loginType: 1, // 1账号密码登录 2 验证码登录
-				phone: '', //手机号
-				password: '', //密码
+				phone: '18080498101', //手机号
+				password: '123456', //密码
 				invitationCode: '', // 验证码
 			}
 		},
 		computed:{
+			// 校验是否为11位有效手机号
 			phoneIsOk(){
 				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
 				if (!myreg.test(this.phone)) {
@@ -78,12 +82,17 @@
 		onLoad(){
 			
 		},
+		onReady(){
+			// 判断是否登录
+			this.isLOgin()
+		},
 		onShow(){
 			
 		},
 		methods:{
 			// 获取验证码
 			getinvitation(){
+				let _this = this
 				// 校验手机号
 				if(!this.phoneIsOk){
 					uni.showModal({
@@ -92,20 +101,148 @@
 					})
 					return
 				}
+				// 获取验证码
+				uni.showLoading({
+					title: '正在获取验证码...'
+				})
+				uni.request({
+					url: _this.$http + '/api/index/getPhoneCode',
+					method: 'POST',
+					data:{
+						phone: _this.phone,
+						type: 1
+					},
+					success(acpres){
+						console.log('获取验证码返回数据',acpres)
+						if(acpres.data.status != 200){
+							uni.showLoading({
+								title: '提示',
+								content: '验证码获取失败！'
+							})
+						}
+						uni.hideLoading()
+					}
+				})
 				
 			},
 			changeLoginType(index) {
 				this.loginType = index
 			},
+			// 跳转注册页
+			gotoregin(){
+				uni.navigateTo({
+					url: './chooseregin'
+				})
+			},
+			// 判断是否登录
+			isLOgin(){
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('判断已登录')
+						uni.switchTab({
+							url: '../../index/index'
+						})
+					},
+					fail(res) {
+						console.log('判断未登录')
+					}
+				})
+			},
+			//登录按钮
 			loginClick(){
-				let data 
-				if(this.loginType === 1){
-					// 密码登录
-					// data = {
-					// 	phone: 
-					// }
+				let _this = this
+				let data = {
+					username: this.phone
 				}
-				console.log()
+				
+				// 账号密码登录
+				if(this.loginType === 1){
+					data.password = this.password
+					if(!data.username || !data.password) uni.showModal({
+						title:'提示',
+						content: '用户名或密码不正确！'
+					})
+					console.log('data',data)
+					uni.request({
+						url: this.$http + '/api/index/login',
+						method:'post',
+						data: data,
+						success(res) {
+							console.log('密码登录res',res)
+							if(res.data.status === 200){
+								console.log('密码用户信息',res.data.data)
+								_this.$store.commit('setUserInfo', res.data.data)
+								console.log('l',_this.$store.state.userInfo)
+								uni.setStorage({
+									key: 'userInfo',
+									data: res.data.data
+								})
+								uni.getStorage({
+									key: 'userInfo',
+									success(res){
+										console.log('本地储存的数据', res)
+									}
+								})
+								// return
+								uni.switchTab({
+									url: '../../index/index'
+								})
+							}else{
+								uni.showModal({
+									title: '提示',
+									content: '登录失败'
+								})
+							}
+						}
+					})
+				}
+				// 验证码登录
+				if(this.loginType === 2){
+					if(!_this.invitationCode){
+						uni.showModal({
+							title: '提示',
+							content: '请输入验证码！'
+						})
+						return
+					}
+					uni.request({
+						url: _this.$http + '/api/index/phoneLogin',
+						method: 'POST',
+						data:{
+							phone: _this.phone
+						},
+						success(backres){
+							console.log('验证码用户信息', backres.data.data)
+							if(backres.data.status === 200){
+								// 登录成功
+								_this.$store.commit('setUserInfo', backres.data.data)
+								console.log('l',_this.$store.state.userInfo)
+								uni.setStorage({
+									key: 'userInfo',
+									data: backres.data.data
+								})
+								uni.getStorage({
+									key: 'userInfo',
+									success(res){
+										console.log('本地储存的数据', res)
+									}
+								})
+								// return
+								uni.switchTab({
+									url: '../../index/index'
+								})
+								
+								
+							}else{
+								uni.showModal({
+									title: '提示',
+									content: '登录失败！'
+								})
+							}
+						}
+					})
+				}
 			}
 		}
 	}
@@ -191,7 +328,11 @@
 				font-size:24rpx;
 				font-weight:500;
 				color:rgba(17,17,17,1);
-				margin: 36rpx 0 0 30rpx;
+				margin: 36rpx 30rpx 0 30rpx;
+				box-sizing: border-box;
+				
+				display: flex;
+				justify-content: space-between;
 			}
 			
 		}

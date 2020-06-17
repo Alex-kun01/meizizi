@@ -67,6 +67,7 @@
 		},
 		methods:{
 			submitClick(){
+				let _this = this
 				console.log(this.passwordInfo)
 				if(!this.isPasswordRules){
 					uni.showModal({
@@ -83,6 +84,50 @@
 					})
 					return
 				}
+				
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('获取到本地数据',res)
+						let data = {
+								token: res.data.token,
+								password: _this.oldpassword,
+								new_password: _this.newPassword
+							}
+							
+							uni.request({
+								url: _this.$http + '/api/index/editPassword',
+								method: 'post',
+								data: data,
+								success(res) {
+									console.log('修改密码返回数据', res)
+									if(res.data.status === 200){
+										uni.showModal({
+											title: '提示',
+											content: '修改成功'
+										})
+										uni.navigateBack({
+											
+											})
+									}else{
+										uni.showModal({
+											title: '提示',
+											content: res.data.msg
+										})
+									}
+								}
+							})
+					},
+					fail() {
+						uni.showModal({
+							title: '提示',
+							content: '用户数据获取失败'
+						})
+					}
+				})
+				return
+				
+				
 				
 				uni.showToast({
 					title:'修改成功'

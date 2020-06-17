@@ -40,7 +40,11 @@
 				</view>
 			</view>
 			<view class="pic_upload">
-				<image src="../../static/shopcart/shangchuantup@2x.png" mode=""></image>
+				<image v-if="isOnUpload" @click="chooseImg" class="staticpic" src="../../static/shopcart/shangchuantup@2x.png" mode=""></image>
+				<view class="userUpload"  v-for="(img,imx) in imgList" :key="imx">
+					<image :src="img" mode=""></image>
+					<image @click="deleteImg(imx)" class="close" src="../../static/index/closeX2.png" mode=""></image>
+				</view>
 			</view>
 		</view>
 		<view class="bom_btn">
@@ -62,11 +66,24 @@
 				start: 0, // 星星数
 				textValue: '', 
 				anonymous: false, // 是否匿名评论
+				imgList: [], //上传图片后的地址列表
 			}
 		},
 		computed:{
 			valueLength(){
 				return this.textValue.length
+			},
+			// 是否可以继续上传图片
+			isOnUpload(){
+				if(this.imgList.length == 2){
+					return false
+				}else{
+					return true
+				}
+			},
+			// 所有图片拼接str
+			imgStr(){
+				return this.imgList.join(',')
 			}
 		},
 		onLoad(){
@@ -76,6 +93,7 @@
 			
 		},
 		methods:{
+			
 			// 评分选择星星
 			changeIndex(index){
 				console.log(index)
@@ -87,6 +105,7 @@
 			},
 			//发布评价
 			submitClick(){
+				let _this = this
 				if(this.start === 0){
 					uni.showModal({
 						title: '提示',
@@ -94,14 +113,103 @@
 					})
 					return
 				}
-				uni.showToast({
-					title: '发布成功'
-				})
-				setTimeout(()=>{
-					uni.navigateBack({
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('本地储存',res.data)
 						
+						let datas = {
+							number: _this.start,
+							content: _this.textValue,
+							imgs: _this.imgStr,
+							token: res.data.token,
+							is_ano:(_this.anonymous) ? 0 : 1,
+							// 暂无订单id和商品id 给固定值
+							oid: 454521515,
+							gid: 19
+						}
+						console.log('传参',datas)
+						
+						// return
+						uni.request({
+							url: _this.$http + '/api/goods/goodsEva',
+							method: 'POST',
+							data:datas,
+							success(res) {
+								console.log('发布返回',res)
+								if(res.data.status === 200){
+									uni.showToast({
+										title: '发布成功'
+									})
+									setTimeout(()=>{
+										uni.navigateBack({
+											
+										})
+									}, 1000)
+								}else{
+									uni.showModal({
+										title: '提示',
+										content:'评价失败'
+									})
+								}
+							}
+						})
+						
+						
+					}
+				})
+				
+				
+				
+			},
+			chooseImg(){
+				let _this = this
+				if(this.imgList.length == 2) {
+					uni.showModal({
+						title: '提示',
+						content: '最多只能上传两张图片'
 					})
-				}, 1000)
+					return
+				}
+				uni.chooseImage({
+					count: 2, // 上传图片的张数
+					sourceType: ['album'], //从相册选择
+					success(res) { // 成功则返回图片的本地文件路径列表 tempFilePaths
+						uni.showLoading({
+							title: '上传中...'
+						})
+						const tempFilePaths = res.tempFilePaths;
+						
+						const uploadTask = uni.uploadFile({
+							url: _this.$http + '/api/upload/image',
+							// methods: 'POST',
+							filePath: tempFilePaths[0],
+							name: 'file',
+							 success: function (uploadFileRes) {
+							 console.log('xxx',uploadFileRes.data);
+							 let resObj = JSON.parse( uploadFileRes.data )
+							 console.log('resObj',resObj);
+							 if(resObj.status === 200){
+								 uni.hideLoading()
+								 
+								 _this.imgList.push(resObj.data.url)
+								 console.log('上传成功', _this.imgList)
+							 }
+							}
+							
+						})
+						
+					}
+				})
+			},
+			// 删除图片
+			deleteImg(index){
+				if(index === 0){
+					this.imgList.shift()
+				}
+				if(index === 1){
+					this.imgList.pop()
+				}
 			},
 			goback(){
 				uni.navigateBack({
@@ -214,11 +322,30 @@
 				}
 				.pic_upload{
 					width: 100%;
-					height: 130rpx;
+					// height: 130rpx;
 					margin: 30rpx 0;
-					image{
+					
+					.staticpic{
 						width: 130rpx;
 						height: 130rpx;
+						margin-right: 24rpx;
+					}
+					.userUpload{
+						margin-right: 24rpx;
+						position: relative;
+						display: inline-block;
+						image{
+							max-width: 330rpx;
+							max-height: 230rpx;
+							
+						}
+						image.close{
+							width: 30rpx;
+							height: 30rpx;
+							position: absolute;
+							top: 5rpx;
+							right: 5rpx;
+						}
 					}
 				}
 			}

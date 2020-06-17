@@ -11,27 +11,27 @@
 		<!-- 内容 -->
 		<view class="con_box">
 			<view class="title">
-				Dior迪奥烈焰蓝金红管经典口红唇膏
+				{{opt.store_name}}
 			</view>
 			<view class="pic_box">
-				<image style="width: 190rpx;height: 186rpx;" src="../../static/index/2233.png" mode=""></image>
+				<image style="width: 190rpx;height: 186rpx;" :src="opt.image" mode=""></image>
 				<view class="right_con">
 					<view class="title_box">
 						<view class="tit_txt">
-							Dior迪奥烈焰蓝金红管 经典口红唇膏
+							{{opt.store_info}}
 						</view>
 						<view class="price_box">
 							<view>
 								<text style="font-size: 26rpx;">￥</text>
-								<text style="font-size: 32rpx;">330.00</text>
+								<text style="font-size: 32rpx;">{{orderInfo.money}}</text>
 							</view>
 							<view style="font-size: 20rpx;color: #9F9F9F;text-align: right;">
-								x1
+								x{{orderInfo.number}}
 							</view>
 						</view>
 					</view>
 					<view class="color_type">
-						颜色分类：126SWING
+						{{orderInfo.spe_name}}
 					</view>
 					<view class="info">
 						七天无理由退换
@@ -103,17 +103,27 @@
 			return {
 				isPayType: 3, // 支付方式
 				addNum: 1, // 数量
+				orderInfo: {}, //订单信息
+				opt: {}
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			console.log('opt',opt)
+			this.opt = opt
+			console.log('下单参数', this.$store.state.productOrderInfo)
+			this.orderInfo = this.$store.state.productOrderInfo
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 初始化支付方式存到vuex订单下单参数
+			initServer(){
+				this.$store.commit('setProductOrderInfoServer',this.isPayType)
+			},
 			changePayType(index){
 				this.isPayType = index
+				
 			},
 			goback(){
 				uni.navigateBack({})
@@ -128,6 +138,8 @@
 				this.addNum++
 			},
 			submitClick(){
+				this.initServer()
+				
 				uni.navigateTo({
 					url: './pay'
 				})
@@ -173,6 +185,9 @@
 					color: #3E3E3E;
 					font-weight: 500;
 					margin-bottom: 33rpx;
+					overflow:hidden;
+					    text-overflow:ellipsis;
+					    white-space:nowrap
 				}
 				.pic_box{
 					display: flex;
@@ -189,6 +204,11 @@
 							color: #3E3E3E;
 							font-weight: 500;
 							margin-right: 60rpx;
+							 overflow: hidden;
+							  text-overflow: ellipsis;
+							  display: -webkit-box;
+							  -webkit-line-clamp: 3;
+							  -webkit-box-orient: vertical;
 						}
 						.price_box{
 							font-weight: 500;
@@ -196,7 +216,8 @@
 						}
 					}
 					.color_type{
-						width:269rpx;
+						// width:269rpx;
+						display: inline-block;
 						height:42rpx;
 						line-height: 42rpx;
 						text-align: center;
@@ -205,6 +226,7 @@
 						font-size: 24rpx;
 						color: #9F9F9F;
 						margin-bottom: 20rpx;
+						padding: 0 10rpx;
 					}
 					.info{
 						width:166rpx;

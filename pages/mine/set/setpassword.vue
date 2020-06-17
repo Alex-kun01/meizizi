@@ -58,6 +58,7 @@
 		},
 		methods:{
 			submitClick(){
+				let _this = this
 				if(!this.isPasswordRules){
 					uni.showModal({
 						title: '提示',
@@ -73,6 +74,40 @@
 					})
 					return
 				}
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/index/setUpPassword',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								password: _this.password
+							},
+							success(res){
+								console.log('设置密码返回数据',res)
+								if(res.data.status === 200){
+									uni.showModal({
+										title: '提示',
+										content: '设置成功'
+									})
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					},
+					fail() {
+						uni.showModal({
+							title: '提示',
+							content: '用户信息获取失败'
+						})
+					}
+				})
+				
 			}
 		}
 	}

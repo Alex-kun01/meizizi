@@ -3,7 +3,8 @@
 		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 个人信息 -->
 		<view class="top_navar">
-			<image class="navar" src="../../../static/mine/avatar.jpg" mode=""></image>
+			<image v-if="!imgUrl" class="navar" src="../../../static/mine/avatar.jpg" mode=""></image>
+			<image v-else :src="imgUrl" class="navar"  mode=""></image>
 			<image @click="editAvtar" class="edit" src="../../../static/mine/xiugaitouxiang@2x.png" mode=""></image>
 		</view>
 		
@@ -17,7 +18,7 @@
 			<view class="title">
 				生日
 			</view>
-			 <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+			 <picker mode="date" :value="birthday" :start="startDate" :end="endDate" @change="bindDateChange">
 				<view class="uni-input">{{userInfo.birthday}}</view>
 			</picker>
 		</view>
@@ -51,6 +52,7 @@
 				format: true
 			})
 			return {
+				imgUrl:'', //上传头像地址
 				items: [
 					{
 						sex: '男'
@@ -60,6 +62,7 @@
 					}
 				],
 				current: 0,
+				birthday: '',
 				userInfo: {
 					nickName: '是九尾主动的',
 					birthday: currentDate,
@@ -83,18 +86,83 @@
 		},
 		methods:{
 			bindDateChange: function(e) {
-				this.userInfo.birthday = e.target.value
-			},
-			//修改头像
-			editAvtar(){
-				
+				this.birthday = e.target.value
 			},
 			// 保存按钮
 			baocunClick(){
+				let _this = this
+				let datas = {}
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						datas.token = res.data.token
+						datas.avatar = _this.imgUrl	
+						datas.sex = _this.sex == '男' ? 1 : 2
+						datas.birthday = new Date(_this.birthday).valueOf()
+						
+						
+						console.log('传参参数',datas)
+						
+						uni.request({
+							url: _this.$http + '/api/index/editUserData',
+							method: 'POST',
+							data: datas,
+							success(ref){
+								console.log('修改信息返回数据', ref)
+								if(ref.data.status === 200){
+									uni.showToast({
+										title: '修改成功'
+									})
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '修改失败'
+									})
+								}
+							}
+						})
+					}
+					
+				})
 				
+			},
+			// 修改头像
+			editAvtar(){
+				let _this = this
+				uni.chooseImage({
+					count: 1, // 上传图片的张数
+					sourceType: ['album'], //从相册选择
+					success(res) { // 成功则返回图片的本地文件路径列表 tempFilePaths
+						uni.showLoading({
+							title: '上传中...'
+						})
+						const tempFilePaths = res.tempFilePaths;
+						
+						const uploadTask = uni.uploadFile({
+							url: _this.$http + '/api/upload/image',
+							// methods: 'POST',
+							filePath: tempFilePaths[0],
+							name: 'file',
+							 success: function (uploadFileRes) {
+							 console.log('xxx',uploadFileRes.data);
+							 let resObj = JSON.parse( uploadFileRes.data )
+							 console.log('resObj',resObj);
+							 if(resObj.status === 200){
+								 uni.hideLoading()
+								 
+								 _this.imgUrl = resObj.data.url
+								 console.log('上传成功', _this.imgUrl)
+							 }
+							}
+							
+						})
+						
+					}
+				})
 			},
 			getDate(type) {
 				const date = new Date();
+				console.log('date',date)
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();

@@ -20,10 +20,10 @@
 					余额(元)
 				</view>
 				<view class="price">
-					￥0.00
+					￥{{price}}
 				</view>
 			</view>
-			<view class="float_box">
+			<!-- <view class="float_box">
 				<view class="t_title">
 					<image src="../../../static/shopcart/wodeshouyi@2x.png" mode=""></image>
 					<text>我的收益</text>
@@ -62,7 +62,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<!-- 菜单项 -->
 		<view class="option_list">
@@ -91,16 +91,42 @@
 	export default {
 		data () {
 			return {
-				
+				price: 0.00
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/index/userMoney',
+							method: 'POST',
+							data:{
+								token: reg.data.token
+							},
+							success(res){
+								console.log('我的钱包返回数据', res)
+								if(res.data.status === 200){
+									_this.price = res.data.data
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数据获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			goback(){
 				uni.navigateBack({
 					
@@ -157,7 +183,7 @@
 			.Top_color{
 				position: relative;
 				width:750rpx;
-				height:246rpx;
+				height:206rpx;
 				background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,143,2,1));
 				.price_box{
 					padding: 36rpx 0 0 59rpx;
@@ -224,7 +250,7 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 0 24rpx;
-				margin-top: 150rpx;
+				margin-top: 24rpx;
 				.option{
 					width:100%;
 					height:96rpx;

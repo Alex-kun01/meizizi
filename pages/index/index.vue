@@ -3,7 +3,7 @@
 	<view class="content">
 		<view class="titleNview-placing"></view>
 		<view class="top_search">
-			<image src="../../static/index/saoyisao.png" mode=""></image>
+			<image @click="scanCode" src="../../static/index/saoyisao.png" mode=""></image>
 			<view class="search_box"
 			@click="gotoTarget('./search')"
 			>
@@ -28,84 +28,41 @@
 		
 		<view class="lunbo">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-				<swiper-item>
-					<image style="width: 700rpx;height: 296rpx;" src="../../static/public/tup@2x.png" mode=""></image>
-				</swiper-item>
-				<swiper-item>
-					<image style="width: 700rpx;height: 296rpx;" src="../../static/public/tup@2x.png" mode=""></image>
-				</swiper-item>
-				<swiper-item>
-					<image style="width: 700rpx;height: 296rpx;" src="../../static/public/tup@2x.png" mode=""></image>
+				<swiper-item
+				v-for="(img, imx) in banner"
+				:key="imx"
+				>
+					<image style="width: 700rpx;height: 296rpx;" :src="img.pic" mode=""></image>
 				</swiper-item>
 			</swiper>
 		</view>
 		
 		
 		<!-- 菜单列 -->
-		<view class="menu_list">
-			<view class="menu_item">
-				<image src="../../static/index/remen@2x.png" mode=""></image>
-				<view class='text'>
-					热门推荐
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/remen@2x.png" mode=""></image>
-				<view class='text'>
-					面膜热卖
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/xiangshuixilie@2x.png" mode=""></image>
-				<view class='text'>
-					香水系列
-				</view>
-			</view>
-			<view class="menu_item"
-			@click="gotoTarget('./shoplist/caizhuangxilie')"
-			>
-				<image src="../../static/index/caizhaungxilie@2x.png" mode=""></image>
-				<view class='text'>
-					彩妆系列
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/remen@2x.png" mode=""></image>
-				<view class='text'>
-					男士系列
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/pinpaizhongxin@2x.png" mode=""></image>
-				<view class='text'>
-					品牌中心
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/meizhaungxueyuan@2x.png" mode=""></image>
-				<view class='text'>
-					美妆学院
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/hufunaozhong@2x.png" mode=""></image>
-				<view class='text'>
-					护肤闹钟
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/huiyuanzhongxin@2x.png" mode=""></image>
-				<view class='text'>
-					会员中心
-				</view>
-			</view>
-			<view class="menu_item">
-				<image src="../../static/index/gengduoshangpin@2x.png" mode=""></image>
-				<view class='text'>
-					更多商品
-				</view>
-			</view>
+		
+		<view class="menu_box">
+			<swiper class="swiper">
+				<swiper-item
+				v-for="(item,index) in menus"
+				:key='index'
+				>
+					<view class="item">
+						<view class="box"
+						v-for="(box, iox) in item"
+						:key="iox"
+						@click="gotomenu(box.url)"
+						>
+							<image :src="box.pic" mode=""></image>
+							<text>{{box.name}}</text>
+						</view>
+						
+					</view>
+				</swiper-item>
+			</swiper>
+			
 		</view>
+		
+		
 		<!-- 活动专区  没图先不写-->
 		<view class="activity"
 		@click="tuijianClick"
@@ -134,12 +91,12 @@
 			<!-- 秒杀列表 -->
 			<view class="today_list">
 				<view class="item"
-				v-for="(item, index) in todayMessage"
+				v-for="(item, index) in storeList"
 				:key="index"
 				@click="gotoproduct(item, index)"
 				>
 					<view class="img">
-						<image :src="item.img" mode=""></image>
+						<image :src="item.image" mode=""></image>
 					</view>
 					<view class="title">
 						{{item.title}}
@@ -151,7 +108,7 @@
 							￥{{item.price}}
 						</view>
 						<view class="oldPrice">
-							￥{{item.oldPrice}}
+							￥{{item.ot_price}}
 						</view>
 					</view>
 						<view class="dian">
@@ -168,9 +125,9 @@
 			</view>
 			<view class="recommend_list">
 				<view class="item"
-				v-for="(item, index) in recommendList"
+				v-for="(item, index) in recoList"
 				:key='index'
-				@click="tuijianClick(item)"
+				@click="tuijianClick(item.link)"
 				>
 					<image :src="item.img" mode=""></image>
 				</view>
@@ -184,27 +141,27 @@
 			</view>
 			<view class="Topic_list">
 				<view class="item"
-				v-for="(item, index) in TopicList"
+				v-for="(item, index) in likeInfo"
 				:key='index'
 				@click="gotoproduct(item, index)"
 				>
 					<view class="img">
-						<image style="width: 204rpx;height: 189rpx;"  :src="item.img" mode=""></image>
+						<image style="width: 204rpx;height: 189rpx;"  :src="item.image" mode=""></image>
 						<image style="width: 65rpx;height: 30rpx;position: absolute;top: 0;left: 0;" v-if="item.biqiangImg" :src="item.biqiangImg" mode=""></image>
 					</view>
 					
 					<view class="bom_con">
 						<view class="left_info">
 							<view class="title">
-								{{item.title}}
+								{{item.store_name}}
 							</view>
 							<view class="price_box">
-								<image style="width: 21rpx;height: 21rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
+								<image style="width: 21rpx;height: 21rpx;min-width: 21rpx;min-height: 21rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
 								<view class="price">
-									￥{{item.price}}
+									￥{{item.vip_price}}
 								</view>
 								<view class="oldPrice">
-									￥{{item.oldPrice}}
+									￥{{item.price}}
 								</view>
 							</view>
 						</view>
@@ -216,7 +173,6 @@
 				</view>
 			</view>
 		</view>
-		
 		
 		
 		
@@ -239,82 +195,99 @@
 				minute: '', // 分钟数
 				second: '', // 秒数
 				times: null, // 
-				todayMessage: [
-					{
-						img: '../../static/index/item4.png',
-						title: '雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399
-					},
-					{
-						img: '../../static/index/item4.png',
-						title: '雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399
-					},
-					{
-						img: '../../static/index/item4.png',
-						title: '雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399
-					},{
-						img: '../../static/index/item4.png',
-						title: '雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399
-					}
-				],
+				banner: [], // 轮播图列表
+				 // 菜单列表
+				menus: [],  //菜单二
+				storeList: [],// 秒杀列表
 				// 推荐列表
-				recommendList: [
-					{
-						img: '../../static/index/weinintuijian1.png'
-					},
-					{
-						img: '../../static/index/weinintuijian2.png'
-					},
-					{
-						img: '../../static/index/weinintuijian3.png'
-					}
-				],
+				recoList: [],
 				// 专题精选列表
-				TopicList:[
-					{
-						img: '../../static/index/item4.png',
-						title:'雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399,
-						biqiangImg: '../../static/index/biqiang@2x(2).png' 
-					},
-					{
-						img: '../../static/index/item4.png',
-						title:'雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399,
-						biqiangImg: '../../static/index/biqiang@2x(2).png' 
-					},
-					{
-						img: '../../static/index/item4.png',
-						title:'雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399,
-						biqiangImg: '../../static/index/biqiang@2x(2).png' 
-					},
-					{
-						img: '../../static/index/item4.png',
-						title:'雅思兰黛沁水粉底液防晒遮瑕奶油肌',
-						price: 69,
-						oldPrice: 399,
-						biqiangImg: '../../static/index/biqiang@2x(2).png' 
-					}
-				]
+				likeInfo:[],
+				old: {
+					scrollTop: 0
+				}
 				
 			}
 		},
 		onLoad() {
 			this.getRemTimes(this.ddd)
 			this.countDown()
+			this.getData()
+			this.userInit()
+			this.getLocatiion()
 		},
 		methods: {
+			scroll(e) {
+				console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
+			},
+			// 初始化用户信息
+			userInit(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('首页获取本地用户信息',res.data)
+						_this.$store.commit('setUserInfo', res.data)
+						console.log('首页获取vuex用户信息',res.data)
+					}
+				})
+			},
+			// 将菜单数据截取成展示结构 传入一维数组，返回想要的二维数组结构
+			// arr 目标数组 
+			// mnum 一页展示个数
+			getTargetData(arr, mnum){
+				let staticArr = arr
+				let newArr = []
+				var num = Math.ceil(arr.length / mnum)
+				console.log('计算出的页数',arr.length, num)
+				for(let i = 0; i < num; i++){
+					let narr
+					if(staticArr.length >= mnum){
+						narr = staticArr.splice(0,mnum)
+					}else{
+						narr = staticArr
+					}
+					
+					newArr.push(narr)
+				}
+				console.log('目标二维数组', newArr)
+				
+				
+				return newArr
+			},
+			// 首页数据请求
+			getData(){
+				let _this = this
+				uni.showLoading({
+					title: '加载中...'
+				})
+				uni.request({
+					url: this.$http + '/api/index',
+					method: 'GET',
+					success(res){
+						console.log('首页返回数据',res)
+						if(res.data.status === 200){
+							// 轮播图列表
+							_this.banner = res.data.data.banner
+							// 菜单列表
+						    _this.menus = _this.getTargetData(res.data.data.menus, 10)
+							// 秒杀列表
+							_this.storeList = res.data.data.store_list
+							//为你推荐列表
+							_this.recoList = res.data.data.reco_list
+							// 专题精选列表
+							_this.likeInfo = res.data.data.likeInfo
+							uni.hideLoading()
+						}else{
+							uni.showModal({
+								title:'提示',
+								content: '数据请求出错'
+							})
+						}
+					}
+				})
+			},
 			changeIndicatorDots(e) {
 					this.indicatorDots = !this.indicatorDots
 				},
@@ -334,14 +307,24 @@
 				},
 				gotoproduct(item, index){
 					uni.navigateTo({
-						url:'./productdetails'
+						url:'./productdetails?id=' + item.id
 					})
 				},
 				// 为您推荐
-				tuijianClick(item){
+				tuijianClick(url){
+					uni.navigateTo({
+						url: url
+					})
+					return
 					uni.showModal({
 						title: '提示',
 						content: '敬请期待'
+					})
+				},
+				// 菜单跳转
+				gotomenu(url){
+					uni.navigateTo({
+						url: url
 					})
 				},
 				// 获取并计算剩余时间
@@ -396,6 +379,28 @@
 					}, 1000)
 					
 				},
+				// 扫描二维码
+				scanCode(){
+					let _this = this
+					uni.scanCode({
+						success(res) {
+							console.log('扫描二维码',res)
+						}
+					})
+				},
+				// 获取当前位置
+				getLocatiion(){
+					let _this = this
+					uni.getLocation({
+					    type: 'wgs84',
+					　　 geocode:true,
+					    success: function (res) {
+							let maddress = res.address || {}
+					        console.log('获取当前位置',maddress)
+							_this.$store.commit('setAddress', maddress)
+					    }
+					});
+				}
 
 		}
 	}
@@ -416,6 +421,7 @@
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
+			
 			.top_search{	
 				width: 100%;
 				height: 60rpx;
@@ -481,16 +487,43 @@
 				background-color: #FFFFFF;
 				box-sizing: border-box;
 				padding: 24rpx;
+				padding-bottom: 60rpx;
 				
-				// .swiper{
-				// 	width: 100%;
-				// 	.swiper-item{
-				// 		width: 100%;
-				// 		image{
-				// 			width: 100%;
-				// 		}
-				// 	}
-				// }
+				
+			}
+			.menu_box{
+				width: 100%;
+				padding: 25rpx;
+				box-sizing: border-box;
+				background-color: #FFFFFF;
+				// background-color: lightblue;
+				// margin-top: 40rpx;
+				padding-top: 40rpx;
+				.swiper{
+					// background-color: green;
+					.item{
+						display: flex;
+						flex-wrap: wrap;
+						.box{
+							width: 140rpx;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							margin-bottom: 30rpx;
+							image{
+								width: 77rpx;
+								height: 77rpx;
+							}
+							text{
+								font-size:24rpx;
+								font-weight:500;
+								color:rgba(51,51,51,1);
+							}
+						}
+						
+					}
+				}
+				
 				
 			}
 			.menu_list{

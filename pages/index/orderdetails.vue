@@ -22,7 +22,8 @@
 						等待买家付款
 					</view>
 					<view style="font-size: 24rpx;color: #FFFFFF;margin-top: 15rpx;">
-						剩{{hours}}小时{{minute}}分{{second}}秒自动关闭
+						<text v-if="orderIsFailure">订单已失效</text>
+						<text v-else>剩{{hours}}小时{{minute}}分{{second}}秒自动关闭</text>
 					</view>
 				</view>
 				<image style="width: 168rpx;height: 170rpx;" src="../../static/index/tupian@2x.png" mode=""></image>
@@ -31,27 +32,27 @@
 		<!-- 内容 -->
 		<view class="con_box">
 			<view class="title">
-				Dior迪奥烈焰蓝金红管经典口红唇膏
+				{{orderInfo.goods_name}}
 			</view>
 			<view class="pic_box">
 				<image style="width: 190rpx;height: 186rpx;" src="../../static/index/2233.png" mode=""></image>
 				<view class="right_con">
 					<view class="title_box">
 						<view class="tit_txt">
-							Dior迪奥烈焰蓝金红管 经典口红唇膏
+							{{orderInfo.store_info}}
 						</view>
 						<view class="price_box">
 							<view>
 								<text style="font-size: 26rpx;">￥</text>
-								<text style="font-size: 32rpx;">330.00</text>
+								<text style="font-size: 32rpx;">{{orderInfo.price}}</text>
 							</view>
 							<view style="font-size: 20rpx;color: #9F9F9F;text-align: right;">
-								x1
+								x{{orderInfo.number}}
 							</view>
 						</view>
 					</view>
 					<view class="color_type">
-						颜色分类：126SWING
+						{{orderInfo.spe_name}}
 					</view>
 				</view>
 			</view>
@@ -59,14 +60,14 @@
 				<text style="font-size: 25.5rpx;color: #A1A1A1;font-weight: 500;">商品总价</text>
 				<view class="btn">
 					<text style="font-size: 24rpx;color: #8E8E8E;">￥</text>
-					<text style="font-size: 30rpx;color: #8E8E8E;">330.00</text>
+					<text style="font-size: 30rpx;color: #8E8E8E;">{{orderInfo.price}}</text>
 				</view>
 			</view>
 			<view class="pay_num">
 				<text class="num_color">实付款</text>
 				<view>
 					<text style="font-size: 24rpx;color: #FF8721;font-weight:500;">￥</text>
-					<text style="font-size: 30rpx;color: #FF8721;font-weight:500;">330.00</text>
+					<text style="font-size: 30rpx;color: #FF8721;font-weight:500;">{{orderInfo.price}}</text>
 				</view>
 			</view>
 		</view>
@@ -78,12 +79,12 @@
 			</view>
 			<view class="item">
 				<text>订单编号</text>
-				<text>2004201422518222818</text>
-				<text style="color: #FF8E02;">复制</text>
+				<text>{{orderInfo.master_order_sn}}</text>
+				<text  @click="paste(orderInfo.master_order_sn)" style="color: #FF8E02;">复制</text>
 			</view>
 			<view class="item">
 				<text>下单时间</text>
-				<text>2020-04-20  14:24:28</text>
+				<text>{{orderInfo.add_time}}</text>
 				<text></text>
 			</view>
 		</view>
@@ -116,31 +117,83 @@
 		data () {
 			return {
 				isPayEnd: false, // 是否已付款
-				ddd: 36000000, // 临时毫秒数 24小时
 				hours: '', //小时数
 				minute: '', // 分钟数
 				second: '', // 秒数
 				times: null, // 
+				opt: {},
+				orderInfo: {
+					master_order_sn: '1234567890'
+				}, //订单信息
+			}
+		},
+		computed:{
+			// 订单是否失效
+			orderIsFailure(){
+				if(this.orderInfo.pay_time == 0){
+					return true
+				}
+				if(!this.hours && !this.minute && !this.second){
+					return true
+				}
+				else{
+					return false
+				}
 			}
 		},
 		onLoad(opt){
 			console.log('opt', opt)
+			this.opt = opt
 			if(opt.type == '待付款'){
 				this.isPayEnd = false
 			}
 			if(opt.type == '查看购物码'){
 				this.isPayEnd = true
 			}
-			this.getRemTimes(this.ddd)
-			this.countDown()
+			
+			this.getData()
 		},
 		onShow(){
 		 	
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: '加载中...'
+						})
+						uni.request({
+							url: _this.$http + '/api/goods/orderInfo',
+							method:'POST',
+							data: {
+								uid: reg.data.uid,
+								order_id: _this.opt.id
+							},
+							success(res){
+								console.log('订单详情返回数据',res)
+								if(res.data.status == 200){
+									_this.orderInfo = res.data.data
+									_this.getRemTimes(res.data.data.pay_time)
+									_this.countDown()
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '订单详情获取失败'
+									})
+								}
+								uni.hideLoading()
+							}
+						})
+					}
+				})
+			},
 			// 获取并计算剩余时间
 			// time 毫秒数
 			getRemTimes(time){
+				var time = time || 0
 				
 				let allSecond = time / 1000  // 总共的秒数
 				console.log('总共的秒数',allSecond)
@@ -192,6 +245,13 @@
 			},
 			// 付款按钮
 			submitClick(){
+				if(this.orderIsFailure){
+					uni.showModal({
+						title: '提示',
+						content: '该订单已失效'
+					})
+					return
+				}
 				uni.navigateTo({
 					url: './pay'
 				})
@@ -200,6 +260,17 @@
 				uni.navigateBack({
 					
 				})
+			},
+			paste(value) {
+				uni.setClipboardData({
+					data: value,
+					success(res){
+						console.log('复制版', res)
+					}
+				})
+				// uni.setClipboardData({
+				// 	data: value
+				// });
 			}
 		}
 	}
@@ -238,7 +309,7 @@
 			}
 			.con_box{
 				width:750rpx;
-				height:410rpx;
+				// height:410rpx;
 				background:rgba(255,255,255,1);
 				border-radius:12rpx;
 				box-sizing: border-box;
@@ -250,6 +321,9 @@
 					color: #3E3E3E;
 					font-weight: 500;
 					margin-bottom: 33rpx;
+					overflow:hidden;
+					    text-overflow:ellipsis;
+					    white-space:nowrap
 				}
 				.pic_box{
 					display: flex;
@@ -260,12 +334,18 @@
 						display: flex;
 						justify-content: space-between;
 						// align-items: center;
+						margin-bottom: 30rpx;
 						.tit_txt{
 							width: 270rpx;
 							font-size: 26rpx;
 							color: #3E3E3E;
 							font-weight: 500;
 							margin-right: 60rpx;
+							overflow: hidden;
+							  text-overflow: ellipsis;
+							  display: -webkit-box;
+							  -webkit-line-clamp: 3;
+							  -webkit-box-orient: vertical;
 						}
 						.price_box{
 							font-weight: 500;
@@ -273,15 +353,18 @@
 						}
 					}
 					.color_type{
-						width:269rpx;
+						// width:269rpx;
+						display: inline-block;
 						height:42rpx;
 						line-height: 42rpx;
 						text-align: center;
 						background:rgba(250,250,250,1);
+						border-radius: 4rpx;
 						font-weight: 500;
 						font-size: 24rpx;
 						color: #9F9F9F;
 						margin-bottom: 20rpx;
+						padding: 0 20rpx;
 					}
 					.info{
 						width:166rpx;

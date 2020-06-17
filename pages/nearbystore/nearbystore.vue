@@ -10,15 +10,16 @@
 			>
 				<view class="left_info">
 					<view class="pic">
-						<image style="width: 99rpx;height: 79rpx;" :src="item.img" mode=""></image>
-						<image style="width: 74rpx;height: 13rpx;" src="item.startImg" mode=""></image>
+						<image :src="item.logo || '../../static/nearbystore/test2.png'" mode=""></image>
+						<!-- 源头店标识 -->
+						<!-- <image style="width: 74rpx;height: 13rpx;" src="item.startImg" mode=""></image> -->
 					</view>
 					<view class="con">
 						<view class="title">
-							{{item.title}}
+							{{item.company || '暂无店铺信息'}}
 						</view>
 						<view class="weixin">
-							微信：{{item.weixin}}
+							微信：{{item.wx_name || '暂无微信信息'}}
 						</view>
 						<view class="phone">
 							电话：{{item.phone}}
@@ -27,13 +28,15 @@
 				</view>
 				
 				<view class="right_btn">
-					<view class="top">
+					<view class="top"
+					@click="callPhone(item.phone)"
+					>
 						<image style="width: 22rpx;height: 22rpx;" src="../../static/nearbystore/dianhua(1).png" mode=""></image>
-						<image style="width: 26rpx;height: 22rpx;margin-left: 12rpx;" src="../../static/nearbystore/liaotian(1).png" mode=""></image>
+						<!-- <image style="width: 26rpx;height: 22rpx;margin-left: 12rpx;" src="../../static/nearbystore/liaotian(1).png" mode=""></image> -->
 					</view>
 					<view class="bom">
 						<image style="width: 26rpx;height: 25rpx;margin-right: 12rpx;" src="../../static/nearbystore/daohang@2x(1).png" mode=""></image>
-						<text>{{item.distance}}</text>
+						<text>{{item.distance}}km</text>
 					</view>
 				</view>
 				
@@ -47,114 +50,74 @@
 	export default {
 		data() {
 			return {
-				storeList: [
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '../../static/nearbystore/yuantoudian@2x.png',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					},
-					{
-						img:'../../static/nearbystore/test2.png',
-						startImg: '../../static/nearbystore/dengji(1).png',
-						isSource: '',
-						title: '屈臣氏(成都百盛店)',
-						weixin: 123456789,
-						phone: 123456789,
-						distance: '1.0km'
-					}
-				]
+				storeList: [],
+				page: 1,
+				limit: 10,
+				long_number: 0,
+				lati_number: 0
 			}
 		},
 		onLoad() {
+			this.mgetLocation()
 			
 		},
 		methods: {
-
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: '加载中...'
+						})
+						uni.request({
+							url: _this.$http + '/api/index/nearbyShop',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit,
+								long_number: _this.long_number,
+								lati_number: _this.lati_number,
+							},
+							success(res){
+								console.log('获取附近店铺列表', res)
+								if(res.data.status === 200){
+									let newList = res.data.data
+									newList.forEach(item =>{
+										item.distance = item.distance.toFixed(2)
+									})
+									_this.storeList = newList
+									uni.hideLoading()
+									
+								}
+							}
+						})
+					}
+				})
+			},
+			// 获取当前位置中文信息
+			mgetLocation(){
+				let _this = this
+				uni.getLocation({
+					type: 'wgs84',
+					geocode:true,
+					success(res){
+						console.log(res)
+						_this.long_number = res.longitude
+						_this.lati_number = res.latitude
+						_this.getData()
+					}
+				})
+			},
+			callPhone(phone){
+				uni.makePhoneCall({
+					phoneNumber: phone,
+					success(res){
+						console.log('拨打电话成功')
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -173,11 +136,12 @@ page{
 	.content{
 		width: 100%;
 		height: 100%;
+		min-height: 100vh;
 		background-color: #F4F4F4;
 		.store_list{
 			// margin-top: 30rpx;
 			width: 100%;
-			padding: 0 25rpx;
+			padding: 24rpx 25rpx  0 25rpx;
 			box-sizing: border-box;
 			.item{
 				width: 700rpx;
@@ -207,6 +171,13 @@ page{
 					
 					.pic{
 						display: flex;
+						image{
+							width: 99rpx;
+							height: 79rpx;
+							min-height: 79rpx;
+							min-width: 99rpx;
+							margin-right: 24rpx;
+						}
 					}
 				}
 				.right_btn{

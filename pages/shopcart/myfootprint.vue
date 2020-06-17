@@ -4,21 +4,21 @@
 		<!-- 我的足迹 -->
 		<!-- 今日查看 -->
 		<view class="show_list">
-			<view class="titles">
+			<!-- <view class="titles">
 				今日查看
-			</view>
+			</view> -->
 			<view class="item"
-			v-for="(item,index) in todayShowList"
+			v-for="(item,index) in showList"
 			:key="index"
 			@click="gotoDetauls(item)"
 			>
-				<image class="img" :src="item.img" mode=""></image>
+				<image class="img" :src="item.image" mode=""></image>
 				<view class="con_text">
 					<view class="title">
-						{{item.title}}
+						{{item.store_name}}
 					</view>
 					<view class="shoucangNum">
-						{{item.num}}人收藏
+						浏览时间{{item.add_time}}
 					</view>
 					<view class="price">
 						<text>￥</text>
@@ -26,29 +26,10 @@
 					</view>
 				</view>
 			</view>
-		</view>
-		<!-- 两日前查看 -->
-		<view class="show_list">
-			<view class="titles">
-				两日前查看
-			</view>
-			<view class="item"
-			v-for="(item,index) in beforeShowList"
-			:key="index"
+			<view class="loading"
+			v-if="isLoading"
 			>
-				<image class="img" :src="item.img" mode=""></image>
-				<view class="con_text">
-					<view class="title">
-						{{item.title}}
-					</view>
-					<view class="shoucangNum">
-						{{item.num}}人收藏
-					</view>
-					<view class="price">
-						<text>￥</text>
-						<text style="font-size: 34rpx;">{{item.price}}</text>
-					</view>
-				</view>
+				加载中...
 			</view>
 		</view>
 		
@@ -60,39 +41,14 @@
 		data () {
 			return {
 				// 今日查看列表
-				todayShowList: [
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-				],
-				// 两日前查看
-				beforeShowList: [
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-				]
+				showList: [],
+				page: 1,
+				limit: 10,
+				isLoading: false,
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
@@ -102,6 +58,47 @@
 				console.log('item', item)
 				uni.navigateTo({
 					url: '../index/productdetails'
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
+			// 获取列表数
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/index/footprint',
+							method: 'POST',
+							data:{
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit
+							},
+							success(res){
+								console.log('足迹列表数据',res)
+								if(res.data.status == 200){
+									if(_this.showList.length === 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList .concat(res.data.data) 
+									}
+									_this.isLoading = false
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '足迹列表数据获取失败'
+									})
+								}
+								
+							}
+						})
+					}
 				})
 			}
 		}
@@ -123,6 +120,14 @@
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				line-height: 70rpx;
+				font-size: 28rpx;
+			}
 			.titles{
 				font-size:30rpx;
 				font-weight:500;
@@ -153,6 +158,11 @@
 							color:rgba(39,39,39,1);
 							line-height:41rpx;
 							margin-bottom: 25rpx;
+							overflow: hidden;
+						  text-overflow: ellipsis;
+						  display: -webkit-box;
+						  -webkit-line-clamp: 2; //行数
+						  -webkit-box-orient: vertical;
 						}
 						.shoucangNum{
 							font-size:24rpx;

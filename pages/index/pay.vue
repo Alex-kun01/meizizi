@@ -14,7 +14,7 @@
 				</view>
 				<view class="price">
 					<text>￥</text>
-					<text style="font-size: 73rpx;">330.00</text>
+					<text style="font-size: 73rpx;">{{money}}</text>
 				</view>
 			</view>
 			<view class="bom">
@@ -90,15 +90,32 @@
 			return {
 				isShowOkpay: false, // 控制确认支付弹窗
 				isShowClose: false, // 控制确认关闭弹窗
+				productOrderInfo: {}, //下单参数
+				money: 0, //支付金额
 			}
 		},
 		onLoad(){
-			
+			this.productOrderInfo = this.$store.state.productOrderInfo
+			console.log('初始化下单参数',this.productOrderInfo)
+			console.log('下单参数', this.$store.state.productOrderInfo)
+			this.money = this.$store.state.productOrderInfo.money
 		},
 		onShow(){
 			
 		},
 		methods:{
+			
+			// 请求下单接口
+			getcreatOrder(){
+				uni.request({
+					url: this.$http + '/api/goods/createOrder',
+					method: 'POST',
+					data: this.productOrderInfo,
+					success(res){
+						console.log('下单返回数据', res)
+					}
+				})
+			},
 			// 关闭当前页面
 			closethis(){
 				this.isShowClose = true
@@ -118,15 +135,21 @@
 				this.isShowClose = false
 			},
 			submitClick(){
+				// 请求下单接口
+				this.getcreatOrder()
 				
 				this.isShowOkpay = false
-				uni.showToast({
-					title: '支付成功'
+				uni.showModal({
+					title: '提示',
+					content: '支付失败！'
 				})
 				setTimeout(()=>{
-					uni.navigateBack({
-						delta: 2
+					uni.navigateTo({
+						url: '../shopcart/allorder'
 					})
+					// uni.navigateBack({
+					// 	delta: 2
+					// })
 				},1000)
 				
 			}

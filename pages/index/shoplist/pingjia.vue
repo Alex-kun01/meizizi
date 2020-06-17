@@ -12,12 +12,20 @@
 			<view class="tap_list"
 			v-if="isShow"
 			>
-				<view :class="{item:true, active: isActive === index}"
-				v-for="(item, index) in tapList"
-				:key="index"
-				@click="chooseTap(item, index)"
+				<view :class="{item:true, active: isActive === 1}"
+				@click="chooseTap(1)"
 				>
-					{{item}}
+					好评(10)
+				</view>
+				<view :class="{item:true, active: isActive === 2}"
+				@click="chooseTap(2)"
+				>
+					中评(5)
+				</view>
+				<view :class="{item:true, active: isActive === 3}"
+				@click="chooseTap(3)"
+				>
+					差评(1)
 				</view>
 			</view>
 		</view>
@@ -32,15 +40,15 @@
 					<text>{{item.name}}</text>
 				</view>
 				<view class="title">
-					<text>{{item.day}}</text>
-					<text>{{item.colorType}}</text>
+					<!-- <text>{{item.day}}</text> -->
+					<text>{{item.add_time}}</text>
 				</view>
 				<view class="text">
-					{{item.title}}
+					{{item.comment}}
 				</view>
 				<view class="piv_lis">
 					<image
-					v-for="(pic, inx) in item.picList"
+					v-for="(pic, inx) in item.pics || []"
 					:key="inx"
 					 :src="pic" mode=""></image>
 				</view>
@@ -56,55 +64,76 @@
 		data () {
 			return {
 				isShow: true,
-				isActive: 1,
+				isActive: 1, // 1好评 2中评 3差评	
+				opt: {
+					id: 19
+					
+				},
+				page: 1, // 页数
+				limit: 10, // 一页条数
+				isLoading: true, 
 				tapList: [
-					'颜色漂亮(628)',
-					'颜色漂亮(628)',
-					'颜色漂亮(628)',
-					'颜色漂亮(628)',
+					'好评',
 					'颜色漂亮(628)',
 					'颜色漂亮(628)',
 				],
-				showList: [
-					{
-						avatar: '../../../static/index/QQ.png',
-						name: '葡萄葡萄',
-						day: '三天前',
-						colorType: '152-123456',
-						title: '细节做的特别好，涂上也毫无压力超气质，御姐范儿，外表 漂亮富有时尚感，非常显白又能完美衬托肤色,非常显白又能完美衬托肤色',
-						picList: [
-							'../../../static/index/maijiaxiu1.png',
-							'../../../static/index/maijiaxiu1.png'
-						]
-					},
-					{
-						avatar: '../../../static/index/QQ.png',
-						name: '葡萄葡萄',
-						day: '三天前',
-						colorType: '152-123456',
-						title: '细节做的特别好，涂上也毫无压力超气质，御姐范儿，外表 漂亮富有时尚感，非常显白又能完美衬托肤色,非常显白又能完美衬托肤色',
-						picList: [
-							'../../../static/index/maijiaxiu1.png',
-							'../../../static/index/maijiaxiu1.png'
-						]
-					}
-				]
+				showList: []
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			console.log('评价opt', opt)
+			this.opt = opt
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.request({
+					url: this.$http + '/api/goods/evaList',
+					method: 'POST',
+					data: {
+						type: _this.isActive,
+						gid: 19,//_this.opt.id,
+						page: _this.page,
+						limit: _this.limit
+					},
+					success(res){
+						console.log('评价列表返回数据',res)
+						if(res.data.status === 200){
+							
+							_this.showList = res.data.data.eva_list
+							
+							_this.showList.forEach(item =>{
+								console.log('每一项', item)
+								item.add_time = new Date(item.add_time).toLocaleString().replace(/:\d{1,2}$/,' ') 
+								item.avatar = 'http://192.168.31.14' + item.avatar
+							})
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: res.data.msg
+							})
+						}
+						
+					}
+				})
+			},
 			changeTap(){
 				this.isShow = !this.isShow
 			},
-			chooseTap(item,index){
-				console.log(item)
+			chooseTap(index){
 				this.isActive = index
-			}
+				this.getData()
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData(this.opt)
+			},
 		}
 	}
 </script>
@@ -143,7 +172,7 @@
 				}
 				.tap_list{
 					width: 100%;
-					height: 150rpx;
+					height: 70rpx;
 					display: flex;
 					flex-wrap: wrap;
 					justify-content: space-between;

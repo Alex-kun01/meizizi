@@ -14,53 +14,56 @@
 		</view>
 		<!-- 购物列表 -->
 		<view class="shop_list">
+			<view class="null_box" v-if="idNullBox">
+				空空如也
+			</view>
 			<view class="item"
 			v-for="(item, index) in shopList"
 			:key='index'
 			>
-				<view class="top_title">
-					<view class="yuan"
+				<!-- <view class="top_title"> -->
+					<!-- <view class="yuan"
 					@click="chooseStore(item)"
 					>
 						<image v-if="showStore.includes(item.storeId)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
-					</view>
-					<view class="title">
+					</view> -->
+					<!-- <view class="title">
 						{{item.shopName}}
-					</view>
-				</view>
+					</view> -->
+				<!-- </view> -->
 				
 				<view class="con_info">
-				<view class="store"
-				v-for="(store,sindex) in item.list"
-				:key="sindex"
-				>
+					
+				<view class="store">
 					<view class="left_pic">
 						<view class="yuan2"
-						@click="chooseThing(store.id)"
+						@click="chooseThing(item.id)"
 						>
 							<!-- 根据商品id显示 -->
-							<image v-if="showThing.includes(store.id)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+							<image v-if="showThing.includes(item.id)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
 						</view>
-						<image :src="store.img" mode=""></image>
+						<image :src="item.image" mode=""></image>
 					</view>
 					<view class="right_con">
 						<view class="r_text">
-							{{store.conText}}
+							{{item.goods_name}}
 						</view>
-						<view class="r_type">
-							{{store.shopType}}
-						</view>
+						<text class="r_type"
+						v-if="item.spe_name"
+						>
+							{{item.spe_name}}
+						</text>
 						<view class="r_btn">
 							<view class="price">
-								￥{{store.Price}}
+								￥{{item.market_price}}
 							</view>
 							<view class="btn">
 								<view
-								@click="jianClick(store, index, sindex)"
+								@click="jianClick(item)"
 								class="jian">-</view>
-								<view class="num">{{store.buyNum}}</view>
+								<view class="num">{{item.goods_num}}</view>
 								<view
-								@click="jiaClick(store, sindex)"
+								@click="jiaClick(item)"
 								class="jia">+</view>
 							</view>
 						</view>
@@ -91,11 +94,11 @@
 				:key='index'
 				@click="gotoDetauls(item)"
 				>
-					<image :src="item.img" mode=""></image>
+					<image :src="item.image" mode=""></image>
 					
 					<view class="con_text">
 						<view class="title">
-							{{item.title}}
+							{{item.store_name}}
 						</view>
 						
 						
@@ -103,12 +106,12 @@
 							<view style="display: flex;align-items: center;">
 								<image style="width: 21rpx;height: 21rpx;margin-right: 15rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image>
 								<view class="fukuan">
-									{{item.num}}人付款
+									￥{{item.price}}
 								</view>
 							</view>
-							<view class="more">
+							<!-- <view class="more">
 								相似
-							</view>
+							</view> -->
 						</view>
 					</view>
 				</view>
@@ -128,7 +131,9 @@
 			<view class="guanli"
 			v-if="isMg"
 			>
-				<view class="shoucahng">
+				<view class="shoucahng"
+				@click="gotorelation"
+				>
 					移入收藏夹
 				</view>
 				<view
@@ -186,92 +191,107 @@
 				isDeleteShow: false, // 控制删除提示弹出层显示
 				allActive: false, //全选 控制
 				showThing: [], // 被选中的商品列表
-				showStore: [], // 被选中的店铺列表
-				shopList: [
-					{
-						shopName: 'Estee Lauder 雅诗',
-						storeId: 2001,
-						list: [
-							{
-								img: '../../static/shopcart/shop2.png',
-								conText: '雅诗兰塞 DW 持妆粉底液 油皮亲妈持久不脱妆遮瑕美白好看',
-								shopType: '1C1#60',
-								Price: 69,
-								id: 1000,
-								buyNum: 1, // 购买数量
-								inStock: 9, // 库存
-							},
-							{
-								img: '../../static/shopcart/shop2.png',
-								conText: '雅诗兰塞 DW 持妆粉底液 油皮亲妈持久不脱妆遮瑕美白好看',
-								shopType: '1C1#60',
-								Price: 69,
-								id: 1001,
-								buyNum: 1, // 购买数量
-								inStock: 99, // 库存
-							},
-							{
-								img: '../../static/shopcart/shop2.png',
-								conText: '雅诗兰塞 DW 持妆粉底液 油皮亲妈持久不脱妆遮瑕美白好看',
-								shopType: '1C1#60',
-								Price: 69,
-								id: 1002,
-								buyNum: 1, // 购买数量
-								inStock: 99, // 库存
-							},
-						]
-						
-					},
-					{
-						shopName: 'Estee Lauder 雅诗',
-						storeId: 2002,
-						list: [
-							{
-								img: '../../static/shopcart/shop2.png',
-								conText: '雅诗兰塞 DW 持妆粉底液 油皮亲妈持久不脱妆遮瑕美白好看',
-								shopType: '1C1#60',
-								Price: 69,
-								id: 1004,
-								buyNum: 1, // 购买数量
-								inStock: 99, // 库存
-							}
-						]
-						
+				shopList: [],
+				likeList: [],
+				page: 1,
+				limit: 100,
+			}
+		},
+		computed:{
+			 // 计算订单总价
+			allPrice(){
+				let allNum = 0
+				this.shopList.forEach(item =>{
+					if(this.showThing.includes(item.id)){
+						console.log('item',item)
+						allNum = allNum + (item.market_price * item.goods_num)
 					}
-				],
-				likeList: [
-					{
-						img: '../../static/shopcart/pci26.png',
-						title: '韩国PonyEffect 彩妆刷便携五件套腮红刷',
-						price: 69,
-						num: 150
-					},
-					{
-						img: '../../static/shopcart/pci26.png',
-						title: '韩国PonyEffect 彩妆刷便携五件套腮红刷',
-						price: 69,
-						num: 150
-					},
-					{
-						img: '../../static/shopcart/pci26.png',
-						title: '韩国PonyEffect 彩妆刷便携五件套腮红刷',
-						price: 69,
-						num: 150
-					},
-					{
-						img: '../../static/shopcart/pci26.png',
-						title: '韩国PonyEffect 彩妆刷便携五件套腮红刷',
-						price: 69,
-						num: 150
-					}
-				],
-				allPrice: 69, // 订单总价
+				})
+				return allNum
+			},
+			idNullBox(){
+				if(this.shopList.length == 0){
+					return true
+				}
+				return false
 			}
 		},
 		onLoad() {
-			
+			this.getData()
 		},
 		methods: {
+			
+			// 获取列表数	
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/goods/cartList',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit
+							},
+							success(res){
+								console.log('购物车列表数据', res)
+								if(res.data.status == 200){
+									_this.shopList = res.data.data.cart_list
+									_this.likeList =res.data.data.goods_list
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '列表数据获取失败'
+									})
+								}
+							}
+						})
+						
+						
+					}
+				})
+			},
+			// 移入收藏夹
+			gotorelation(){
+				let _this = this
+				console.log('选中的商品列表',this.showThing)
+				console.log('移入收藏夹执行了')
+				let targetNum = this.showThing.length
+				let newNum = 0
+				this.showThing.forEach(item =>{
+					uni.getStorage({
+						key: 'userInfo',
+						success(reg){
+							uni.request({
+								url: _this.$http + '/api/index/relation',
+								method: 'POST',
+								data:{
+									id: item,
+									type: 1,
+									re_type: 1,
+									token: reg.data.token
+								},
+								success(res){
+									console.log('加入购物车返回数据', res)
+									if(res.data.status == 200){
+										newNum++
+										if(newNum == targetNum){
+											uni.showToast({
+												title: '收藏成功'
+											})
+										}
+									}else{
+										
+									}
+								}
+							})
+						}
+					})
+					
+				})
+			},
 			
 			guanliClick(){
 				this.isMg = true
@@ -291,12 +311,45 @@
 			},
 			// 确定删除
 			isOkClick(){
-				this.isDeleteShow = false
+				let _this = this 
+				let targetNum = this.showThing.length
+				let newNum = 0
+				this.showThing.forEach(item =>{
+					uni.getStorage({
+						key: 'userInfo',
+						success(reg){
+							uni.request({
+								url: _this.$http + '/api/goods/delCart',
+								method: 'POST',
+								data:{
+									id: item,
+									token: reg.data.token
+								},
+								success(res){
+									console.log('删除购物车返回数据', res)
+									if(res.data.status == 200){
+										newNum++
+										if(newNum == targetNum){
+											uni.showToast({
+												title: '删除成功'
+											})
+											_this.getData()
+											_this.isDeleteShow = false
+										}
+									}else{
+										
+									}
+								}
+							})
+						}
+					})
+					
+				})
 			},
 			gotoDetauls(item){
 				console.log('item', item)
 				uni.navigateTo({
-					url: '../index/productdetails'
+					url: '../index/productdetails?id=' + item.id
 				})
 			},
 			// 根据数组 和值 返回该值在数组中的下标
@@ -323,106 +376,87 @@
 				}else{
 					// 没有选中 选中
 					this.showThing.push(thingId)
+					console.log('后来数组',this.showThing)
 				}
 				
-			},
-			// 选中店铺
-			chooseStore(item){
-				console.log('刚进入', this.showStore)
-				let indexArr = item.list || []
-				// 处理店铺本身选中 
-				if(this.showStore.includes(item.storeId)){
-					// 店铺已被选中 取消选中该店铺全部商品
-					// 取消选中店铺
-					let sIndex = this.isHasElementOne(this.showStore, item.storeId)
-					this.showStore.splice(sIndex, 1)
-					console.log('取消',this.showStore)
-					// 取消所有商品
-					indexArr.forEach(temp => {
-						let index = this.isHasElementOne(this.showThing, temp.id)
-						this.showThing.splice(index, 1)
-					})
-					this.allActive = false
-				}else{
-					// 店铺未被选中  选中该店铺全部商品
-					// 选中店铺
-					this.showStore.push(item.storeId)
-					console.log('选中',this.showStore)
-					indexArr.forEach(temp => {
-						
-						// 选中所有商品
-						if(!this.showThing.includes(temp.id)){
-							this.showThing.push(temp.id)
-						}
-					})
-				}
 			},
 			// 全选按钮
 			changeAllActive(){
 				let list = this.shopList
 				this.allActive = !this.allActive
-				if(this.allActive){
-					// 取消全选
-					list.forEach(item =>{
-						// 处理选中所有店铺
-						if(this.showStore.includes(item.storeId)){
-							// 店铺已被选中 不做处理
-						}else{
-							// 店铺未被选中 选中
-							this.showStore.push(item.storeId)
-						}
-						
-						// 处理选中所有商品
-						item.list.forEach(thing =>{
-							console.log('xxxxxxxxx',thing)
-							if(this.showThing.includes(thing.id)){
-								// 已被选中 不做处理
-								
-							}else{
-								// 未被选中 选中
-								this.showThing.push(thing.id)
-							}
-						})
-						
-						
-					})
+				// 取消全选
+				if(!this.allActive){
+					this.showThing = []
 				}else{
 					// 全选
 					list.forEach(item =>{
-						// 处理选中所有店铺
-						if(this.showStore.includes(item.storeId)){
-							// 店铺已被选中 不做处理
-							this.showStore = []
+						if(this.showThing.includes(item.id)){
+							// 已被选中 不做处理
 						}else{
-							// 店铺未被选中 不做处理
+							this.showThing.push(item.id)
 						}
-						
-						// 处理清空所有商品
-						this.showThing = []
 					})
 				}
 			},
+			// 修改购物车商品数量
+			edtiShopNum(store){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title:''
+						})
+						uni.request({
+							url: _this.$http + '/api/goods/editCart',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								id: store.id,
+								number: store.goods_num
+							},
+							success(res){
+								console.log('修改购物车数量', res)
+								if(res.data.status === 200){
+									uni.hideLoading()
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数量修改失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			// 减 按钮
-			jianClick(store, index, sindex){
+			jianClick(store){
+				console.log('store减', store)
 				// 等于1
-				if(store.buyNum === 1){
+				if(store.goods_num === 1){
+					uni.showModal({
+						title: '提示',
+						content: '宝贝数量不能再少了'
+					})
 					return
 				}
-				// this.shopList[index].list[sindex].buyNum--
-				store.buyNum--
+				store.goods_num--
+				this.edtiShopNum(store)
 			},
 			// 加按钮
-			jiaClick(store, index, sindex){
-				// this.shopList[index].list[sindex].buyNum++
+			jiaClick(store){
+				console.log('store加', store)
 				// 达到库存数量
-				if(store.inStock === store.buyNum){
+				if(store.goods_num === store.stock){
 					uni.showModal({
 						title:'提示',
 						content: '没有更多库存'
 					})
 					return
 				}
-				store.buyNum++
+				store.goods_num++
+				this.edtiShopNum(store)
 			},
 		}
 	}
@@ -443,6 +477,13 @@
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
+			.null_box{
+				width: 100%;
+				height: 300rpx;
+				font-size: 30rpx;
+				text-align: center;
+				line-height: 300rpx;
+			}
 			.delete_float{
 				width: 100%;
 				height: 100%;
@@ -594,23 +635,24 @@
 						
 						
 						.right_con{
-							display: flex;
-							flex-direction: column;
-							justify-content: space-between;
+							// display: flex;
+							// flex-direction: column;
+							// justify-content: space-between;
 							.r_text{
 								width: 400rpx;
 								color: #272727;
 								font-size: 26rpx;
-								overflow: hidden;
-								text-overflow: ellipsis;
-								display: -wbkit-box;
-								-webkit-line-clamp: 2;
-								-webkit-box-orient:vertical;
+								 overflow: hidden;
+								  text-overflow: ellipsis;
+								  display: -webkit-box;
+								  -webkit-line-clamp: 3; //行数
+								  -webkit-box-orient: vertical;
 								box-sizing: border-box;
 								margin-bottom: 24rpx;
 							}
 							.r_type{
-								width:133rpx;
+								display: inline-block;
+								padding: 0 15rpx;
 								height:50rpx;
 								line-height: 50rpx;
 								text-align: center;
@@ -700,7 +742,7 @@
 					flex-wrap: wrap;
 					.item{
 						width: 343rpx;
-						height: 476rpx;
+						// height: 476rpx;
 						background:rgba(255,255,255,1);
 						border-radius:12rpx;
 						margin-bottom: 26rpx;
@@ -717,6 +759,12 @@
 								color: #272727;
 								font-size: 500;
 								margin-bottom: 24rpx;
+								width: 100%;
+								 overflow: hidden;
+								  text-overflow: ellipsis;
+								  display: -webkit-box;
+								  -webkit-line-clamp: 2; //行数
+								  -webkit-box-orient: vertical;
 							}
 							.bom_btn{
 								display: flex;

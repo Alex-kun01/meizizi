@@ -15,7 +15,9 @@
 				验证码
 			</view>
 			<input type="text" v-model="incode" placeholder="请输入验证码" />
-			<view :class="{code_btn:true, active: isOk}">
+			<view :class="{code_btn:true, active: isOk}"
+			@click="getInCode"
+			>
 				获取验证码
 			</view>
 		</view>
@@ -29,7 +31,7 @@
 	export default {
 		data () {
 			return {
-				phone: '', 
+				phone: '17683059017', 
 				incode: '', // 验证码
 			}
 		},
@@ -51,6 +53,7 @@
 		},
 		methods:{
 			submitClick(){
+				let _this = this
 				if(!this.isOk) {
 					uni.showModal({
 						title: '提示',
@@ -58,8 +61,57 @@
 					})
 					return
 				}
-				uni.navigateTo({
-					url: './changepassword'
+				uni.showLoading({
+					title: '请稍后...'
+				})
+				uni.request({
+					url:  _this.$http +'/api/index/ifPhoneCode',
+					method: 'POST',
+					data: {
+						phone: _this.phone,
+						code: _this.incode
+						
+					},
+					success(res){
+						console.log('判断验证码', res)
+						if(res.data.status === 200){
+							uni.navigateTo({
+								url: './changepassword'
+							})
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: res.data.msg
+							})
+						}
+						uni.hideLoading()
+					}
+				})
+				
+			},
+			// 获取验证码
+			getInCode(){
+				let _this = this
+				uni.showLoading({
+					title: '正在获取验证码'
+				})
+				uni.request({
+					url:  _this.$http +'/api/index/getPhoneCode',
+					method:'POST',
+					data: {
+						phone: _this.phone,
+					},
+					success(res){
+						console.log('验证码返回数据', res)
+						if(res.data.status === 200){
+							uni.hideLoading()
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: res.data.msg
+							})
+						}
+					}
 				})
 			}
 		}

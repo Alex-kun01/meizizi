@@ -12,20 +12,20 @@
 		<!-- 赛选菜单 -->
 		<view class="menu_list">
 			<view
-			:class="{item:true,active: isActive === 1}"
-			@click='changeIndex(1)'
+			:class="{item:true,active: isActive === 10}"
+			@click='changeIndex(10)'
 			>
 				全部
 			</view>
 			<view
-			:class="{item:true,active: isActive === 2}"
-			@click='changeIndex(2)'
+			:class="{item:true,active: isActive === 1}"
+			@click='changeIndex(1)'
 			>
 				待付款
 			</view>
 			<view
-			:class="{item:true,active: isActive === 3}"
-			@click='changeIndex(3)'
+			:class="{item:true,active: isActive === 2}"
+			@click='changeIndex(2)'
 			>
 				待发货
 			</view>
@@ -56,6 +56,7 @@
 			<view class="item"
 			v-for="(item,index) in showList"
 			:key='index'
+			
 			>
 				<view class="title">
 					<view class="l_box">
@@ -75,12 +76,12 @@
 				</view>
 				<view class="con_info">
 					<view class="img">
-						<image :src="item.img" mode=""></image>
+						<image :src="item.image" mode=""></image>
 					</view>
 					<view class="r_info">
 						<view class="title_box">
 							<view class="l_title">
-								{{item.title}}
+								{{item.goods_name}}
 							</view>
 							<view class="r_title">
 								<view class="price">
@@ -92,8 +93,10 @@
 								</view>
 							</view>
 						</view>
-						<view class="xing_type">
-							{{item.tapType}}
+						<view class="xing_type"
+						v-if="item.spe_name"
+						>
+							{{item.spe_name}}
 						</view>
 						<view class="tap_color">
 							七天无理由退换
@@ -102,7 +105,7 @@
 				</view>
 				<!-- 按钮  根据type显示不同按钮 -->
 				<view class="bom_btn"
-				@click="btnClick(item.type)"
+				@click="btnClick(item)"
 				>
 					<text v-if="item.type === 1">去付款</text>
 					<text v-if="item.type === 2">查看购物码</text>
@@ -122,89 +125,103 @@
 		data () {
 			return {
 				orderInfo: '', // 搜索我的订单值
-				isActive: 1, 
-				isOrderHave: false, //是否有订单数据
-				showList: [
-					{
-						storeName: 'Estee Lauder雅诗',
-						img: '../../static/shopcart/shop2.png',
-						title: 'Dior迪奥烈焰蓝金红管 经典口红唇膏Dior迪奥烈焰蓝金红管 经典口红唇膏',
-						price: 330,
-						number: 1, 
-						tapType: '颜色分类:126SWING',
-						type: 1, // 1待付款 2待取货 3交易关闭 4交易成功
-					},
-					{
-						storeName: 'Estee Lauder雅诗',
-						img: '../../static/shopcart/shop2.png',
-						title: 'Dior迪奥烈焰蓝金红管 经典口红唇膏Dior迪奥烈焰蓝金红管 经典口红唇膏',
-						price: 330,
-						number: 1, 
-						tapType: '颜色分类:126SWING',
-						type: 2, // 1待付款 2待取货 3交易关闭 4交易成功
-					},
-					{
-						storeName: 'Estee Lauder雅诗',
-						img: '../../static/shopcart/shop2.png',
-						title: 'Dior迪奥烈焰蓝金红管 经典口红唇膏Dior迪奥烈焰蓝金红管 经典口红唇膏',
-						price: 330,
-						number: 1, 
-						tapType: '颜色分类:126SWING',
-						type: 3, // 1待付款 2待取货 3交易关闭 4交易成功
-					},
-					{
-						storeName: 'Estee Lauder雅诗',
-						img: '../../static/shopcart/shop2.png',
-						title: 'Dior迪奥烈焰蓝金红管 经典口红唇膏Dior迪奥烈焰蓝金红管 经典口红唇膏',
-						price: 330,
-						number: 1, 
-						tapType: '颜色分类:126SWING',
-						type: 4, // 1待付款 2待取货 3交易关闭 4交易成功
-					}
-				]
+				isActive: 10,  // 订单类型
+				page: 1,
+				limit: 10,
+				showList: []
 			}
 		},
+		computed:{
+			//是否有订单数据
+		isOrderHave(){
+			if(this.showList.length == 0){
+				return true
+			}else{
+				return false
+			}
+		}	
+		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			//获取订单列表
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/goods/orderList',
+							method: 'POST',
+							data: {
+								uid: reg.data.uid,
+								type: _this.isActive,
+								page: _this.page,
+								limit: _this.limit,
+							},
+							success(res){
+								console.log('订单列表返回数据',res)
+								if(res.data.status === 200){
+									_this.showList = res.data.data
+									console.log('长度', _this.showList.length)
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '订单列表获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			// 跳转订单详情
+			gotoOrderDetauls(item){
+				console.log('item', item)
+				uni.navigateTo({
+					url: '../index/orderdetails?id=' + item.id
+				})
+			},
 			changeIndex(index){
 				this.isActive = index
 				// 模拟 请求数据时 待付款/待发货/待评价没有数据展示效果
-				if(index != 1){
-					this.isOrderHave = true
-				}else{
-					this.isOrderHave = false
-				}
+				// if(index != 1){
+				// 	this.isOrderHave = true
+				// }else{
+				// 	this.isOrderHave = false
+				// }
+				this.getData()
 			},
 			// 付款 查看购物码 再次购买 去评价 按钮点击事件
 			// 1 去付款 2查看购物码 3再次购买 4 去评价
-			btnClick(type){
-				console.log('按钮点击类型',type)
-				if(type === 1){
+			btnClick(item){
+				console.log('item',item)
+				if(item.type === 1){
 					//去付款
 					uni.navigateTo({
-						url: '../index/orderdetails?type=' + '待付款'
+						url: '../index/orderdetails?type=' + '待付款' + '&id=' + item.id
 					})
 				}
-				if(type === 2){
+				if(item.type === 2){
 					//查看购物码
 					uni.navigateTo({
-						url: '../index/orderdetails?type=' + '查看购物码'
+						url: '../index/orderdetails?type=' + '查看购物码' + '&id=' + item.id
 					})
 				}
-				if(type === 3){
-					uni.navigateTo({
-						url: '../index/productdetails'
-					})
-				}
-				if(type === 4){
+				// if(item.type === 3){
+				// 	// 
+				// 	uni.navigateTo({
+				// 		url: '../index/productdetails'
+				// 	})
+				// }
+				if(item.type === 4){
 					//去评价
 					uni.navigateTo({
-						url: './comment'
+						url: './comment?id=' + item.id
 					})
 				}
 			},
@@ -231,6 +248,7 @@
 		.content{
 			width: 100%;
 			height: 100%;
+			min-height: 100vh;
 			background-color: #F4F4F4;
 			box-sizing: border-box;
 			padding: 24rpx;
@@ -373,9 +391,13 @@
 								}
 							}
 							.xing_type{
-								width:269rpx;
+								display: inline-block;
 								height:42rpx;
+								line-height: 42rpx;
+								border-radius: 2rpx;
+								padding: 0 15rpx;
 								background:rgba(250,250,250,1);
+								background-color: pink;
 								font-size:24rpx;
 								font-weight:bold;
 								color:rgba(159,159,159,1);

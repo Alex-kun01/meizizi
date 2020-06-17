@@ -8,19 +8,22 @@
 			:key="index"
 			@click="gotoDetauls(item)"
 			>
-				<image class="img" :src="item.img" mode=""></image>
+				<image class="img" :src="item.image" mode=""></image>
 				<view class="con_text">
 					<view class="title">
-						{{item.title}}
+						{{item.store_name}}
 					</view>
 					<view class="shoucangNum">
-						{{item.num}}人收藏
+						{{item.re_count}}人收藏
 					</view>
 					<view class="price">
 						<text>￥</text>
 						<text style="font-size: 34rpx;">{{item.price}}</text>
 					</view>
 				</view>
+			</view>
+			<view v-if="isLoading" class="loading">
+				加载中...
 			</view>
 		</view>
 		
@@ -31,71 +34,63 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					},
-					{
-						img: '../../static/shopcart/shop2.png',
-						title: '雅诗兰黛DW持妆粉底液 油皮亲 持久不脱妆遮瑕控油防晒 ',
-						num: 11, // 收藏人数
-						price: 40.00
-					}
-				]
+				page: 1,
+				limit: 10,
+				isLoading: false, 
+				showList: []
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						
+						uni.request({
+							url: _this.$http + '/api/index/goodsRelation',
+							method: 'POST',
+							data: {
+								token: res.data.token,
+								page: _this.page,
+								limit: _this.limit
+							},
+							success(ref){
+								console.log('收藏返回数据',ref)
+								if(ref.data.status === 200){
+									_this.showList = ref.data.data
+									_this.isLoading = false
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取列表数据失败'
+									})
+								}
+							}
+						})
+					}
+				})
+				
+			},
 			gotoDetauls(item){
 				console.log('item',item)
 				uni.navigateTo({
-					url: '../index/productdetails'
+					url: '../index/productdetails?id=' + item.id
+					
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -119,6 +114,14 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 24rpx;
+				.loading{
+					width: 100%;
+					height: 70rpx;
+					background-color: #eee;
+					line-height: 70rpx;
+					text-align: center;
+					font-size: 28rpx;
+				}
 				.item{
 					width: 100%;
 					box-sizing: border-box;

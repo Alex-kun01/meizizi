@@ -20,19 +20,19 @@
 			</view>
 			<view class="mine_info">
 				<view class="avatar">
-					<image style="width: 110rpx;height: 110rpx;border-radius: 50%;" src="../../static/mine/avatar.jpg" mode=""></image>
+					<image style="width: 110rpx;height: 110rpx;border-radius: 50%;" :src="avatar" mode=""></image>
 					<view class="mine_f">
 						<view class="mine_name">
-							<text class="name">是九尾主动的</text>
+							<text class="name">{{nickName}}</text>
 							<image style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="../../static/mine/huiyuan@2x.png" mode=""></image>
 						</view>
 						<view class="date">
 							2020.01.01
 						</view>
 					</view>
-				</view>
-				<view class="tuijianma"
-				@click="test"
+					</view>
+					<view class="tuijianma"
+				@click="rqCodeOpen"
 				>
 					<image style="width: 49rpx;height: 49rpx;" src="../../static/mine/erweima@2x.png" mode=""></image>
 					<view>
@@ -150,7 +150,19 @@
 		<image src="../../static/mine/jifenshangcheng@2x.png" mode=""></image>
 	</view>
 		
-		
+	<view class="rqcode"
+	@touchmove.stop.prevent="moveHandle"
+	v-if="isShowrqCode"
+	>
+		<view class="box">
+			<image @click="isShowrqCode = false" class="close" src="../../static/index/closeX2.png" mode=""></image>
+			<image class="rqcode" :src="rqCodeInfo.imgUrl" mode=""></image>
+			<view class="code_box">
+				<text>您的邀请码：</text>
+				<text>{{rqCodeInfo.rqCode}}</text>
+			</view>
+		</view>
+	</view>
 		
 		
 		
@@ -162,11 +174,27 @@
 	export default {
 		data() {
 			return {
-				
+				isShowrqCode: false, // 控制二维码弹窗展示
+				nickName: '', // 昵称
+				avatar: '', // 头像
+				 // 推荐吗数据
+				rqCodeInfo:{
+					imgUrl: '',
+					rqCode: ''
+				},
 			}
 		},
 		onLoad() {
-			
+			let _this = this
+			// 获取用户信息
+			uni.getStorage({
+				key: 'userInfo',
+				success(res){
+					console.log('用户本地',res.data)
+					_this.nickName = res.data.nickname || '暂无昵称'
+					_this.avatar = res.data.avatar || '../../static/mine/avatar.jpg'
+				}
+			})
 		},
 		methods: {
 			// 页面跳转
@@ -180,6 +208,50 @@
 					title: '提示',
 					content: '敬请期待...'
 				})
+			},
+			moveHandle(){},
+			rqCodeOpen(){
+				let _this = this
+				
+				
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: '加载中...'
+						})
+						uni.request({
+							url: _this.$http + '/api/index/getUserCode',
+							method: 'POST',
+							data: {
+								token: reg.data.token
+							},
+							success(res){
+								console.log('推荐码返回数据',res)
+								if(res.data.status === 200){
+									_this.rqCodeInfo.imgUrl = _this.$http + res.data.data.reco_url
+									_this.rqCodeInfo.rqCode = res.data.data.reco_code
+									console.log('查看', _this.rqCodeInfo)
+									_this.isShowrqCode = true
+									
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+								uni.hideLoading()
+							}
+						})
+					},
+					fail() {
+						uni.showModal({
+							title: '提示',
+							content: '用户数据获取失败'
+						})
+					}
+				})
+				
 			}
 		}
 	}
@@ -198,6 +270,51 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			height: 100%;
+			.rqcode{
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,.8);
+				position: absolute;
+				top: 0;
+				
+				.box{
+					width: 100%;
+					height: 80%;
+					background-color: #FFFFFF;
+					position: absolute;
+					bottom: 0;
+					border-radius: 5rpx 5rpx 0 0;
+					box-sizing: border-box;
+					padding: 24rpx;
+					display: flex;
+					align-items: center;
+					flex-direction: column;
+					justify-content: center;
+					.close{
+						width: 30rpx;
+						height: 30rpx;
+						position: absolute;
+						top: 20rpx;
+						right: 20rpx;
+					}
+					.rqcode{
+						width: 400rpx;
+						height: 400rpx;
+						margin-top: 200rpx;
+					}
+					.code_box{
+						width: 100%;
+						height: 100rpx;
+						line-height: 100rpx;
+						text-align: center;
+						margin-top: 600rpx;
+						text{
+							font-size: 30rpx;
+						}
+					}
+				}
+			}
 			.top_box{
 				width: 100%;
 				height: 398rpx;

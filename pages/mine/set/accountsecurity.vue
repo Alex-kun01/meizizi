@@ -21,10 +21,19 @@
 		</view>
 		
 		<view class="item"
-		@click="gototarget('./insetpassword')"
+		@click="gototarget('./setpassword')"
 		>
 			<view class="title">
 				密码设置
+			</view>
+			<image src="../../../static/index/chakan@2x.png" mode=""></image>
+		</view>
+		
+		<view class="item"
+		@click="gototarget('./insetpassword')"
+		>
+			<view class="title">
+				修改密码
 			</view>
 			<image src="../../../static/index/chakan@2x.png" mode=""></image>
 		</view>
