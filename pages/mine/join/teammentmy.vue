@@ -14,70 +14,37 @@
 			</view>
 		</view>
 		<!-- 市级代理 -->
-		<!-- <view class="show_list" v-if="isActive === 1"> -->
-			<!-- 暂无设计图 -->
-			<!-- <view class="item"
-			v-for="(item, index) in joinList"
-			:key='index'
-			>
-				<view class="title">
-					{{item.store}}
-				</view>
-				<view class="con_box">
-					<image :src="item.img" mode=""></image>
-					<view class="con_con">
-						<view class="address">
-							{{item.address}}
-						</view>
-						<view class="item_box">
-							<view class="item">
-								<image src="../../../static/mine/dianhua@2x.png" mode=""></image>
-								<text>{{item.phone}}</text>
-							</view>
-							<view class="item">
-								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="btn_r"
-					@click="gotpage"
-					>
-						查看收益
-					</view>
-				</view>
-			</view> -->
-		<!-- </view> -->
+		<!-- </view>
 		
 		<!-- 加盟店 -->
 		<view class="shows_list">
 			<view class="item"
-			v-for="(item, index) in tuijianList"
+			v-for="(item, index) in showList"
 			:key='index'
 			>
 				<view class="title">
-					{{item.store}}
+					{{item.stores_name}}
 				</view>
 				<view class="con_box">
 					<image :src="item.img" mode=""></image>
 					<view class="con_con">
 						<view class="address">
-							{{item.address}}
+							{{item.areas  || '暂无数据'}}
 						</view>
 						<view class="item_box">
 							<view class="item">
 								<image src="../../../static/mine/dianhua@2x.png" mode=""></image>
-								<text>{{item.phone}}</text>
+								<text>{{item.store_phone || '暂无数据'}}</text>
 							</view>
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
+								<text>{{item.wx_phone || '暂无数据'}}</text>
 							</view>
 						</view>
 						<view class="num_box">
 							总库存:
-							<text style="color: #EB5204;">{{item.shengyu}}/</text>
-							<text>{{item.kucun}}</text>
+							<text style="color: #EB5204;">{{item.s_stocks  || '暂无数据'}}/</text>
+							<text>{{item.stocks || '暂无数据'}}</text>
 							<image style="width: 20rpx;height: 20rpx;margin-left: 10px;" src="../../../static/mine/baojing@2x.png" mode=""></image>
 						</view>
 					</view>
@@ -97,111 +64,51 @@
 		data () {
 			return {
 				isActive: 1, 
-				joinList: [
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					}
-				],
-				tuijianList: [
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					}
-				]
+				showList: []
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key:"userInfo",
+					success(reg){
+						uni.showLoading({
+							title:''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/myStore',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								type: _this.isActive
+							},
+							success(res){
+								uni.hideLoading()
+								console.log('团队管理-我的商家返回数据', res)
+								if(res.data.status === 200){
+									_this.showList = []
+									_this.showList = res.data.data
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			changeIndex(index){
 				this.isActive = index
+				this.getData()
 			},
 			goback(){
 				uni.navigateBack({

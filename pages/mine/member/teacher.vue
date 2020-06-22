@@ -74,12 +74,42 @@
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				console.log(1111)
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/myTeacher',
+							method: 'POST',
+							data:{
+								token: '595ef904a39c1135758e681319df3350'//reg.data.token
+							},
+							success(res){
+								console.log('讲师返回数据', res)
+								if(res.data.status === 200){
+									_this.showList = res.data.data
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数据列表获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			//跳转店铺详情
 			gotpage(){
 				uni.navigateTo({

@@ -5,14 +5,17 @@
 		<view class="top_bar">
 			<view class="top_con">
 				<view style="display: flex;">
-					<image :src="userInfo.img" mode=""></image>
+					<image :src="userInfo.avatar || '../../../static/mine/avatar.jpg'" mode=""></image>
 					<view class="con_con">
 						<view class="name">
-							{{userInfo.name}}
-							<text>职位:{{userInfo.zhiwei}}</text>
+							{{userInfo.real_name}}
+							<text v-if="userInfo.position == 1">职位: 总监</text>
+							<text v-if="userInfo.position == 2">职位: 省区经理</text>
+							<text v-if="userInfo.position == 3">职位: 业务员</text>
+							<text v-if="userInfo.position == 4">职位: 店铺</text>
 						</view>
 						<view class="region">
-							管理区域：{{userInfo.region}}
+							管理区域：{{userInfo.manag_area}}
 						</view>
 					</view>
 				</view>
@@ -33,7 +36,7 @@
 					总交易额
 				</view>
 				<view class="price">
-					{{userInfo.jine}}
+					{{userInfo.count_money}}
 				</view>
 			</view>
 		</view>
@@ -48,16 +51,20 @@
 				v-for="(item, index) in showList"
 				:key="index"
 				>
-					<image :src="item.img" mode=""></image>
+					<image :src="item.avatar" mode=""></image>
 					<view class="user_info">
 						<view class="name">
-							{{item.name}}
+							{{item.real_name}}
 						</view>
 						<view class="item">
 							电话: {{item.phone}}
 						</view>
 						<view class="item">
-							职位:{{item.zhiwei}}
+							<text v-if="item.position == 1">职位: 总监</text>
+							<text v-if="item.position == 2">职位: 省区经理</text>
+							<text v-if="item.position == 3">职位: 业务员</text>
+							<text v-if="item.position == 4">职位: 讲师</text>
+							<text v-if="item.position == 5">职位: 店铺</text>
 						</view>
 					</view>
 				</view>
@@ -150,12 +157,44 @@
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/chiefTeam',
+							method: 'POST',
+							data: {
+								token:'71eba9081ce315bc1f3b4cc33cb71981' //reg.data.token
+							},
+							success(res){
+								console.log('团队角色数据', res)
+								uni.hideLoading()
+								if(res.data.status === 200){
+									_this.userInfo = res.data.data.info
+									_this.showList = res.data.data.data
+								}else{
+									uni.showModal({
+										title:'提示',
+										content: res.data.msg
+									})
+								}
+								
+							}
+						})
+					}
+				})
+			},
 			renmClick() {
 				this.isShow = true
 			},
@@ -178,8 +217,11 @@
 			},
 			scroll: function(e) {
 				console.log(e)
-				this.old.scrollTop = e.detail.scrollTop
+				this.scrollTop = e.detail.scrollTop
 			},
+			lower(){
+				
+			}
 		}
 	}
 </script>

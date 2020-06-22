@@ -64,7 +64,7 @@
 			return {
 				loginType: 1, // 1账号密码登录 2 验证码登录
 				phone: '18080498101', //手机号
-				password: '123456', //密码
+				password: 'abc201200', //密码
 				invitationCode: '', // 验证码
 			}
 		},
@@ -136,12 +136,32 @@
 			},
 			// 判断是否登录
 			isLOgin(){
+				let _this = this
 				uni.getStorage({
 					key: 'userInfo',
 					success(res){
-						console.log('判断已登录')
-						uni.switchTab({
-							url: '../../index/index'
+						// 验证token
+						uni.request({
+							url: _this.$http + '/api/index/verToken',
+							method: 'POST',
+							data: {
+								token: res.data.token
+							},
+							success(reg){
+								console.log('token校验', reg)
+								if(reg.data.status === 200){
+									// token校验成功
+									uni.switchTab({
+										url: '../../index/index'
+									})
+								}else{
+									// token校验失败
+									uni.showModal({
+										title: '提示',
+										content: '登录已过期，请重新登录！'
+									})
+								}
+							}
 						})
 					},
 					fail(res) {
@@ -191,7 +211,7 @@
 							}else{
 								uni.showModal({
 									title: '提示',
-									content: '登录失败'
+									content: res.data.msg
 								})
 							}
 						}
@@ -206,38 +226,59 @@
 						})
 						return
 					}
+					// 判断验证码
 					uni.request({
-						url: _this.$http + '/api/index/phoneLogin',
+						url: _this.$http + '/api/index/ifPhoneCode',
 						method: 'POST',
-						data:{
-							phone: _this.phone
+						data: {
+							phone: _this.phone,
+							code: _this.invitationCode
 						},
-						success(backres){
-							console.log('验证码用户信息', backres.data.data)
-							if(backres.data.status === 200){
-								// 登录成功
-								_this.$store.commit('setUserInfo', backres.data.data)
-								console.log('l',_this.$store.state.userInfo)
-								uni.setStorage({
-									key: 'userInfo',
-									data: backres.data.data
-								})
-								uni.getStorage({
-									key: 'userInfo',
-									success(res){
-										console.log('本地储存的数据', res)
+						success(reh){
+							console.log('判断验证码返回',reh)
+							if(reh.data.status === 200){
+								// 校验验证码
+								uni.request({
+									url: _this.$http + '/api/index/phoneLogin',
+									method: 'POST',
+									data:{
+										phone: _this.phone
+									},
+									success(backres){
+										console.log('验证码用户信息', backres.data.data)
+										if(backres.data.status === 200){
+											// 登录成功
+											_this.$store.commit('setUserInfo', backres.data.data)
+											console.log('l',_this.$store.state.userInfo)
+											uni.setStorage({
+												key: 'userInfo',
+												data: backres.data.data
+											})
+											uni.getStorage({
+												key: 'userInfo',
+												success(res){
+													console.log('本地储存的数据', res)
+												}
+											})
+											// return
+											uni.switchTab({
+												url: '../../index/index'
+											})
+											
+											
+										}else{
+											uni.showModal({
+												title: '提示',
+												content: '登录失败！'
+											})
+										}
 									}
 								})
-								// return
-								uni.switchTab({
-									url: '../../index/index'
-								})
-								
 								
 							}else{
 								uni.showModal({
 									title: '提示',
-									content: '登录失败！'
+									content: '验证码校验失败'
 								})
 							}
 						}

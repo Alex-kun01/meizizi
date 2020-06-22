@@ -23,10 +23,10 @@
 						<view class="price_box">
 							<view>
 								<text style="font-size: 26rpx;">￥</text>
-								<text style="font-size: 32rpx;">{{orderInfo.money}}</text>
+								<text style="font-size: 32rpx;">{{allPrice}}</text>
 							</view>
 							<view style="font-size: 20rpx;color: #9F9F9F;text-align: right;">
-								x{{orderInfo.number}}
+								x{{addNum}}
 							</view>
 						</view>
 					</view>
@@ -58,27 +58,27 @@
 		
 		<!-- 支付方式 -->
 		<view class="pay_type">
-			<view class="item" @click="changePayType(1)">
+			<view class="item" @click="changePayType(2)">
 				<view class="left">
 					<image src="../../static/index/weixin@2x.png" mode=""></image>
 					<text>微信支付</text>
 				</view>
 				<view class="right">
-					<image v-if="isPayType === 1" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image v-if="isPayType === 2" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 			</view>
-			<view class="item" @click="changePayType(2)">
+			<view class="item" @click="changePayType(1)">
 				<view class="left">
-					<image src="../../static/index/weixin@2x.png" mode=""></image>
+					<image src="../../static/index/zhifubao@2x.png" mode=""></image>
 					<text>支付宝支付</text>
 				</view>
 				<view class="right">
-					<image  v-if="isPayType === 2" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image  v-if="isPayType === 1" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 			</view>
 			<view class="item" @click="changePayType(3)">
 				<view class="left">
-					<image src="../../static/index/weixin@2x.png" mode=""></image>
+					<image src="../../static/index/yue@2x.png" mode=""></image>
 					<text>余额(99.02)</text>
 				</view>
 				<view class="right">
@@ -101,22 +101,31 @@
 	export default {
 		data () {
 			return {
-				isPayType: 3, // 支付方式
+				isPayType: 3, // 支付方式 1 支付宝 2 微信 3余额
 				addNum: 1, // 数量
 				orderInfo: {}, //订单信息
 				opt: {}
 			}
+		},
+		computed:{
+			// 计算下单金额
+			allPrice(){
+			   return this.opt.danjia * this.addNum
+			},
 		},
 		onLoad(opt){
 			console.log('opt',opt)
 			this.opt = opt
 			console.log('下单参数', this.$store.state.productOrderInfo)
 			this.orderInfo = this.$store.state.productOrderInfo
+			this.addNum = this.$store.state.productOrderInfo.number
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 重新计算金额
+			
 			// 初始化支付方式存到vuex订单下单参数
 			initServer(){
 				this.$store.commit('setProductOrderInfoServer',this.isPayType)
@@ -137,12 +146,81 @@
 			addJia(){
 				this.addNum++
 			},
+			// 提交订单
 			submitClick(){
+				let _this = this
 				this.initServer()
+				// 提交订单时将用户在此页面选择的购买数量更新
+				this.orderInfo.money = this.allPrice
+				this.orderInfo.number = this.addNum
+				console.log('查看更新后的下单参数', this.orderInfo)
+				// return
 				
-				uni.navigateTo({
-					url: './pay'
-				})
+				if(this.isPayType == 1){
+					// 支付宝支付
+				   uni.request({
+				   	url: this.$http + '/api/goods/createOrder',
+				   	method: 'POST',
+				   	data: _this.orderInfo,
+				   	success(res){
+				   		console.log('下单返回数据', res)
+				   		if(res.data.status === 200){
+				   			// 创建订单成功
+				   			let datas = res.data.data.alipay
+							
+							
+				   			console.log('服务器返回的签名', datas)
+							
+							uni.requestPayment({
+								 provider: "alipay",
+								 orderInfo: datas,
+								 success: (res) => {
+									 console.log('支付宝返回数据', res)
+									 
+									 let orderIdstr = JSON.parse(res.rawdata).result
+									 let orderId =  JSON.parse(orderIdstr).alipay_trade_app_pay_response.out_trade_no
+									 
+									 console.log('获取到订单编号', orderId)
+									 // 付款成功
+									 uni.showToast({
+									 	title: '付款成功'
+									 })
+									 setTimeout(()=>{
+										 uni.redirectTo({
+										 	url: './orderdetails?type='+ '查看购物码' + '&orderId='+ orderId 
+										 })
+									 },1000)
+								 },
+								 fail(reh) {
+								 	console.log('支付宝错误信息',reh)
+								 }
+							})
+							
+							
+				   			
+				   		}else{
+				   			uni.showModal({
+				   				title: '提示',
+				   				content: res.data.msg
+				   			})
+				   		}
+				   	}
+				   })
+				}
+				if(this.isPayType == 2){
+					// 微信支付
+					uni.showModal({
+						title: '提示',
+						content: '微信支付尚未开通'
+					})
+					
+				}
+				if(this.isPayType == 3){
+					// 余额支付跳转自己的pay页面
+					uni.navigateTo({
+						url: './pay'
+					})
+				}
 			}
 		}
 	}
@@ -158,9 +236,12 @@
 	 }
 	page{
 		width: 100%;
+		height: 100%;
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			height: 100vh;
+			background-color: #F4F4F4;
 			.top_bar{
 				width: 100%;
 				box-sizing: border-box;
@@ -173,7 +254,7 @@
 			}
 			.con_box{
 				width:700rpx;
-				height:507rpx;
+				// height:507rpx;
 				background:rgba(255,255,255,1);
 				border-radius:12rpx;
 				box-sizing: border-box;

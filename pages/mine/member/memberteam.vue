@@ -13,10 +13,14 @@
 			:key="index"
 			>
 				<view class="img_l">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.avatar" mode=""></image>
 					<view class="con_box">
-						<view class="name">{{item.name}}</view>
-						<view class="zhiwei">职位：{{item.zhiwei}}</view>
+						<view class="name">{{item.real_name}}</view>
+						<view class="zhiwei" v-if="item.position == 1">职位：总监</view>
+						<view class="zhiwei" v-if="item.position == 2">职位：省区经理</view>
+						<view class="zhiwei" v-if="item.position == 3">职位：业务员</view>
+						<view class="zhiwei" v-if="item.position == 4">职位：店铺</view>
+						
 					</view>
 				</view>
 				<view class="btn_r" @click="renmClick(item, index)">任命</view>
@@ -64,44 +68,44 @@
 				 scrollTop: 0,
 				// 任命列表
 				renmingList: ['总监','省级代理','市级代理','讲师','业务员','总监','省级代理','市级代理','讲师','业务员'],
-				showList:[
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						zhiwei: '总监'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						zhiwei: '总监'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						zhiwei: '总监'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						zhiwei: '总监'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						zhiwei: '总监'
-					},
-					
-				],
+				showList:[],
 				
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/team/teamNum',
+							method: 'POST',
+							data: {
+								token: reg.data.token
+							},
+							success(res){
+								console.log('成员返回数据', res)
+								if(res.data.status === 200){
+									_this.showList = res.data.data
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+								
+							}
+						})
+					}
+				})
+			},
 			// 任命
 			renmClick(item, index) {
 				console.log(item, index)
@@ -159,6 +163,7 @@
 				padding: 24rpx;
 				display: flex;
 				align-items: center;
+				margin-top: 24rpx;
 				input{
 					color: #707070;
 					font-size: 26rpx;

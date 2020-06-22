@@ -179,7 +179,7 @@
 		{
 			"path": "pages/mine/member/teacher",
 			"style": {
-				"navigationBarTitleText": "讲师",
+				"navigationBarTitleText": "我的商家", // 我的商家-讲师
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},

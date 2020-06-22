@@ -207,6 +207,28 @@
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: '192.168.31.8/api/team/chiefTeam',
+							method:'POST',
+							data:{
+								token: reg.data.token
+							},
+							success(res){
+								uni.hideKeyboard()
+								console.log('我的团队返回数据', res)
+							}
+						})
+					}
+				})
+			},
 			changeIndex(index){
 				this.isActive = index
 			},

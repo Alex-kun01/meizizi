@@ -7,9 +7,9 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
 // 请求地址
-Vue.prototype.$http = 'http://192.168.31.14' //'http://122.51.77.56'
+Vue.prototype.$http = 'http://www.mzz2020.com' 
 // 客服电话
-Vue.prototype.$mobel = '17683059017'
+Vue.prototype.$mobel = '17780156403'
 
 const app = new Vue({
     ...App

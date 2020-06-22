@@ -120,6 +120,7 @@
 				hours: '', //小时数
 				minute: '', // 分钟数
 				second: '', // 秒数
+				orderId: '', // 接收opt的订单id
 				times: null, // 
 				opt: {},
 				orderInfo: {
@@ -143,7 +144,13 @@
 		},
 		onLoad(opt){
 			console.log('opt', opt)
+			
 			this.opt = opt
+			if(opt.orderId){
+				// 接收付款后页面跳转返回的订单id
+				this.orderId = opt.orderId 
+			}
+			
 			if(opt.type == '待付款'){
 				this.isPayEnd = false
 			}

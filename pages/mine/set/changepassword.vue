@@ -94,7 +94,9 @@
 								password: _this.oldpassword,
 								new_password: _this.newPassword
 							}
-							
+							uni.showLoading({
+								title: ''
+							})
 							uni.request({
 								url: _this.$http + '/api/index/editPassword',
 								method: 'post',
@@ -102,13 +104,15 @@
 								success(res) {
 									console.log('修改密码返回数据', res)
 									if(res.data.status === 200){
-										uni.showModal({
-											title: '提示',
-											content: '修改成功'
+										uni.showToast({
+											title: '修改成功'
 										})
-										uni.navigateBack({
-											
+										uni.hideLoading()
+										setTimeout(()=>{
+											uni.switchTab({
+												url: '../mine'
 											})
+										}, 1000)
 									}else{
 										uni.showModal({
 											title: '提示',

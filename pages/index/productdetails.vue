@@ -4,45 +4,38 @@
 	:scroll-into-view="toView" 
 	scroll-y="true"
 	scroll-with-animation="true"
+	@touchstart='touchstart'
+	@touchend='touchend'
 	>
-		<view class="titleNview-placing"></view>
-		<view class="top_search">
-			<image @click="goback" style="width: 20rpx;height: 34rpx;" src="../../static/index/fanhui@2x.png" mode=""></image>
-			<view class="search_box">
-				<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-				<input type="text" v-model="searchValue" placeholder="神仙水" />
+			<view class="titleNview-placing"></view>
+			<!-- 顶部搜索 -->
+			<view class="top_search">
+				<image @click="goback" style="width: 20rpx;height: 34rpx;" src="../../static/index/fanhui@2x.png" mode=""></image>
+				<view class="search_box">
+					<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
+					<input type="text" v-model="searchValue" placeholder="神仙水" />
+				</view>
+				<image @click="share" style="width: 28rpx;height: 32rpx;" src="../../static/index/femxiang@2x.png" mode=""></image>
 			</view>
-			<image style="width: 28rpx;height: 32rpx;" src="../../static/index/femxiang@2x.png" mode=""></image>
-		</view>
-		<!-- 图片展示 -->
-		<view class="pic_box"
-		:id="shangpin"
-		>
-			<!-- <image style="width: 454rpx;height: 490rpx;" src="../../static/index/pic44.png" mode=""></image> -->
-			
-			
-			
-			
-			<view class="menu_list">
-				<view :class="{item: true, active: isActive == 1}" @click='changeActive(1)'>
+			<!-- 导航菜单 -->
+			<view class="menu_list"
+			v-if="isShowNavagatar"
+			>
+				<view :class="{item: true, active: isActive == 1}" @click='getElement(1)'>
 					商品
 				</view>
 				<view 
-				:class="{item: true, active: isActive == 2}"
-				@click='changeActive(2)'
-				>
+				:class="{item: true, active: isActive == 2}" @click='getElement(2)'>
 				
 					评价
 				</view>
-				<view :class="{item: true, active: isActive == 3}" @click='changeActive(3)'>
+				<view :class="{item: true, active: isActive == 3}" @click='getElement(3)'>
 					详情
 				</view>
-				<view :class="{item: true, active: isActive == 4}" @click='changeActive(4)'>
+				<view :class="{item: true, active: isActive == 4}" @click='getElement(4)'>
 					推荐
 				</view>
 			</view>
-			
-			
 			
 		</view>
 		<!-- 轮播 -->
@@ -53,7 +46,6 @@
 				:key="imx"
 				>
 					<image :src="img" mode=""></image>
-					<!-- <image style="width: 454rpx;height: 490rpx;" src="../../static/index/pic44.png" mode=""></image> -->
 				</swiper-item>
 			</swiper>
 		</view>
@@ -174,35 +166,17 @@
 			<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">保障</text>
 			<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 七天无理由退换</text>
 		</view>
-		<!-- 详情 -->
-		<!-- <view class="color_type"
-		:id="xiangqing"
-		>
-			<view class="top_btn">
-				<view>
-					<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">选择</text>
-					<text style="font-size: 26rpx;color: #3E3E3E;">选择颜色分类</text>
-				</view>
-				<image style="width: 12rpx;height: 19rpx;" src="../../static/index/chakan@2x.png" mode=""></image>
-			</view>
-			<view class="bom_pic">
-				<view class="pic">
-					<image style="width: 36rpx;height: 38rpx;" src="../../static/index/shop31.png" mode=""></image>
-					<image style="width: 36rpx;height: 38rpx;" src="../../static/index/shop31.png" mode=""></image>
-					<image style="width: 36rpx;height: 38rpx;" src="../../static/index/shop31.png" mode=""></image>
-					<image style="width: 36rpx;height: 38rpx;" src="../../static/index/shop31.png" mode=""></image>
-				</view>
-				<view class="pic_text">
-					共17种颜色分类可选
-				</view>
-			</view>
-		</view> -->
-		<!-- 宝贝评价 -->
+		<!--
+		 宝贝评价
+		 -->
 		<view class="baby_Pingjia"
 		:id="pingjia"
+		v-if="evaList.eva_list.length != 0"
 		>
 			<view class="top_btn">
-				<text  style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;">宝贝评价(16211)</text>
+				<text  style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;">
+					宝贝评价{{evaList.ex_count+evaList.in_count+evaList.di_count}}
+					</text>
 				<view class="right_btn"
 				@click="gotopingjia"
 				>
@@ -212,13 +186,13 @@
 			</view>
 			<view class="con_box">
 				<view class="item">
-					好评(90)
+					好评{{'(' + evaList.ex_count +')'}}
 				</view>
 				<view class="item">
-					中评(30)
+					中评{{'(' + evaList.in_count +')'}}
 				</view>
 				<view class="item">
-					差评(0)
+					差评{{'('+ evaList.di_count +')'}}
 				</view>
 			</view>
 			<view class="user_info"
@@ -226,37 +200,31 @@
 			>
 				<view class="user_name"
 				>
-					<image style="width: 43rpx;height: 41rpx;border-radius: 50%;" src="../../static/index/QQ.png" mode=""></image>
+					<image style="width: 43rpx;height: 41rpx;border-radius: 50%;"
+					v-if="evaList.eva_list[0].avatar"
+					:src="evaList.eva_list[0].avatar" mode=""></image>
 					<view class="user_n_name">
-						葡萄葡萄
+						{{evaList.eva_list[0].nickname}}
 					</view>
 				</view>
 				<view class="user_text">
-					细节做的特别好，涂上也毫无压力超气质，御姐范儿，外表 漂亮富有时尚感，非常显白又能完美衬托肤色,非常显白又能完美衬托肤色
+					{{evaList.eva_list[0].comment}}
 				</view>
 			</view>
 		</view>
-		<!-- 买家秀 -->
-		<!-- <view class="maijia_xiu">
-			<view class="top_btn">
-				<text  style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;">买家秀(12)</text>
-				<view class="right_btn"
-				@click="gotomaijia"
-				>
-					<text style="font-size: 26rpx;color: #FF7300;font-weight: 500;">查看全部</text>
-					<image style="width: 12rpx;height: 19rpx;margin-left: 25rpx;" src="../../static/index/chakangengduo@2x.png" mode=""></image>
-				</view>
-			</view>
-			<view class="maijia_pic">
-				<view class="item"
-				v-for="(item, index) in 2"
-				:key="index"
-				>
-					<image style="width: 351rpx;height: 272rpx;" src="../../static/index/maijiaxiu1.png" mode=""></image>
-				</view>
-			</view>
-		</view> -->
-		<!-- 看了又看 -->
+		
+		<!-- 
+		详情列表 
+		-->
+		<view  :id="xiangqing"
+			v-html="info.description"
+			class="description"
+		>
+			
+		</view>
+		<!-- 
+		看了又看
+		 -->
 		<view class="like_box"
 		:id="tuijian"
 		>
@@ -332,7 +300,9 @@
 				<view class="top_pic">
 					<view class="img">
 						<image style="width: 149rpx;height: 162rpx;" :src="targetProduct.image || staticImage" mode=""></image>
-						<view class="float_btn">
+						<view class="float_btn"
+						v-if="isPreslale"
+						>
 							预计2020.6.16取货
 						</view>
 					</view>
@@ -429,6 +399,11 @@
 				isPreslale: false, // 预售  是否有预售
 				fightTogether: false, // 拼团 是否有拼团
 				isBuyto: false, // 买二送一 是否有买二送一
+				startPageY: 0, // 当前位置
+				isShowNavagatar: false, //控制导航条显示
+				evaList: {
+					eva_list:[]
+				}, // 评价info
 			}
 		},
 		computed:{
@@ -458,20 +433,54 @@
 					num = this.payNum * this.info.price
 				}
 				return num
+			},
+			// 单价
+			danjia(){
+				let num
+				let temp = this.productValue[this.paySpecStr] || {}
+				if(temp.suk){
+					num = temp.price
+				}else{
+					num = this.info.price
+				}
+				return num
 			}
 		},
 		onLoad(opt){
 			console.log('产品详情opt',opt)
 			this.opt = opt
-			// this.getData(opt)
+			this.getData(opt)
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getElement(index){
+				// console.log('document', document)
+				// //  评价元素
+				// var pingjia = document.getElementById('pingjia')
+				// // 详情元素
+				// var xiangqing = document.getElementById('xiangqing')
+				// // 推荐元素
+				// var tuijian = document.getElementById('tuijian')
+				
+				uni.getSystemInfo({
+				　　success: function(res) { // res - 各种参数
+				　　   console.log('res',res); // 屏幕的宽度 
+				
+				　　    let info = uni.createSelectorQuery().select(".description");
+						console.log('description', info)
+				　　　  　info.boundingClientRect(function(data) { //data - 各种参数
+				　　　  　console.log(data.height)  // 获取元素宽度
+				　　    }).exec()
+				       }
+				})
+				
+			},
 			getData(opt){
 				let _this = this
 				let userInfo = this.$store.state.userInfo
+				console.log('userInfo', userInfo)
 				uni.showLoading({
 					title: '加载中...'
 				})
@@ -480,7 +489,7 @@
 					method:'POST',
 					data: {
 						id: opt.id,
-						uid: userInfo.uid
+						uid: userInfo.uid || ''
 					},
 					success(res){
 						console.log('产品详情返回数据', res)
@@ -491,6 +500,13 @@
 							_this.productValue = res.data.data.productValue
 							_this.productAttr = res.data.data.productAttr
 							_this.staticImage = res.data.data.info.image
+							let newEvaList = res.data.data.eva_list 
+							
+							newEvaList.eva_list.forEach(item =>{
+								item.avatar = _this.$http + item.avatar
+							})
+							console.log('修改后', newEvaList)
+							_this.evaList = newEvaList
 							uni.hideLoading()
 						}else{
 							uni.showModal({
@@ -501,8 +517,59 @@
 					}
 				})
 			},
+			// 分享
+			share(){
+				return
+				uni.share({
+				    provider: "weixin",
+				    scene: "WXSceneSession",
+				    type: 1,
+				    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+				    success: function (res) {
+				        console.log("success:" + JSON.stringify(res));
+				    },
+				    fail: function (err) {
+				        console.log("fail:" + JSON.stringify(err));
+				    }
+				});
+			},
+			// 手指放上屏幕
+			touchstart(event){
+				// console.log('手指放上位置', event.changedTouches[0].pageY)
+				// 记录手指放上屏幕的位置
+				if(this.isShowShopCart){
+					// 购物车弹窗弹出时
+					return
+				}
+				this.startPageY = event.changedTouches[0].pageY
+			},
+			// 手指离开屏幕
+			touchend(event){
+				// console.log('手指离开位置', event.changedTouches[0].pageY)
+				// 记录手指离开的位置
+				if(this.isShowShopCart){
+					// 购物车弹窗弹出时
+					return
+				}
+				let endPageY = event.changedTouches[0].pageY
+				
+				let distance = endPageY - this.startPageY
+				console.log('移动距离', distance)
+				// 判断用户向上/向下滑动
+				if(distance === 0){
+					// 普通点击 不动
+				}
+				if(distance < 0){
+					// 向下滑动
+						this.isShowNavagatar = true
+				}
+				if(distance > 0){
+					// 向上滑动
+					this.isShowNavagatar = false
+				}
+			},
 			// 将所需参数存到本地
-			initcanshu(){
+			initcanshu(type){
 				let _this = this
 				uni.getStorage({
 					key: 'userInfo',
@@ -523,6 +590,12 @@
 						// 将下单参数存到vuex
 						_this.$store.commit('setProductOrderInfo', data)
 						console.log('本地存储订单参数',_this.$store.state.productOrderInfo)
+						if(type == 1){
+							// 立即购买
+							uni.navigateTo({
+								url:'./confirmorder?store_name=' + _this.info.store_name + '&store_info=' + _this.info.store_info + '&image=' + _this.info.image +'&danjia=' + _this.danjia
+							})
+						}
 					}
 				})
 				
@@ -654,9 +727,8 @@
 				}else{
 					
 					// 立即购买
-					uni.navigateTo({
-						url:'./confirmorder?store_name=' + this.info.store_name + '&store_info=' + this.info.store_info + '&image=' + this.info.image
-					})
+					this.initcanshu(1)
+					
 				}
 				
 				this.isShowShopCart = false
@@ -770,6 +842,61 @@
 			width: 100%;
 			height: 100%;
 			background: #F4F4F4;
+				.top_search{
+					width: 100%;
+					box-sizing: border-box;
+					padding: 30rpx;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.search_box{
+						width:587rpx;
+						height:57rpx;
+						background:#FFFFFF;
+						box-sizing: border-box;
+						padding: 0 30rpx;
+						border-radius:27rpx;
+						display: flex;
+						align-items: center;
+						image{
+							margin-right: 30rpx;
+						}
+						input{
+							font-size: 26rpx;
+							color: #5E5E5E;
+							font-weight: 500;
+						}
+					}
+					.quxiao{
+						font-size:26rpx;
+						font-weight:500;
+						color:rgba(41,41,41,1);
+					}
+				}
+				.menu_list{
+					width: 100%;
+					height: 76rpx;
+					background-color: #FFFFFF;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					opacity: .9;
+					font-size: 28rpx;
+					font-weight: 500;
+					line-height: 100rpx;
+					position: fixed;
+					top: 80rpx;
+					z-index: 9999;
+					.item{
+						height: 85rpx;
+						box-sizing: border-box;
+						margin-right: 80rpx;
+					}
+					.item.active{
+						border-bottom:  5rpx solid #FF792C;
+						color: #FF792C;
+					}
+				}
 			.fightTogether{
 				width: 100%;
 				background-color: #FFFFFF;
@@ -891,80 +1018,29 @@
 				}
 				
 			}
-			.top_search{
-				width: 100%;
-				box-sizing: border-box;
-				padding: 30rpx;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				.search_box{
-					width:587rpx;
-					height:57rpx;
-					background:#FFFFFF;
-					box-sizing: border-box;
-					padding: 0 30rpx;
-					border-radius:27rpx;
-					display: flex;
-					align-items: center;
-					image{
-						margin-right: 30rpx;
-					}
-					input{
-						font-size: 26rpx;
-						color: #5E5E5E;
-						font-weight: 500;
-					}
-				}
-				.quxiao{
-					font-size:26rpx;
-					font-weight:500;
-					color:rgba(41,41,41,1);
-				}
-			}
+			
 			.lunbo{
-				// width: 100%;
-				// height: 320rpx;
+				height: 679rpx;
 				background-color: #FFFFFF;
-				// box-sizing: border-box;
-				// padding: 24rpx;
-				// margin-bottom: 50rpx;
-				padding-bottom: 50rpx;
-				
+				position: relative;
+				swiper{
+					// background-color: pink;
+					height: 100%;
+					image{
+						width: 100%;
+					}
+				}
 			}
 			.pic_box{
 				width: 100%;
 				height: 80rpx;
 				text-align: center;
-				position: relative;
+				position: fixed;
+				top: 0;
+				z-index: 999;
 				
 				
-				.menu_list{
-					width: 100%;
-					height: 76rpx;
-					line-height: 100rpx;
-					background-color: #FFFFFF;
-					box-sizing: border-box;
-					padding: 0 30rpx;
-					position: relative;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					font-size: 28rpx;
-					color: #69686C;
-					font-weight: 500;
-					opacity: .8;
-					position: absolute;
-					top: 0;
-					.item{
-						height: 85rpx;
-						box-sizing: border-box;
-					}
-					.item.active{
-						border-bottom:  5rpx solid #FF792C;
-						color: #FF792C;
-					}
-				}
+				
 			}
 			.price_title{
 				width: 100%;
@@ -1153,6 +1229,9 @@
 					display: flex;
 					margin-top: 20rpx;
 				}
+			}
+			.description{
+				width: 100%;
 			}
 			.like_box{
 				margin-top: 40rpx;

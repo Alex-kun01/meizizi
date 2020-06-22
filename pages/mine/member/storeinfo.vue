@@ -15,10 +15,10 @@
 			v-for="(item, index) in showList"
 			:key='index'
 			>
-				<view class="item_i">{{item.storeName}}</view>
+				<view class="item_i">{{item.store_name}}</view>
 				<view class="item_i">{{item.price}}</view>
-				<view class="item_i"><text>{{item.shengyu}}/<text>{{item.kucun}}</text></text></view>
-				<view class="item_i">{{item.yingyee}}</view>
+				<view class="item_i"><text>{{item.stock}}/<text>{{item.stock}}</text></text></view>
+				<view class="item_i">{{item.turnover}}</view>
 			</view>
 		</view>
 		
@@ -30,67 +30,49 @@
 		data () {
 			return {
 				titleList: ['商品名', '单价' , '库存', '营业额'],
-				showList: [
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						yingyee: 4500
-					}
-				]
+				opt: {},
+				showList: []
 			}
 		},
-		onLoad(){
+		onLoad(opt){
+			this.opt = opt
+			this.getData(opt.id)
 			
 		},
 		onShow(){
 			
 		},
 		methods:{
-			
+			getData(id){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/shopInfo',
+							method: 'POST',
+							data: {
+								token: '8300ee357cf18d92ab2712818108a3e8',// reg.data.token,
+								mid: id || 1
+							},
+							success(res){
+								uni.hideLoading()
+								console.log('店铺信息数据', res)
+								if(res.data.status === 200){
+									_this.showList = res.data.data
+								}else{
+									uni.showModal({
+										title: '店铺信息数据获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

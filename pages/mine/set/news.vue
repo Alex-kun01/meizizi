@@ -144,7 +144,8 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
-			height: 100vh;
+			height: 100%;
+			min-height: 100vh;
 			background-color: #F4F4F4;
 			.loading{
 				width: 100%;

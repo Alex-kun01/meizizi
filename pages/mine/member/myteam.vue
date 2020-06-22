@@ -16,25 +16,25 @@
 			</view>
 			<view class="tab_box">
 				<view class="title">
-					团队总人数200人
+					团队总人数{{info.total}}人
 				</view>
 				<view class="hen"></view>
 				<view class="bom_box">
 					<view class="item">
 						<text>总监</text>
-						<text class="num">30</text>
+						<text class="num">{{info.chief}}</text>
 					</view>
 					<view class="item">
 						<text>省区经理</text>
-						<text class="num">30</text>
+						<text class="num">{{info.area}}</text>
 					</view>
 					<view class="item">
 						<text>业务员</text>
-						<text class="num">40</text>
+						<text class="num">{{info.salesman}}</text>
 					</view>
 					<view class="item">
 						<text>讲师</text>
-						<text class="num">40</text>
+						<text class="num">{{info.teacher}}</text>
 					</view>
 				</view>
 			</view>
@@ -47,13 +47,17 @@
 			:key='index'
 			@click="gototarget(item)"
 			>
-				<image :src="item.img" mode=""></image>
+				<image :src="item.head_img || '../../../static/index/item4.png'" mode=""></image>
 				<view class="con_r">
 					<view class="name">
-						{{item.name}}
+						{{item.real_name || '暂无姓名'}}
 					</view>
 					<text>电话：{{item.phone}}</text>
-					<text>职位：{{item.zhiwei}}</text>
+					<text v-if="item.position == 1">职位：总监</text>
+					<text v-if="item.position == 2">职位：省区经理</text>
+					<text v-if="item.position == 3">职位：业务员</text>
+					<text v-if="item.position == 4">职位：讲师</text>
+					<text v-if="item.position == 5">职位：店铺</text>
 				</view>
 			</view>
 		</view>
@@ -66,66 +70,63 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '总监'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '省区经理'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '讲师'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '业务员'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '业务员'
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						phone: 123456,
-						zhiwei: '讲师'
-					},
-				]
+				// 信息
+				info: {},
+				showList: []
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				console.log('我执行了')
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/myTeam',
+							method:'POST',
+							data:{
+								token: 'b90b4487aff36cef4aa066558faf4c10' // reg.data.token
+							},
+							success(res){
+								uni.hideLoading()
+								console.log('我的团队返回数据', res)
+								if(res.data.status === 200){
+									_this.info = res.data.data.data
+									_this.showList = res.data.data.info
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			gototarget(item){
 				let url 
 				console.log('',item)
-				if(item.zhiwei == '总监'){
+				if(item.position == 1){
 					url = './regionset'
 				}
-				if(item.zhiwei == '省区经理'){
+				if(item.position == 2){
 					url = './shenregion'
 				}
-				if(item.zhiwei == '讲师'){
+				if(item.position == 3){
 					url = './teacherregion'
 				}
-				if(item.zhiwei == '业务员'){
+				if(item.position == 4){
 					
 				}
 				uni.navigateTo({
@@ -160,6 +161,9 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			height: 100%;
+			min-height: 100vh;
+			background-color: #FFFFFF;
 			.top_box{
 				width:750rpx;
 				height:192rpx;

@@ -1290,7 +1290,6 @@ var render = function() {
                 { key: img, attrs: { _i: "15-" + $30 } },
                 [
                   _c("v-uni-image", {
-                    staticStyle: { width: "700rpx", height: "296rpx" },
                     attrs: {
                       src: _vm._$g("16-" + $30, "a-src"),
                       mode: "",
@@ -1819,7 +1818,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-c022dd1e] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-c022dd1e] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-c022dd1e] {\n  width: 100%;\n  height: 100%;\n  background-color: #F4F4F4;\n}\nbody .content .top_search[data-v-c022dd1e] {\n  width: 100%;\n  height: 60rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  padding: 50rpx 25rpx 30rpx 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  background-color: #FFFFFF;\n}\nbody .content .top_search .float[data-v-c022dd1e] {\n  width: 18rpx;\n  height: 18rpx;\n  background: -webkit-linear-gradient(269deg, #ff830b, #ff5807);\n  background: linear-gradient(181deg, #ff830b, #ff5807);\n  border-radius: 50%;\n  font-size: 18rpx;\n  color: #FFFFFF;\n  line-height: 18rpx;\n  text-align: center;\n  position: absolute;\n  top: 0;\n  right: -5rpx;\n}\nbody .content .top_search uni-image[data-v-c022dd1e] {\n  width: 46rpx;\n  height: 47rpx;\n}\nbody .content .top_search .search_box[data-v-c022dd1e] {\n  height: 60rpx;\n  width: 437rpx;\n  border: 2rpx solid #e31c43;\n  border-radius: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  padding-left: 24rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  position: relative;\n}\nbody .content .top_search .search_box uni-input[data-v-c022dd1e] {\n  color: #707070;\n  font-size: 26rpx;\n  margin-left: 25rpx;\n}\nbody .content .top_search .search_box .search_btn[data-v-c022dd1e] {\n  width: 100rpx;\n  height: 60rpx;\n  line-height: 60rpx;\n  font-size: 26rpx;\n  text-align: center;\n  color: #FFFFFF;\n  background: -webkit-linear-gradient(173deg, #ff5507, #ff840b);\n  background: linear-gradient(-83deg, #ff5507, #ff840b);\n  border-radius: 30px;\n  position: absolute;\n  right: 0;\n}\nbody .content .lunbo[data-v-c022dd1e] {\n  width: 100%;\n  height: 320rpx;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  padding-bottom: 60rpx;\n}\nbody .content .menu_box[data-v-c022dd1e] {\n  width: 100%;\n  padding: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n  padding-top: 40rpx;\n}\nbody .content .menu_box .swiper .item[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .menu_box .swiper .item .box[data-v-c022dd1e] {\n  width: 140rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 30rpx;\n}\nbody .content .menu_box .swiper .item .box uni-image[data-v-c022dd1e] {\n  width: 77rpx;\n  height: 77rpx;\n}\nbody .content .menu_box .swiper .item .box uni-text[data-v-c022dd1e] {\n  font-size: 24rpx;\n  font-weight: 500;\n  color: #333333;\n}\nbody .content .menu_list[data-v-c022dd1e] {\n  width: 750rpx;\n  height: 345rpx;\n  padding: 25rpx;\n  background-color: #FFFFFF;\n  padding: 43rpx 0 41rpx 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .menu_list .menu_item[data-v-c022dd1e] {\n  width: 140rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .menu_list uni-image[data-v-c022dd1e] {\n  width: 77rpx;\n  height: 77rpx;\n}\nbody .content .menu_list .text[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #333333;\n}\nbody .content .activity[data-v-c022dd1e] {\n  width: 750rpx;\n  height: 552rpx;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n}\nbody .content .activity uni-image[data-v-c022dd1e] {\n  width: 100%;\n  height: 100%;\n}\nbody .content .today[data-v-c022dd1e] {\n  width: 750rpx;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 45rpx;\n}\nbody .content .today .today_top[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .today .today_top .time_box[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .today .today_top .time_box .miaosha[data-v-c022dd1e] {\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n  margin-right: 27rpx;\n}\nbody .content .today .today_top .time_box .black_time .item[data-v-c022dd1e] {\n  display: inline-block;\n  width: 36rpx;\n  height: 42rpx;\n  line-height: 42rpx;\n  text-align: center;\n  font-size: 24rpx;\n  font-weight: bold;\n  background-color: black;\n  color: #FFFFFF;\n  border-radius: 8rpx;\n}\nbody .content .today .today_top .more_btn uni-text[data-v-c022dd1e] {\n  color: #FF5807;\n  font-size: 30rpx;\n}\nbody .content .today .today_list[data-v-c022dd1e] {\n  margin-top: 34rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .today .today_list .item[data-v-c022dd1e] {\n  width: 329rpx;\n  border-radius: 12rpx;\n  margin-bottom: 24rpx;\n  background-color: #FFFFFF;\n}\nbody .content .today .today_list .item .title[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #272727;\n  padding: 0 18rpx;\n}\nbody .content .today .today_list .item .bom_mes[data-v-c022dd1e] {\n  margin-top: 20rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  padding: 0 12rpx;\n  margin-bottom: 10rpx;\n  font-size: 24rpx;\n}\nbody .content .today .today_list .item .bom_mes uni-image[data-v-c022dd1e] {\n  width: 21rpx;\n  height: 21rpx;\n}\nbody .content .today .today_list .item .bom_mes .price[data-v-c022dd1e] {\n  color: #FF5807;\n  font-weight: bold;\n  margin-left: 5rpx;\n}\nbody .content .today .today_list .item .bom_mes .oldPrice[data-v-c022dd1e] {\n  margin-left: 23rpx;\n  font-size: 22rpx;\n  color: #666666;\n  text-decoration: line-through;\n}\nbody .content .today .today_list .item .bom_mes .dian[data-v-c022dd1e] {\n  font-weight: bold;\n  margin-right: 10rpx;\n}\nbody .content .today .today_list uni-image[data-v-c022dd1e] {\n  width: 329rpx;\n  height: 323rpx;\n  border-radius: 12rpx 12rpx 0 0;\n}\nbody .content .recommend[data-v-c022dd1e] {\n  width: 100%;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .recommend .title[data-v-c022dd1e] {\n  margin-bottom: 20rpx;\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n}\nbody .content .recommend uni-image[data-v-c022dd1e] {\n  width: 700rpx;\n  height: 219rpx;\n}\nbody .content .Topic[data-v-c022dd1e] {\n  width: 100%;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 15rpx;\n}\nbody .content .Topic .titles[data-v-c022dd1e] {\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n  margin-bottom: 30rpx;\n}\nbody .content .Topic .Topic_list[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .Topic .Topic_list .item[data-v-c022dd1e] {\n  width: 335rpx;\n  height: 341rpx;\n  background-color: #FFFFFF;\n  border-radius: 6rpx 6rpx 0rpx 0rpx;\n  margin-bottom: 24rpx;\n}\nbody .content .Topic .Topic_list .item .img[data-v-c022dd1e] {\n  width: 100%;\n  height: 250rpx;\n  position: relative;\n  padding: 22rpx 0 0 67rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .Topic .Topic_list .item .bom_con[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info[data-v-c022dd1e] {\n  width: 250rpx;\n  font-size: 24rpx;\n  padding-left: 26rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .title[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #272727;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  margin: 10rpx 0;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 10rpx;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box .price[data-v-c022dd1e] {\n  margin-left: 10rpx;\n  color: #FF5807;\n  font-weight: bold;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box .oldPrice[data-v-c022dd1e] {\n  margin-left: 23rpx;\n  text-decoration: line-through;\n}\nbody .content .Topic .Topic_list .item .bom_con .right_btn[data-v-c022dd1e] {\n  width: 85rpx;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-c022dd1e] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-c022dd1e] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-c022dd1e] {\n  width: 100%;\n  height: 100%;\n  background-color: #F4F4F4;\n}\nbody .content .top_search[data-v-c022dd1e] {\n  width: 100%;\n  height: 60rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  padding: 50rpx 25rpx 30rpx 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  background-color: #FFFFFF;\n}\nbody .content .top_search .float[data-v-c022dd1e] {\n  width: 18rpx;\n  height: 18rpx;\n  background: -webkit-linear-gradient(269deg, #ff830b, #ff5807);\n  background: linear-gradient(181deg, #ff830b, #ff5807);\n  border-radius: 50%;\n  font-size: 18rpx;\n  color: #FFFFFF;\n  line-height: 18rpx;\n  text-align: center;\n  position: absolute;\n  top: 0;\n  right: -5rpx;\n}\nbody .content .top_search uni-image[data-v-c022dd1e] {\n  width: 46rpx;\n  height: 47rpx;\n}\nbody .content .top_search .search_box[data-v-c022dd1e] {\n  height: 60rpx;\n  width: 437rpx;\n  border: 2rpx solid #e31c43;\n  border-radius: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  padding-left: 24rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  position: relative;\n}\nbody .content .top_search .search_box uni-input[data-v-c022dd1e] {\n  color: #707070;\n  font-size: 26rpx;\n  margin-left: 25rpx;\n}\nbody .content .top_search .search_box .search_btn[data-v-c022dd1e] {\n  width: 100rpx;\n  height: 60rpx;\n  line-height: 60rpx;\n  font-size: 26rpx;\n  text-align: center;\n  color: #FFFFFF;\n  background: -webkit-linear-gradient(173deg, #ff5507, #ff840b);\n  background: linear-gradient(-83deg, #ff5507, #ff840b);\n  border-radius: 30px;\n  position: absolute;\n  right: 0;\n}\nbody .content .lunbo[data-v-c022dd1e] {\n  width: 100%;\n  height: 324rpx;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .lunbo uni-swiper[data-v-c022dd1e] {\n  height: 100%;\n}\nbody .content .lunbo uni-swiper uni-image[data-v-c022dd1e] {\n  width: 100%;\n  height: 276rpx;\n}\nbody .content .menu_box[data-v-c022dd1e] {\n  width: 100%;\n  padding: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n  padding-top: 40rpx;\n}\nbody .content .menu_box .swiper .item[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .menu_box .swiper .item .box[data-v-c022dd1e] {\n  width: 140rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 30rpx;\n}\nbody .content .menu_box .swiper .item .box uni-image[data-v-c022dd1e] {\n  width: 77rpx;\n  height: 77rpx;\n}\nbody .content .menu_box .swiper .item .box uni-text[data-v-c022dd1e] {\n  font-size: 24rpx;\n  font-weight: 500;\n  color: #333333;\n}\nbody .content .menu_list[data-v-c022dd1e] {\n  width: 750rpx;\n  height: 345rpx;\n  padding: 25rpx;\n  background-color: #FFFFFF;\n  padding: 43rpx 0 41rpx 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .menu_list .menu_item[data-v-c022dd1e] {\n  width: 140rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .menu_list uni-image[data-v-c022dd1e] {\n  width: 77rpx;\n  height: 77rpx;\n}\nbody .content .menu_list .text[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #333333;\n}\nbody .content .activity[data-v-c022dd1e] {\n  width: 750rpx;\n  height: 552rpx;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n}\nbody .content .activity uni-image[data-v-c022dd1e] {\n  width: 100%;\n  height: 100%;\n}\nbody .content .today[data-v-c022dd1e] {\n  width: 750rpx;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 45rpx;\n}\nbody .content .today .today_top[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .today .today_top .time_box[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .today .today_top .time_box .miaosha[data-v-c022dd1e] {\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n  margin-right: 27rpx;\n}\nbody .content .today .today_top .time_box .black_time .item[data-v-c022dd1e] {\n  display: inline-block;\n  width: 36rpx;\n  height: 42rpx;\n  line-height: 42rpx;\n  text-align: center;\n  font-size: 24rpx;\n  font-weight: bold;\n  background-color: black;\n  color: #FFFFFF;\n  border-radius: 8rpx;\n}\nbody .content .today .today_top .more_btn uni-text[data-v-c022dd1e] {\n  color: #FF5807;\n  font-size: 30rpx;\n}\nbody .content .today .today_list[data-v-c022dd1e] {\n  margin-top: 34rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .today .today_list .item[data-v-c022dd1e] {\n  width: 329rpx;\n  border-radius: 12rpx;\n  margin-bottom: 24rpx;\n  background-color: #FFFFFF;\n}\nbody .content .today .today_list .item .title[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #272727;\n  padding: 0 18rpx;\n}\nbody .content .today .today_list .item .bom_mes[data-v-c022dd1e] {\n  margin-top: 20rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  padding: 0 12rpx;\n  margin-bottom: 10rpx;\n  font-size: 24rpx;\n}\nbody .content .today .today_list .item .bom_mes uni-image[data-v-c022dd1e] {\n  width: 21rpx;\n  height: 21rpx;\n}\nbody .content .today .today_list .item .bom_mes .price[data-v-c022dd1e] {\n  color: #FF5807;\n  font-weight: bold;\n  margin-left: 5rpx;\n}\nbody .content .today .today_list .item .bom_mes .oldPrice[data-v-c022dd1e] {\n  margin-left: 23rpx;\n  font-size: 22rpx;\n  color: #666666;\n  text-decoration: line-through;\n}\nbody .content .today .today_list .item .bom_mes .dian[data-v-c022dd1e] {\n  font-weight: bold;\n  margin-right: 10rpx;\n}\nbody .content .today .today_list uni-image[data-v-c022dd1e] {\n  width: 329rpx;\n  height: 323rpx;\n  border-radius: 12rpx 12rpx 0 0;\n}\nbody .content .recommend[data-v-c022dd1e] {\n  width: 100%;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .recommend .title[data-v-c022dd1e] {\n  margin-bottom: 20rpx;\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n}\nbody .content .recommend uni-image[data-v-c022dd1e] {\n  width: 700rpx;\n  height: 276rpx;\n}\nbody .content .Topic[data-v-c022dd1e] {\n  width: 100%;\n  padding: 0 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 15rpx;\n}\nbody .content .Topic .titles[data-v-c022dd1e] {\n  font-size: 36rpx;\n  color: #222222;\n  font-weight: bold;\n  margin-bottom: 30rpx;\n}\nbody .content .Topic .Topic_list[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\nbody .content .Topic .Topic_list .item[data-v-c022dd1e] {\n  width: 335rpx;\n  height: 341rpx;\n  background-color: #FFFFFF;\n  border-radius: 6rpx 6rpx 0rpx 0rpx;\n  margin-bottom: 24rpx;\n}\nbody .content .Topic .Topic_list .item .img[data-v-c022dd1e] {\n  width: 100%;\n  height: 250rpx;\n  position: relative;\n  padding: 22rpx 0 0 67rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .Topic .Topic_list .item .bom_con[data-v-c022dd1e] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info[data-v-c022dd1e] {\n  width: 250rpx;\n  font-size: 24rpx;\n  padding-left: 26rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .title[data-v-c022dd1e] {\n  font-size: 24rpx;\n  color: #272727;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  margin: 10rpx 0;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box[data-v-c022dd1e] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 10rpx;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box .price[data-v-c022dd1e] {\n  margin-left: 10rpx;\n  color: #FF5807;\n  font-weight: bold;\n}\nbody .content .Topic .Topic_list .item .bom_con .left_info .price_box .oldPrice[data-v-c022dd1e] {\n  margin-left: 23rpx;\n  text-decoration: line-through;\n}\nbody .content .Topic .Topic_list .item .bom_con .right_btn[data-v-c022dd1e] {\n  width: 85rpx;\n  text-align: center;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -3089,7 +3088,7 @@ var render = function() {
                       _c(
                         "v-uni-view",
                         { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
-                        [_vm._v("2020.01.01")]
+                        [_vm._v(_vm._$g(18, "t0-0"))]
                       )
                     ],
                     1
@@ -4577,6 +4576,14 @@ var render = function() {
         "scroll-y": "true",
         "scroll-with-animation": "true",
         _i: 0
+      },
+      on: {
+        touchstart: function($event) {
+          return _vm.$handleViewEvent($event)
+        },
+        touchend: function($event) {
+          return _vm.$handleViewEvent($event)
+        }
       }
     },
     [
@@ -4622,22 +4629,34 @@ var render = function() {
           ),
           _c("v-uni-image", {
             staticStyle: { width: "28rpx", height: "32rpx" },
-            attrs: { src: _vm._$g(7, "a-src"), mode: "", _i: 7 }
+            attrs: { src: _vm._$g(7, "a-src"), mode: "", _i: 7 },
+            on: {
+              click: function($event) {
+                return _vm.$handleViewEvent($event)
+              }
+            }
           })
         ],
         1
       ),
-      _c(
-        "v-uni-view",
-        {
-          staticClass: _vm._$g(8, "sc"),
-          attrs: { id: _vm._$g(8, "a-id"), _i: 8 }
-        },
-        [
-          _c(
+      _vm._$g(8, "i")
+        ? _c(
             "v-uni-view",
-            { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+            { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
             [
+              _c(
+                "v-uni-view",
+                {
+                  class: _vm._$g(9, "c"),
+                  attrs: { _i: 9 },
+                  on: {
+                    click: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [_vm._v("商品")]
+              ),
               _c(
                 "v-uni-view",
                 {
@@ -4649,7 +4668,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("商品")]
+                [_vm._v("评价")]
               ),
               _c(
                 "v-uni-view",
@@ -4662,7 +4681,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("评价")]
+                [_vm._v("详情")]
               ),
               _c(
                 "v-uni-view",
@@ -4675,53 +4694,38 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("详情")]
-              ),
-              _c(
-                "v-uni-view",
-                {
-                  class: _vm._$g(13, "c"),
-                  attrs: { _i: 13 },
-                  on: {
-                    click: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                },
                 [_vm._v("推荐")]
               )
             ],
             1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
+        { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
         [
           _c(
             "v-uni-swiper",
             {
-              staticClass: _vm._$g(15, "sc"),
+              staticClass: _vm._$g(14, "sc"),
               attrs: {
-                "indicator-dots": _vm._$g(15, "a-indicator-dots"),
-                autoplay: _vm._$g(15, "a-autoplay"),
-                interval: _vm._$g(15, "a-interval"),
-                duration: _vm._$g(15, "a-duration"),
-                _i: 15
+                "indicator-dots": _vm._$g(14, "a-indicator-dots"),
+                autoplay: _vm._$g(14, "a-autoplay"),
+                interval: _vm._$g(14, "a-interval"),
+                duration: _vm._$g(14, "a-duration"),
+                _i: 14
               }
             },
-            _vm._l(_vm._$g(16, "f"), function(img, imx, $20, $30) {
+            _vm._l(_vm._$g(15, "f"), function(img, imx, $20, $30) {
               return _c(
                 "v-uni-swiper-item",
-                { key: img, attrs: { _i: "16-" + $30 } },
+                { key: img, attrs: { _i: "15-" + $30 } },
                 [
                   _c("v-uni-image", {
                     attrs: {
-                      src: _vm._$g("17-" + $30, "a-src"),
+                      src: _vm._$g("16-" + $30, "a-src"),
                       mode: "",
-                      _i: "17-" + $30
+                      _i: "16-" + $30
                     }
                   })
                 ],
@@ -4733,13 +4737,223 @@ var render = function() {
         ],
         1
       ),
+      _vm._$g(17, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
+            [
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
+                [
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "24rpx" },
+                      attrs: { _i: 19 }
+                    },
+                    [_vm._v("￥")]
+                  ),
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "36rpx" },
+                      attrs: { _i: 20 }
+                    },
+                    [_vm._v("198")]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
+                    [
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
+                        [
+                          _c("v-uni-image", {
+                            attrs: {
+                              src: _vm._$g(23, "a-src"),
+                              mode: "",
+                              _i: 23
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _c(
+                        "v-uni-text",
+                        { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
+                        [_vm._v("预售")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(25, "sc"), attrs: { _i: 25 } },
+                [_vm._v("已预定12件")]
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._$g(26, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(26, "sc"), attrs: { _i: 26 } },
+            [
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
+                [
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "24rpx" },
+                      attrs: { _i: 28 }
+                    },
+                    [_vm._v("￥")]
+                  ),
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "36rpx" },
+                      attrs: { _i: 29 }
+                    },
+                    [_vm._v("198")]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(30, "sc"), attrs: { _i: 30 } },
+                    [
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(31, "sc"), attrs: { _i: 31 } },
+                        [
+                          _c("v-uni-image", {
+                            attrs: {
+                              src: _vm._$g(32, "a-src"),
+                              mode: "",
+                              _i: 32
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _c(
+                        "v-uni-text",
+                        { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
+                        [_vm._v("两人拼")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(34, "sc"), attrs: { _i: 34 } },
+                [
+                  _c("v-uni-view", { attrs: { _i: 35 } }, [
+                    _vm._v("距离拼团结束还剩")
+                  ]),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
+                    [
+                      _c("v-uni-text", { attrs: { _i: 37 } }, [_vm._v("24")]),
+                      _vm._v(":"),
+                      _c("v-uni-text", { attrs: { _i: 38 } }, [_vm._v("59")]),
+                      _vm._v(":"),
+                      _c("v-uni-text", { attrs: { _i: 39 } }, [_vm._v("59")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._$g(40, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
+            [
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(41, "sc"), attrs: { _i: 41 } },
+                [
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "24rpx" },
+                      attrs: { _i: 42 }
+                    },
+                    [_vm._v("￥")]
+                  ),
+                  _c(
+                    "v-uni-text",
+                    {
+                      staticStyle: { "font-size": "36rpx" },
+                      attrs: { _i: 43 }
+                    },
+                    [_vm._v("198")]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(44, "sc"), attrs: { _i: 44 } },
+                    [
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(45, "sc"), attrs: { _i: 45 } },
+                        [
+                          _c("v-uni-image", {
+                            attrs: {
+                              src: _vm._$g(46, "a-src"),
+                              mode: "",
+                              _i: 46
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _c(
+                        "v-uni-text",
+                        { staticClass: _vm._$g(47, "sc"), attrs: { _i: 47 } },
+                        [_vm._v("活动价")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _c(
+                "v-uni-view",
+                {
+                  staticClass: _vm._$g(48, "sc"),
+                  staticStyle: { "font-size": "40rpx", "font-weight": "500" },
+                  attrs: { _i: 48 }
+                },
+                [_vm._v("买二送一")]
+              )
+            ],
+            1
+          )
+        : _vm._e(),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
+        { staticClass: _vm._$g(49, "sc"), attrs: { _i: 49 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+            { staticClass: _vm._$g(50, "sc"), attrs: { _i: 50 } },
             [
               _c(
                 "v-uni-text",
@@ -4749,7 +4963,7 @@ var render = function() {
                     color: "#F74E06",
                     "font-weight": "500"
                   },
-                  attrs: { _i: 20 }
+                  attrs: { _i: 51 }
                 },
                 [_vm._v("￥")]
               ),
@@ -4761,24 +4975,206 @@ var render = function() {
                     color: "#F74E06",
                     "font-weight": "500"
                   },
-                  attrs: { _i: 21 }
+                  attrs: { _i: 52 }
                 },
-                [_vm._v(_vm._$g(21, "t0-0"))]
+                [_vm._v(_vm._$g(52, "t0-0"))]
               )
             ],
             1
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
-            [_vm._v(_vm._$g(22, "t0-0"))]
+            { staticClass: _vm._$g(53, "sc"), attrs: { _i: 53 } },
+            [_vm._v(_vm._$g(53, "t0-0"))]
           )
         ],
         1
       ),
+      _vm._$g(54, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(54, "sc"), attrs: { _i: 54 } },
+            [
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(55, "sc"), attrs: { _i: 55 } },
+                [
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(56, "sc"), attrs: { _i: 56 } },
+                    [
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(57, "sc"), attrs: { _i: 57 } },
+                        [
+                          _c("v-uni-image", {
+                            attrs: {
+                              src: _vm._$g(58, "a-src"),
+                              mode: "",
+                              _i: 58
+                            }
+                          }),
+                          _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g(59, "sc"),
+                              attrs: { _i: 59 }
+                            },
+                            [
+                              _c("v-uni-image", {
+                                attrs: {
+                                  src: _vm._$g(60, "a-src"),
+                                  mode: "",
+                                  _i: 60
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(61, "sc"), attrs: { _i: 61 } },
+                        [
+                          _c(
+                            "v-uni-view",
+                            { attrs: { _i: 62 } },
+                            [
+                              _vm._v("还差"),
+                              _c("v-uni-text", { attrs: { _i: 63 } }, [
+                                _vm._v("1人")
+                              ]),
+                              _vm._v("成团")
+                            ],
+                            1
+                          ),
+                          _c("v-uni-view", { attrs: { _i: 64 } }, [
+                            _vm._v("剩余 00:19:56")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(65, "sc"), attrs: { _i: 65 } },
+                    [_vm._v("去参团")]
+                  )
+                ],
+                1
+              ),
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(66, "sc"), attrs: { _i: 66 } },
+                [
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(67, "sc"), attrs: { _i: 67 } },
+                    [
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(68, "sc"), attrs: { _i: 68 } },
+                        [
+                          _c("v-uni-image", {
+                            attrs: {
+                              src: _vm._$g(69, "a-src"),
+                              mode: "",
+                              _i: 69
+                            }
+                          }),
+                          _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g(70, "sc"),
+                              attrs: { _i: 70 }
+                            },
+                            [
+                              _c("v-uni-image", {
+                                attrs: {
+                                  src: _vm._$g(71, "a-src"),
+                                  mode: "",
+                                  _i: 71
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(72, "sc"), attrs: { _i: 72 } },
+                        [
+                          _c(
+                            "v-uni-view",
+                            { attrs: { _i: 73 } },
+                            [
+                              _vm._v("还差"),
+                              _c("v-uni-text", { attrs: { _i: 74 } }, [
+                                _vm._v("1人")
+                              ]),
+                              _vm._v("成团")
+                            ],
+                            1
+                          ),
+                          _c("v-uni-view", { attrs: { _i: 75 } }, [
+                            _vm._v("剩余 00:19:56")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(76, "sc"), attrs: { _i: 76 } },
+                    [_vm._v("去参团")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._$g(77, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(77, "sc"), attrs: { _i: 77 } },
+            [
+              _c(
+                "v-uni-text",
+                {
+                  staticStyle: {
+                    "font-size": "26rpx",
+                    color: "#A3A3A3",
+                    "margin-right": "43rpx"
+                  },
+                  attrs: { _i: 78 }
+                },
+                [_vm._v("流程")]
+              ),
+              _c(
+                "v-uni-text",
+                {
+                  staticStyle: { "font-size": "26rpx", color: "#3E3E3E" },
+                  attrs: { _i: 79 }
+                },
+                [_vm._v("1.支付全款 2.预计2020.6.16可到店取货")]
+              )
+            ],
+            1
+          )
+        : _vm._e(),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
+        { staticClass: _vm._$g(80, "sc"), attrs: { _i: 80 } },
         [
           _c(
             "v-uni-text",
@@ -4788,7 +5184,7 @@ var render = function() {
                 color: "#A3A3A3",
                 "margin-right": "43rpx"
               },
-              attrs: { _i: 24 }
+              attrs: { _i: 81 }
             },
             [_vm._v("保障")]
           ),
@@ -4796,177 +5192,186 @@ var render = function() {
             "v-uni-text",
             {
               staticStyle: { "font-size": "26rpx", color: "#3E3E3E" },
-              attrs: { _i: 25 }
+              attrs: { _i: 82 }
             },
             [_vm._v("假一赔十 七天无理由退换")]
           )
         ],
         1
       ),
-      _c(
-        "v-uni-view",
-        {
-          staticClass: _vm._$g(26, "sc"),
-          attrs: { id: _vm._$g(26, "a-id"), _i: 26 }
-        },
-        [
-          _c(
+      _vm._$g(83, "i")
+        ? _c(
             "v-uni-view",
-            { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
+            {
+              staticClass: _vm._$g(83, "sc"),
+              attrs: { id: _vm._$g(83, "a-id"), _i: 83 }
+            },
             [
               _c(
-                "v-uni-text",
-                {
-                  staticStyle: {
-                    "font-size": "26rpx",
-                    color: "#2F2F2F",
-                    "font-weight": "500"
-                  },
-                  attrs: { _i: 28 }
-                },
-                [_vm._v("宝贝评价(16211)")]
-              ),
-              _c(
                 "v-uni-view",
-                {
-                  staticClass: _vm._$g(29, "sc"),
-                  attrs: { _i: 29 },
-                  on: {
-                    click: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                },
+                { staticClass: _vm._$g(84, "sc"), attrs: { _i: 84 } },
                 [
                   _c(
                     "v-uni-text",
                     {
                       staticStyle: {
                         "font-size": "26rpx",
-                        color: "#FF7300",
+                        color: "#2F2F2F",
                         "font-weight": "500"
                       },
-                      attrs: { _i: 30 }
+                      attrs: { _i: 85 }
                     },
-                    [_vm._v("查看全部")]
+                    [_vm._v("宝贝评价" + _vm._$g(85, "t0-0"))]
                   ),
-                  _c("v-uni-image", {
-                    staticStyle: {
-                      width: "12rpx",
-                      height: "19rpx",
-                      "margin-left": "25rpx"
-                    },
-                    attrs: { src: _vm._$g(31, "a-src"), mode: "", _i: 31 }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(32, "sc"), attrs: { _i: 32 } },
-            [
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
-                [_vm._v("好评(90)")]
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(34, "sc"), attrs: { _i: 34 } },
-                [_vm._v("中评(30)")]
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(35, "sc"), attrs: { _i: 35 } },
-                [_vm._v("差评(0)")]
-              )
-            ],
-            1
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
-            [
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(37, "sc"), attrs: { _i: 37 } },
-                [
-                  _c("v-uni-image", {
-                    staticStyle: {
-                      width: "43rpx",
-                      height: "41rpx",
-                      "border-radius": "50%"
-                    },
-                    attrs: { src: _vm._$g(38, "a-src"), mode: "", _i: 38 }
-                  }),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(39, "sc"), attrs: { _i: 39 } },
-                    [_vm._v("葡萄葡萄")]
+                    {
+                      staticClass: _vm._$g(86, "sc"),
+                      attrs: { _i: 86 },
+                      on: {
+                        click: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "v-uni-text",
+                        {
+                          staticStyle: {
+                            "font-size": "26rpx",
+                            color: "#FF7300",
+                            "font-weight": "500"
+                          },
+                          attrs: { _i: 87 }
+                        },
+                        [_vm._v("查看全部")]
+                      ),
+                      _c("v-uni-image", {
+                        staticStyle: {
+                          width: "12rpx",
+                          height: "19rpx",
+                          "margin-left": "25rpx"
+                        },
+                        attrs: { src: _vm._$g(88, "a-src"), mode: "", _i: 88 }
+                      })
+                    ],
+                    1
                   )
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
+                { staticClass: _vm._$g(89, "sc"), attrs: { _i: 89 } },
                 [
-                  _vm._v(
-                    "细节做的特别好，涂上也毫无压力超气质，御姐范儿，外表 漂亮富有时尚感，非常显白又能完美衬托肤色,非常显白又能完美衬托肤色"
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(90, "sc"), attrs: { _i: 90 } },
+                    [_vm._v("好评" + _vm._$g(90, "t0-0"))]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(91, "sc"), attrs: { _i: 91 } },
+                    [_vm._v("中评" + _vm._$g(91, "t0-0"))]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(92, "sc"), attrs: { _i: 92 } },
+                    [_vm._v("差评" + _vm._$g(92, "t0-0"))]
                   )
-                ]
+                ],
+                1
+              ),
+              _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(93, "sc"), attrs: { _i: 93 } },
+                [
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(94, "sc"), attrs: { _i: 94 } },
+                    [
+                      _vm._$g(95, "i")
+                        ? _c("v-uni-image", {
+                            staticStyle: {
+                              width: "43rpx",
+                              height: "41rpx",
+                              "border-radius": "50%"
+                            },
+                            attrs: {
+                              src: _vm._$g(95, "a-src"),
+                              mode: "",
+                              _i: 95
+                            }
+                          })
+                        : _vm._e(),
+                      _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(96, "sc"), attrs: { _i: 96 } },
+                        [_vm._v(_vm._$g(96, "t0-0"))]
+                      )
+                    ],
+                    1
+                  ),
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(97, "sc"), attrs: { _i: 97 } },
+                    [_vm._v(_vm._$g(97, "t0-0"))]
+                  )
+                ],
+                1
               )
             ],
             1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
+      _c("v-uni-view", {
+        staticClass: _vm._$g(98, "sc"),
+        attrs: { id: _vm._$g(98, "a-id"), _i: 98 },
+        domProps: { innerHTML: _vm._s(_vm._$g(98, "v-html")) }
+      }),
       _c(
         "v-uni-view",
         {
-          staticClass: _vm._$g(41, "sc"),
-          attrs: { id: _vm._$g(41, "a-id"), _i: 41 }
+          staticClass: _vm._$g(99, "sc"),
+          attrs: { id: _vm._$g(99, "a-id"), _i: 99 }
         },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(42, "sc"), attrs: { _i: 42 } },
+            { staticClass: _vm._$g(100, "sc"), attrs: { _i: 100 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(43, "sc"), attrs: { _i: 43 } },
+                { staticClass: _vm._$g(101, "sc"), attrs: { _i: 101 } },
                 [
                   _c("v-uni-view", {
-                    staticClass: _vm._$g(44, "sc"),
-                    attrs: { _i: 44 }
+                    staticClass: _vm._$g(102, "sc"),
+                    attrs: { _i: 102 }
                   }),
                   _c("v-uni-view", {
-                    staticClass: _vm._$g(45, "sc"),
-                    attrs: { _i: 45 }
+                    staticClass: _vm._$g(103, "sc"),
+                    attrs: { _i: 103 }
                   })
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(46, "sc"), attrs: { _i: 46 } },
+                { staticClass: _vm._$g(104, "sc"), attrs: { _i: 104 } },
                 [_vm._v("看了又看")]
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(47, "sc"), attrs: { _i: 47 } },
+                { staticClass: _vm._$g(105, "sc"), attrs: { _i: 105 } },
                 [
                   _c("v-uni-view", {
-                    staticClass: _vm._$g(48, "sc"),
-                    attrs: { _i: 48 }
+                    staticClass: _vm._$g(106, "sc"),
+                    attrs: { _i: 106 }
                   }),
                   _c("v-uni-view", {
-                    staticClass: _vm._$g(49, "sc"),
-                    attrs: { _i: 49 }
+                    staticClass: _vm._$g(107, "sc"),
+                    attrs: { _i: 107 }
                   })
                 ],
                 1
@@ -4976,14 +5381,14 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(50, "sc"), attrs: { _i: 50 } },
-            _vm._l(_vm._$g(51, "f"), function(item, index, $21, $31) {
+            { staticClass: _vm._$g(108, "sc"), attrs: { _i: 108 } },
+            _vm._l(_vm._$g(109, "f"), function(item, index, $21, $31) {
               return _c(
                 "v-uni-view",
                 {
                   key: item,
-                  staticClass: _vm._$g("51-" + $31, "sc"),
-                  attrs: { _i: "51-" + $31 },
+                  staticClass: _vm._$g("109-" + $31, "sc"),
+                  attrs: { _i: "109-" + $31 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -4994,16 +5399,16 @@ var render = function() {
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g("52-" + $31, "sc"),
-                      attrs: { _i: "52-" + $31 }
+                      staticClass: _vm._$g("110-" + $31, "sc"),
+                      attrs: { _i: "110-" + $31 }
                     },
                     [
                       _c("v-uni-image", {
                         staticStyle: { width: "252rpx", height: "243rpx" },
                         attrs: {
-                          src: _vm._$g("53-" + $31, "a-src"),
+                          src: _vm._$g("111-" + $31, "a-src"),
                           mode: "",
-                          _i: "53-" + $31
+                          _i: "111-" + $31
                         }
                       })
                     ],
@@ -5012,16 +5417,16 @@ var render = function() {
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g("54-" + $31, "sc"),
-                      attrs: { _i: "54-" + $31 }
+                      staticClass: _vm._$g("112-" + $31, "sc"),
+                      attrs: { _i: "112-" + $31 }
                     },
-                    [_vm._v(_vm._$g("54-" + $31, "t0-0"))]
+                    [_vm._v(_vm._$g("112-" + $31, "t0-0"))]
                   ),
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g("55-" + $31, "sc"),
-                      attrs: { _i: "55-" + $31 }
+                      staticClass: _vm._$g("113-" + $31, "sc"),
+                      attrs: { _i: "113-" + $31 }
                     },
                     [
                       _c(
@@ -5032,7 +5437,7 @@ var render = function() {
                             color: "#FF5807",
                             "font-weight": "500"
                           },
-                          attrs: { _i: "56-" + $31 }
+                          attrs: { _i: "114-" + $31 }
                         },
                         [_vm._v("￥")]
                       ),
@@ -5045,9 +5450,9 @@ var render = function() {
                             "font-weight": "500",
                             "margin-right": "25rpx"
                           },
-                          attrs: { _i: "57-" + $31 }
+                          attrs: { _i: "115-" + $31 }
                         },
-                        [_vm._v(_vm._$g("57-" + $31, "t0-0"))]
+                        [_vm._v(_vm._$g("115-" + $31, "t0-0"))]
                       ),
                       _c(
                         "v-uni-text",
@@ -5056,9 +5461,9 @@ var render = function() {
                             "font-size": "23rpx",
                             color: "#666666"
                           },
-                          attrs: { _i: "58-" + $31 }
+                          attrs: { _i: "116-" + $31 }
                         },
-                        [_vm._v("浏览量" + _vm._$g("58-" + $31, "t0-0"))]
+                        [_vm._v("浏览量" + _vm._$g("116-" + $31, "t0-0"))]
                       )
                     ],
                     1
@@ -5074,43 +5479,43 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(59, "sc"), attrs: { _i: 59 } },
+        { staticClass: _vm._$g(117, "sc"), attrs: { _i: 117 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(60, "sc"), attrs: { _i: 60 } },
+            { staticClass: _vm._$g(118, "sc"), attrs: { _i: 118 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(61, "sc"), attrs: { _i: 61 } },
+                { staticClass: _vm._$g(119, "sc"), attrs: { _i: 119 } },
                 [
                   _c("v-uni-image", {
                     staticStyle: { width: "39rpx", height: "39rpx" },
-                    attrs: { src: _vm._$g(62, "a-src"), mode: "", _i: 62 },
+                    attrs: { src: _vm._$g(120, "a-src"), mode: "", _i: 120 },
                     on: {
                       click: function($event) {
                         return _vm.$handleViewEvent($event)
                       }
                     }
                   }),
-                  _c("v-uni-text", { attrs: { _i: 63 } }, [_vm._v("客服")])
+                  _c("v-uni-text", { attrs: { _i: 121 } }, [_vm._v("客服")])
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(64, "sc"), attrs: { _i: 64 } },
+                { staticClass: _vm._$g(122, "sc"), attrs: { _i: 122 } },
                 [
                   _c("v-uni-image", {
                     staticStyle: { width: "39rpx", height: "39rpx" },
-                    attrs: { src: _vm._$g(65, "a-src"), mode: "", _i: 65 },
+                    attrs: { src: _vm._$g(123, "a-src"), mode: "", _i: 123 },
                     on: {
                       click: function($event) {
                         return _vm.$handleViewEvent($event)
                       }
                     }
                   }),
-                  _c("v-uni-text", { attrs: { _i: 66 } }, [_vm._v("收藏")])
+                  _c("v-uni-text", { attrs: { _i: 124 } }, [_vm._v("收藏")])
                 ],
                 1
               )
@@ -5119,13 +5524,13 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(67, "sc"), attrs: { _i: 67 } },
+            { staticClass: _vm._$g(125, "sc"), attrs: { _i: 125 } },
             [
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(68, "sc"),
-                  attrs: { _i: 68 },
+                  staticClass: _vm._$g(126, "sc"),
+                  attrs: { _i: 126 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -5137,8 +5542,8 @@ var render = function() {
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(69, "sc"),
-                  attrs: { _i: 69 },
+                  staticClass: _vm._$g(127, "sc"),
+                  attrs: { _i: 127 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -5153,12 +5558,12 @@ var render = function() {
         ],
         1
       ),
-      _vm._$g(70, "i")
+      _vm._$g(128, "i")
         ? _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(70, "sc"),
-              attrs: { _i: 70 },
+              staticClass: _vm._$g(128, "sc"),
+              attrs: { _i: 128 },
               on: {
                 touchmove: function($event) {
                   return _vm.$handleViewEvent($event, {
@@ -5171,12 +5576,12 @@ var render = function() {
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(71, "sc"), attrs: { _i: 71 } },
+                { staticClass: _vm._$g(129, "sc"), attrs: { _i: 129 } },
                 [
                   _c(
                     "v-uni-view",
                     {
-                      attrs: { id: "close", _i: 72 },
+                      attrs: { id: "close", _i: 130 },
                       on: {
                         click: function($event) {
                           return _vm.$handleViewEvent($event)
@@ -5185,33 +5590,43 @@ var render = function() {
                     },
                     [
                       _c("v-uni-image", {
-                        attrs: { src: _vm._$g(73, "a-src"), mode: "", _i: 73 }
+                        attrs: { src: _vm._$g(131, "a-src"), mode: "", _i: 131 }
                       })
                     ],
                     1
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(74, "sc"), attrs: { _i: 74 } },
+                    { staticClass: _vm._$g(132, "sc"), attrs: { _i: 132 } },
                     [
                       _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(75, "sc"), attrs: { _i: 75 } },
+                        { staticClass: _vm._$g(133, "sc"), attrs: { _i: 133 } },
                         [
                           _c("v-uni-image", {
                             staticStyle: { width: "149rpx", height: "162rpx" },
                             attrs: {
-                              src: _vm._$g(76, "a-src"),
+                              src: _vm._$g(134, "a-src"),
                               mode: "",
-                              _i: 76
+                              _i: 134
                             }
-                          })
+                          }),
+                          _vm._$g(135, "i")
+                            ? _c(
+                                "v-uni-view",
+                                {
+                                  staticClass: _vm._$g(135, "sc"),
+                                  attrs: { _i: 135 }
+                                },
+                                [_vm._v("预计2020.6.16取货")]
+                              )
+                            : _vm._e()
                         ],
                         1
                       ),
                       _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(77, "sc"), attrs: { _i: 77 } },
+                        { staticClass: _vm._$g(136, "sc"), attrs: { _i: 136 } },
                         [
                           _c(
                             "v-uni-view",
@@ -5221,15 +5636,15 @@ var render = function() {
                                 color: "#505050",
                                 "font-weight": "500"
                               },
-                              attrs: { _i: 78 }
+                              attrs: { _i: 137 }
                             },
-                            [_vm._v(_vm._$g(78, "t0-0"))]
+                            [_vm._v(_vm._$g(137, "t0-0"))]
                           ),
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g(79, "sc"),
-                              attrs: { _i: 79 }
+                              staticClass: _vm._$g(138, "sc"),
+                              attrs: { _i: 138 }
                             },
                             [
                               _c(
@@ -5240,7 +5655,7 @@ var render = function() {
                                     color: "#FF5807",
                                     "font-weight": "500"
                                   },
-                                  attrs: { _i: 80 }
+                                  attrs: { _i: 139 }
                                 },
                                 [_vm._v("￥")]
                               ),
@@ -5252,9 +5667,9 @@ var render = function() {
                                     color: "#FF5807",
                                     "font-weight": "500"
                                   },
-                                  attrs: { _i: 81 }
+                                  attrs: { _i: 140 }
                                 },
-                                [_vm._v(_vm._$g(81, "t0-0"))]
+                                [_vm._v(_vm._$g(140, "t0-0"))]
                               ),
                               _c(
                                 "v-uni-text",
@@ -5264,9 +5679,9 @@ var render = function() {
                                     "margin-left": "30rpx",
                                     color: "#999"
                                   },
-                                  attrs: { _i: 82 }
+                                  attrs: { _i: 141 }
                                 },
-                                [_vm._v("库存：" + _vm._$g(82, "t0-0"))]
+                                [_vm._v("库存：" + _vm._$g(141, "t0-0"))]
                               )
                             ],
                             1
@@ -5279,32 +5694,37 @@ var render = function() {
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(83, "sc"), attrs: { _i: 83 } },
+                    { staticClass: _vm._$g(142, "sc"), attrs: { _i: 142 } },
                     [
-                      _vm._l(_vm._$g(84, "f"), function(item, index, $22, $32) {
+                      _vm._l(_vm._$g(143, "f"), function(
+                        item,
+                        index,
+                        $22,
+                        $32
+                      ) {
                         return _c(
                           "v-uni-view",
                           {
                             key: item,
-                            staticClass: _vm._$g("84-" + $32, "sc"),
-                            attrs: { _i: "84-" + $32 }
+                            staticClass: _vm._$g("143-" + $32, "sc"),
+                            attrs: { _i: "143-" + $32 }
                           },
                           [
                             _c(
                               "v-uni-view",
                               {
-                                staticClass: _vm._$g("85-" + $32, "sc"),
-                                attrs: { _i: "85-" + $32 }
+                                staticClass: _vm._$g("144-" + $32, "sc"),
+                                attrs: { _i: "144-" + $32 }
                               },
-                              [_vm._v(_vm._$g("85-" + $32, "t0-0"))]
+                              [_vm._v(_vm._$g("144-" + $32, "t0-0"))]
                             ),
                             _c(
                               "v-uni-view",
                               {
-                                staticClass: _vm._$g("86-" + $32, "sc"),
-                                attrs: { _i: "86-" + $32 }
+                                staticClass: _vm._$g("145-" + $32, "sc"),
+                                attrs: { _i: "145-" + $32 }
                               },
-                              _vm._l(_vm._$g(87 + "-" + $32, "f"), function(
+                              _vm._l(_vm._$g(146 + "-" + $32, "f"), function(
                                 type,
                                 tyix,
                                 $23,
@@ -5315,10 +5735,10 @@ var render = function() {
                                   {
                                     key: type,
                                     class: _vm._$g(
-                                      "87-" + $32 + "-" + $33,
+                                      "146-" + $32 + "-" + $33,
                                       "c"
                                     ),
-                                    attrs: { _i: "87-" + $32 + "-" + $33 },
+                                    attrs: { _i: "146-" + $32 + "-" + $33 },
                                     on: {
                                       click: function($event) {
                                         return _vm.$handleViewEvent($event)
@@ -5327,7 +5747,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      _vm._$g("87-" + $32 + "-" + $33, "t0-0")
+                                      _vm._$g("146-" + $32 + "-" + $33, "t0-0")
                                     )
                                   ]
                                 )
@@ -5340,13 +5760,13 @@ var render = function() {
                       }),
                       _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(88, "sc"), attrs: { _i: 88 } },
+                        { staticClass: _vm._$g(147, "sc"), attrs: { _i: 147 } },
                         [
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g(89, "sc"),
-                              attrs: { _i: 89 },
+                              staticClass: _vm._$g(148, "sc"),
+                              attrs: { _i: 148 },
                               on: {
                                 click: function($event) {
                                   return _vm.$handleViewEvent($event)
@@ -5358,16 +5778,16 @@ var render = function() {
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g(90, "sc"),
-                              attrs: { _i: 90 }
+                              staticClass: _vm._$g(149, "sc"),
+                              attrs: { _i: 149 }
                             },
-                            [_vm._v(_vm._$g(90, "t0-0"))]
+                            [_vm._v(_vm._$g(149, "t0-0"))]
                           ),
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g(91, "sc"),
-                              attrs: { _i: 91 },
+                              staticClass: _vm._$g(150, "sc"),
+                              attrs: { _i: 150 },
                               on: {
                                 click: function($event) {
                                   return _vm.$handleViewEvent($event)
@@ -5385,8 +5805,8 @@ var render = function() {
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g(92, "sc"),
-                      attrs: { _i: 92 },
+                      staticClass: _vm._$g(151, "sc"),
+                      attrs: { _i: 151 },
                       on: {
                         click: function($event) {
                           return _vm.$handleViewEvent($event)
@@ -5494,7 +5914,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-44818d84] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-44818d84] {\n  width: 100%;\n  height: 100%;\n  background: #F4F4F4;\n}\nbody uni-scroll-view[data-v-44818d84] {\n  height: 100vh;\n}\nbody .content[data-v-44818d84] {\n  width: 100%;\n  height: 100%;\n  background: #F4F4F4;\n}\nbody .content .top_search[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .top_search .search_box[data-v-44818d84] {\n  width: 587rpx;\n  height: 57rpx;\n  background: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 30rpx;\n  border-radius: 27rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .top_search .search_box uni-image[data-v-44818d84] {\n  margin-right: 30rpx;\n}\nbody .content .top_search .search_box uni-input[data-v-44818d84] {\n  font-size: 26rpx;\n  color: #5E5E5E;\n  font-weight: 500;\n}\nbody .content .top_search .quxiao[data-v-44818d84] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #292929;\n}\nbody .content .lunbo[data-v-44818d84] {\n  background-color: #FFFFFF;\n  padding-bottom: 50rpx;\n}\nbody .content .pic_box[data-v-44818d84] {\n  width: 100%;\n  height: 80rpx;\n  text-align: center;\n  position: relative;\n}\nbody .content .pic_box .menu_list[data-v-44818d84] {\n  width: 100%;\n  height: 76rpx;\n  line-height: 100rpx;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 30rpx;\n  position: relative;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  font-size: 28rpx;\n  color: #69686C;\n  font-weight: 500;\n  opacity: 0.8;\n  position: absolute;\n  top: 0;\n}\nbody .content .pic_box .menu_list .item[data-v-44818d84] {\n  height: 85rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\nbody .content .pic_box .menu_list .item.active[data-v-44818d84] {\n  border-bottom: 5rpx solid #FF792C;\n  color: #FF792C;\n}\nbody .content .price_title[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n}\nbody .content .price_title .price .oldPrice[data-v-44818d84] {\n  font-size: 24rpx;\n  color: #858585;\n  font-weight: 500;\n  margin-left: 25rpx;\n  text-decoration: line-through;\n}\nbody .content .price_title .title[data-v-44818d84] {\n  font-size: 30rpx;\n  color: #111111;\n  font-weight: 500;\n  margin-top: 20rpx;\n}\nbody .content .pay_box[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .color_type[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 20rpx 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .color_type .title[data-v-44818d84] {\n  font-size: 36rpx;\n  color: #888;\n  margin-bottom: 30rpx;\n}\nbody .content .color_type .btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 50rpx;\n}\nbody .content .color_type .btn .jian[data-v-44818d84],\nbody .content .color_type .btn .jia[data-v-44818d84] {\n  width: 52rpx;\n  height: 47rpx;\n  border: 1rpx solid #999;\n  border-radius: 0rpx 0rpx 0rpx 6rpx;\n  color: #B7B7B7;\n  font-size: 42rpx;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 400;\n}\nbody .content .color_type .btn .num[data-v-44818d84] {\n  width: 85rpx;\n  height: 47rpx;\n  border-top: 1rpx solid #999;\n  border-bottom: 1rpx solid #999;\n  font-size: 30rpx;\n  color: #001111;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .color_type .type_box[data-v-44818d84] {\n  margin-bottom: 24rpx;\n}\nbody .content .color_type .type_box .list_box[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 50rpx;\n}\nbody .content .color_type .type_box .list_box .item[data-v-44818d84] {\n  border: 1rpx solid #888;\n  border-radius: 8rpx;\n  margin-right: 15rpx;\n  font-size: 30rpx;\n  padding: 3rpx 30rpx;\n}\nbody .content .color_type .type_box .list_box .item.active[data-v-44818d84] {\n  background-color: #f40;\n  color: #FFFFFF;\n  border: 1rpx solid #f40;\n}\nbody .content .color_type .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-bottom: 20rpx;\n}\nbody .content .color_type .bom_pic[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n}\nbody .content .color_type .bom_pic .pic uni-image[data-v-44818d84] {\n  margin-right: 42rpx;\n}\nbody .content .color_type .bom_pic .pic_text[data-v-44818d84] {\n  width: 250rpx;\n  height: 61rpx;\n  line-height: 61rpx;\n  text-align: center;\n  background: #f7f7f7;\n  border-radius: 12rpx;\n  color: #969696;\n  font-size: 26rpx;\n}\nbody .content .baby_Pingjia[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .baby_Pingjia .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .baby_Pingjia .con_box[data-v-44818d84] {\n  margin: 25rpx 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .baby_Pingjia .con_box .item[data-v-44818d84] {\n  display: inline-block;\n  padding: 0 25rpx;\n  height: 57rpx;\n  line-height: 57rpx;\n  text-align: center;\n  font-size: 26rpx;\n  color: #686264;\n  background: #ffeced;\n  border-radius: 29rpx;\n  margin-right: 25rpx;\n}\nbody .content .baby_Pingjia .user_info[data-v-44818d84] {\n  width: 100%;\n  margin-bottom: 25rpx;\n}\nbody .content .baby_Pingjia .user_info .user_name[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .baby_Pingjia .user_info .user_name .user_n_name[data-v-44818d84] {\n  color: #969696;\n  font-size: 22rpx;\n  margin-left: 25rpx;\n}\nbody .content .baby_Pingjia .user_info .user_text[data-v-44818d84] {\n  font-size: 26rpx;\n  color: #3C3C3C;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\nbody .content .maijia_xiu[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .maijia_xiu .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .maijia_xiu .maijia_pic[data-v-44818d84] {\n  width: 702rpx;\n  height: 272rpx;\n  border-radius: 12rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-top: 20rpx;\n}\nbody .content .like_box[data-v-44818d84] {\n  margin-top: 40rpx;\n}\nbody .content .like_box .like[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 31rpx;\n}\nbody .content .like_box .like .text[data-v-44818d84] {\n  color: #FF5807;\n  font-size: 30rpx;\n  font-weight: 500;\n}\nbody .content .like_box .like .gang[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin: 0 30rpx;\n}\nbody .content .like_box .like .gang .dian[data-v-44818d84] {\n  width: 5rpx;\n  height: 5rpx;\n  background: #ed520d;\n  border-radius: 50%;\n  color: #FF5807;\n}\nbody .content .like_box .like .gang .hen[data-v-44818d84] {\n  width: 28rpx;\n  height: 2rpx;\n  background-color: #ff5807;\n  color: #FF5807;\n}\nbody .content .like_box .look_list[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 23rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  margin-bottom: 80rpx;\n}\nbody .content .like_box .look_list .item[data-v-44818d84] {\n  width: 340rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 12rpx;\n  background-color: #FFFFFF;\n  margin-bottom: 18rpx;\n  border-radius: 12rpx 12rpx 0 0;\n}\nbody .content .like_box .look_list .item .img[data-v-44818d84] {\n  width: 100%;\n  text-align: center;\n}\nbody .content .like_box .look_list .item .title[data-v-44818d84] {\n  width: 100%;\n  font-size: 25rpx;\n  color: #272727;\n  font-weight: 500;\n  margin-bottom: 25rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  -webkit-box-orient: vertical;\n}\nbody .content .shop_cart[data-v-44818d84] {\n  width: 100%;\n  height: 102rpx;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  position: fixed;\n  bottom: 0;\n}\nbody .content .shop_cart .icon[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .shop_cart .icon .item[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  margin-right: 30rpx;\n}\nbody .content .shop_cart .icon .item uni-image[data-v-44818d84] {\n  margin-right: 39rpx;\n}\nbody .content .shop_cart .icon .item uni-text[data-v-44818d84] {\n  color: #7C7D7E;\n  font-size: 22rpx;\n}\nbody .content .shop_cart .btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .shop_cart .btn .left_add[data-v-44818d84] {\n  width: 223rpx;\n  height: 83rpx;\n  background: #ffac07;\n  border-radius: 40rpx 0rpx 0rpx 43rpx;\n  color: #FFFFFF;\n  font-size: 30rpx;\n  line-height: 83rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .shop_cart .btn .right_add[data-v-44818d84] {\n  width: 223rpx;\n  height: 83rpx;\n  background: #fd6300;\n  border-radius: 0rpx 39rpx 44rpx 0rpx;\n  color: #FFFFFF;\n  font-size: 30rpx;\n  line-height: 83rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .shop_cart_float[data-v-44818d84] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.8);\n}\nbody .content .shop_cart_float .show_box[data-v-44818d84] {\n  width: 100%;\n  background-color: #FFFFFF;\n  position: absolute;\n  bottom: 0;\n  border-radius: 13rpx 13rpx 0 0;\n}\nbody .content .shop_cart_float .show_box #close[data-v-44818d84] {\n  width: 80rpx;\n  height: 80rpx;\n  position: absolute;\n  right: 30rpx;\n  top: 30rpx;\n  text-align: right;\n}\nbody .content .shop_cart_float .show_box #close uni-image[data-v-44818d84] {\n  width: 30rpx;\n  height: 30rpx;\n}\nbody .content .shop_cart_float .show_box .top_pic[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 40rpx 0 0 31rpx;\n}\nbody .content .shop_cart_float .show_box .top_pic .price_box[data-v-44818d84] {\n  height: 130rpx;\n  width: 350rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .shop_cart_float .show_box .top_pic .img[data-v-44818d84] {\n  width: 232rpx;\n  height: 231rpx;\n  background: #f7f7f7;\n  border-radius: 12rpx;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding-top: 38rpx;\n  margin-right: 18rpx;\n}\nbody .content .shop_cart_float .show_box .color_type[data-v-44818d84] {\n  width: 100%;\n}\nbody .content .shop_cart_float .show_box .bom_btn[data-v-44818d84] {\n  width: 709rpx;\n  height: 86rpx;\n  line-height: 86rpx;\n  text-align: center;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 43rpx;\n  color: #FFFFFF;\n  font-weight: 500;\n  font-size: 36rpx;\n  margin-left: 25rpx;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-44818d84] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-44818d84] {\n  width: 100%;\n  height: 100%;\n  background: #F4F4F4;\n}\nbody uni-scroll-view[data-v-44818d84] {\n  height: 100vh;\n}\nbody .content[data-v-44818d84] {\n  width: 100%;\n  height: 100%;\n  background: #F4F4F4;\n}\nbody .content .top_search[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .top_search .search_box[data-v-44818d84] {\n  width: 587rpx;\n  height: 57rpx;\n  background: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 30rpx;\n  border-radius: 27rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .top_search .search_box uni-image[data-v-44818d84] {\n  margin-right: 30rpx;\n}\nbody .content .top_search .search_box uni-input[data-v-44818d84] {\n  font-size: 26rpx;\n  color: #5E5E5E;\n  font-weight: 500;\n}\nbody .content .top_search .quxiao[data-v-44818d84] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #292929;\n}\nbody .content .menu_list[data-v-44818d84] {\n  width: 100%;\n  height: 76rpx;\n  background-color: #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  opacity: 0.9;\n  font-size: 28rpx;\n  font-weight: 500;\n  line-height: 100rpx;\n  position: fixed;\n  top: 80rpx;\n  z-index: 9999;\n}\nbody .content .menu_list .item[data-v-44818d84] {\n  height: 85rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-right: 80rpx;\n}\nbody .content .menu_list .item.active[data-v-44818d84] {\n  border-bottom: 5rpx solid #FF792C;\n  color: #FF792C;\n}\nbody .content .fightTogether[data-v-44818d84] {\n  width: 100%;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  margin-top: 24rpx;\n}\nbody .content .fightTogether .itemf[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-bottom: 24rpx;\n}\nbody .content .fightTogether .itemf .f_left[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .fightTogether .itemf .f_left .avatar_box[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .fightTogether .itemf .f_left .avatar_box .addAvatar[data-v-44818d84] {\n  width: 78rpx;\n  height: 78rpx;\n  background-color: #D4D4D4;\n  border-radius: 50%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-left: -10rpx;\n  z-index: 88;\n}\nbody .content .fightTogether .itemf .f_left .avatar_box .addAvatar uni-image[data-v-44818d84] {\n  width: 31rpx;\n  height: 31rpx;\n}\nbody .content .fightTogether .itemf .f_left .avatar_box uni-image[data-v-44818d84] {\n  width: 78rpx;\n  height: 78rpx;\n  border-radius: 50%;\n}\nbody .content .fightTogether .itemf .f_left .cont_txt[data-v-44818d84] {\n  font-size: 26rpx;\n  margin-left: 24rpx;\n}\nbody .content .fightTogether .itemf .f_left .cont_txt uni-text[data-v-44818d84] {\n  color: #FF5106;\n}\nbody .content .fightTogether .itemf .f_right[data-v-44818d84] {\n  width: 106rpx;\n  height: 48rpx;\n  text-align: center;\n  background: #ff5106;\n  border-radius: 24rpx;\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #ffffff;\n  line-height: 48rpx;\n}\nbody .content .Preslale[data-v-44818d84] {\n  width: 750rpx;\n  height: 87rpx;\n  line-height: 37rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 28rpx 35rpx;\n  color: #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .Preslale .left[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .Preslale .left .img_box[data-v-44818d84] {\n  height: 100%;\n  line-height: 30rpx;\n  border: 1rpx solid #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-left: 24rpx;\n  border-radius: 5rpx;\n  padding: 2rpx 10rpx 2rpx 0;\n}\nbody .content .Preslale .left .img_box .img[data-v-44818d84] {\n  width: 31rpx;\n  height: 32rpx;\n  background-color: #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  padding-left: 5rpx;\n}\nbody .content .Preslale .left .img_box .yushou[data-v-44818d84] {\n  font-size: 22rpx;\n  padding-left: 5rpx;\n}\nbody .content .Preslale .left .img_box uni-image[data-v-44818d84] {\n  width: 22rpx;\n  height: 21rpx;\n}\nbody .content .Preslale .right[data-v-44818d84] {\n  font-size: 24rpx;\n}\nbody .content .Preslale .right .price_box[data-v-44818d84] {\n  margin-left: 24rpx;\n}\nbody .content .Preslale .right .price_box uni-text[data-v-44818d84] {\n  display: inline-block;\n  width: 38rpx;\n  height: 29rpx;\n  line-height: 29rpx;\n  text-align: center;\n  background-color: #FFFFFF;\n  color: #FF661A;\n  border-radius: 3rpx;\n  margin: 0 5rpx;\n}\nbody .content .lunbo[data-v-44818d84] {\n  height: 679rpx;\n  background-color: #FFFFFF;\n  position: relative;\n}\nbody .content .lunbo uni-swiper[data-v-44818d84] {\n  height: 100%;\n}\nbody .content .lunbo uni-swiper uni-image[data-v-44818d84] {\n  width: 100%;\n}\nbody .content .pic_box[data-v-44818d84] {\n  width: 100%;\n  height: 80rpx;\n  text-align: center;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\nbody .content .price_title[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n}\nbody .content .price_title .price .oldPrice[data-v-44818d84] {\n  font-size: 24rpx;\n  color: #858585;\n  font-weight: 500;\n  margin-left: 25rpx;\n  text-decoration: line-through;\n}\nbody .content .price_title .title[data-v-44818d84] {\n  font-size: 30rpx;\n  color: #111111;\n  font-weight: 500;\n  margin-top: 20rpx;\n}\nbody .content .pay_box[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .color_type[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 20rpx 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .color_type .title[data-v-44818d84] {\n  font-size: 36rpx;\n  color: #888;\n  margin-bottom: 30rpx;\n}\nbody .content .color_type .btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 50rpx;\n}\nbody .content .color_type .btn .jian[data-v-44818d84],\nbody .content .color_type .btn .jia[data-v-44818d84] {\n  width: 52rpx;\n  height: 47rpx;\n  border: 1rpx solid #999;\n  border-radius: 0rpx 0rpx 0rpx 6rpx;\n  color: #B7B7B7;\n  font-size: 42rpx;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 400;\n}\nbody .content .color_type .btn .num[data-v-44818d84] {\n  width: 85rpx;\n  height: 47rpx;\n  border-top: 1rpx solid #999;\n  border-bottom: 1rpx solid #999;\n  font-size: 30rpx;\n  color: #001111;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .color_type .type_box[data-v-44818d84] {\n  margin-bottom: 24rpx;\n}\nbody .content .color_type .type_box .list_box[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 50rpx;\n}\nbody .content .color_type .type_box .list_box .item[data-v-44818d84] {\n  border: 1rpx solid #888;\n  border-radius: 8rpx;\n  margin-right: 15rpx;\n  font-size: 30rpx;\n  padding: 3rpx 30rpx;\n}\nbody .content .color_type .type_box .list_box .item.active[data-v-44818d84] {\n  background-color: #f40;\n  color: #FFFFFF;\n  border: 1rpx solid #f40;\n}\nbody .content .color_type .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-bottom: 20rpx;\n}\nbody .content .color_type .bom_pic[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n}\nbody .content .color_type .bom_pic .pic uni-image[data-v-44818d84] {\n  margin-right: 42rpx;\n}\nbody .content .color_type .bom_pic .pic_text[data-v-44818d84] {\n  width: 250rpx;\n  height: 61rpx;\n  line-height: 61rpx;\n  text-align: center;\n  background: #f7f7f7;\n  border-radius: 12rpx;\n  color: #969696;\n  font-size: 26rpx;\n}\nbody .content .baby_Pingjia[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .baby_Pingjia .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .baby_Pingjia .con_box[data-v-44818d84] {\n  margin: 25rpx 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .baby_Pingjia .con_box .item[data-v-44818d84] {\n  display: inline-block;\n  padding: 0 25rpx;\n  height: 57rpx;\n  line-height: 57rpx;\n  text-align: center;\n  font-size: 26rpx;\n  color: #686264;\n  background: #ffeced;\n  border-radius: 29rpx;\n  margin-right: 25rpx;\n}\nbody .content .baby_Pingjia .user_info[data-v-44818d84] {\n  width: 100%;\n  margin-bottom: 25rpx;\n}\nbody .content .baby_Pingjia .user_info .user_name[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .baby_Pingjia .user_info .user_name .user_n_name[data-v-44818d84] {\n  color: #969696;\n  font-size: 22rpx;\n  margin-left: 25rpx;\n}\nbody .content .baby_Pingjia .user_info .user_text[data-v-44818d84] {\n  font-size: 26rpx;\n  color: #3C3C3C;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\nbody .content .maijia_xiu[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  margin-top: 25rpx;\n}\nbody .content .maijia_xiu .top_btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .maijia_xiu .maijia_pic[data-v-44818d84] {\n  width: 702rpx;\n  height: 272rpx;\n  border-radius: 12rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-top: 20rpx;\n}\nbody .content .description[data-v-44818d84] {\n  width: 100%;\n}\nbody .content .like_box[data-v-44818d84] {\n  margin-top: 40rpx;\n}\nbody .content .like_box .like[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 31rpx;\n}\nbody .content .like_box .like .text[data-v-44818d84] {\n  color: #FF5807;\n  font-size: 30rpx;\n  font-weight: 500;\n}\nbody .content .like_box .like .gang[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin: 0 30rpx;\n}\nbody .content .like_box .like .gang .dian[data-v-44818d84] {\n  width: 5rpx;\n  height: 5rpx;\n  background: #ed520d;\n  border-radius: 50%;\n  color: #FF5807;\n}\nbody .content .like_box .like .gang .hen[data-v-44818d84] {\n  width: 28rpx;\n  height: 2rpx;\n  background-color: #ff5807;\n  color: #FF5807;\n}\nbody .content .like_box .look_list[data-v-44818d84] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 23rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  margin-bottom: 80rpx;\n}\nbody .content .like_box .look_list .item[data-v-44818d84] {\n  width: 340rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 12rpx;\n  background-color: #FFFFFF;\n  margin-bottom: 18rpx;\n  border-radius: 12rpx 12rpx 0 0;\n}\nbody .content .like_box .look_list .item .img[data-v-44818d84] {\n  width: 100%;\n  text-align: center;\n}\nbody .content .like_box .look_list .item .title[data-v-44818d84] {\n  width: 100%;\n  font-size: 25rpx;\n  color: #272727;\n  font-weight: 500;\n  margin-bottom: 25rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  -webkit-box-orient: vertical;\n}\nbody .content .shop_cart[data-v-44818d84] {\n  width: 100%;\n  height: 102rpx;\n  background-color: #FFFFFF;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  position: fixed;\n  bottom: 0;\n}\nbody .content .shop_cart .icon[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .shop_cart .icon .item[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  margin-right: 30rpx;\n}\nbody .content .shop_cart .icon .item uni-image[data-v-44818d84] {\n  margin-right: 39rpx;\n}\nbody .content .shop_cart .icon .item uni-text[data-v-44818d84] {\n  color: #7C7D7E;\n  font-size: 22rpx;\n}\nbody .content .shop_cart .btn[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .shop_cart .btn .left_add[data-v-44818d84] {\n  width: 223rpx;\n  height: 83rpx;\n  background: #ffac07;\n  border-radius: 40rpx 0rpx 0rpx 43rpx;\n  color: #FFFFFF;\n  font-size: 30rpx;\n  line-height: 83rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .shop_cart .btn .right_add[data-v-44818d84] {\n  width: 223rpx;\n  height: 83rpx;\n  background: #fd6300;\n  border-radius: 0rpx 39rpx 44rpx 0rpx;\n  color: #FFFFFF;\n  font-size: 30rpx;\n  line-height: 83rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .shop_cart_float[data-v-44818d84] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.8);\n}\nbody .content .shop_cart_float .show_box[data-v-44818d84] {\n  width: 100%;\n  background-color: #FFFFFF;\n  position: absolute;\n  bottom: 0;\n  border-radius: 13rpx 13rpx 0 0;\n}\nbody .content .shop_cart_float .show_box #close[data-v-44818d84] {\n  width: 80rpx;\n  height: 80rpx;\n  position: absolute;\n  right: 30rpx;\n  top: 30rpx;\n  text-align: right;\n}\nbody .content .shop_cart_float .show_box #close uni-image[data-v-44818d84] {\n  width: 30rpx;\n  height: 30rpx;\n}\nbody .content .shop_cart_float .show_box .top_pic[data-v-44818d84] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 40rpx 0 0 31rpx;\n}\nbody .content .shop_cart_float .show_box .top_pic .price_box[data-v-44818d84] {\n  height: 130rpx;\n  width: 350rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .shop_cart_float .show_box .top_pic .img[data-v-44818d84] {\n  width: 232rpx;\n  height: 231rpx;\n  background: #eee;\n  border-radius: 12rpx;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding-top: 38rpx;\n  margin-right: 18rpx;\n  position: relative;\n}\nbody .content .shop_cart_float .show_box .top_pic .img .float_btn[data-v-44818d84] {\n  width: 100%;\n  height: 40rpx;\n  background: rgba(0, 0, 0, 0.4);\n  position: absolute;\n  bottom: 0;\n  color: #FFFFFF;\n  font-size: 22rpx;\n  line-height: 40rpx;\n  border-radius: 8rpx 8rpx 0 0;\n}\nbody .content .shop_cart_float .show_box .color_type[data-v-44818d84] {\n  width: 100%;\n}\nbody .content .shop_cart_float .show_box .bom_btn[data-v-44818d84] {\n  width: 709rpx;\n  height: 86rpx;\n  line-height: 86rpx;\n  text-align: center;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 43rpx;\n  color: #FFFFFF;\n  font-weight: 500;\n  font-size: 36rpx;\n  margin-left: 25rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -6021,7 +6441,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-1ee77bdf] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-1ee77bdf] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-1ee77bdf] {\n  width: 100%;\n}\nbody .content .top_bar[data-v-1ee77bdf] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .top_bar uni-image[data-v-1ee77bdf] {\n  margin-right: 30rpx;\n}\nbody .content .con_box[data-v-1ee77bdf] {\n  width: 700rpx;\n  height: 507rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-left: 25rpx;\n  background-color: #FFFFFF;\n  padding: 20rpx;\n}\nbody .content .con_box .title[data-v-1ee77bdf] {\n  font-size: 30rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n  margin-bottom: 33rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\nbody .content .con_box .pic_box[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .con_box .pic_box uni-image[data-v-1ee77bdf] {\n  margin-right: 24rpx;\n}\nbody .content .con_box .pic_box .title_box[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .con_box .pic_box .title_box .tit_txt[data-v-1ee77bdf] {\n  width: 270rpx;\n  font-size: 26rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n  margin-right: 60rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  -webkit-box-orient: vertical;\n}\nbody .content .con_box .pic_box .title_box .price_box[data-v-1ee77bdf] {\n  font-weight: 500;\n  margin-bottom: 15rpx;\n}\nbody .content .con_box .pic_box .color_type[data-v-1ee77bdf] {\n  display: inline-block;\n  height: 42rpx;\n  line-height: 42rpx;\n  text-align: center;\n  background: #fafafa;\n  font-weight: 500;\n  font-size: 24rpx;\n  color: #9F9F9F;\n  margin-bottom: 20rpx;\n  padding: 0 10rpx;\n}\nbody .content .con_box .pic_box .info[data-v-1ee77bdf] {\n  width: 166rpx;\n  height: 33rpx;\n  line-height: 33rpx;\n  text-align: center;\n  background: #fbf3f0;\n  font-size: 22rpx;\n  color: #FF8822;\n}\nbody .content .con_box .num_color[data-v-1ee77bdf] {\n  font-size: 26rpx;\n  color: #333333;\n  font-weight: 500;\n}\nbody .content .con_box .pay_num[data-v-1ee77bdf] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-top: 50rpx;\n}\nbody .content .con_box .pay_num .btn[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .con_box .pay_num .btn .jian[data-v-1ee77bdf],\nbody .content .con_box .pay_num .btn .jia[data-v-1ee77bdf] {\n  width: 52rpx;\n  height: 47rpx;\n  border: 1rpx solid #e7e7e7;\n  border-radius: 0rpx 0rpx 0rpx 6rpx;\n  color: #B7B7B7;\n  font-size: 42rpx;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 400;\n}\nbody .content .con_box .pay_num .btn .num[data-v-1ee77bdf] {\n  width: 85rpx;\n  height: 47rpx;\n  border-top: 1rpx solid #e7e7e7;\n  border-bottom: 1rpx solid #e7e7e7;\n  font-size: 30rpx;\n  color: #001111;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .con_box .beizhu[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .con_box .beizhu uni-input[data-v-1ee77bdf] {\n  margin-left: 30rpx;\n  color: #9A9A9A;\n  font-size: 26rpx;\n}\nbody .content .pay_type[data-v-1ee77bdf] {\n  width: 700rpx;\n  height: 211rpx;\n  background-color: #FFFFFF;\n  margin: 24rpx 0 0 25rpx;\n  border-radius: 12rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 23rpx 30rpx;\n}\nbody .content .pay_type .item[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 23rpx;\n}\nbody .content .pay_type .left[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .pay_type .left uni-image[data-v-1ee77bdf] {\n  width: 40rpx;\n  height: 40rpx;\n  border-radius: 50%;\n  margin-right: 40rpx;\n}\nbody .content .pay_type .left uni-text[data-v-1ee77bdf] {\n  font-size: 26rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n}\nbody .content .pay_type .right[data-v-1ee77bdf] {\n  width: 25rpx;\n  height: 25rpx;\n  border: 2rpx solid #cecece;\n  border-radius: 50%;\n  position: relative;\n}\nbody .content .pay_type .right uni-image[data-v-1ee77bdf] {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\nbody .content .submit_btn[data-v-1ee77bdf] {\n  width: 540rpx;\n  height: 91rpx;\n  line-height: 91rpx;\n  text-align: center;\n  font-size: 36rpx;\n  font-weight: 500;\n  color: #FFFFFF;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 46rpx;\n  position: absolute;\n  bottom: 90rpx;\n  left: 105rpx;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-1ee77bdf] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-1ee77bdf] {\n  width: 100%;\n  height: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-1ee77bdf] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .top_bar[data-v-1ee77bdf] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .top_bar uni-image[data-v-1ee77bdf] {\n  margin-right: 30rpx;\n}\nbody .content .con_box[data-v-1ee77bdf] {\n  width: 700rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-left: 25rpx;\n  background-color: #FFFFFF;\n  padding: 20rpx;\n}\nbody .content .con_box .title[data-v-1ee77bdf] {\n  font-size: 30rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n  margin-bottom: 33rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\nbody .content .con_box .pic_box[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .con_box .pic_box uni-image[data-v-1ee77bdf] {\n  margin-right: 24rpx;\n}\nbody .content .con_box .pic_box .title_box[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .con_box .pic_box .title_box .tit_txt[data-v-1ee77bdf] {\n  width: 270rpx;\n  font-size: 26rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n  margin-right: 60rpx;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  -webkit-box-orient: vertical;\n}\nbody .content .con_box .pic_box .title_box .price_box[data-v-1ee77bdf] {\n  font-weight: 500;\n  margin-bottom: 15rpx;\n}\nbody .content .con_box .pic_box .color_type[data-v-1ee77bdf] {\n  display: inline-block;\n  height: 42rpx;\n  line-height: 42rpx;\n  text-align: center;\n  background: #fafafa;\n  font-weight: 500;\n  font-size: 24rpx;\n  color: #9F9F9F;\n  margin-bottom: 20rpx;\n  padding: 0 10rpx;\n}\nbody .content .con_box .pic_box .info[data-v-1ee77bdf] {\n  width: 166rpx;\n  height: 33rpx;\n  line-height: 33rpx;\n  text-align: center;\n  background: #fbf3f0;\n  font-size: 22rpx;\n  color: #FF8822;\n}\nbody .content .con_box .num_color[data-v-1ee77bdf] {\n  font-size: 26rpx;\n  color: #333333;\n  font-weight: 500;\n}\nbody .content .con_box .pay_num[data-v-1ee77bdf] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-top: 50rpx;\n}\nbody .content .con_box .pay_num .btn[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\nbody .content .con_box .pay_num .btn .jian[data-v-1ee77bdf],\nbody .content .con_box .pay_num .btn .jia[data-v-1ee77bdf] {\n  width: 52rpx;\n  height: 47rpx;\n  border: 1rpx solid #e7e7e7;\n  border-radius: 0rpx 0rpx 0rpx 6rpx;\n  color: #B7B7B7;\n  font-size: 42rpx;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 400;\n}\nbody .content .con_box .pay_num .btn .num[data-v-1ee77bdf] {\n  width: 85rpx;\n  height: 47rpx;\n  border-top: 1rpx solid #e7e7e7;\n  border-bottom: 1rpx solid #e7e7e7;\n  font-size: 30rpx;\n  color: #001111;\n  line-height: 47rpx;\n  text-align: center;\n  font-weight: 500;\n}\nbody .content .con_box .beizhu[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .con_box .beizhu uni-input[data-v-1ee77bdf] {\n  margin-left: 30rpx;\n  color: #9A9A9A;\n  font-size: 26rpx;\n}\nbody .content .pay_type[data-v-1ee77bdf] {\n  width: 700rpx;\n  height: 211rpx;\n  background-color: #FFFFFF;\n  margin: 24rpx 0 0 25rpx;\n  border-radius: 12rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 23rpx 30rpx;\n}\nbody .content .pay_type .item[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 23rpx;\n}\nbody .content .pay_type .left[data-v-1ee77bdf] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .pay_type .left uni-image[data-v-1ee77bdf] {\n  width: 40rpx;\n  height: 40rpx;\n  border-radius: 50%;\n  margin-right: 40rpx;\n}\nbody .content .pay_type .left uni-text[data-v-1ee77bdf] {\n  font-size: 26rpx;\n  color: #3E3E3E;\n  font-weight: 500;\n}\nbody .content .pay_type .right[data-v-1ee77bdf] {\n  width: 25rpx;\n  height: 25rpx;\n  border: 2rpx solid #cecece;\n  border-radius: 50%;\n  position: relative;\n}\nbody .content .pay_type .right uni-image[data-v-1ee77bdf] {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\nbody .content .submit_btn[data-v-1ee77bdf] {\n  width: 540rpx;\n  height: 91rpx;\n  line-height: 91rpx;\n  text-align: center;\n  font-size: 36rpx;\n  font-weight: 500;\n  color: #FFFFFF;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 46rpx;\n  position: absolute;\n  bottom: 90rpx;\n  left: 105rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -9598,7 +10018,7 @@ var render = function() {
               _c(
                 "v-uni-view",
                 { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
-                [_vm._v("团队总人数200人")]
+                [_vm._v("团队总人数" + _vm._$g(8, "t0-0") + "人")]
               ),
               _c("v-uni-view", {
                 staticClass: _vm._$g(9, "sc"),
@@ -9616,7 +10036,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
-                        [_vm._v("30")]
+                        [_vm._v(_vm._$g(13, "t0-0"))]
                       )
                     ],
                     1
@@ -9631,7 +10051,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
-                        [_vm._v("30")]
+                        [_vm._v(_vm._$g(16, "t0-0"))]
                       )
                     ],
                     1
@@ -9646,7 +10066,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
-                        [_vm._v("40")]
+                        [_vm._v(_vm._$g(19, "t0-0"))]
                       )
                     ],
                     1
@@ -9659,7 +10079,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
-                        [_vm._v("40")]
+                        [_vm._v(_vm._$g(22, "t0-0"))]
                       )
                     ],
                     1
@@ -9715,9 +10135,31 @@ var render = function() {
                   _c("v-uni-text", { attrs: { _i: "28-" + $30 } }, [
                     _vm._v("电话：" + _vm._$g("28-" + $30, "t0-0"))
                   ]),
-                  _c("v-uni-text", { attrs: { _i: "29-" + $30 } }, [
-                    _vm._v("职位：" + _vm._$g("29-" + $30, "t0-0"))
-                  ])
+                  _vm._$g("29-" + $30, "i")
+                    ? _c("v-uni-text", { attrs: { _i: "29-" + $30 } }, [
+                        _vm._v("职位：总监")
+                      ])
+                    : _vm._e(),
+                  _vm._$g("30-" + $30, "i")
+                    ? _c("v-uni-text", { attrs: { _i: "30-" + $30 } }, [
+                        _vm._v("职位：省区经理")
+                      ])
+                    : _vm._e(),
+                  _vm._$g("31-" + $30, "i")
+                    ? _c("v-uni-text", { attrs: { _i: "31-" + $30 } }, [
+                        _vm._v("职位：业务员")
+                      ])
+                    : _vm._e(),
+                  _vm._$g("32-" + $30, "i")
+                    ? _c("v-uni-text", { attrs: { _i: "32-" + $30 } }, [
+                        _vm._v("职位：讲师")
+                      ])
+                    : _vm._e(),
+                  _vm._$g("33-" + $30, "i")
+                    ? _c("v-uni-text", { attrs: { _i: "33-" + $30 } }, [
+                        _vm._v("职位：店铺")
+                      ])
+                    : _vm._e()
                 ],
                 1
               )
@@ -9819,7 +10261,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-7b303196] {\n  height: var(--status-bar-height);\n  background: #2B2B2B;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-7b303196] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-7b303196] {\n  width: 100%;\n}\nbody .content .top_box[data-v-7b303196] {\n  width: 750rpx;\n  height: 192rpx;\n  background: #2b2b2b;\n}\nbody .content .top_box .top_bar[data-v-7b303196] {\n  color: #FFFFFF;\n  font-weight: 500;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  margin-bottom: 10rpx;\n}\nbody .content .top_box .top_bar .guanli[data-v-7b303196] {\n  font-size: 24rpx;\n}\nbody .content .top_box .tab_box[data-v-7b303196] {\n  width: 700rpx;\n  height: 206rpx;\n  background: -webkit-linear-gradient(92deg, #e6d8bd, #f4ece1);\n  background: linear-gradient(-2deg, #e6d8bd, #f4ece1);\n  border-radius: 12rpx;\n  margin-left: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .top_box .tab_box .title[data-v-7b303196] {\n  color: #222222;\n  font-size: 30rpx;\n  font-weight: 500;\n  margin-bottom: 23rpx;\n}\nbody .content .top_box .tab_box .hen[data-v-7b303196] {\n  width: 567rpx;\n  height: 8rpx;\n  background: #C69C6C;\n  border-radius: 4rpx;\n  margin-bottom: 23rpx;\n}\nbody .content .top_box .tab_box .bom_box[data-v-7b303196] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .top_box .tab_box .bom_box .item[data-v-7b303196] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  color: #724C1F;\n  font-size: 24rpx;\n  font-weight: 500;\n}\nbody .content .top_box .tab_box .bom_box .item uni-text.num[data-v-7b303196] {\n  font-size: 34rpx;\n}\nbody .content .show_list[data-v-7b303196] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  margin-top: 130rpx;\n}\nbody .content .show_list .item[data-v-7b303196] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 18rpx;\n}\nbody .content .show_list .item uni-image[data-v-7b303196] {\n  width: 187rpx;\n  height: 181rpx;\n  margin-right: 24rpx;\n}\nbody .content .show_list .item .con_r[data-v-7b303196] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n}\nbody .content .show_list .item .con_r .name[data-v-7b303196] {\n  color: #2B2B2B;\n  font-size: 26rpx;\n  font-weight: 500;\n  margin-bottom: 15rpx;\n}\nbody .content .show_list .item .con_r uni-text[data-v-7b303196] {\n  font-size: 24rpx;\n  color: #BBBBBB;\n  margin-bottom: 15rpx;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-7b303196] {\n  height: var(--status-bar-height);\n  background: #2B2B2B;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-7b303196] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-7b303196] {\n  width: 100%;\n  height: 100%;\n  min-height: 100vh;\n  background-color: #FFFFFF;\n}\nbody .content .top_box[data-v-7b303196] {\n  width: 750rpx;\n  height: 192rpx;\n  background: #2b2b2b;\n}\nbody .content .top_box .top_bar[data-v-7b303196] {\n  color: #FFFFFF;\n  font-weight: 500;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  margin-bottom: 10rpx;\n}\nbody .content .top_box .top_bar .guanli[data-v-7b303196] {\n  font-size: 24rpx;\n}\nbody .content .top_box .tab_box[data-v-7b303196] {\n  width: 700rpx;\n  height: 206rpx;\n  background: -webkit-linear-gradient(92deg, #e6d8bd, #f4ece1);\n  background: linear-gradient(-2deg, #e6d8bd, #f4ece1);\n  border-radius: 12rpx;\n  margin-left: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .top_box .tab_box .title[data-v-7b303196] {\n  color: #222222;\n  font-size: 30rpx;\n  font-weight: 500;\n  margin-bottom: 23rpx;\n}\nbody .content .top_box .tab_box .hen[data-v-7b303196] {\n  width: 567rpx;\n  height: 8rpx;\n  background: #C69C6C;\n  border-radius: 4rpx;\n  margin-bottom: 23rpx;\n}\nbody .content .top_box .tab_box .bom_box[data-v-7b303196] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n}\nbody .content .top_box .tab_box .bom_box .item[data-v-7b303196] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  color: #724C1F;\n  font-size: 24rpx;\n  font-weight: 500;\n}\nbody .content .top_box .tab_box .bom_box .item uni-text.num[data-v-7b303196] {\n  font-size: 34rpx;\n}\nbody .content .show_list[data-v-7b303196] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  margin-top: 130rpx;\n}\nbody .content .show_list .item[data-v-7b303196] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-bottom: 18rpx;\n}\nbody .content .show_list .item uni-image[data-v-7b303196] {\n  width: 187rpx;\n  height: 181rpx;\n  margin-right: 24rpx;\n}\nbody .content .show_list .item .con_r[data-v-7b303196] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n}\nbody .content .show_list .item .con_r .name[data-v-7b303196] {\n  color: #2B2B2B;\n  font-size: 26rpx;\n  font-weight: 500;\n  margin-bottom: 15rpx;\n}\nbody .content .show_list .item .con_r uni-text[data-v-7b303196] {\n  font-size: 24rpx;\n  color: #BBBBBB;\n  margin-bottom: 15rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -9963,14 +10405,46 @@ var render = function() {
                         },
                         [_vm._v(_vm._$g("9-" + $30, "t0-0"))]
                       ),
-                      _c(
-                        "v-uni-view",
-                        {
-                          staticClass: _vm._$g("10-" + $30, "sc"),
-                          attrs: { _i: "10-" + $30 }
-                        },
-                        [_vm._v("职位：" + _vm._$g("10-" + $30, "t0-0"))]
-                      )
+                      _vm._$g("10-" + $30, "i")
+                        ? _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g("10-" + $30, "sc"),
+                              attrs: { _i: "10-" + $30 }
+                            },
+                            [_vm._v("职位：总监")]
+                          )
+                        : _vm._e(),
+                      _vm._$g("11-" + $30, "i")
+                        ? _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g("11-" + $30, "sc"),
+                              attrs: { _i: "11-" + $30 }
+                            },
+                            [_vm._v("职位：省区经理")]
+                          )
+                        : _vm._e(),
+                      _vm._$g("12-" + $30, "i")
+                        ? _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g("12-" + $30, "sc"),
+                              attrs: { _i: "12-" + $30 }
+                            },
+                            [_vm._v("职位：业务员")]
+                          )
+                        : _vm._e(),
+                      _vm._$g("13-" + $30, "i")
+                        ? _c(
+                            "v-uni-view",
+                            {
+                              staticClass: _vm._$g("13-" + $30, "sc"),
+                              attrs: { _i: "13-" + $30 }
+                            },
+                            [_vm._v("职位：店铺")]
+                          )
+                        : _vm._e()
                     ],
                     1
                   )
@@ -9980,8 +10454,8 @@ var render = function() {
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g("11-" + $30, "sc"),
-                  attrs: { _i: "11-" + $30 },
+                  staticClass: _vm._$g("14-" + $30, "sc"),
+                  attrs: { _i: "14-" + $30 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -9996,12 +10470,12 @@ var render = function() {
         }),
         1
       ),
-      _vm._$g(12, "i")
+      _vm._$g(15, "i")
         ? _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(12, "sc"),
-              attrs: { _i: 12 },
+              staticClass: _vm._$g(15, "sc"),
+              attrs: { _i: 15 },
               on: {
                 touchmove: function($event) {
                   return _vm.$handleViewEvent($event, {
@@ -10014,16 +10488,16 @@ var render = function() {
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
+                { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
                 [
                   _c(
                     "v-uni-scroll-view",
                     {
-                      staticClass: _vm._$g(14, "sc"),
+                      staticClass: _vm._$g(17, "sc"),
                       attrs: {
-                        "scroll-top": _vm._$g(14, "a-scroll-top"),
+                        "scroll-top": _vm._$g(17, "a-scroll-top"),
                         "scroll-y": "true",
-                        _i: 14
+                        _i: 17
                       },
                       on: {
                         scrolltoupper: function($event) {
@@ -10037,13 +10511,13 @@ var render = function() {
                         }
                       }
                     },
-                    _vm._l(_vm._$g(15, "f"), function(item, index, $21, $31) {
+                    _vm._l(_vm._$g(18, "f"), function(item, index, $21, $31) {
                       return _c(
                         "v-uni-view",
                         {
                           key: item,
-                          staticClass: _vm._$g("15-" + $31, "sc"),
-                          attrs: { _i: "15-" + $31 },
+                          staticClass: _vm._$g("18-" + $31, "sc"),
+                          attrs: { _i: "18-" + $31 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -10054,16 +10528,16 @@ var render = function() {
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g("16-" + $31, "sc"),
-                              attrs: { _i: "16-" + $31 }
+                              staticClass: _vm._$g("19-" + $31, "sc"),
+                              attrs: { _i: "19-" + $31 }
                             },
                             [
-                              _vm._$g("17-" + $31, "i")
+                              _vm._$g("20-" + $31, "i")
                                 ? _c("v-uni-image", {
                                     attrs: {
-                                      src: _vm._$g("17-" + $31, "a-src"),
+                                      src: _vm._$g("20-" + $31, "a-src"),
                                       mode: "",
-                                      _i: "17-" + $31
+                                      _i: "20-" + $31
                                     }
                                   })
                                 : _vm._e()
@@ -10073,10 +10547,10 @@ var render = function() {
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g("18-" + $31, "sc"),
-                              attrs: { _i: "18-" + $31 }
+                              staticClass: _vm._$g("21-" + $31, "sc"),
+                              attrs: { _i: "21-" + $31 }
                             },
-                            [_vm._v(_vm._$g("18-" + $31, "t0-0"))]
+                            [_vm._v(_vm._$g("21-" + $31, "t0-0"))]
                           )
                         ],
                         1
@@ -10086,13 +10560,13 @@ var render = function() {
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+                    { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
                     [
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g(20, "sc"),
-                          attrs: { _i: 20 },
+                          staticClass: _vm._$g(23, "sc"),
+                          attrs: { _i: 23 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -10104,8 +10578,8 @@ var render = function() {
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g(21, "sc"),
-                          attrs: { _i: 21 },
+                          staticClass: _vm._$g(24, "sc"),
+                          attrs: { _i: 24 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -10216,7 +10690,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-9430ddf8] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-9430ddf8] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-9430ddf8] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .search_box[data-v-9430ddf8] {\n  width: 690rpx;\n  height: 53rpx;\n  background: #FFFFFF;\n  margin-left: 30rpx;\n  border-radius: 27rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .search_box uni-input[data-v-9430ddf8] {\n  color: #707070;\n  font-size: 26rpx;\n}\nbody .content .search_box uni-image[data-v-9430ddf8] {\n  margin-right: 24rpx;\n}\nbody .content .member_list[data-v-9430ddf8] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  background-color: #FFFFFF;\n  margin-top: 24rpx;\n}\nbody .content .member_list .item[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 24rpx;\n}\nbody .content .member_list .item .img_l[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .member_list .item .img_l uni-image[data-v-9430ddf8] {\n  width: 115rpx;\n  height: 112rpx;\n  margin-right: 24rpx;\n}\nbody .content .member_list .item .img_l .name[data-v-9430ddf8] {\n  color: #2B2B2B;\n  font-size: 26rpx;\n  font-weight: 500;\n  margin-bottom: 17rpx;\n}\nbody .content .member_list .item .img_l .zhiwei[data-v-9430ddf8] {\n  color: #BBBBBB;\n  font-size: 24rpx;\n}\nbody .content .member_list .item .btn_r[data-v-9430ddf8] {\n  width: 76rpx;\n  height: 35rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 18rpx;\n  line-height: 35rpx;\n  text-align: center;\n  color: #FFFFFF;\n  font-size: 24rpx;\n}\nbody .content .renming_float[data-v-9430ddf8] {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.8);\n  position: absolute;\n  top: 0;\n}\nbody .content .renming_float .con_box[data-v-9430ddf8] {\n  width: 556rpx;\n  height: 406rpx;\n  background: #ffffff;\n  border-radius: 10rpx;\n  position: absolute;\n  top: calc(50% - 203rpx);\n  left: calc(50% - 273rpx);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .renming_float .con_box .scroll-Y[data-v-9430ddf8] {\n  width: 100%;\n  height: 235rpx;\n}\nbody .content .renming_float .con_box .scroll-Y .item[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 18rpx;\n}\nbody .content .renming_float .con_box .scroll-Y .item .yuan[data-v-9430ddf8] {\n  width: 28rpx;\n  height: 28rpx;\n  border: 2rpx solid #d4d4d4;\n  border-radius: 50%;\n  margin-right: 15rpx;\n  position: relative;\n}\nbody .content .renming_float .con_box .scroll-Y .item .yuan uni-image[data-v-9430ddf8] {\n  width: 28rpx;\n  height: 28rpx;\n  position: absolute;\n  top: 0;\n}\nbody .content .renming_float .con_box .scroll-Y .item .text[data-v-9430ddf8] {\n  width: 150rpx;\n  color: #BBBBBB;\n  font-size: 28rpx;\n  font-weight: 500;\n}\nbody .content .renming_float .con_box .btn_box[data-v-9430ddf8] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 13%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-top: 40rpx;\n}\nbody .content .renming_float .con_box .btn_box .on_btn[data-v-9430ddf8] {\n  width: 178rpx;\n  height: 69rpx;\n  background: #ffffff;\n  border: 1rpx solid #ff5205;\n  border-radius: 35rpx;\n  line-height: 69rpx;\n  text-align: center;\n  color: #000000;\n  font-size: 24rpx;\n}\nbody .content .renming_float .con_box .btn_box .ok_btn[data-v-9430ddf8] {\n  width: 178rpx;\n  height: 69rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 35rpx;\n  line-height: 69rpx;\n  text-align: center;\n  color: #FFFFFF;\n  font-size: 24rpx;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-9430ddf8] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-9430ddf8] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-9430ddf8] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .search_box[data-v-9430ddf8] {\n  width: 690rpx;\n  height: 53rpx;\n  background: #FFFFFF;\n  margin-left: 30rpx;\n  border-radius: 27rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-top: 24rpx;\n}\nbody .content .search_box uni-input[data-v-9430ddf8] {\n  color: #707070;\n  font-size: 26rpx;\n}\nbody .content .search_box uni-image[data-v-9430ddf8] {\n  margin-right: 24rpx;\n}\nbody .content .member_list[data-v-9430ddf8] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n  background-color: #FFFFFF;\n  margin-top: 24rpx;\n}\nbody .content .member_list .item[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 24rpx;\n}\nbody .content .member_list .item .img_l[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .member_list .item .img_l uni-image[data-v-9430ddf8] {\n  width: 115rpx;\n  height: 112rpx;\n  margin-right: 24rpx;\n}\nbody .content .member_list .item .img_l .name[data-v-9430ddf8] {\n  color: #2B2B2B;\n  font-size: 26rpx;\n  font-weight: 500;\n  margin-bottom: 17rpx;\n}\nbody .content .member_list .item .img_l .zhiwei[data-v-9430ddf8] {\n  color: #BBBBBB;\n  font-size: 24rpx;\n}\nbody .content .member_list .item .btn_r[data-v-9430ddf8] {\n  width: 76rpx;\n  height: 35rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 18rpx;\n  line-height: 35rpx;\n  text-align: center;\n  color: #FFFFFF;\n  font-size: 24rpx;\n}\nbody .content .renming_float[data-v-9430ddf8] {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.8);\n  position: absolute;\n  top: 0;\n}\nbody .content .renming_float .con_box[data-v-9430ddf8] {\n  width: 556rpx;\n  height: 406rpx;\n  background: #ffffff;\n  border-radius: 10rpx;\n  position: absolute;\n  top: calc(50% - 203rpx);\n  left: calc(50% - 273rpx);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .renming_float .con_box .scroll-Y[data-v-9430ddf8] {\n  width: 100%;\n  height: 235rpx;\n}\nbody .content .renming_float .con_box .scroll-Y .item[data-v-9430ddf8] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 18rpx;\n}\nbody .content .renming_float .con_box .scroll-Y .item .yuan[data-v-9430ddf8] {\n  width: 28rpx;\n  height: 28rpx;\n  border: 2rpx solid #d4d4d4;\n  border-radius: 50%;\n  margin-right: 15rpx;\n  position: relative;\n}\nbody .content .renming_float .con_box .scroll-Y .item .yuan uni-image[data-v-9430ddf8] {\n  width: 28rpx;\n  height: 28rpx;\n  position: absolute;\n  top: 0;\n}\nbody .content .renming_float .con_box .scroll-Y .item .text[data-v-9430ddf8] {\n  width: 150rpx;\n  color: #BBBBBB;\n  font-size: 28rpx;\n  font-weight: 500;\n}\nbody .content .renming_float .con_box .btn_box[data-v-9430ddf8] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 13%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  margin-top: 40rpx;\n}\nbody .content .renming_float .con_box .btn_box .on_btn[data-v-9430ddf8] {\n  width: 178rpx;\n  height: 69rpx;\n  background: #ffffff;\n  border: 1rpx solid #ff5205;\n  border-radius: 35rpx;\n  line-height: 69rpx;\n  text-align: center;\n  color: #000000;\n  font-size: 24rpx;\n}\nbody .content .renming_float .con_box .btn_box .ok_btn[data-v-9430ddf8] {\n  width: 178rpx;\n  height: 69rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);\n  background: linear-gradient(-88deg, #ff5005, #ff7a2d);\n  border-radius: 35rpx;\n  line-height: 69rpx;\n  text-align: center;\n  color: #FFFFFF;\n  font-size: 24rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -10329,16 +10803,33 @@ var render = function() {
                         { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
                         [
                           _vm._v(_vm._$g(6, "t0-0")),
-                          _c("v-uni-text", { attrs: { _i: 7 } }, [
-                            _vm._v("职位:" + _vm._$g(7, "t0-0"))
-                          ])
+                          _vm._$g(7, "i")
+                            ? _c("v-uni-text", { attrs: { _i: 7 } }, [
+                                _vm._v("职位: 总监")
+                              ])
+                            : _vm._e(),
+                          _vm._$g(8, "i")
+                            ? _c("v-uni-text", { attrs: { _i: 8 } }, [
+                                _vm._v("职位: 省区经理")
+                              ])
+                            : _vm._e(),
+                          _vm._$g(9, "i")
+                            ? _c("v-uni-text", { attrs: { _i: 9 } }, [
+                                _vm._v("职位: 业务员")
+                              ])
+                            : _vm._e(),
+                          _vm._$g(10, "i")
+                            ? _c("v-uni-text", { attrs: { _i: 10 } }, [
+                                _vm._v("职位: 店铺")
+                              ])
+                            : _vm._e()
                         ],
                         1
                       ),
                       _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
-                        [_vm._v("管理区域：" + _vm._$g(8, "t0-0"))]
+                        { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+                        [_vm._v("管理区域：" + _vm._$g(11, "t0-0"))]
                       )
                     ],
                     1
@@ -10349,8 +10840,8 @@ var render = function() {
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(9, "sc"),
-                  attrs: { _i: 9 },
+                  staticClass: _vm._$g(12, "sc"),
+                  attrs: { _i: 12 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -10364,16 +10855,16 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
+            { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+                { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
                 [_vm._v("业务数据")]
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+                { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
                 [_vm._v("查看更多")]
               )
             ],
@@ -10381,17 +10872,17 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
+            { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
+                { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
                 [_vm._v("总交易额")]
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
-                [_vm._v(_vm._$g(15, "t0-0"))]
+                { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
+                [_vm._v(_vm._$g(18, "t0-0"))]
               )
             ],
             1
@@ -10401,69 +10892,96 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
+        { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
+            { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
             [
               _c("v-uni-view", {
-                staticClass: _vm._$g(18, "sc"),
-                attrs: { _i: 18 }
+                staticClass: _vm._$g(21, "sc"),
+                attrs: { _i: 21 }
               }),
-              _c("v-uni-text", { attrs: { _i: 19 } }, [_vm._v("他的团队")])
+              _c("v-uni-text", { attrs: { _i: 22 } }, [_vm._v("他的团队")])
             ],
             1
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
-            _vm._l(_vm._$g(21, "f"), function(item, index, $20, $30) {
+            { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
+            _vm._l(_vm._$g(24, "f"), function(item, index, $20, $30) {
               return _c(
                 "v-uni-view",
                 {
                   key: item,
-                  staticClass: _vm._$g("21-" + $30, "sc"),
-                  attrs: { _i: "21-" + $30 }
+                  staticClass: _vm._$g("24-" + $30, "sc"),
+                  attrs: { _i: "24-" + $30 }
                 },
                 [
                   _c("v-uni-image", {
                     attrs: {
-                      src: _vm._$g("22-" + $30, "a-src"),
+                      src: _vm._$g("25-" + $30, "a-src"),
                       mode: "",
-                      _i: "22-" + $30
+                      _i: "25-" + $30
                     }
                   }),
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g("23-" + $30, "sc"),
-                      attrs: { _i: "23-" + $30 }
+                      staticClass: _vm._$g("26-" + $30, "sc"),
+                      attrs: { _i: "26-" + $30 }
                     },
                     [
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g("24-" + $30, "sc"),
-                          attrs: { _i: "24-" + $30 }
+                          staticClass: _vm._$g("27-" + $30, "sc"),
+                          attrs: { _i: "27-" + $30 }
                         },
-                        [_vm._v(_vm._$g("24-" + $30, "t0-0"))]
+                        [_vm._v(_vm._$g("27-" + $30, "t0-0"))]
                       ),
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g("25-" + $30, "sc"),
-                          attrs: { _i: "25-" + $30 }
+                          staticClass: _vm._$g("28-" + $30, "sc"),
+                          attrs: { _i: "28-" + $30 }
                         },
-                        [_vm._v("电话: " + _vm._$g("25-" + $30, "t0-0"))]
+                        [_vm._v("电话: " + _vm._$g("28-" + $30, "t0-0"))]
                       ),
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g("26-" + $30, "sc"),
-                          attrs: { _i: "26-" + $30 }
+                          staticClass: _vm._$g("29-" + $30, "sc"),
+                          attrs: { _i: "29-" + $30 }
                         },
-                        [_vm._v("职位:" + _vm._$g("26-" + $30, "t0-0"))]
+                        [
+                          _vm._$g("30-" + $30, "i")
+                            ? _c("v-uni-text", { attrs: { _i: "30-" + $30 } }, [
+                                _vm._v("职位: 总监")
+                              ])
+                            : _vm._e(),
+                          _vm._$g("31-" + $30, "i")
+                            ? _c("v-uni-text", { attrs: { _i: "31-" + $30 } }, [
+                                _vm._v("职位: 省区经理")
+                              ])
+                            : _vm._e(),
+                          _vm._$g("32-" + $30, "i")
+                            ? _c("v-uni-text", { attrs: { _i: "32-" + $30 } }, [
+                                _vm._v("职位: 业务员")
+                              ])
+                            : _vm._e(),
+                          _vm._$g("33-" + $30, "i")
+                            ? _c("v-uni-text", { attrs: { _i: "33-" + $30 } }, [
+                                _vm._v("职位: 讲师")
+                              ])
+                            : _vm._e(),
+                          _vm._$g("34-" + $30, "i")
+                            ? _c("v-uni-text", { attrs: { _i: "34-" + $30 } }, [
+                                _vm._v("职位: 店铺")
+                              ])
+                            : _vm._e()
+                        ],
+                        1
                       )
                     ],
                     1
@@ -10477,12 +10995,12 @@ var render = function() {
         ],
         1
       ),
-      _vm._$g(27, "i")
+      _vm._$g(35, "i")
         ? _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(27, "sc"),
-              attrs: { _i: 27 },
+              staticClass: _vm._$g(35, "sc"),
+              attrs: { _i: 35 },
               on: {
                 touchmove: function($event) {
                   return _vm.$handleViewEvent($event, {
@@ -10495,21 +11013,21 @@ var render = function() {
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(28, "sc"), attrs: { _i: 28 } },
+                { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(29, "sc"), attrs: { _i: 29 } },
+                    { staticClass: _vm._$g(37, "sc"), attrs: { _i: 37 } },
                     [_vm._v("更改区域")]
                   ),
                   _c(
                     "v-uni-scroll-view",
                     {
-                      staticClass: _vm._$g(30, "sc"),
+                      staticClass: _vm._$g(38, "sc"),
                       attrs: {
-                        "scroll-top": _vm._$g(30, "a-scroll-top"),
+                        "scroll-top": _vm._$g(38, "a-scroll-top"),
                         "scroll-y": "true",
-                        _i: 30
+                        _i: 38
                       },
                       on: {
                         scrolltoupper: function($event) {
@@ -10523,13 +11041,13 @@ var render = function() {
                         }
                       }
                     },
-                    _vm._l(_vm._$g(31, "f"), function(item, index, $21, $31) {
+                    _vm._l(_vm._$g(39, "f"), function(item, index, $21, $31) {
                       return _c(
                         "v-uni-view",
                         {
                           key: item,
-                          staticClass: _vm._$g("31-" + $31, "sc"),
-                          attrs: { _i: "31-" + $31 },
+                          staticClass: _vm._$g("39-" + $31, "sc"),
+                          attrs: { _i: "39-" + $31 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -10540,16 +11058,16 @@ var render = function() {
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g("32-" + $31, "sc"),
-                              attrs: { _i: "32-" + $31 }
+                              staticClass: _vm._$g("40-" + $31, "sc"),
+                              attrs: { _i: "40-" + $31 }
                             },
                             [
-                              _vm._$g("33-" + $31, "i")
+                              _vm._$g("41-" + $31, "i")
                                 ? _c("v-uni-image", {
                                     attrs: {
-                                      src: _vm._$g("33-" + $31, "a-src"),
+                                      src: _vm._$g("41-" + $31, "a-src"),
                                       mode: "",
-                                      _i: "33-" + $31
+                                      _i: "41-" + $31
                                     }
                                   })
                                 : _vm._e()
@@ -10559,10 +11077,10 @@ var render = function() {
                           _c(
                             "v-uni-view",
                             {
-                              staticClass: _vm._$g("34-" + $31, "sc"),
-                              attrs: { _i: "34-" + $31 }
+                              staticClass: _vm._$g("42-" + $31, "sc"),
+                              attrs: { _i: "42-" + $31 }
                             },
-                            [_vm._v(_vm._$g("34-" + $31, "t0-0"))]
+                            [_vm._v(_vm._$g("42-" + $31, "t0-0"))]
                           )
                         ],
                         1
@@ -10572,13 +11090,13 @@ var render = function() {
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(35, "sc"), attrs: { _i: 35 } },
+                    { staticClass: _vm._$g(43, "sc"), attrs: { _i: 43 } },
                     [
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g(36, "sc"),
-                          attrs: { _i: 36 },
+                          staticClass: _vm._$g(44, "sc"),
+                          attrs: { _i: 44 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -10590,8 +11108,8 @@ var render = function() {
                       _c(
                         "v-uni-view",
                         {
-                          staticClass: _vm._$g(37, "sc"),
-                          attrs: { _i: 37 },
+                          staticClass: _vm._$g(45, "sc"),
+                          attrs: { _i: 45 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -18590,7 +19108,14 @@ var render = function() {
             [_vm._v("昵称")]
           ),
           _c("v-uni-input", {
-            attrs: { type: "text", value: "", placeholder: "输入名字", _i: 7 }
+            attrs: { type: "text", placeholder: "输入名字", _i: 7 },
+            model: {
+              value: _vm._$g(7, "v-model"),
+              callback: function($$v) {
+                _vm.$handleVModelEvent(7, $$v)
+              },
+              expression: "userInfo.nickName"
+            }
           })
         ],
         1
@@ -19407,7 +19932,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-cca8a890] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-cca8a890] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-cca8a890] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .loading[data-v-cca8a890] {\n  width: 100%;\n  height: 70rpx;\n  line-height: 70rpx;\n  background-color: #eee;\n  font-size: 28rpx;\n  text-align: center;\n}\nbody .content .item[data-v-cca8a890] {\n  margin-top: 24rpx;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n  padding: 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  border-bottom: 1rpx solid #eee;\n}\nbody .content .item .img[data-v-cca8a890] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .item .img uni-image[data-v-cca8a890] {\n  min-height: 75rpx;\n  min-width: 75rpx;\n  width: 75rpx;\n  height: 75rpx;\n  margin-right: 20rpx;\n}\nbody .content .item .img .con_text[data-v-cca8a890] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n}\nbody .content .item .img .con_text uni-text[data-v-cca8a890] {\n  font-size: 34rpx;\n  color: #6A6A6A;\n  margin-bottom: 10rpx;\n}\nbody .content .item .r_date[data-v-cca8a890] {\n  -webkit-align-self: flex-start;\n          align-self: flex-start;\n  color: #9A9A9A;\n  font-size: 24rpx;\n}\nbody .content .item .r_date uni-image[data-v-cca8a890] {\n  width: 30rpx;\n  height: 30rpx;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-cca8a890] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-cca8a890] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-cca8a890] {\n  width: 100%;\n  height: 100%;\n  min-height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .loading[data-v-cca8a890] {\n  width: 100%;\n  height: 70rpx;\n  line-height: 70rpx;\n  background-color: #eee;\n  font-size: 28rpx;\n  text-align: center;\n}\nbody .content .item[data-v-cca8a890] {\n  margin-top: 24rpx;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #FFFFFF;\n  padding: 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  border-bottom: 1rpx solid #eee;\n}\nbody .content .item .img[data-v-cca8a890] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .item .img uni-image[data-v-cca8a890] {\n  min-height: 75rpx;\n  min-width: 75rpx;\n  width: 75rpx;\n  height: 75rpx;\n  margin-right: 20rpx;\n}\nbody .content .item .img .con_text[data-v-cca8a890] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n          flex-direction: column;\n}\nbody .content .item .img .con_text uni-text[data-v-cca8a890] {\n  font-size: 34rpx;\n  color: #6A6A6A;\n  margin-bottom: 10rpx;\n}\nbody .content .item .r_date[data-v-cca8a890] {\n  -webkit-align-self: flex-start;\n          align-self: flex-start;\n  color: #9A9A9A;\n  font-size: 24rpx;\n}\nbody .content .item .r_date uni-image[data-v-cca8a890] {\n  width: 30rpx;\n  height: 30rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -23076,100 +23601,7 @@ var render = function() {
               _c(
                 "v-uni-view",
                 { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
-                [_vm._v("￥0.00")]
-              )
-            ],
-            1
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
-            [
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
-                [
-                  _c("v-uni-image", {
-                    attrs: { src: _vm._$g(12, "a-src"), mode: "", _i: 12 }
-                  }),
-                  _c("v-uni-text", { attrs: { _i: 13 } }, [_vm._v("我的收益")])
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
-                [
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
-                    [
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
-                        [_vm._v("￥0.00")]
-                      ),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
-                        [_vm._v("可提现")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
-                    [
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
-                        [_vm._v("￥0.00")]
-                      ),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
-                        [_vm._v("不可提现")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
-                    [
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
-                        [_vm._v("￥0.00")]
-                      ),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
-                        [_vm._v("待到账")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
-                    [
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(25, "sc"), attrs: { _i: 25 } },
-                        [_vm._v("￥0.00")]
-                      ),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(26, "sc"), attrs: { _i: 26 } },
-                        [_vm._v("今日到账")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
+                [_vm._v("￥" + _vm._$g(9, "t0-0"))]
               )
             ],
             1
@@ -23179,13 +23611,13 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
+        { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
         [
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(28, "sc"),
-              attrs: { _i: 28 },
+              staticClass: _vm._$g(11, "sc"),
+              attrs: { _i: 11 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -23195,11 +23627,11 @@ var render = function() {
             [
               _c("v-uni-image", {
                 staticStyle: { width: "39rpx", height: "29rpx" },
-                attrs: { src: _vm._$g(29, "a-src"), mode: "", _i: 29 }
+                attrs: { src: _vm._$g(12, "a-src"), mode: "", _i: 12 }
               }),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(30, "sc"), attrs: { _i: 30 } },
+                { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
                 [_vm._v("我要提现")]
               )
             ],
@@ -23208,8 +23640,8 @@ var render = function() {
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(31, "sc"),
-              attrs: { _i: 31 },
+              staticClass: _vm._$g(14, "sc"),
+              attrs: { _i: 14 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -23219,11 +23651,11 @@ var render = function() {
             [
               _c("v-uni-image", {
                 staticStyle: { width: "34rpx", height: "34rpx" },
-                attrs: { src: _vm._$g(32, "a-src"), mode: "", _i: 32 }
+                attrs: { src: _vm._$g(15, "a-src"), mode: "", _i: 15 }
               }),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
+                { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
                 [_vm._v("账单明细")]
               )
             ],
@@ -23324,7 +23756,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-5687553d] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-5687553d] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-5687553d] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .top_bar[data-v-5687553d] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  position: relative;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .top_bar .back[data-v-5687553d] {\n  width: 23rpx;\n  height: 41rpx;\n}\nbody .content .top_bar .name[data-v-5687553d] {\n  font-size: 32rpx;\n  font-weight: 500;\n  color: #111111;\n}\nbody .content .top_bar .r_btn[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: 500;\n  color: #666666;\n}\nbody .content .Top_color[data-v-5687553d] {\n  position: relative;\n  width: 750rpx;\n  height: 246rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff8f02);\n  background: linear-gradient(-88deg, #ff5005, #ff8f02);\n}\nbody .content .Top_color .price_box[data-v-5687553d] {\n  padding: 36rpx 0 0 59rpx;\n}\nbody .content .Top_color .price_box .title[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: 500;\n  color: #ffffff;\n}\nbody .content .Top_color .price_box .price[data-v-5687553d] {\n  font-size: 58rpx;\n  font-weight: 800;\n  color: #ffffff;\n}\nbody .content .Top_color .float_box[data-v-5687553d] {\n  width: 700rpx;\n  height: 215rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  position: absolute;\n  bottom: -130rpx;\n  left: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 33rpx 36rpx;\n}\nbody .content .Top_color .float_box .t_title[data-v-5687553d] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 20rpx;\n}\nbody .content .Top_color .float_box .t_title uni-image[data-v-5687553d] {\n  width: 37rpx;\n  height: 42rpx;\n  margin-right: 20rpx;\n}\nbody .content .Top_color .float_box .t_title uni-text[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: bold;\n  color: #333333;\n}\nbody .content .Top_color .float_box .menu_list[data-v-5687553d] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .Top_color .float_box .menu_list .item[data-v-5687553d] {\n  width: 158rpx;\n  text-align: center;\n}\nbody .content .Top_color .float_box .menu_list .item .price_i[data-v-5687553d] {\n  font-size: 34rpx;\n  font-weight: 800;\n  color: #161616;\n  margin-bottom: 10rpx;\n}\nbody .content .Top_color .float_box .menu_list .item .text[data-v-5687553d] {\n  font-size: 26rpx;\n  color: #9a9a9a;\n}\nbody .content .option_list[data-v-5687553d] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 24rpx;\n  margin-top: 150rpx;\n}\nbody .content .option_list .option[data-v-5687553d] {\n  width: 100%;\n  height: 96rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  margin-bottom: 24rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .option_list .option uni-image[data-v-5687553d] {\n  margin-right: 18rpx;\n}\nbody .content .option_list .option .name[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: bold;\n  color: #333333;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-5687553d] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-5687553d] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-5687553d] {\n  width: 100%;\n  height: 100vh;\n  background-color: #F4F4F4;\n}\nbody .content .top_bar[data-v-5687553d] {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  position: relative;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 24rpx;\n}\nbody .content .top_bar .back[data-v-5687553d] {\n  width: 23rpx;\n  height: 41rpx;\n}\nbody .content .top_bar .name[data-v-5687553d] {\n  font-size: 32rpx;\n  font-weight: 500;\n  color: #111111;\n}\nbody .content .top_bar .r_btn[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: 500;\n  color: #666666;\n}\nbody .content .Top_color[data-v-5687553d] {\n  position: relative;\n  width: 750rpx;\n  height: 206rpx;\n  background: -webkit-linear-gradient(178deg, #ff5005, #ff8f02);\n  background: linear-gradient(-88deg, #ff5005, #ff8f02);\n}\nbody .content .Top_color .price_box[data-v-5687553d] {\n  padding: 36rpx 0 0 59rpx;\n}\nbody .content .Top_color .price_box .title[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: 500;\n  color: #ffffff;\n}\nbody .content .Top_color .price_box .price[data-v-5687553d] {\n  font-size: 58rpx;\n  font-weight: 800;\n  color: #ffffff;\n}\nbody .content .Top_color .float_box[data-v-5687553d] {\n  width: 700rpx;\n  height: 215rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  position: absolute;\n  bottom: -130rpx;\n  left: 25rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 33rpx 36rpx;\n}\nbody .content .Top_color .float_box .t_title[data-v-5687553d] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  margin-bottom: 20rpx;\n}\nbody .content .Top_color .float_box .t_title uni-image[data-v-5687553d] {\n  width: 37rpx;\n  height: 42rpx;\n  margin-right: 20rpx;\n}\nbody .content .Top_color .float_box .t_title uni-text[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: bold;\n  color: #333333;\n}\nbody .content .Top_color .float_box .menu_list[data-v-5687553d] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .Top_color .float_box .menu_list .item[data-v-5687553d] {\n  width: 158rpx;\n  text-align: center;\n}\nbody .content .Top_color .float_box .menu_list .item .price_i[data-v-5687553d] {\n  font-size: 34rpx;\n  font-weight: 800;\n  color: #161616;\n  margin-bottom: 10rpx;\n}\nbody .content .Top_color .float_box .menu_list .item .text[data-v-5687553d] {\n  font-size: 26rpx;\n  color: #9a9a9a;\n}\nbody .content .option_list[data-v-5687553d] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 24rpx;\n  margin-top: 24rpx;\n}\nbody .content .option_list .option[data-v-5687553d] {\n  width: 100%;\n  height: 96rpx;\n  background: #ffffff;\n  border-radius: 12rpx;\n  margin-bottom: 24rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 0 24rpx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\nbody .content .option_list .option uni-image[data-v-5687553d] {\n  margin-right: 18rpx;\n}\nbody .content .option_list .option .name[data-v-5687553d] {\n  font-size: 28rpx;\n  font-weight: bold;\n  color: #333333;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -23702,80 +24134,89 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } },
-        _vm._l(_vm._$g(2, "f"), function(item, index, $20, $30) {
-          return _c(
-            "v-uni-view",
-            {
-              key: item,
-              staticClass: _vm._$g("2-" + $30, "sc"),
-              attrs: { _i: "2-" + $30 }
-            },
-            [
-              _c(
+        [
+          _vm._$g(2, "i")
+            ? _c(
                 "v-uni-view",
-                {
-                  staticClass: _vm._$g("3-" + $30, "sc"),
-                  attrs: { _i: "3-" + $30 }
-                },
-                [
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g("4-" + $30, "sc"),
-                      attrs: { _i: "4-" + $30 }
-                    },
-                    [_vm._v(_vm._$g("4-" + $30, "t0-0"))]
-                  ),
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g("5-" + $30, "sc"),
-                      attrs: { _i: "5-" + $30 }
-                    },
-                    [
-                      _vm._v(
-                        _vm._$g("5-" + $30, "t0-0") +
-                          "月" +
-                          _vm._$g("5-" + $30, "t0-1") +
-                          "日" +
-                          _vm._$g("5-" + $30, "t0-2")
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g("6-" + $30, "sc"),
-                  attrs: { _i: "6-" + $30 }
-                },
-                [
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g("7-" + $30, "sc"),
-                      attrs: { _i: "7-" + $30 }
-                    },
-                    [_vm._v("+" + _vm._$g("7-" + $30, "t0-0"))]
-                  ),
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g("8-" + $30, "sc"),
-                      attrs: { _i: "8-" + $30 }
-                    },
-                    [_vm._v("余额 " + _vm._$g("8-" + $30, "t0-0"))]
-                  )
-                ],
-                1
+                { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
+                [_vm._v("暂无数据")]
               )
-            ],
-            1
-          )
-        }),
-        1
+            : _vm._e(),
+          _vm._l(_vm._$g(3, "f"), function(item, index, $20, $30) {
+            return _c(
+              "v-uni-view",
+              {
+                key: item,
+                staticClass: _vm._$g("3-" + $30, "sc"),
+                attrs: { _i: "3-" + $30 }
+              },
+              [
+                _c(
+                  "v-uni-view",
+                  {
+                    staticClass: _vm._$g("4-" + $30, "sc"),
+                    attrs: { _i: "4-" + $30 }
+                  },
+                  [
+                    _c(
+                      "v-uni-view",
+                      {
+                        staticClass: _vm._$g("5-" + $30, "sc"),
+                        attrs: { _i: "5-" + $30 }
+                      },
+                      [_vm._v(_vm._$g("5-" + $30, "t0-0"))]
+                    ),
+                    _c(
+                      "v-uni-view",
+                      {
+                        staticClass: _vm._$g("6-" + $30, "sc"),
+                        attrs: { _i: "6-" + $30 }
+                      },
+                      [
+                        _vm._v(
+                          _vm._$g("6-" + $30, "t0-0") +
+                            "月" +
+                            _vm._$g("6-" + $30, "t0-1") +
+                            "日" +
+                            _vm._$g("6-" + $30, "t0-2")
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _c(
+                  "v-uni-view",
+                  {
+                    staticClass: _vm._$g("7-" + $30, "sc"),
+                    attrs: { _i: "7-" + $30 }
+                  },
+                  [
+                    _c(
+                      "v-uni-view",
+                      {
+                        staticClass: _vm._$g("8-" + $30, "sc"),
+                        attrs: { _i: "8-" + $30 }
+                      },
+                      [_vm._v("+" + _vm._$g("8-" + $30, "t0-0"))]
+                    ),
+                    _c(
+                      "v-uni-view",
+                      {
+                        staticClass: _vm._$g("9-" + $30, "sc"),
+                        attrs: { _i: "9-" + $30 }
+                      },
+                      [_vm._v("余额 " + _vm._$g("9-" + $30, "t0-0"))]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
       )
     ],
     1
@@ -23869,7 +24310,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".titleNview-placing[data-v-3456a198] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-3456a198] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-3456a198] {\n  width: 100%;\n}\nbody .content .show_list[data-v-3456a198] {\n  width: 100%;\n}\nbody .content .show_list .item[data-v-3456a198] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  border-bottom: 1rpx solid #ddd;\n}\nbody .content .show_list .item .left_name .name[data-v-3456a198] {\n  font-size: 30rpx;\n  font-weight: 500;\n  color: #333333;\n  margin-bottom: 20rpx;\n}\nbody .content .show_list .item .left_name .date[data-v-3456a198] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #8b8b8b;\n}\nbody .content .show_list .item .right_price .addPrice[data-v-3456a198] {\n  font-size: 33rpx;\n  font-weight: bold;\n  color: #ff792c;\n  margin-bottom: 20rpx;\n}\nbody .content .show_list .item .right_price .syNum[data-v-3456a198] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #8b8b8b;\n}\n", ""]);
+exports.push([module.i, ".titleNview-placing[data-v-3456a198] {\n  height: var(--status-bar-height);\n  background: #FFFFFF;\n  padding-top: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\nbody[data-v-3456a198] {\n  width: 100%;\n  background-color: #F4F4F4;\n}\nbody .content[data-v-3456a198] {\n  width: 100%;\n}\nbody .content .show_list[data-v-3456a198] {\n  width: 100%;\n}\nbody .content .show_list .null_box[data-v-3456a198] {\n  width: 100%;\n  height: 80rpx;\n  line-height: 80rpx;\n  text-align: center;\n  font-size: 30rpx;\n  color: #999;\n}\nbody .content .show_list .item[data-v-3456a198] {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 30rpx;\n  background-color: #FFFFFF;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n          justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  border-bottom: 1rpx solid #ddd;\n}\nbody .content .show_list .item .left_name .name[data-v-3456a198] {\n  font-size: 30rpx;\n  font-weight: 500;\n  color: #333333;\n  margin-bottom: 20rpx;\n}\nbody .content .show_list .item .left_name .date[data-v-3456a198] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #8b8b8b;\n}\nbody .content .show_list .item .right_price .addPrice[data-v-3456a198] {\n  font-size: 33rpx;\n  font-weight: bold;\n  color: #ff792c;\n  margin-bottom: 20rpx;\n}\nbody .content .show_list .item .right_price .syNum[data-v-3456a198] {\n  font-size: 26rpx;\n  font-weight: 500;\n  color: #8b8b8b;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

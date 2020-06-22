@@ -105,16 +105,9 @@
 		},
 		methods:{
 			
-			// 请求下单接口
+			// 余额请求下单接口
 			getcreatOrder(){
-				uni.request({
-					url: this.$http + '/api/goods/createOrder',
-					method: 'POST',
-					data: this.productOrderInfo,
-					success(res){
-						console.log('下单返回数据', res)
-					}
-				})
+				
 			},
 			// 关闭当前页面
 			closethis(){
@@ -138,19 +131,19 @@
 				// 请求下单接口
 				this.getcreatOrder()
 				
-				this.isShowOkpay = false
-				uni.showModal({
-					title: '提示',
-					content: '支付失败！'
-				})
-				setTimeout(()=>{
-					uni.navigateTo({
-						url: '../shopcart/allorder'
-					})
-					// uni.navigateBack({
-					// 	delta: 2
-					// })
-				},1000)
+				// this.isShowOkpay = false
+				// uni.showModal({
+				// 	title: '提示',
+				// 	content: '支付失败！'
+				// })
+				// setTimeout(()=>{
+				// 	uni.navigateTo({
+				// 		url: '../shopcart/allorder'
+				// 	})
+				// 	// uni.navigateBack({
+				// 	// 	delta: 2
+				// 	// })
+				// },1000)
 				
 			}
 		}

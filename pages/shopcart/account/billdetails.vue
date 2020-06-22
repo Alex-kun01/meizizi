@@ -3,6 +3,9 @@
 		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 账单明细 -->
 		<view class="show_list">
+			<view class="null_box" v-if="isNull">
+				暂无数据
+			</view>
 			<view class="item"
 			v-for="(item,index) in showList"
 			:key='index'
@@ -85,6 +88,14 @@
 				],
 			}
 		},
+		computed:{
+			// 是否有账单数据
+			isNull(){
+				if(this.showList.length == 0){
+					return true
+				}
+			}
+		},
 		onLoad(){
 			
 		},
@@ -112,6 +123,14 @@
 			width: 100%;
 			.show_list{
 				width: 100%;
+				.null_box{
+					width: 100%;
+					height: 80rpx;
+					line-height: 80rpx;
+					text-align: center;
+					font-size: 30rpx;
+					color: #999;
+				}
 				.item{
 					width: 100%;
 					box-sizing: border-box;

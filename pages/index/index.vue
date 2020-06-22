@@ -32,7 +32,7 @@
 				v-for="(img, imx) in banner"
 				:key="imx"
 				>
-					<image style="width: 700rpx;height: 296rpx;" :src="img.pic" mode=""></image>
+					<image :src="img.pic" mode=""></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -483,12 +483,18 @@
 			
 			.lunbo{
 				width: 100%;
-				height: 320rpx;
+				height: 324rpx;
 				background-color: #FFFFFF;
+				// background-color: pink;
 				box-sizing: border-box;
 				padding: 24rpx;
-				padding-bottom: 60rpx;
-				
+				swiper{
+					height: 100%;
+					image{
+						width: 100%;
+						height: 276rpx;
+					}
+				}
 				
 			}
 			.menu_box{
@@ -669,7 +675,7 @@
 				}
 				image{
 					width: 700rpx;
-					height: 219rpx;
+					height: 276rpx;
 				}
 			}
 			.Topic{

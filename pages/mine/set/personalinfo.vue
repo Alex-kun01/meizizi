@@ -3,7 +3,7 @@
 		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 个人信息 -->
 		<view class="top_navar">
-			<image v-if="!imgUrl" class="navar" src="../../../static/mine/avatar.jpg" mode=""></image>
+			<image v-if="!imgUrl" class="navar" src="../../../static/mine/staticAvatar.jpg" mode=""></image>
 			<image v-else :src="imgUrl" class="navar"  mode=""></image>
 			<image @click="editAvtar" class="edit" src="../../../static/mine/xiugaitouxiang@2x.png" mode=""></image>
 		</view>
@@ -12,14 +12,14 @@
 			<view class="title">
 				昵称
 			</view>
-			<input type="text" value="" placeholder="输入名字" />
+			<input type="text"  v-model="userInfo.nickName" placeholder="输入名字" />
 		</view>
 		<view class="item">
 			<view class="title">
 				生日
 			</view>
 			 <picker mode="date" :value="birthday" :start="startDate" :end="endDate" @change="bindDateChange">
-				<view class="uni-input">{{userInfo.birthday}}</view>
+				<view class="uni-input">{{birthday}}</view>
 			</picker>
 		</view>
 		<view class="item">
@@ -62,10 +62,9 @@
 					}
 				],
 				current: 0,
-				birthday: '',
+				birthday: currentDate,
 				userInfo: {
 					nickName: '是九尾主动的',
-					birthday: currentDate,
 					sex: '男'
 				}
 			}
@@ -79,17 +78,39 @@
 			}
 		},
 		onLoad(){
-			
+			this.init()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 初始化页面
+			init(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('初始化页面数据', res)
+						_this.userInfo.nickName = res.data.nickname
+						if(res.data.sex == 1){
+							_this.current = 0
+							_this.userInfo.sex = '男'
+						}
+						if(res.data.sex == 2){
+							_this.current = 1
+							_this.userInfo.sex = '女'
+						}
+						_this.birthday = res.data.birthday.substring(0,10)
+						_this.imgUrl = res.data.avatar
+					}
+				})
+			},
 			bindDateChange: function(e) {
 				this.birthday = e.target.value
 			},
 			// 保存按钮
 			baocunClick(){
+				// return
 				let _this = this
 				let datas = {}
 				uni.getStorage({
@@ -97,8 +118,9 @@
 					success(res){
 						datas.token = res.data.token
 						datas.avatar = _this.imgUrl	
-						datas.sex = _this.sex == '男' ? 1 : 2
-						datas.birthday = new Date(_this.birthday).valueOf()
+						datas.sex = _this.userInfo.sex == '男' ? 1 : 2
+						datas.birthday = _this.birthday
+						datas.nickname = _this.userInfo.nickName || ''
 						
 						
 						console.log('传参参数',datas)
@@ -111,12 +133,30 @@
 								console.log('修改信息返回数据', ref)
 								if(ref.data.status === 200){
 									uni.showToast({
-										title: '修改成功'
+										title: ref.data.msg
 									})
+									// return
+									console.log('token', res.data.token	)
+									
+									let bData = ref.data.data
+									console.log('bData', bData)
+									bData.token = res.data.token
+									// return
+									// 更新本地userInfo
+									uni.setStorage({
+										key: 'userInfo',
+										data: bData
+									})
+									setTimeout(()=>{
+										uni.switchTab({
+											url: '../mine'
+										})
+									},1000)
+									
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '修改失败'
+										content: ref.data.msg
 									})
 								}
 							}

@@ -27,7 +27,7 @@
 							<image style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="../../static/mine/huiyuan@2x.png" mode=""></image>
 						</view>
 						<view class="date">
-							2020.01.01
+							{{birthday}}
 						</view>
 					</view>
 					</view>
@@ -88,7 +88,7 @@
 		</view>
 		
 		<view class="item line"
-		@click="gotoTarget('./member/myteam')"
+		@click="gotoTarget2(1)"
 		>
 			<view class="left">
 				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wodetuandui@2x.png" mode=""></image>
@@ -102,7 +102,7 @@
 		</view>
 		
 		<view class="item line"
-		@click="gotoTarget('./merchant/mymerchant')"
+		@click="gotoTarget2(2)"
 		>
 			<view class="left">
 				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/shangjia@2x.png" mode=""></image>
@@ -177,6 +177,9 @@
 				isShowrqCode: false, // 控制二维码弹窗展示
 				nickName: '', // 昵称
 				avatar: '', // 头像
+				birthday: '', // 生日
+				// 角色
+				character: 5, // 1 会员 2加盟店 3市级代理 4团队管理 5讲师  
 				 // 推荐吗数据
 				rqCodeInfo:{
 					imgUrl: '',
@@ -196,9 +199,67 @@
 				}
 			})
 		},
+		onShow(){
+			this.init()
+		},
 		methods: {
+			init(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						_this.nickName = res.data.nickname || '暂无昵称'
+						_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
+						_this.birthday = res.data.birthday.substring(0,10)
+					}
+				})
+			},
 			// 页面跳转
 			gotoTarget(url){
+				uni.navigateTo({
+					url: url
+				})
+			},
+			// 不同角色跳转不同页面
+			gotoTarget2(index){
+				// index = 1 团队管理 2 我的商家
+				let url = ''
+				if(index === 1){
+					//团队管理
+					switch(this.character) {
+						 case 1:
+						    // 会员
+						    url = './member/membermyteam'
+						    break;
+					     case 2:
+					        // 加盟店
+					        url = './join/joinmyteamtuijian'
+					        break;
+					     case 3:
+					        // 市级代理
+					        url = './merchant/mymerchant'
+					        break;
+					} 
+				}
+				if(index === 2){
+					//我的商家
+					switch(this.character) {
+					     case 2:
+							// 加盟店
+					        url = './merchant/mymerchantx'
+					        break;
+					     case 3:
+						 	// 市级代理
+					        url = './merchant/mymerchant'
+					        break;
+						 case 4:
+						 	// 团队管理
+							url = './join/teammentmy'
+						 case 5:
+							// 业务员/讲师
+						    url = './member/teacher'
+					} 
+				}
 				uni.navigateTo({
 					url: url
 				})

@@ -53,6 +53,7 @@
 		},
 		methods:{
 			submitClick(){
+				let _this = this
 				if(!this.isOk) {
 					uni.showModal({
 						title: '提示',
@@ -60,6 +61,67 @@
 					})
 					return
 				}
+				if(!this.incode){
+					uni.showModal({
+						title: '提示',
+						content: '请输入验证码！'
+					})
+					return
+				}
+				uni.getStorage({
+					key:"userInfo",
+					success(reg){
+						// 校验成功，继续下一步绑定
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/index/bindingPhone',
+							method: 'POST',
+							data:{
+								token: reg.data.token,
+								phone: _this.phone
+							},
+							success(res){
+								console.log('绑定手机号res',res)
+								if(res.data.status === 200){
+									uni.hideLoading()
+									uni.showToast({
+										title: '绑定成功'
+									})
+									setTimeout(()=>{
+										uni.switchTab({
+											url: '../mine'
+										})
+									},1000)
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '绑定失败'
+									})
+								}
+							}
+						})
+						uni.request({
+							url: _this.$http + '/api/index/ifPhoneCode',
+							method: 'POST',
+							data: {
+								phone: _this.phone,
+								code: _this.incode
+							},
+							success(reh){
+								console.log('校验验证码', reh)
+								if(reh.data.status === 200){}else{
+									uni.showModal({
+										title: '提示',
+										content: '验证码校验失败'
+									})
+								}
+							}
+						})
+					}
+				})
+				
 				uni.showToast({
 					title: '绑定成功'
 				})
