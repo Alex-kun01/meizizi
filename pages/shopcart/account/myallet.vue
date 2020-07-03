@@ -75,7 +75,7 @@
 				</view>
 			</view>
 			<view class="option"
-			@click="gototarget('./billdetails')"
+			@click="gototarget2('./billdetails')"
 			>
 				<image style="width: 34rpx;height: 34rpx;" src="../../../static/shopcart/yuemingxi@2x.png" mode=""></image>
 				<view class="name">
@@ -133,6 +133,16 @@
 				})
 			},
 			gototarget(url){
+				uni.showModal({
+					title: '提示',
+					content: '该功能尚未开放'
+				})
+				return
+				uni.navigateTo({
+					url: url
+				})
+			},
+			gototarget2(url){
 				uni.navigateTo({
 					url: url
 				})
@@ -183,7 +193,8 @@
 			.Top_color{
 				position: relative;
 				width:750rpx;
-				height:206rpx;
+				// height:256rpx;
+				height: 206rpx;
 				background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,143,2,1));
 				.price_box{
 					padding: 36rpx 0 0 59rpx;
@@ -251,6 +262,7 @@
 				box-sizing: border-box;
 				padding: 0 24rpx;
 				margin-top: 24rpx;
+				// margin-top: 154rpx;
 				.option{
 					width:100%;
 					height:96rpx;

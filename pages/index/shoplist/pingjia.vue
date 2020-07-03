@@ -15,17 +15,17 @@
 				<view :class="{item:true, active: isActive === 1}"
 				@click="chooseTap(1)"
 				>
-					好评(10)
+					好评{{'(' + haoping + ')'}}
 				</view>
 				<view :class="{item:true, active: isActive === 2}"
 				@click="chooseTap(2)"
 				>
-					中评(5)
+					中评{{'(' + zhongping + ')'}}
 				</view>
 				<view :class="{item:true, active: isActive === 3}"
 				@click="chooseTap(3)"
 				>
-					差评(1)
+					差评{{'(' + chaping + ')'}}
 				</view>
 			</view>
 		</view>
@@ -77,7 +77,10 @@
 					'颜色漂亮(628)',
 					'颜色漂亮(628)',
 				],
-				showList: []
+				showList: [],
+				haoping: 0,
+				zhongping: 0,
+				chaping: 0,
 			}
 		},
 		onLoad(opt){
@@ -96,13 +99,16 @@
 					method: 'POST',
 					data: {
 						type: _this.isActive,
-						gid: 19,//_this.opt.id,
+						gid: _this.opt.id,
 						page: _this.page,
 						limit: _this.limit
 					},
 					success(res){
 						console.log('评价列表返回数据',res)
 						if(res.data.status === 200){
+							_this.haoping = res.data.data.ex_count
+							_this.zhongping = res.data.data.in_count
+							_this.chaping = res.data.data.di_count
 							
 							_this.showList = res.data.data.eva_list
 							

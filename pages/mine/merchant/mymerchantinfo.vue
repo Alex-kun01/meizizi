@@ -1,32 +1,42 @@
 <template>
 	<view class="content">
-		<!-- <view class="titleNview-placing"></view> -->
+		<!-- <view class="">
+			配送管理我的商家
+		</view> -->
+		<view class="titleNview-placing"></view>
+		<view class="top_bar_box">
+			<image @click="goback" class="left" src="../../../static/index/fanhui@3x.png" mode=""></image>
+			<view class="store">
+				我的商家
+			</view>
+			<image @click="record" class="right" src="../../../static/public/lishi@2x.png" mode=""></image>
+		</view>
 		<!-- 我的商家 详细信息  (库存) -->
 		<view class="top_bar">
 			<view class="top">
 				<image style="width: 34rpx;height: 30rpx;" src="../../../static/mine/mendian@2x.png" mode=""></image>
 				<view class="title">
-					屈臣氏(成都百盛店)
+					{{info.company}}
 				</view>
 			</view>
 			<view class="con_info">
 				<image style="width: 180rpx;height: 180rpx;" src="../../../static/mine/avatar.jpg" mode=""></image>
 				<view class="text_box">
 					<view style="margin-bottom: 30rpx;">
-						授信额度:<text style="font-size: 34rpx;font-weight: 500;color: ;">180000</text>
+						授信额度:<text style="font-size: 34rpx;font-weight: 500;color: ;">{{info.credit}}</text>
 					</view>
 					<view class="text">
 						<image style="width: 22rpx;height: 18rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
-						<text>1763286342</text>
+						<text>{{info.phone}}</text>
 					</view>
 					<view class="text">
 						<image style="width: 22rpx;height: 18rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
-						<text>1763286342</text>
+						<text>{{info.wx_name}}</text>
 					</view>
 				</view>
 			</view>
 			<view class="address">
-				四川省成都市金牛区西华街道茶店子客运站金耀路 18号西岸观邸
+				{{info.address}}
 			</view>
 		</view>
 		<!-- 导航 -->
@@ -36,8 +46,8 @@
 					总库存
 				</view>
 				<view class="info">
-					<text style="color: #EB5204;">1000</text>
-					<text>/2000</text>
+					<text style="color: #EB5204;">{{info.now_stock}}</text>
+					<text>/{{info.total_stock}}</text>
 				</view>
 			</view>
 			<view :class="{item:true, active: isActive == 2}" @click="changeIndex(2)">
@@ -45,7 +55,7 @@
 					会员
 				</view>
 				<view class="info">
-					<text>200</text>
+					<text>{{info.user_count}}</text>
 				</view>
 			</view>
 			<view :class="{item:true, active: isActive == 3}" @click="changeIndex(3)">
@@ -53,7 +63,7 @@
 					出货单
 				</view>
 				<view class="info">
-					<text>1000</text>
+					<text>{{info.shop_count}}</text>
 				</view>
 			</view>
 		</view>
@@ -70,14 +80,16 @@
 			
 			<view class="show_list">
 				<view class="item"
-				v-for="(item, index) in showList"
+				v-for="(item, index) in product_list"
 				:key='index'
 				>
-					<view class="item_i">{{item.storeName}}</view>
+					<view class="item_i" @click="showMore(item)">{{item.store_name.substring(0,4)}}</view>
 					<view class="item_i">{{item.price}}</view>
-					<view class="item_i">{{item.shengyu}}</view>
-					<view class="item_i">{{item.kucun}}</view>
-					<view class="item_i">{{item.danger}}</view>
+					<view class="item_i">{{item.stock}}</view>
+					<view class="item_i">
+					{{item.need_stock}}
+					</view>
+					<view class="item_i">{{item.alarm_stock}}</view>
 				</view>
 			</view>
 		</view>
@@ -86,22 +98,22 @@
 		<view class="member_box box_i" v-if='isActive == 2'>
 			<view class="member_list">
 				<view class="item"
-				v-for="(item, index) in memberList"
+				v-for="(item, index) in user_list"
 				:key='index'
 				>
 					<view style="display: flex;">
-						<image :src="item.img" mode=""></image>
+						<image :src="item.avatar" mode=""></image>
 						<view class="con_r">
 							<view class="name">
-								{{item.name}}
+								{{item.nickname}}
 							</view>
-							<text>复购人数：{{item.fugou}}</text>
-							<text>直推人数：{{item.zhitui}}</text>
-							<text>入会时间：{{item.pushTime}}</text>
+							<text>复购频数：{{item.pay_count}}</text>
+							<text>直推人数：{{item.spread_count}}</text>
+							<text>入会时间：{{item.member_time.substring(0,10)}}</text>
 						</view>
 					</view>
 					<view class="r_shouyi">
-						收益:{{item.shouyi}}
+							收益:{{item.benefit}}
 					</view>
 				</view>
 			</view>
@@ -118,15 +130,18 @@
 			</view>
 			
 			<view class="item"
-			v-for="(item, index) in chuhuoList"
+			v-for="(item, index) in order_list"
 			:key='index'
 			>
-				<view class="item_i">{{item.storeName}}</view>
+				<view class="item_i">{{item.store_name.substring(0,4)}}</view>
 				<view class="item_i">{{item.price}}</view>
-				<view class="item_i">{{item.num}}</view>
-				<view class="item_i">{{item.pushTime}}</view>
+				<view class="item_i">{{item.quantity}}</view>
+				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
 				
 			</view>
+		</view>
+		<view class="loading" v-if="isLoading">
+			加载中...
 		</view>
 		
 	</view>
@@ -137,121 +152,124 @@
 		data () {
 			return {
 				isActive: 1, 
+				page: 1,
+				limit:10,
+				isLoading:false, 
+				opt: {},
 				titleList: ['商品名','单价','现有库存','所需库存','报警线',],
+				info: {},
 				// 总库存展示列表
-				showList: [
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						danger: 10
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						danger: 10
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						danger: 10
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						danger: 10
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						shengyu: 20,
-						kucun: 30,
-						danger: 10
-					}
-				],
+				product_list: [],
 				// 会员展示列表
-				memberList:[
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					
-				],
-				chuhuoTitleList: ['商品名','单价','数量','打印时间'],
+				user_list:[],
 				// 出货单展示列表
-				chuhuoList: [
-					{
-						storeName: '口红',
-						price: '49.00',
-						num: 20,
-						pushTime: '2020.04.23'
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						num: 20,
-						pushTime: '2020.04.23'
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						num: 20,
-						pushTime: '2020.04.23'
-					},
-					{
-						storeName: '口红',
-						price: '49.00',
-						num: 20,
-						pushTime: '2020.04.23'
-					},
-				]
+				order_list: [],
+				chuhuoTitleList: ['商品名','单价','数量','打印时间'],
+				
 			}
 		},
-		onLoad(){
+		onLoad(opt){
+			console.log('opt',opt)
+			this.opt = opt
+			this.getData()
 			
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							shop_id: _this.opt.id || 9,
+							page: _this.page,
+							limit: _this.limit,
+							give_type: _this.isActive
+						}
+						console.log('我的商家详情参数', datas)
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/user/logisticsDetails',
+							method: 'GET',
+							data: datas,
+							success(res){
+								uni.hideLoading()
+								_this.isLoading = false
+								console.log('我的商家详情返回数据', res)
+								if(res.data.status == 200){
+									_this.info = res.data.data.shop_info
+									
+									if(_this.order_list.length == 0){
+										_this.order_list = res.data.data.order_list
+									}else{
+										_this.order_list = _this.order_list.concat(res.data.data.order_list)
+									}
+									if(_this.product_list.length == 0){
+										_this.product_list = res.data.data.product_list 
+									}else{
+										_this.product_list = _this.product_list.concat(res.data.data.product_list)  
+									}
+									if(_this.user_list.length == 0){
+										_this.user_list = res.data.data.user_list 
+									}else{
+										_this.user_list = _this.user_list.concat(res.data.data.user_list ) 
+									}
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取数据列表失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			// 显示完成的商品名
+			showMore(item){
+				uni.showModal({
+					title: '商品名',
+					content: item.store_name
+				})
+			},
 			changeIndex(index) {
+				
+				if(this.isActive == index){
+					// 当前重复点击
+				}else{
+					// 非点击当前菜单
+					this.product_list = []
+					this.order_list = []
+					this.user_list =[]
+					this.isActive = index
+					this.getData()
+				}
 				this.isActive = index
-			}
+			},
+			// 返回
+			goback(){
+				uni.navigateBack({
+					
+				})
+			},
+			// 交易记录
+			record(){
+				uni.navigateTo({
+					url: './jiaoyichuhuo?id=' + this.opt.id
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -269,11 +287,43 @@
 		background-color: #FFFFFF; //#F4F4F4
 		.content{
 			width: 100%;
-			height: 100vh;
+			height: 100%;
+			min-height: 100vh;
 			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
+			.top_bar_box{
+				width: 100%;
+				// height: 70rpx;
+				background-color: #FFFFFF;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				box-sizing: border-box;
+				padding: 24rpx;
+				.store{
+					font-size:36rpx;
+					font-weight:bold;
+					color:rgba(48,48,48,1);
+				}
+				.left{
+					width: 19rpx;
+					height: 34rpx;
+				}
+				.right{
+					width: 30rpx;
+					height: 30rpx;
+				}
+			}
 			.top_bar{
 				width: 100%;
-				height: 379rpx;
+				// height: 379rpx;
 				box-sizing: border-box;
 				padding: 26rpx 33rpx;
 				background-color: #FFFFFF;
@@ -312,6 +362,7 @@
 				height: 120rpx;
 				background-color: #F4F4F4;
 				display: flex;
+				box-sizing: border-box;
 				justify-content: space-between;
 				align-items: center;
 				padding-top: 20rpx;
@@ -336,6 +387,7 @@
 			}
 			.box_i{
 				width: 100%;
+				box-sizing: border-box;
 				padding: 24rpx;
 				.title_list{
 					width: 100%;
@@ -358,11 +410,14 @@
 					font-weight: 500;
 					box-sizing: border-box;
 					.item{
-						
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
 						margin-bottom: 20rpx;
+						input{
+							font-size: 28rpx;
+							border: 1rpx solid #666666;
+						}
 						.item_i{
 							width: 140rpx;
 							text-align: center;

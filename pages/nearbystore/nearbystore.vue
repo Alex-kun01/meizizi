@@ -3,16 +3,20 @@
 		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 附近店铺 -->
 		<view class="store_list">
+			<view class="none_list" v-if="storeList.length == 0">
+				空空如也
+			</view>
 			<view class="item"
 			v-for="(item, index) in storeList"
 			:key='index'
-			:class="{active: item.isSource}"
+			:class="{active: item.is_source}"
 			>
+				<!-- 源头店标识 -->
+				<image id="yuantou" v-if="item.is_source == 1" src="../../static/nearbystore/yuantoudian@2x.png" mode=""></image>
 				<view class="left_info">
 					<view class="pic">
 						<image :src="item.logo || '../../static/nearbystore/test2.png'" mode=""></image>
-						<!-- 源头店标识 -->
-						<!-- <image style="width: 74rpx;height: 13rpx;" src="item.startImg" mode=""></image> -->
+						
 					</view>
 					<view class="con">
 						<view class="title">
@@ -58,8 +62,11 @@
 			}
 		},
 		onLoad() {
-			this.mgetLocation()
 			
+			
+		},
+		onShow() {
+			this.mgetLocation()
 		},
 		methods: {
 			getData(){
@@ -67,19 +74,21 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						let datas = {
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit,
+								long_number: _this.long_number,
+								lati_number: _this.lati_number,
+							}
+							console.log('datas', datas)
 						uni.showLoading({
 							title: '加载中...'
 						})
 						uni.request({
 							url: _this.$http + '/api/index/nearbyShop',
 							method: 'POST',
-							data: {
-								token: reg.data.token,
-								page: _this.page,
-								limit: _this.limit,
-								long_number: _this.long_number,
-								lati_number: _this.lati_number,
-							},
+							data: datas,
 							success(res){
 								console.log('获取附近店铺列表', res)
 								if(res.data.status === 200){
@@ -143,6 +152,13 @@ page{
 			width: 100%;
 			padding: 24rpx 25rpx  0 25rpx;
 			box-sizing: border-box;
+			.none_list{
+				width: 100%;
+				height: 300rpx;
+				font-size: 30rpx;
+				text-align: center;
+				line-height: 300rpx;
+			}
 			.item{
 				width: 700rpx;
 				height: 161rpx;
@@ -154,6 +170,13 @@ page{
 				justify-content: space-between;
 				margin-bottom: 18rpx;
 				position: relative;
+				#yuantou{
+					width: 61rpx;
+					height: 22rpx;
+					position: absolute;
+					top: 0;
+					left: 2rpx;
+				}
 				.left_info{
 					display: flex;
 					.con{

@@ -74,6 +74,14 @@
 			}
 		},
 		{
+			"path": "pages/index/confirmordermany",
+			"style": {
+				// "navigationBarTitleText": "多订单确认",
+				"navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
 			"path": "pages/index/orderdetails",
 			"style": {
 				// "navigationBarTitleText": "订单详情",
@@ -152,76 +160,107 @@
 			"style": {
 				// "navigationBarTitleText": "我的团队",
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/member/memberteam",
 			"style": {
-				"navigationBarTitleText": "成员" ,// 会员团队
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarTitleText": "成员" ,// 我的团队-成员管理
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/member/regionset",
 			"style": {
-				"navigationBarTitleText": "总监" ,//区域管理
+				// "navigationBarTitleText": "总监" ,//我的团队-总监
+				"navigationStyle":"custom",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/mine/member/shenregion",
 			"style": {
-				"navigationBarTitleText": "省区经理",
+				"navigationBarTitleText": "省区经理", // 我的团队-省区经理 
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/mine/member/teacher",
 			"style": {
-				"navigationBarTitleText": "我的商家", // 我的商家-讲师
+				"navigationBarTitleText": "我的商家", // 我的商家-业务员
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/mine/member/storeinfo",
 			"style": {
-				"navigationBarTitleText": "店铺信息",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarTitleText": "店铺信息", //店铺信息-业务员
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/merchant/mymerchant",
 			"style": {
-				"navigationBarTitleText": "我的商家",//市级代理
+				"navigationBarTitleText": "我的商家",//物流商-我的商家
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/mine/merchant/mymerchantinfo",
 			"style": { 
-				"navigationBarTitleText": "我的商家",//库存
+				// "navigationBarTitleText": "我的商家",// 物流商-我的商家详情
+				"navigationStyle":"custom",
 				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/mine/merchant/logisticsinfo",
+			"style": { 
+				// "navigationBarTitleText": "我的商家",// 服务商-我的商家详情
+				"navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+				
 			}
 		},
 		{
 			"path": "pages/mine/merchant/mymerchantx",
 			"style": { 
-				"navigationBarTitleText": "我的商家",   //我的商家
-				"navigationBarBackgroundColor": "#FFFFFF"
+				// "navigationBarTitleText": "我的商家",   //我的商家
+				"navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/merchant/receipt",
 			"style": { 
-				"navigationBarTitleText": "收货单",
+				"navigationBarTitleText": "收货单", // 服务商
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		}, 
+		{
+			"path": "pages/mine/merchant/receiptwl",
+			"style": { 
+				"navigationBarTitleText": "收货单", // 物流商
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/mine/merchant/receiptchu",
+			"style": { 
+				"navigationBarTitleText": "出货单", // 补货
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/mine/merchant/shipper",
 			"style": { 
-				"navigationBarTitleText": "出货单",
+				"navigationBarTitleText": "出货单", // 商家出货
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
@@ -236,15 +275,24 @@
 			"path": "pages/mine/merchant/jiaoyirecord",
 			"style": { 
 				"navigationBarTitleText": "交易记录",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/mine/merchant/jiaoyichuhuo",
+			"style": { 
+				"navigationBarTitleText": "交易记录",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/join/quyujoin",
 			"style": { 
-				// "navigationBarTitleText": "区域加盟店",
-				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationStyle":"custom", // 服务商-我的商家
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -258,7 +306,7 @@
 		{
 			"path": "pages/mine/join/quyujoinmember",
 			"style": { 
-				"navigationBarTitleText": "会员",  //区域加盟店会员
+				"navigationBarTitleText": "会员",  //会员团队
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
@@ -275,22 +323,25 @@
 			"style": { 
 				// "navigationBarTitleText": ""  // 加盟店-我的团队-推荐加盟店
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/member/memberinfo",
 			"style": { 
-				"navigationBarTitleText": "会员信息",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarTitleText": "会员信息", // 加盟店-我的团队-会员信息
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/member/membermyteam",
 			"style": { 
-				// "navigationBarTitleText": ""  ,// 会员我的团队
+				// "navigationBarTitleText": ""  ,// 会员-我的团队
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -401,6 +452,13 @@
 			}
 		},
 		{
+			"path": "pages/shopcart/reqreturn",
+			"style": { 
+				"navigationBarTitleText": "申请退货",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
 			"path": "pages/shopcart/follwshop",
 			"style": { 
 				"navigationBarTitleText": "关注店铺",
@@ -454,7 +512,8 @@
 			"path": "pages/shopcart/account/billdetails",
 			"style": { 
 				"navigationBarTitleText": "账单明细",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 				// "navigationStyle":"custom"
 			}
 		},
@@ -486,9 +545,10 @@
 		{
 			"path": "pages/mine/member/teacherregion",
 			"style": { 
-				"navigationBarTitleText": "讲师",// 邀请码
-				"navigationBarBackgroundColor": "#FFFFFF"
-				// "navigationStyle":"custom"
+				// "navigationBarTitleText": "业务员",// 我的团队-业务员
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true,
+				"navigationStyle":"custom"
 			}
 		},
 		{

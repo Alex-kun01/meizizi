@@ -8,14 +8,16 @@
 			@click="gotoTarget('./search')"
 			>
 				<image style="width: 30rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-				<input type="text" value="" placeholder="保湿面膜0.1元" />
+				<input type="text" value="" placeholder="搜索" />
 				<view class="search_btn">
 					搜索
 				</view>
 			</view>
-			<view style="position: relative;">
+			<view style="position: relative;"
+			@click="gotoshop"
+			>
 				<image src="../../static/index/gouwuche@2x.png" mode=""></image>
-				<view class="float">8</view>
+				<view class="float">{{cart_count}}</view>
 			</view>
 			<view style="position: relative;">
 				<image @click="gotoTarget('../mine/set/news')" src="../../static/index/xiaoxi.png" mode=""></image>
@@ -75,13 +77,13 @@
 			<view class="today_top">
 				<view class="time_box">
 					<text class="miaosha">今日秒杀</text>
-					<view class="black_time">
+					<!-- <view class="black_time">
 						<text class="item">{{hours}}</text>
 						<text>:</text>
 						<text class="item">{{minute}}</text>
 						<text>:</text>
 						<text class="item">{{second}}</text>
-					</view>
+					</view> -->
 				</view>
 				<view class="more_btn">
 					<text>更多好货</text>
@@ -205,11 +207,15 @@
 				likeInfo:[],
 				old: {
 					scrollTop: 0
-				}
+				},
+				cart_count: 0, 
 				
 			}
 		},
 		onLoad() {
+			
+		},
+		onShow() {
 			this.getRemTimes(this.ddd)
 			this.countDown()
 			this.getData()
@@ -230,6 +236,21 @@
 						console.log('首页获取本地用户信息',res.data)
 						_this.$store.commit('setUserInfo', res.data)
 						console.log('首页获取vuex用户信息',res.data)
+						uni.request({
+							url: _this.$http + '/api/index/info',
+							method: 'POST',
+							data: {
+								token: res.data.token
+							},
+							success(reg){
+								console.log('购物车，收藏夹',reg)
+								if(reg.data.status === 200){
+									_this.cart_count = reg.data.data.cart_count
+								}else{
+									
+								}
+							}
+						})
 					}
 				})
 			},
@@ -327,6 +348,12 @@
 						url: url
 					})
 				},
+				// 跳转购物车
+				gotoshop(){
+					uni.switchTab({
+						url: '../shopcart/shopcart'
+					})
+				},
 				// 获取并计算剩余时间
 				// time 毫秒数
 				getRemTimes(time){
@@ -385,6 +412,19 @@
 					uni.scanCode({
 						success(res) {
 							console.log('扫描二维码',res)
+							let	arr = JSON.parse( res.result )
+							console.log('arr',arr)
+							
+							if(arr.mzzUrl){
+								uni.navigateTo({
+									url: arr.mzzUrl + '?id=' + arr.order_id
+								})
+							}else{
+								uni.showModal({
+									title: '提示',
+									content: '二维码已失效！'
+								})
+							}
 						}
 					})
 				},

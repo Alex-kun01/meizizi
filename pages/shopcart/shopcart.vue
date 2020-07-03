@@ -37,7 +37,7 @@
 				<view class="store">
 					<view class="left_pic">
 						<view class="yuan2"
-						@click="chooseThing(item.id)"
+						@click="chooseThing(item)"
 						>
 							<!-- 根据商品id显示 -->
 							<image v-if="showThing.includes(item.id)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
@@ -148,7 +148,9 @@
 				<text class="heji">合计：</text>
 				<text class="price">￥{{allPrice}}</text>
 				
-				<view class="jieduan_btn">
+				<view class="jieduan_btn"
+				@click="jiesuanClick"
+				>
 					结算
 				</view>
 			</view>
@@ -192,9 +194,11 @@
 				allActive: false, //全选 控制
 				showThing: [], // 被选中的商品列表
 				shopList: [],
+				goodsList: [], // goods_id
 				likeList: [],
 				page: 1,
 				limit: 100,
+				storeList: [], // 所有选中商品列表
 			}
 		},
 		computed:{
@@ -217,6 +221,9 @@
 			}
 		},
 		onLoad() {
+			
+		},
+		onShow(){
 			this.getData()
 		},
 		methods: {
@@ -227,6 +234,9 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						uni.showLoading({
+							title: ''
+						})
 						uni.request({
 							url: _this.$http + '/api/goods/cartList',
 							method: 'POST',
@@ -236,6 +246,7 @@
 								limit: _this.limit
 							},
 							success(res){
+								uni.hideLoading()
 								console.log('购物车列表数据', res)
 								if(res.data.status == 200){
 									_this.shopList = res.data.data.cart_list
@@ -253,26 +264,38 @@
 					}
 				})
 			},
+			// 结算按钮
+			jiesuanClick(){
+				console.log('商品列表', this.storeList)
+				//将订单列表存到vuex
+				this.$store.commit('setOrderList', this.storeList)
+				uni.navigateTo({
+					url: '../index/confirmordermany'
+				})
+			},
 			// 移入收藏夹
 			gotorelation(){
 				let _this = this
-				console.log('选中的商品列表',this.showThing)
+				console.log('选中的商品列表',this.goodsList)
 				console.log('移入收藏夹执行了')
-				let targetNum = this.showThing.length
+				let targetNum = this.goodsList.length
 				let newNum = 0
-				this.showThing.forEach(item =>{
+				this.goodsList.forEach(item =>{
+					console.log('查看item数据',item)
 					uni.getStorage({
 						key: 'userInfo',
 						success(reg){
-							uni.request({
-								url: _this.$http + '/api/index/relation',
-								method: 'POST',
-								data:{
+							let datas = {
 									id: item,
 									type: 1,
 									re_type: 1,
 									token: reg.data.token
-								},
+								}
+								console.log('查看收藏传递参数xxxxxxxxxxx', datas)
+							uni.request({
+								url: _this.$http + '/api/index/relation',
+								method: 'POST',
+								data:datas,
 								success(res){
 									console.log('加入购物车返回数据', res)
 									if(res.data.status == 200){
@@ -364,18 +387,24 @@
 				
 			},
 			// 选中商品
-			chooseThing(thingId){
-				if(this.showThing.includes(thingId)){
+			chooseThing(item){
+				console.log('item', item)
+				if(this.showThing.includes(item.id)){
 					// 已经选中 取消
-					let index = this.isHasElementOne(this.showThing, thingId)
+					let index = this.isHasElementOne(this.showThing, item.id)
 					console.log('原来数组',this.showThing)
 					console.log('返回的下标',index)
 					this.showThing.splice(index, 1)
+					this.goodsList.splice(index,1)
+					this.storeList.splice(index,1)
+					
 					console.log('后来数组',this.showThing)
 					this.allActive = false
 				}else{
 					// 没有选中 选中
-					this.showThing.push(thingId)
+					this.showThing.push(item.id)
+					this.goodsList.push(item.goods_id)
+					this.storeList.push(item)
 					console.log('后来数组',this.showThing)
 				}
 				
@@ -387,6 +416,8 @@
 				// 取消全选
 				if(!this.allActive){
 					this.showThing = []
+					this.storeList = []
+					this.goodsList = []
 				}else{
 					// 全选
 					list.forEach(item =>{
@@ -394,6 +425,8 @@
 							// 已被选中 不做处理
 						}else{
 							this.showThing.push(item.id)
+							this.storeList.push(item)
+							this.goodsList.push(item.goods_id)
 						}
 					})
 				}

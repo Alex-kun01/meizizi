@@ -1,24 +1,36 @@
 <template>
 	<view class="content">
-		<!-- <view class="titleNview-placing"></view> -->
+		<view class="titleNview-placing"></view>
+		<view class="top_box_bar">
+			<image @click="goback" src="../../../static/index/fanhui@3x.png" mode=""></image>
+			<view class="title">
+				业务员
+			</view>
+			<text></text>
+		</view>
 		<!-- 讲师详情 -->
 		<view class="top_bar">
 			<view class="top_con">
 				<view style="display: flex;">
-					<image :src="userInfo.img" mode=""></image>
+					<image :src="info.avatar" mode=""></image>
 					<view class="con_con">
 						<view class="name">
-							{{userInfo.name}}
-							<text>职位:{{userInfo.zhiwei}}</text>
+							{{info.nickname}}
+							<text v-if="info.position == 3">职位: 总监</text>
+							<text v-if="info.position == 4">职位: 省区经理</text>
+							<text v-if="info.position == 5">职位: 业务员</text>
+							<text v-if="info.position == 6">职位: 服务商</text>
+							<text v-if="info.position == 7">职位: 物流商</text>
+							<text v-if="info.position == 11">职位: 市级代理</text>
 						</view>
 						<view class="region">
-							管理区域：{{userInfo.region}}
+							管理区域：{{info.region}}
 						</view>
 					</view>
 				</view>
-				<view class="r_btn" @click="renmClick">
+				<!-- <view class="r_btn" @click="renmClick">
 					更改
-				</view>
+				</view> -->
 			</view>
 			<view class="con_cons">
 				<view class="item">
@@ -33,7 +45,7 @@
 					总交易额
 				</view>
 				<view class="price">
-					{{userInfo.jine}}
+					{{info.count_money}}
 				</view>
 			</view>
 		</view>
@@ -48,27 +60,30 @@
 				v-for="(item, index) in showList"
 				:key="index"
 				>
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_info">
 						<view class="con_title">
-							{{item.storeName}}
+							{{item.company}}
 						</view>
 						<view class="phone_box">
 							<image style="width: 20rpx;height: 28rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
 							<text>{{item.phone}}</text>
-							<image style="width: 25rpx;height: 28rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
-							<text>{{item.weixin}}</text>
+							<image style="width: 28rpx;height: 25rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
+							<text>{{item.wx_name}}</text>
 						</view>
 						<view class="address">
 							{{item.address}}
 						</view>
 					</view>
 				</view>
+				<view class="loading" v-if="isLoading">
+					加载中...
+				</view>
 			</view>
 			</view>
 			
 			<!-- 更改区域弹窗 -->
-			<view class="renming_float"
+		<!-- 	<view class="renming_float"
 			v-if="isShow"
 			@touchmove.stop.prevent="moveHandle" 
 			>
@@ -97,7 +112,7 @@
 						<view class="ok_btn" @click="okClick">确定</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 	</view>
 </template>
 
@@ -113,57 +128,56 @@
 					region: '达州',
 					jine: 30000
 				},
+				opt: {},
+				isLoading: false,
+				page:1,
+				limit: 10,
 				// 是否展示更改弹窗
 				isShow: false,
 				// 更改区域列表
 				renmingList: ['达州', '成都', '广元', '南充', '泸州'],
 				isActive: 1, // 更改区域选中
-				showList: [
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storeName: '屈臣氏(成都百盛)',
-						phone: 123456789,
-						weixin: 123456789,
-						address: '四川省成都市锦江区总府路2号'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storeName: '屈臣氏(成都百盛)',
-						phone: 123456789,
-						weixin: 123456789,
-						address: '四川省成都市锦江区总府路2号'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storeName: '屈臣氏(成都百盛)',
-						phone: 123456789,
-						weixin: 123456789,
-						address: '四川省成都市锦江区总府路2号'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storeName: '屈臣氏(成都百盛)',
-						phone: 123456789,
-						weixin: 123456789,
-						address: '四川省成都市锦江区总府路2号'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storeName: '屈臣氏(成都百盛)',
-						phone: 123456789,
-						weixin: 123456789,
-						address: '四川省成都市锦江区总府路2号'
-					}
-				]
+				info:{},
+				showList: []
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			console.log('opt',opt)
+			this.opt = opt
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/team/business',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit,
+								uid: _this.opt.id
+							},
+							success(res) {
+								console.log('业务员数据', res)
+								_this.isLoading = false
+								_this.info = res.data.data.info
+								if(_this.showList.length == 0){
+									_this.showList = res.data.data.list
+								}else{
+									_this.showList = _this.showList.concat(res.data.data.list) 
+								}
+							}
+						})
+					}
+				})
+			},
 			renmClick() {
 				this.isShow = true
 			},
@@ -188,6 +202,17 @@
 				console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
+			goback(){
+				uni.navigateBack({
+					
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -207,6 +232,32 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
+			.top_box_bar{
+				width: 100%;
+				height: 100rpx;
+				background-color: #FFFFFF;
+				box-sizing: border-box;
+				padding: 24rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				.title{
+					font-weight: 500;
+					font-size: 36rpx;
+				}
+				image{
+					width: 22rpx;
+					height: 38rpx;
+				}
+			}
 			.top_bar{
 				width: 700rpx;
 				height: 278rpx;

@@ -7,7 +7,7 @@
 				会员名
 			</view>
 			<view class="text">
-				是九尾主动的
+				{{name}}
 			</view>
 		</view>
 		
@@ -54,16 +54,26 @@
 	export default {
 		data () {
 			return {
-				
+				name: ''
 			}
 		},
 		onLoad(){
-			
+			this.init()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			init(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('用户信息', res)
+						_this.name = res.data.nickname
+					}
+				})
+			},
 			// 页面跳转
 			gototarget(url){
 				uni.navigateTo({

@@ -7,94 +7,58 @@
 				<image style="width: 23rpx;height: 36rpx;" src="../../../static/index/fanhui@2x.png" mode=""></image>
 			</view>
 			<view @click="changeIndex(1)" :class="{item:true,active: isActive === 1}">
-				直推会员(50)
+				直推会员{{'('+betCount+')'}}
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
-				间推会员(50)
+				间推会员{{'('+strCount+')'}}
 			</view>
 		</view>
 		<!-- 直推会员 -->
-		<view class="top_bars" v-if="isActive === 1">
-			<view :class="{option:true, active: memberActive1 === 1}" @click="changMemberx(1)">
+		<view class="top_bars">
+			<view :class="{option:true, active: memberActive1 === 1}" @click="changMember(1)">
 				<text>默认排序</text>
 				<image v-if="memberActive1 === 1" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
-			<view :class="{option:true, active: memberActive1 === 2}" @click="changMemberx(2)">
+			<view :class="{option:true, active: memberActive1 === 2}" @click="changMember(2)">
 				<text>复购人数</text>
 				<image v-if="memberActive1 === 2" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
-			<view :class="{option:true, active: memberActive1 === 3}" @click="changMemberx(3)">
-				<text>直推人数</text>
+			<view :class="{option:true, active: memberActive1 === 3}" @click="changMember(3)">
+				<text>推荐人数</text>
 				<image v-if="memberActive1 === 3" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
 		</view>
-		<view class="member_list" v-if="isActive === 1"> 
+		<view class="member_list"
+		v-if="showList.length != 0"
+		> 
 		
 			<view class="item"
-			v-for="(item, index) in zhituiList"
+			v-for="(item, index) in showList"
 			:key='index'
 			>
 				<view style="display: flex;">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.avatar || staticImage" mode=""></image>
 					<view class="con_r">
 						<view class="name">
-							{{item.name}}
+							{{item.nickname}}
 						</view>
-						<text>复购人数：{{item.fugou}}</text>
-						<text>直推人数：{{item.zhitui}}</text>
-						<text>入会时间：{{item.pushTime}}</text>
+						<text>复购次数：{{item.pay_count}}</text>
+						<text>直推人数：{{item.spread_count}}</text>
+						<text>入会时间：{{item.member_time}}</text>
 					</view>
 				</view>
 				<view class="r_shouyi">
-					收益:{{item.shouyi}}
+					收益:{{item.benefit}}
 				</view>
 			</view>
+			
 		</view>
-		
-		<!-- 间推会员 -->
-		<view class="top_bars" v-if="isActive === 2">
-			<view :class="{option:true, active: memberActive === 1}" @click="changMember(1)">
-				<text>默认排序</text>
-				<image v-if="memberActive === 1" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
-				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
-			</view>
-			<view :class="{option:true, active: memberActive === 2}" @click="changMember(2)">
-				<text>复购人数</text>
-				<image v-if="memberActive === 2" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
-				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
-			</view>
-			<view :class="{option:true, active: memberActive === 3}" @click="changMember(3)">
-				<text>直推人数</text>
-				<image v-if="memberActive === 3" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
-				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
-			</view>
+		<view class="loading" v-if="isLoading">
+			加载中...
 		</view>
-		<view class="member_list" v-if="isActive === 2"> 
-		
-			<view class="item"
-			v-for="(item, index) in memberList"
-			:key='index'
-			>
-				<view style="display: flex;">
-					<image :src="item.img" mode=""></image>
-					<view class="con_r">
-						<view class="name">
-							{{item.name}}
-						</view>
-						<text>复购人数：{{item.fugou}}</text>
-						<text>直推人数：{{item.zhitui}}</text>
-						<text>入会时间：{{item.pushTime}}</text>
-					</view>
-				</view>
-				<view class="r_shouyi">
-					收益:{{item.shouyi}}
-				</view>
-			</view>
-		</view>
-		
 		
 	</view>
 </template>
@@ -106,99 +70,93 @@
 				isActive: 1, 
 				memberActive1: 1, // 直推会员显示
 				memberActive: 1, // 间推会员显示
-				zhituiList: [
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李水水',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-				],
-				//间推会员
-				memberList:[
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					
-				],
+				mysort: 1, // 排序类型
+				page: 1,
+				isLoading: false, 
+				page: 1,
+				limit: 10,
+				staticImage: '../../../static/mine/staticAvatar.jpg', // 默认图片
+				showList: [],
+				betCount: 0,
+				strCount: 0,
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 获取数据
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							page: _this.page,
+							limit: _this.limit,
+							type: _this.isActive,
+							group_id: reg.data.group_id,
+							sort: _this.mysort,
+							condition_type: ''
+						}
+						console.log('传递参数', datas)
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/team/myTeam',
+							method: 'POST',
+							data:datas,
+							success(res){
+								uni.hideLoading()
+								console.log('会员-我的团队返回数据', res)
+								if(res.data.status == 200){
+									_this.betCount = res.data.data.bet_count
+									_this.strCount = res.data.data.str_count
+									_this.isLoading = false
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data.str_data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data.str_data)
+									}
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数据列表获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			changeIndex(index){
 				this.isActive = index
+				this.memberActive1 = 1
+				this.showList = []
+				this.getData()
 			},
 			changMember(index){
-				this.memberActive = index
-			},
-			changMemberx(index){
 				this.memberActive1 = index
+				this.mysort = index
+				this.showList = []
+				this.getData()
 			},
 			goback(){
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -216,6 +174,14 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.top_bar{
 				width: 100%;
 				height: 100rpx;

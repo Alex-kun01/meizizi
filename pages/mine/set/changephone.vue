@@ -18,7 +18,12 @@
 			<view :class="{code_btn:true, active: isOk}"
 			@click="getInCode"
 			>
-				获取验证码
+				<view v-if="isShowCode">
+					{{number}}s
+				</view>
+				<view v-else>
+					获取验证码
+				</view>
 			</view>
 		</view>
 		<view class="submit_btn" @click="submitClick">
@@ -31,8 +36,11 @@
 	export default {
 		data () {
 			return {
-				phone: '17683059017', 
+				phone: '', 
 				incode: '', // 验证码
+				isShowCode: false, //
+				number:60, // 倒计时时间
+				timers: ''
 			}
 		},
 		computed:{
@@ -91,6 +99,9 @@
 			},
 			// 获取验证码
 			getInCode(){
+				if(this.isShowCode){
+					return
+				}
 				let _this = this
 				uni.showLoading({
 					title: '正在获取验证码'
@@ -104,8 +115,24 @@
 					},
 					success(res){
 						console.log('验证码返回数据', res)
+						uni.hideLoading()
 						if(res.data.status === 200){
-							uni.hideLoading()
+							_this.isShowCode = true
+							
+						   _this.timers = setInterval(() => {
+							   if(_this.number == 0){
+								  clearInterval(_this.timers)
+								  _this.isShowCode = false
+								  _this.number = 60
+								   return
+							   }
+								_this.number--
+							}, 1000)
+						}else{
+							uni.showLoading({
+								title: '提示',
+								content: '验证码获取失败!'
+							})
 						}
 					}
 				})
@@ -161,6 +188,8 @@
 					color:rgba(205,205,205,1);
 				}
 				.code_btn{
+					width: 150rpx;
+					text-align: center;
 					color: #CDCDCD;
 					font-size: 24rpx;
 					padding: 5rpx 10rpx;

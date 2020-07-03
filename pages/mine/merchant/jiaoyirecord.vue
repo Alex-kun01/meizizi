@@ -1,35 +1,47 @@
 <template>
 	<view class="content">
 		<!-- <view class="titleNview-placing"></view> -->
-		<!-- 交易记录 -->
-		<view class="show_list">
+		<!-- 物流商 交易记录 -->
+		<view class="show_list"
+		v-if="showList.length != 0"
+		>
+		<view class="">
+			物流商交易记录
+		</view>
 			<view class="item"
 			v-for="(item, index) in showList"
 			:key='index'
+			@click="gotoinfo(item)"
+			
 			>
 				
 				<view class="left">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_text">
 						<view class="name">
-							{{item.storename}}
+							{{item.company}}
 						</view>
 						<view class="order">
-							订单编号：{{item.ordernum}}
+							订单编号：{{item.order_code}}
 						</view>
 					</view>
 				</view>
 				<view class="right">
 					<view class="time">
-						{{item.pushtime}}
+						{{item.need_time.substring(0,10)}}
 					</view>
 					<view class="tap_type">
-						{{item.type}}
+						<text v-if="item.order_status == 1">未发货</text>
+						<text v-if="item.order_status == 2">已发货</text>
+						<text v-if="item.order_status == 3">已收货</text>
 					</view>
 				</view>
 			</view>
+			
 		</view>
-		
+		<view class="loading" v-if="isLoading">
+			加载中...
+		</view>
 	</view>
 </template>
 
@@ -37,74 +49,70 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '待发货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '已出货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '已出货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '待发货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '已出货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '已出货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '待发货'
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						storename: '成都美妆店',
-						ordernum: '2345676545678',
-						pushtime: '2020-04-08',
-						type: '已出货'
-					}
-				]
+				showList: [],
+					page: 1,
+					limit:10,
+					isLoading: false,
+					opt: {}
+					
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			this.opt = opt
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
-			
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							page: _this.page,
+							limit: _this.limit,
+							shop_id: _this.opt.id
+						}
+						console.log('交易记录参数', datas)
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/user/getShopOrderList',
+							method:'GET',
+							data:datas,
+							success(res){
+								uni.hideLoading()
+								_this.isLoading = false
+								console.log('交易记录返回数据',res)
+								if(res.data.status === 200){
+									if(_this.showList.length === 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data) 
+									}
+								}
+							}
+						})
+					}
+				})
+			},
+			gotoinfo(item){
+				console.log('item', item)
+				// return
+				uni.navigateTo({
+					url: './receiptwl?id='+item.order_id + '&type=' + item.order_status
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -124,6 +132,14 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.show_list{
 				width: 100%;
 				box-sizing: border-box;

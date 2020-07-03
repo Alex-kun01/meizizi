@@ -14,7 +14,7 @@
 				{{opt.store_name}}
 			</view>
 			<view class="pic_box">
-				<image style="width: 190rpx;height: 186rpx;" :src="opt.image" mode=""></image>
+				<image style="width: 190rpx;height: 186rpx;" :src="opt.image || staticImage" mode=""></image>
 				<view class="right_con">
 					<view class="title_box">
 						<view class="tit_txt">
@@ -34,7 +34,7 @@
 						{{orderInfo.spe_name}}
 					</view>
 					<view class="info">
-						七天无理由退换
+						三天无理由退换
 					</view>
 				</view>
 			</view>
@@ -79,7 +79,7 @@
 			<view class="item" @click="changePayType(3)">
 				<view class="left">
 					<image src="../../static/index/yue@2x.png" mode=""></image>
-					<text>余额(99.02)</text>
+					<text>余额(0)</text>
 				</view>
 				<view class="right">
 					<image v-if="isPayType === 3" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
@@ -101,9 +101,10 @@
 	export default {
 		data () {
 			return {
-				isPayType: 3, // 支付方式 1 支付宝 2 微信 3余额
+				isPayType: 1, // 支付方式 1 支付宝 2 微信 3余额
 				addNum: 1, // 数量
 				orderInfo: {}, //订单信息
+				staticImage: '../../static/public/nopic.png', //默认图片地址
 				opt: {}
 			}
 		},
@@ -117,8 +118,9 @@
 			console.log('opt',opt)
 			this.opt = opt
 			console.log('下单参数', this.$store.state.productOrderInfo)
-			this.orderInfo = this.$store.state.productOrderInfo
-			this.addNum = this.$store.state.productOrderInfo.number
+				this.orderInfo = this.$store.state.productOrderInfo
+				this.addNum = this.$store.state.productOrderInfo.number
+			
 		},
 		onShow(){
 			
@@ -153,6 +155,7 @@
 				// 提交订单时将用户在此页面选择的购买数量更新
 				this.orderInfo.money = this.allPrice
 				this.orderInfo.number = this.addNum
+				this.orderInfo.order_id = this.opt.oid || ''
 				console.log('查看更新后的下单参数', this.orderInfo)
 				// return
 				
@@ -183,13 +186,15 @@
 									 console.log('获取到订单编号', orderId)
 									 // 付款成功
 									 uni.showToast({
-									 	title: '付款成功'
+									 	title: '付款成功',
+										success(){
+											uni.redirectTo({
+												// url: './orderdetails?type='+ '查看购物码' + '&orderId='+ orderId
+												 url: '../shopcart/allorder?type=' + 2
+											})
+										}
 									 })
-									 setTimeout(()=>{
-										 uni.redirectTo({
-										 	url: './orderdetails?type='+ '查看购物码' + '&orderId='+ orderId 
-										 })
-									 },1000)
+									 
 								 },
 								 fail(reh) {
 								 	console.log('支付宝错误信息',reh)
@@ -421,9 +426,8 @@
 				color: #FFFFFF;
 				background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
 				border-radius:46rpx;
-				position: absolute;
-				bottom: 90rpx;
-				left: 105rpx;
+				margin-left: 105rpx;
+				margin-top: 100rpx;
 			}
 		}
 	}

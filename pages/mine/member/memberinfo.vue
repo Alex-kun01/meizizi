@@ -4,34 +4,34 @@
 		<!-- 会员信息 -->
 		<view class="member_info">
 			<view class="top_img">
-				<image style="width: 180rpx;height: 181rpx;" src="../../../static/mine/avatar.jpg" mode=""></image>
+				<image style="width: 180rpx;height: 181rpx;" :src="info.avatar" mode=""></image>
 				<view class="text_t">
 					<view class="name">
-						李森森
+						{{info.nickname}}
 					</view>
 					<view class="item">
 						<text>入会时间：</text>
-						<text>2020.04.22</text>
+						<text>{{info.member_time}}</text>
 					</view>
 					<view class="item">
 						<text>复购频数：</text>
-						<text>14</text>
+						<text>{{info.pay_count}}</text>
 					</view>
 					<view class="item">
 						<text>直推会员：</text>
-						<text>8</text>
+						<text>{{info.spread_count}}</text>
 					</view>
 				</view>
 			</view>
 			<view class="bom_text">
 				<view class="icon_b">
 					<image style="width: 21rpx;height: 24rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
-					<text>2234567897</text>
+					<text>{{info.phone}}</text>
 					<image style="width: 22rpx;height: 18rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
-					<text>2234567897</text>
+					<text>{{info.wx_name}}</text>
 				</view>
 				<view class="address">
-					四川省成都市金牛区西华街道茶店子客运站金耀路 18号西岸观邸
+					{{info.addres}}
 				</view>
 			</view>
 		</view>
@@ -43,19 +43,22 @@
 			:key='index'
 			>
 				<view style="display: flex;">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.avatar" mode=""></image>
 					<view class="con_r">
 						<view class="name">
-							{{item.name}}
+							{{item.nickname}}
 						</view>
-						<text>复购人数：{{item.fugou}}</text>
-						<text>直推人数：{{item.zhitui}}</text>
-						<text>入会时间：{{item.pushTime}}</text>
+						<text>复购人数：{{item.pay_count}}</text>
+						<text>直推人数：{{item.spread_count}}</text>
+						<text>入会时间：{{item.member_time}}</text>
 					</view>
 				</view>
-				<view class="r_shouyi">
+				<!-- <view class="r_shouyi">
 					收益:{{item.shouyi}}
-				</view>
+				</view> -->
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -67,51 +70,65 @@
 		data () {
 			return {
 				// 会员展示列表
-				memberList:[
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					
-				],
+				memberList:[],
+				opt: {},
+				info:{},
+				page: 1,
+				limit: 10,
+				isLoading: false, 
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			console.log('opt', opt)
+			this.opt = opt
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
-			
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.request({
+							url: _this.$http + '/api/team/memberInfo',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								uid: _this.opt.id,
+								page: _this.page,
+								limit: _this.limit
+							},
+							success(res){
+								_this.isLoading = false
+								console.log('会员信息返回数据', res)
+								if(res.data.status === 200){
+									if(_this.memberList.length == 0){
+										_this.memberList = res.data.data.list
+									}else{
+										_this.memberList = _this.memberList.concat(res.data.data.list) 
+									}
+									
+									_this.info = res.data.data.user_info
+								}else{
+									uni.showModal({
+										title:'提示',
+										content: '数据请求失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -131,6 +148,14 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.member_info{
 				width: 100%;
 				box-sizing: border-box;

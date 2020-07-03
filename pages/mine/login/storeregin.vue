@@ -24,20 +24,53 @@
 			</view>
 			<view class="item">
 				<view class="title">
+					<text>微 信</text>
+					<input type="text"  v-model="merchantInfo.wx_name" placeholder="请输入微信" />
+				</view>
+			</view>
+			<view class="item">
+				<view class="title">
+					<text>店铺名字</text>
+					<input type="text" style="padding-left: 20rpx;" v-model="merchantInfo.storeName" placeholder="请输入店铺名" />
+				</view>
+			</view>
+			<view class="item">
+				<view class="title">
+					<text>商家类型</text>
+					<picker :range="pickerArr" @change="changePciker">
+						<view class="content_list_label">{{pickerStr}}</view>
+					</picker>
+				</view>
+			</view>
+			<view class="item">
+				<view class="title">
+					<text>地 址</text>
+					<!-- <input type="text"  v-model="merchantInfo.phone" placeholder="请输入电话" /> -->
+					<view class="content_list_label" @click="addressShow = true">{{address1}}</view>
+					<pickerAddress v-model="addressShow" @confirm="addresspick" />
+				</view>
+			</view>
+			<view class="item">
+				<view class="title">
 					<text>验证码</text>
 					<input type="text"  v-model="merchantInfo.captcha" placeholder="请输入验证码" />
 					<view class="getCaptcha"
 					v-if="isCaptchaOk"
 					@click="getCapCode"
 					>
-						获取验证码
+						<view class="bbx_show" v-if="isShowCode">
+							{{number}}s
+						</view>
+						<view class="bbx_show" v-else>
+							获取验证码
+						</view>
 					</view>
 				</view>
 			</view>
 			<view class="item">
 				<view class="title">
-					<text>地 址</text>
-					<input type="text"  v-model="merchantInfo.address" placeholder="请输入地址" />
+					<text>详细地址</text>
+					<input style="padding-left: 20rpx;" type="text"  v-model="merchantInfo.address" placeholder="请输入地址" />
 				</view>
 			</view>
 			<view class="address">
@@ -86,6 +119,23 @@
 				</view>
 			</view>
 		</view>
+		
+		<view class="pic_box">
+			<view class="title">
+				上传店铺logo
+			</view>
+			<view class="con_box">
+				<view class="img_box">
+					<view class="static"
+					v-if="logoShow" 
+					>
+						<image @click="facadeone(4)" src="../../../static/mine/xiangji@2x.png" mode=""></image>
+					</view>
+					<image v-else :src="licenseUrl3" mode=""></image>
+				</view>
+			</view>
+		</view>
+		
 		<view class="submit_btn"
 		@click="submitClick"
 		>
@@ -98,9 +148,25 @@
 
 <script>
 	import amap from '../../../js_sdk/amap-wx.js'  // 引入高德地图sdk
+	import pickerAddress from '@/components/liudx-pickerAddress/index.vue'
 	export default {
 		data () {
 			return {
+				addressShow: false,
+				form: {
+					province: '',
+					city: '',
+					area: '',
+				},
+				shenAreaId: '',  //省code
+				cityAreaId: '', //市code
+				quAreaId : '', //区code
+				shenAreaStr: '', // 省名
+				cityRreaStr: '', // 市名
+				quAreaStr: '', // 区名
+				pickerArr: ['请选择','服务商','物流商','加盟店'], //123
+				pickerIndex: 0,
+				address1: '请选择你你申请的服务地址',
 				amapPlugin: null, //new地图
 			    key: '5278eb05bcbd3d197a42fb57b38dc0e2',
 			    lat:'',//纬度
@@ -110,34 +176,57 @@
 					zhizhao: '', // 执照图片地址
 					recCode: '', //推荐码
 					name: '', //姓名
-					phone: '',
-					address: '',
+					phone: '', // 
+					address: '', // 
 					captcha: '', // 验证码
+					wx_name: '', // 微信
+					storeName: '', // 店铺名
 				},
 				facadeUrl1: '', // 门头照片地址1
 				facadeUrl2: '', // 门头照片地址2
 				licenseUrl: '', // 执照图片
+				licenseUrl3: '', // logo 图片地址
 				picShow1: true, // 门头1图片是否展示
 				picShow2: true,
+				logoShow: true, // 店铺logo是否展示
 				zhizhaoShow: true,
 				isGetcapCode: false, //是否获取验证码
-				
+				isShowCode: false, //
+				number:60, // 倒计时时间
+				timers: ''
 			}
 		},
 		computed:{
+			pickerStr(){
+				return this.pickerArr[this.pickerIndex]
+			},
 			// 是否具备提交条件
 			isSubmitOk(){
-				if(!this.merchantInfo.recCode || !this.merchantInfo.name || !this.merchantInfo.phone || !this.merchantInfo.address || !this.merchantInfo.captcha){
+				if(!this.merchantInfo.recCode || !this.merchantInfo.name || !this.merchantInfo.storeName || !this.merchantInfo.phone || !this.merchantInfo.address || !this.merchantInfo.captcha){
 					uni.showModal({
 						title: '提示',
 						content: '信息填写有误'
 					})
 					return false
 				}
-				if(!this.facadeUrl1 || !this.licenseUrl){
+				if(this.pickerIndex == 0){
 					uni.showModal({
 						title: '提示',
-						content: '请上传门头/执照'
+						content: '请选择商家类型'
+					})
+					return false
+				}
+				if(this.address1 == '请选择你你申请的服务地址'){
+					uni.showModal({
+						title: '提示',
+						content: '请选择地址'
+					})
+					return false
+				}
+				if(!this.facadeUrl1 || !this.licenseUrl || !this.licenseUrl3){
+					uni.showModal({
+						title: '提示',
+						content: '请上传门头/执照/店铺logo'
 					})
 					return false
 				}
@@ -210,24 +299,30 @@
 							console.log('满足注册条件')
 							//获取位置信息
 							uni.getLocation({
-								type: 'wgs84',
+								type: 'gcj02',
 								geocode:true,
 								success(amp){
-									console.log('amp',amp)
-									this.lat = amp.longitude
-									this.lng = amp.latitude
+									_this.lat = amp.longitude
+									_this.lng = amp.latitude
 									let datas = {
 										code: _this.merchantInfo.recCode,//推荐码
 										name: _this.merchantInfo.name,//姓名
 										phone: _this.merchantInfo.phone,// 电话
+										wx_name: _this.merchantInfo.wx_name, // 微信
 										address: _this.merchantInfo.address,//地址
 										long_number: amp.longitude,//经度
 										lati_number: amp.latitude,//纬度
 										front_img: _this.mentouStr, //门面照片
 										business_img: _this.licenseUrl, //营业执照	
+										province: _this.shenAreaId, // 省code
+										city: _this.cityAreaId, // 市code
+										area: _this.quAreaId, // 区code
+										type: _this.pickerIndex, // 
+										company: _this.merchantInfo.storeName, // 店铺名字
+										logo: _this.licenseUrl3, // 店铺logo
 									}
 									console.log('传递参数', datas)
-									
+									// return
 									uni.request({
 										url: _this.$http + '/api/index/addShop',
 										method: 'POST',
@@ -264,6 +359,9 @@
 			},
 			// 获取验证码
 			getCapCode(){
+				if(this.isShowCode){
+					return
+				}
 				let _this = this
 				uni.showLoading({
 					title: '正在获取验证码...'
@@ -278,6 +376,18 @@
 						console.log('获取验证码返回信息', res)
 						if(res.data.status == 200 ){
 							_this.isGetcapCode = true
+							_this.isShowCode = true
+							
+							_this.timers = setInterval(() => {
+							   if(_this.number == 0){
+								  clearInterval(_this.timers)
+								  _this.isShowCode = false
+								  _this.number = 60
+								   return
+							   }
+								_this.number--
+							}, 1000)
+							
 						}
 						if(res.data.status != 200){
 							uni.showModal({
@@ -289,14 +399,27 @@
 					}
 				})
 			},
+			// 地址选择
+			addresspick(obj) {
+				console.log('城市', obj)
+				this.shenAreaId = obj.province.AreaId // 省code
+				this.cityAreaId = obj.city.AreaId // 市code
+				this.quAreaId = obj.area.AreaId // 区code
+				let arr = [ 'province', 'city', 'area'];
+				let place = '';
+				arr.map(key => {
+					this.form[key] = obj[key].AreaId
+					place += obj[key].AreaName
+				})
+				this.address1 = place
+			},
 			// 获取当前位置中文信息
 			mgetLocation(){
 				let _this = this
 				uni.getLocation({
-					type: 'wgs84',
+					type: 'gcj02',
 					geocode:true,
 					success(res){
-						console.log(res)
 						let address = res.address.city + res.address.district + res.address.street + res.address.poiName + res.address.streetNum
 						_this.address = address
 					}
@@ -340,7 +463,14 @@
 									 _this.licenseUrl = resObj.data.url
 									  _this.zhizhaoShow = false
 								 }
+								 if(type === 4){
+									 // logo
+									  _this.licenseUrl3= resObj.data.url
+									   _this.logoShow = false
+									  
+								 }
 								 console.log('上传成功', resObj.data.url)
+								
 							 }
 							}
 							
@@ -359,7 +489,15 @@
 					}
 				})
 			},
+			// 选择商家类型
+			changePciker(e){
+				this.pickerIndex = e.detail.value
+			}
+		},
+		components: {
+			pickerAddress
 		}
+		
 	}
 </script>
 
@@ -378,6 +516,11 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.content_list_label{
+				font-size: 28rpx;
+				color: #999;
+				margin-left: 24rpx;
+			}
 			.table_box{
 				width: 100%;
 				background-color: #FFFFFF;
@@ -396,7 +539,7 @@
 						border-radius: 5rpx;
 						font-size: 28rpx;
 						text-align: center;
-						padding: 0 5rpx;
+						padding: 0 10rpx;
 						margin-left: 130rpx;
 					}
 					image{

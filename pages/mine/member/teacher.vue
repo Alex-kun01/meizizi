@@ -6,12 +6,13 @@
 			<view class="item"
 			v-for="(item, index) in showList"
 			:key='index'
+			
 			>
 				<view class="title">
-					{{item.store}}
+					{{item.company}}
 				</view>
 				<view class="con_box">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_con">
 						<view class="address">
 							{{item.address}}
@@ -22,15 +23,18 @@
 						</view>
 						<view class="item">
 							<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-							<text>{{item.weixin}}</text>
+							<text>{{item.wx_name}}</text>
 						</view>
 					</view>
 					<view class="btn_r"
-					@click="gotpage"
+					@click="gotoInfo(item)"
 					>
 						查看数据
 					</view>
 				</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -41,36 +45,10 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351
-					}
-				]
+				showList: [],
+				page: 1,
+				limit: 10,
+				isLoading: false
 			}
 		},
 		onLoad(){
@@ -90,15 +68,24 @@
 							title: ''
 						})
 						uni.request({
-							url: _this.$http + '/api/team/myTeacher',
+							url: _this.$http + '/api/user/storeList',
 							method: 'POST',
 							data:{
-								token: '595ef904a39c1135758e681319df3350'//reg.data.token
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit
 							},
 							success(res){
+								uni.hideLoading()
+								_this.isLoading = false
 								console.log('讲师返回数据', res)
 								if(res.data.status === 200){
-									_this.showList = res.data.data
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data) 
+									}
+									
 								}else{
 									uni.showModal({
 										title: '提示',
@@ -111,11 +98,18 @@
 				})
 			},
 			//跳转店铺详情
-			gotpage(){
+			gotoInfo(item){
+				console.log('item', item)
 				uni.navigateTo({
-					url: './storeinfo'
+					url: './storeinfo?id='+item.shop_id
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -137,6 +131,14 @@
 			background-color: #F4F4F4;
 			box-sizing: border-box;
 			padding: 24rpx;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.show_list{
 				width: 100%;
 				.item{

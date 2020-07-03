@@ -4,7 +4,7 @@
 		<!-- 帮助中心 -->
 		<view class="top_bar">
 			<view class="avatar">
-				<image src="../../../static/mine/avatar.jpg" mode=""></image>
+				<image :src="avatar || staticpic" mode=""></image>
 				<view class="title_box">
 					<view class="title">
 						Hi~小主
@@ -70,15 +70,28 @@
 				title: '默认问题', // 问题
 				content: '回答', // 问题解答
 				isShowProblemDetalus: false, // 是否展示问题详情
+				avatar: '', //头像
+				staticpic: '../../../static/mine/staticAvatar.jpg', // 默认头像
 			}
 		},
 		onLoad(){
+			this.init()
 			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			init(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('查看userInfo', res)
+						_this.avatar = res.data.avatar
+					}
+				})
+			},
 			getData(){
 				let _this = this
 				uni.showLoading({

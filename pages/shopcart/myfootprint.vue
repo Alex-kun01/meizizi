@@ -57,7 +57,7 @@
 			gotoDetauls(item){
 				console.log('item', item)
 				uni.navigateTo({
-					url: '../index/productdetails'
+					url: '../index/productdetails?id=' + item.id
 				})
 			},
 			onReachBottom(e){
@@ -72,6 +72,9 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						uni.showLoading({
+							title: ''
+						})
 						uni.request({
 							url: _this.$http + '/api/index/footprint',
 							method: 'POST',
@@ -81,6 +84,7 @@
 								limit: _this.limit
 							},
 							success(res){
+								uni.hideLoading()
 								console.log('足迹列表数据',res)
 								if(res.data.status == 200){
 									if(_this.showList.length === 0){
@@ -119,6 +123,7 @@
 		.content{
 			width: 100%;
 			height: 100%;
+			min-height: 100vh;
 			background-color: #F4F4F4;
 			.loading{
 				width: 100%;
@@ -145,6 +150,7 @@
 					background-color: #FFFFFF;
 					border-radius: 12rpx;
 					display: flex;
+					margin-bottom: 24rpx;
 					.img{
 						width: 222rpx;
 						height: 198rpx;
@@ -159,10 +165,10 @@
 							line-height:41rpx;
 							margin-bottom: 25rpx;
 							overflow: hidden;
-						  text-overflow: ellipsis;
-						  display: -webkit-box;
-						  -webkit-line-clamp: 2; //行数
-						  -webkit-box-orient: vertical;
+							  text-overflow: ellipsis;
+							  display: -webkit-box;
+							  -webkit-line-clamp: 3; //行数
+							  -webkit-box-orient: vertical;
 						}
 						.shoucangNum{
 							font-size:24rpx;

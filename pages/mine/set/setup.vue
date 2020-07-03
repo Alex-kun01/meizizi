@@ -92,7 +92,7 @@
 							uni.removeStorage({
 								key: 'userInfo'
 							})
-							uni.navigateTo({
+							uni.reLaunch({
 								url: '../login/login'
 							})
 						}else{
@@ -104,7 +104,9 @@
 			},
 			// 清除缓存
 			clearCache(){
-				
+				uni.showToast({
+					title: ''
+				})
 			}
 		}
 	}

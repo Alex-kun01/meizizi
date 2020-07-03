@@ -17,8 +17,11 @@
 			>
 				<view class="item_i">{{item.store_name}}</view>
 				<view class="item_i">{{item.price}}</view>
-				<view class="item_i"><text>{{item.stock}}/<text>{{item.stock}}</text></text></view>
-				<view class="item_i">{{item.turnover}}</view>
+				<view class="item_i"><text>{{item.stock}}/<text>{{item.total_stock}}</text></text></view>
+				<view class="item_i">{{item.total_money}}</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -31,13 +34,15 @@
 			return {
 				titleList: ['商品名', '单价' , '库存', '营业额'],
 				opt: {},
-				showList: []
+				showList: [],
+				page: 1,
+				limit:10,
+				isLoading: false
 			}
 		},
 		onLoad(opt){
 			this.opt = opt
 			this.getData(opt.id)
-			
 		},
 		onShow(){
 			
@@ -48,21 +53,29 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						let datas = {
+							token: reg.data.token,
+							shop_id: _this.opt.id,
+							page: _this.page,
+							limit: _this.limit
+						}
 						uni.showLoading({
 							title: ''
 						})
 						uni.request({
-							url: _this.$http + '/api/team/shopInfo',
+							url: _this.$http + '/api/user/recommendShopDetails',
 							method: 'POST',
-							data: {
-								token: '8300ee357cf18d92ab2712818108a3e8',// reg.data.token,
-								mid: id || 1
-							},
+							data: datas,
 							success(res){
 								uni.hideLoading()
 								console.log('店铺信息数据', res)
 								if(res.data.status === 200){
-									_this.showList = res.data.data
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data) 
+									}
+									
 								}else{
 									uni.showModal({
 										title: '店铺信息数据获取失败'
@@ -90,10 +103,19 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 700rpx;
-			margin-left: 15rpx;
+			margin-left: 25rpx;
+			margin-top: 24rpx;
 			background-color: #FFFFFF;
 			box-sizing: border-box;
 			padding: 24rpx 30rpx;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.title_list{
 				display: flex;
 				justify-content: space-between;

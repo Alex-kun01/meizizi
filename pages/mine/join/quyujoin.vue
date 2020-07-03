@@ -7,23 +7,23 @@
 				<image style="width: 23rpx;height: 36rpx;" src="../../../static/index/fanhui@2x.png" mode=""></image>
 			</view>
 			<view @click="changeIndex(1)" :class="{item:true,active: isActive === 1}">
-				区域加盟店（50）
+				区域加盟店{{'(' + quyuNum + ')'}}
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
-				推荐加盟店（50）
+				推荐加盟店{{'(' + tuijianNum + ')'}}
 			</view>
 		</view>
 		<!-- 区域加盟店 -->
-		<view class="show_list" v-if="isActive === 1">
+		<view class="show_list">
 			<view class="item"
-			v-for="(item, index) in joinList"
+			v-for="(item, index) in showList"
 			:key='index'
 			>
 				<view class="title">
-					{{item.store}}
+					{{item.company}}
 				</view>
 				<view class="con_box">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_con">
 						<view class="address">
 							{{item.address}}
@@ -35,21 +35,24 @@
 							</view>
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
+								<text>{{item.wx_name}}</text>
 							</view>
 						</view>
 					</view>
 					<view class="btn_r"
-					@click="gotpage"
+					@click="gotpage(item)"
 					>
 						查看收益
 					</view>
 				</view>
 			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
+			</view>
 		</view>
 		
 		<!-- 推荐加盟店 -->
-		<view class="show_list" v-else>
+		<!-- <view class="show_list" v-else>
 			<view class="item"
 			v-for="(item, index) in tuijianList"
 			:key='index'
@@ -81,7 +84,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
 		
 	</view>
@@ -92,117 +95,87 @@
 		data () {
 			return {
 				isActive: 1, 
-				joinList: [
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					}
-				],
-				tuijianList: [
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					}
-				]
+				page: 1,
+				limit: 10, 
+				isLoading: false,
+				showList: [],
+				quyuNum: 0, // 区域加盟店数量
+				tuijianNum: 0, // 推荐加盟店数量
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						let datas = {
+							token: reg.data.token,
+							give_type: _this.isActive,
+							page: _this.page,
+							limit: _this.limit
+						}
+						console.log('服务商参数', datas)
+						uni.request({
+							url: _this.$http + '/api/user/storeList',
+							method: 'POST',
+							data: datas,
+							success(res){
+								_this.isLoading = false
+								uni.hideLoading()
+								console.log('服务商返回数据', res)
+								if(res.data.status === 200){
+									
+									_this.quyuNum = res.data.data.area_quantity
+									_this.tuijianNum = res.data.data.recommend_quantity
+									
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data.shop_list
+									}else{
+										_this.showList = _this.showList.concat(res.data.data.shop_list) 
+									}
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取数据列表失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			changeIndex(index){
 				this.isActive = index
+				this.showList = []
+				this.getData()
 			},
 			goback(){
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			// 跳转收益
+			gotpage(item){
+				console.log('item', item)
+				uni.navigateTo({
+					url: '../merchant/logisticsinfo?id='+item.shop_id				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -220,11 +193,22 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			min-height: 100vh;
+			height: 100%;
+			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.top_bar{
 				width: 100%;
 				height: 100rpx;
 				box-sizing: border-box;
-				padding: 0 10%;
+				padding: 0 15%;
 				background-color: #FFFFFF;
 				display: flex;
 				justify-content: space-between;

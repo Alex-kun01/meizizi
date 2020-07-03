@@ -8,6 +8,9 @@
 			
 		</view>
 		<view class="box">
+			<!-- <view @click="gogogog">
+				临时链接
+			</view> -->
 			<view class="item">
 				<view class="l_item">
 					<view class="name">
@@ -28,7 +31,9 @@
 				<view></view>
 			</view>
 			
+			
 			<view class="item" v-else>
+				
 				<view class="l_item">
 					<view class="name">
 						验证码
@@ -39,7 +44,8 @@
 				v-if="phoneIsOk"
 				@click="getinvitation"
 				>
-					获取验证码
+					获取验证码 
+					<text v-if="isShowCode">{{number}}s</text>
 				</view>
 			</view>
 			
@@ -63,9 +69,12 @@
 		data () {
 			return {
 				loginType: 1, // 1账号密码登录 2 验证码登录
-				phone: '18080498101', //手机号
-				password: 'abc201200', //密码
+				phone: '', //手机号
+				password: '', //密码
 				invitationCode: '', // 验证码
+				isShowCode: false, // 
+				number:60, // 倒计时时间
+				timers: ''
 			}
 		},
 		computed:{
@@ -92,6 +101,9 @@
 		methods:{
 			// 获取验证码
 			getinvitation(){
+				if(this.isShowCode){
+					return
+				}
 				let _this = this
 				// 校验手机号
 				if(!this.phoneIsOk){
@@ -114,7 +126,19 @@
 					},
 					success(acpres){
 						console.log('获取验证码返回数据',acpres)
-						if(acpres.data.status != 200){
+						if(acpres.data.status === 200){
+							_this.isShowCode = true
+							
+						   _this.timers = setInterval(() => {
+							   if(_this.number == 0){
+								  clearInterval(_this.timers)
+								  _this.isShowCode = false
+								  _this.number = 60
+								   return
+							   }
+								_this.number--
+							}, 1000)
+						}else{
 							uni.showLoading({
 								title: '提示',
 								content: '验证码获取失败！'
@@ -127,6 +151,11 @@
 			},
 			changeLoginType(index) {
 				this.loginType = index
+			},
+			gogogog(){
+				uni.navigateTo({
+					url: '../merchant/shipper'
+				})
 			},
 			// 跳转注册页
 			gotoregin(){
@@ -303,7 +332,7 @@
 		.content{
 			width: 100%;
 			height: 100vh;
-			background-color: #F4F4F4;
+			background-color: #FFFFFF;
 			.title{
 				width: 100%;
 				box-sizing: border-box;

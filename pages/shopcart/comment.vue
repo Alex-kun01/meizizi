@@ -67,6 +67,7 @@
 				textValue: '', 
 				anonymous: false, // 是否匿名评论
 				imgList: [], //上传图片后的地址列表
+				opt: {}
 			}
 		},
 		computed:{
@@ -86,8 +87,8 @@
 				return this.imgList.join(',')
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			this.opt = opt
 		},
 		onShow(){
 			
@@ -125,8 +126,8 @@
 							token: res.data.token,
 							is_ano:(_this.anonymous) ? 0 : 1,
 							// 暂无订单id和商品id 给固定值
-							oid: 454521515,
-							gid: 19
+							oid: _this.opt.id,
+							gid: _this.opt.gid
 						}
 						console.log('传参',datas)
 						

@@ -7,10 +7,10 @@
 				<image style="width: 23rpx;height: 36rpx;" src="../../../static/index/fanhui@2x.png" mode=""></image>
 			</view>
 			<view @click="changeIndex(1)" :class="{item:true,active: isActive === 1}">
-				加盟店（50）
+				加盟店{{'('+ strCount+ ')'}}
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
-				会员（50）
+				会员{{'('+ betCount+ ')'}}
 			</view>
 		</view>
 		<!-- 加盟店 -->
@@ -18,12 +18,13 @@
 			<view class="item"
 			v-for="(item, index) in joinList"
 			:key='index'
+			@click="gotshangInfo(item)"
 			>
 				<view class="title">
-					{{item.store}}
+					{{item.company}}
 				</view>
 				<view class="con_box">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_con">
 						<view class="address">
 							{{item.address}}
@@ -35,7 +36,7 @@
 							</view>
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
+								<text>{{item.wx_name}}</text>
 							</view>
 						</view>
 					</view>
@@ -44,12 +45,35 @@
 					</view>
 				</view>
 			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
+			</view>
 		</view>
 		
 		<!-- 会员 -->
 		<view class="top_bars" v-if="isActive === 2">
+			<view class="zhitui_box"
+			v-if="isShowFloat"
+			>
+				<view  :class="{item:true, active: showActiveHuiyuan == 3}"
+				@click="changeHuiyuan(3)"
+				>
+					全部会员
+				</view>
+				<view :class="{item:true, active: showActiveHuiyuan == 1}"
+				@click="changeHuiyuan(1)"
+				>
+					直推会员
+				</view>
+				<view  :class="{item:true, active: showActiveHuiyuan == 2}"
+				@click="changeHuiyuan(2)"
+				>
+					间推会员
+				</view>
+				
+			</view>
 			<view :class="{option:true, active: memberActive === 1}" @click="changMember(1)">
-				<text>直推会员</text>
+				<text>{{activeHuiyuan}}</text>
 				<image v-if="memberActive === 1" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
@@ -64,26 +88,33 @@
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
 		</view>
+		
 		<view class="member_list" v-if="isActive === 2"> 
 		
 			<view class="item"
 			v-for="(item, index) in memberList"
 			:key='index'
+			@click="gotomemberInfo(item)"
 			>
 				<view style="display: flex;">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.avatar" mode=""></image>
 					<view class="con_r">
 						<view class="name">
-							{{item.name}}
+							{{item.nickname}}
 						</view>
-						<text>复购人数：{{item.fugou}}</text>
-						<text>直推人数：{{item.zhitui}}</text>
-						<text>入会时间：{{item.pushTime}}</text>
+						<text>复购频数：{{item.pay_count}}</text>
+						<text>直推人数：{{item.spread_count}}</text>
+						<text>入会时间：{{item.member_time}}</text>
 					</view>
 				</view>
-				<view class="r_shouyi">
-					收益:{{item.shouyi}}
+				<view class="r_shouyi"
+				v-if="item.benefit"
+				>
+					收益:{{item.benefit}}
 				</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -97,111 +128,21 @@
 			return {
 				isActive: 1, 
 				memberActive: 1,
-				joinList: [
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: ' 四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸',
-						phone: 123456678,
-						weixin: 12345678
-					}
-				],
+				isShowFloat: false, // 是否展示选择直推会员
+				showActiveHuiyuan: 3, // 激活选择会员
+				page: 1,
+				limit: 10,
+				activeHuiyuan: '全部会员',
+				betCount: 0,
+				strCount:0,
+				isLoading: false, // loading
+				joinList: [],
 				// 会员展示列表
-				memberList:[
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					{
-						img: '../../../static/mine/tup@2x.png',
-						name: '李森森',
-						fugou: 20,
-						zhitui:200,
-						pushTime: '2020.04.22',
-						shouyi: 200
-					},
-					
-				],
+				memberList:[],
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
@@ -215,15 +156,68 @@
 						uni.showLoading({
 							title: ''
 						})
+						let datas = {
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit,
+								type: _this.isActive,
+								group_id: reg.data.group_id,
+								sort: '',
+								condition_type: ''
+							}
+							if(_this.isActive == 1){
+								datas.sort = ''
+								datas.condition_type = ''
+							}
+							if(_this.isActive == 2){
+								if(_this.memberActive == 1){
+									datas.sort = ''
+								}
+								if(_this.memberActive == 2){
+									datas.sort = 1
+								}
+								if(_this.memberActive == 3){
+									datas.sort = 2
+								}
+								datas.condition_type = _this.showActiveHuiyuan
+							}
+							console.log('传递参数', datas)
 						uni.request({
-							url: '192.168.31.8/api/team/chiefTeam',
+							url: _this.$http + '/api/team/myTeam',
 							method:'POST',
-							data:{
-								token: reg.data.token
-							},
+							data:datas,
 							success(res){
-								uni.hideKeyboard()
 								console.log('我的团队返回数据', res)
+								uni.hideLoading()
+								if(res.data.status == 200){
+									_this.isLoading = false
+									_this.betCount = res.data.data.bet_count
+									_this.strCount = res.data.data.str_count
+									// 加盟店
+									if(res.data.data.str_data.length != 0){
+										if(_this.joinList.length == 0){
+											_this.joinList = res.data.data.str_data
+										}else{
+											_this.joinList = _this.joinList.concat(res.data.data.str_data)
+										}
+										
+									}
+									// 会员
+									if(res.data.data.bet_data.length != 0){
+										if(_this.memberList.length == 0){
+											_this.memberList = res.data.data.bet_data
+										}else{
+											_this.memberList = _this.memberList.concat(res.data.data.bet_data)
+										}
+									}
+									
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数据列表获取失败'
+									})
+								}
+								
 							}
 						})
 					}
@@ -231,15 +225,65 @@
 			},
 			changeIndex(index){
 				this.isActive = index
+				this.showActiveHuiyuan = 3
+				this.getData()
+				this.joinList = []
+				this.memberList = []
 			},
+			// 切换筛选
 			changMember(index){
 				this.memberActive = index
+				
+				if(index == 1){
+					this.isShowFloat = true
+				}else{
+					this.isShowFloat = false
+					this.memberList = []
+					this.getData()
+				}
+				
+			},
+			// 直推下拉
+			changeHuiyuan(type){
+				if(type == 1){
+					this.activeHuiyuan = '直推会员'
+				}
+				if(type == 2){
+					this.activeHuiyuan = '间推会员'
+				}
+				if(type == 3){
+					this.activeHuiyuan = '全部会员'
+				}
+				this.showActiveHuiyuan = type
+				this.isShowFloat = false
+				this.memberList = []
+				this.getData()
+			},
+			// 跳转会员信息
+			gotomemberInfo(item){
+				console.log('item', item)
+				uni.navigateTo({
+					url: '../member/memberinfo?id=' + item.id
+				})
+			},
+			// 跳转商家信息
+			gotshangInfo(item){
+				console.log('item', item)
+				uni.navigateTo({
+					url: '../merchant/logisticsinfo?id=' + item.id
+				})
 			},
 			goback(){
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -257,6 +301,17 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			min-height: 100vh;
+			height: 100%;
+			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.top_bar{
 				width: 100%;
 				height: 100rpx;
@@ -343,17 +398,18 @@
 			.member_list{
 				width: 100%;
 				box-sizing: border-box;
-				padding: 24rpx;
+				padding: 0 24rpx 0 24rpx;
 				background-color: #FFFFFF;
 				// margin-top: 24rpx;
 				
 				.item{
 					width: 100%;
-					// height: ;
 					justify-content: space-between;
 					display: flex;
 					
-					margin-bottom: 18rpx;
+					padding: 15rpx 0;
+					// margin-bottom: 18rpx;
+					border-bottom: 1rpx solid #eee;
 					image{
 						width: 187rpx;
 						height: 181rpx;
@@ -393,6 +449,29 @@
 				box-sizing: border-box;
 				padding: 0 24rpx;
 				margin-bottom: 24rpx;
+				position: relative;
+				.zhitui_box{
+					width: 200rpx;
+					// height: 90rpx;
+					background-color: #FFFFFF;
+					position: absolute;
+					bottom: -178rpx;
+					left: -24rpx;
+					z-index: 999;
+					padding: 15rpx 0 0 0;
+					opacity: .9;
+					.item{
+						width: 100%;
+						height: 40rpx;
+						line-height: 28rpx;
+						font-size: 28rpx;
+						text-align: center;
+						margin-bottom: 15rpx;
+					}
+					.item.active{
+						color: #FF792C;
+					}
+				}
 				.option{
 					color: #666666;
 					font-size: 26rpx;

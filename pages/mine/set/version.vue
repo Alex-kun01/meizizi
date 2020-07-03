@@ -3,18 +3,21 @@
 		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 版本更新 -->
 		<view class="version">
-			<image src="../../../static/mine/avatar.jpg" mode=""></image>
+			<image :src="avatar" mode=""></image>
 			<view class="name">
 				美孜孜
 			</view>
 			<view class="num">
-				V {{version}}
+			   当前版本	V {{version}}
+			</view>
+			<view class="num">
+			   最新版本	V {{newVersion}}
 			</view>
 		</view>
 		<view class="btn"
 		@click="gotoUpdate"
 		>
-			已是最新版本
+			{{versioninfo}}
 		</view>
 		
 	</view>
@@ -24,17 +27,25 @@
 	export default {
 		data () {
 			return {
+				avatar: '../../../static/mine/tub.png', 
 				versioninfo: '已是最新版本',
 				version: '', // 版本信息
+				newVersion: '',// 最新版本
 				isUpdate: false, // 是否存在更新
 				updateUrl: '', // 
+				test: 'ooo'
 			}
 		},
 		onLoad(){
-			this.getData()
+			
 		},
 		onShow(){
-			
+			plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+			        console.log('客户端详情数据',JSON.stringify(wgtinfo));//客户端详情数据
+			        console.log('应用版本号',wgtinfo.version);//应用版本号
+					this.version = wgtinfo.version
+					this.getData()
+			})
 		},
 		methods:{
 			getData(){
@@ -47,36 +58,20 @@
 						console.log('版本更新数据', res)
 						if(res.data.status === 200){
 							// 请求成功
-							uni.getStorage({
-								key: 'version',
-								success(reg){
-									console.log('本地res',reg.data)
-									// 查询到版本信息  // 判断本地与请求的版本是否一致
-									if(reg.data.version === res.data.data.version){
-										// 版本一致 未更新
-										console.log('一致，未更新')
-										_this.versioninfo = '已是最新版本'
-										_this.isUpdate = false
-										_this.version = res.data.data.version
-										
-									}else{
-										// 版本不一致 有更新
-										console.log('有更新')
-										_this.versioninfo = '下载更新'
-										_this.isUpdate = true
-										_this.updateUrl = res.data.data.url
-									}
-									
-								},
-								fail() {
-									// 未查询到版本信息
-									uni.setStorage({
-										key: 'version',
-										data: res.data.data
-									})
-									_this.version = res.data.data.version
-								}
-							})
+							let newVersion = res.data.data.version // 获取到的版本号
+							_this.newVersion = newVersion
+							if(_this.version == newVersion){
+								// 版本一致
+								_this.versioninfo = '已是最新版本'
+								_this.isUpdate = false
+								_this.test = '版本一致'
+							}else{
+								// 版本不一致
+								_this.versioninfo = '下载更新'
+								_this.isUpdate = true
+								_this.updateUrl = res.data.data.url
+								_this.test = '版本不一致'
+							}
 						}else{
 							// 
 							uni.showModal({
@@ -89,10 +84,14 @@
 			},
 			// 更新按钮
 			gotoUpdate(){
-				
-				if(this.isUpdate){
-					// 跳转更新
-					location.href = 'http://' + this.updateUrl
+				console.log('提交查看',this.isUpdate)
+				if(!this.isUpdate){
+					 plus.runtime.openURL(this.updateUrl)
+				}else{
+					uni.showModal({
+						title: '提示',
+						content: '当前已是最新版本！'
+					})
 				}
 			}
 		}

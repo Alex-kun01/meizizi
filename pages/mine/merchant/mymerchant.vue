@@ -6,12 +6,13 @@
 			<view class="item"
 			v-for="(item, index) in showList"
 			:key='index'
+			@click="gotoInfo(item)"
 			>
 				<view class="title">
-					{{item.store}}
+					{{item.company}}
 				</view>
 				<view class="con_box">
-					<image :src="item.img" mode=""></image>
+					<image :src="item.logo" mode=""></image>
 					<view class="con_con">
 						<view class="address">
 							{{item.address}}
@@ -23,21 +24,25 @@
 							</view>
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
+								<text>{{item.wx_name}}</text>
 							</view>
 						</view>
 						<view class="num_box">
 							总库存:
-							<text style="color: #EB5204;">{{item.shengyu}}/</text>
-							<text>{{item.kucun}}</text>
+							<text style="color: #EB5204;">{{item.now_stock}}/</text>
+							<text>{{item.total_stock}}</text>
 						</view>
 					</view>
 					<view class="btn_r"
 					@click="gotpage"
 					>
-						补货
+						<text v-if="item.is_auto == 1">自动补货</text>
+						<text v-if="item.is_auto == 0">手动补货</text>
 					</view>
 				</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -48,59 +53,77 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					},
-					{
-						store: '屈臣氏(成都百盛店)',
-						img: '../../../static/index/item4.png',
-						address: '四川省成都市金牛区西华街道茶店子 客运站金耀路18号西岸观邸',
-						phone: 15435127231,
-						weixin: 1537586351,
-						kucun: 2000,
-						shengyu: 1000
-					}
-				]
+				showList: [],
+				page: 1,
+				limit: 10,
+				isLoading: false
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							page: _this.page,
+							limit: _this.limit
+						}
+						console.log('我的商家参数', datas)
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/user/logisticsShopList',
+							method: 'GET',
+							data:datas,
+							success(res){
+								uni.hideLoading()
+								_this.isLoading = false
+								console.log('我的商家-物流商', res)
+								if(res.data.status === 200){
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data) 
+									}
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取数据列表失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			//跳转店铺详情
 			gotpage(){
 				uni.navigateTo({
 					url: './storeinfo'
 				})
-			}
+			},
+			// 跳转项目
+			gotoInfo(item){
+				console.log('item',item)
+				uni.navigateTo({
+					url: './mymerchantinfo?id=' + item.shop_id
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -122,6 +145,14 @@
 			background-color: #F4F4F4;
 			box-sizing: border-box;
 			padding: 24rpx;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.show_list{
 				width: 100%;
 				.item{
@@ -171,7 +202,8 @@
 							
 						}
 						.btn_r{
-							width:70rpx;
+							// width:70rpx;
+							padding: 2rpx 5rpx;
 							height:31rpx;
 							line-height: 31rpx;
 							text-align: center;

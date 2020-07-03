@@ -24,6 +24,18 @@
 		</view>
 		<view class="item">
 			<view class="title">
+				微信
+			</view>
+			<input type="text"  v-model="userInfo.weixin" placeholder="输入名字" />
+		</view>
+		<view class="item">
+			<view class="title">
+				详细地址
+			</view>
+			<input type="text"  v-model="userInfo.address" placeholder="输入名字" />
+		</view>
+		<view class="item">
+			<view class="title">
 				性别
 			</view>
 			<!-- <input type="text" value="" placeholder="输入名字" /> -->
@@ -63,9 +75,13 @@
 				],
 				current: 0,
 				birthday: currentDate,
+				isXiugai: false,
+				isJieshou: false, 
 				userInfo: {
 					nickName: '是九尾主动的',
-					sex: '男'
+					sex: '男',
+					weixin: '',
+					address: ''
 				}
 			}
 		},
@@ -79,6 +95,7 @@
 		},
 		onLoad(){
 			this.init()
+			console.log('我现在的日期', this.isXiugai)
 		},
 		onShow(){
 			
@@ -100,13 +117,21 @@
 							_this.current = 1
 							_this.userInfo.sex = '女'
 						}
-						_this.birthday = res.data.birthday.substring(0,10)
 						_this.imgUrl = res.data.avatar
+						if(res.data.birthday){
+							_this.birthday = res.data.birthday.substring(0,10)
+							_this.isJieshou = true
+						}else{
+							_this.birthday = currentDate
+						}
+						
 					}
 				})
 			},
 			bindDateChange: function(e) {
 				this.birthday = e.target.value
+				this.isXiugai = true
+				console.log('我改变日期了', this.isXiugai)
 			},
 			// 保存按钮
 			baocunClick(){
@@ -119,7 +144,15 @@
 						datas.token = res.data.token
 						datas.avatar = _this.imgUrl	
 						datas.sex = _this.userInfo.sex == '男' ? 1 : 2
-						datas.birthday = _this.birthday
+						if(_this.isJieshou){
+							// 进入页面已经获取到生日
+							datas.birthday = _this.isXiugai ? _this.birthday : _this.birthday
+						}else{
+							// 没有获取到生日
+							datas.birthday = _this.isXiugai ? _this.birthday : ''
+						}
+						
+						console.log('我看看最终日期参数', _this.isXiugai, datas.birthday)
 						datas.nickname = _this.userInfo.nickName || ''
 						
 						

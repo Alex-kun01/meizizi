@@ -22,19 +22,27 @@
 				<view class="bom_box">
 					<view class="item">
 						<text>总监</text>
-						<text class="num">{{info.chief}}</text>
+						<text class="num">{{info.chief_count}}</text>
 					</view>
 					<view class="item">
 						<text>省区经理</text>
-						<text class="num">{{info.area}}</text>
+						<text class="num">{{info.province_count}}</text>
+					</view>
+					<view class="item">
+						<text>市级代理</text>
+						<text class="num">{{info.city_count}}</text>
+					</view>
+					<view class="item">
+						<text>物流商</text>
+						<text class="num">{{info.logistics_count}}</text>
+					</view>
+					<view class="item">
+						<text>服务商</text>
+						<text class="num">{{info.service_count}}</text>
 					</view>
 					<view class="item">
 						<text>业务员</text>
-						<text class="num">{{info.salesman}}</text>
-					</view>
-					<view class="item">
-						<text>讲师</text>
-						<text class="num">{{info.teacher}}</text>
+						<text class="num">{{info.business_count}}</text>
 					</view>
 				</view>
 			</view>
@@ -47,18 +55,28 @@
 			:key='index'
 			@click="gototarget(item)"
 			>
-				<image :src="item.head_img || '../../../static/index/item4.png'" mode=""></image>
+				<image :src="item.avatar || '../../../static/index/item4.png'" mode=""></image>
 				<view class="con_r">
 					<view class="name">
-						{{item.real_name || '暂无姓名'}}
+						{{item.nickname || '暂无姓名'}}
 					</view>
+					<!-- 职位（1-超级管理员 2-总经理 3-总监 4-省代理 5-业务员/讲师 6-服务商 7-物流商 8-加盟店 9-会员消费者 10-普通消费者 11-市级服务商） -->
 					<text>电话：{{item.phone}}</text>
-					<text v-if="item.position == 1">职位：总监</text>
-					<text v-if="item.position == 2">职位：省区经理</text>
-					<text v-if="item.position == 3">职位：业务员</text>
-					<text v-if="item.position == 4">职位：讲师</text>
-					<text v-if="item.position == 5">职位：店铺</text>
+					<!-- <text v-if="item.position == 1">职位：超级管理员</text>
+					<text v-if="item.position == 2">职位：总经理</text> -->
+					<text v-if="item.position == 3">职位：总监</text>
+					<text v-if="item.position == 4">职位：省代理</text>
+					<text v-if="item.position == 5">职位：业务员</text>
+					<text v-if="item.position == 6">职位：服务商</text>
+					<text v-if="item.position == 7">职位：物流商</text>
+					<!-- <text v-if="item.position == 8">职位：加盟店</text> -->
+					<!-- <text v-if="item.position == 9">职位：会员</text>
+					<text v-if="item.position == 10">职位：普通消费者</text> -->
+					<text v-if="item.position == 11">职位：市级服务商</text>
 				</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -72,7 +90,10 @@
 			return {
 				// 信息
 				info: {},
-				showList: []
+				showList: [],
+				page:1,
+				limit: 10,
+				isLoading: false
 			}
 		},
 		onLoad(){
@@ -92,17 +113,25 @@
 							title: ''
 						})
 						uni.request({
-							url: _this.$http + '/api/team/myTeam',
+							url: _this.$http + '/api/team/teamAmdin',
 							method:'POST',
 							data:{
-								token: 'b90b4487aff36cef4aa066558faf4c10' // reg.data.token
+								token: reg.data.token,
+								page: _this.page,
+								limit: _this.limit
 							},
 							success(res){
 								uni.hideLoading()
 								console.log('我的团队返回数据', res)
+								_this.isLoading =false
 								if(res.data.status === 200){
-									_this.info = res.data.data.data
-									_this.showList = res.data.data.info
+									_this.info = res.data.data.team_count
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data.list
+									}else{
+										_this.showList = _this.showList.concat(res.data.data.list) 
+									}
+									
 								}else{
 									uni.showModal({
 										title: '提示',
@@ -115,22 +144,18 @@
 				})
 			},
 			gototarget(item){
-				let url 
-				console.log('',item)
-				if(item.position == 1){
-					url = './regionset'
-				}
-				if(item.position == 2){
-					url = './shenregion'
-				}
-				if(item.position == 3){
-					url = './teacherregion'
-				}
-				if(item.position == 4){
-					
+				console.log('item',item)
+				let position = item.position
+				let id = item.id
+				if(position == 5){
+					// 业务员单独跳转页面
+					uni.navigateTo({
+						url: './teacherregion?id='+id
+					})
+					return
 				}
 				uni.navigateTo({
-					url: url
+					url: './regionset?id='+id + '&position=' + item.position
 				})
 			},
 			// 管理按钮
@@ -143,7 +168,13 @@
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -164,6 +195,14 @@
 			height: 100%;
 			min-height: 100vh;
 			background-color: #FFFFFF;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.top_box{
 				width:750rpx;
 				height:192rpx;

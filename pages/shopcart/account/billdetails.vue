@@ -12,20 +12,25 @@
 			>
 				<view class="left_name">
 					<view class="name">
-						{{item.storeName}}
+						{{item.content}}
 					</view>
 					<view class="date">
-						{{item.month}}月{{item.day}}日{{item.time}}
+						{{item.add_time}}
 					</view>
 				</view>
 				<view class="right_price">
 					<view class="addPrice">
-						+{{item.addPrice}}
+						<text v-if="item.type == 1">+</text>
+						<text v-if="item.type == 2">-</text>
+						{{item.money}}
 					</view>
 					<view class="syNum">
-						余额 {{item.syNum}}
+						余额 {{item.after_money}}
 					</view>
 				</view>
+			</view>
+			<view class="loading" v-if="isLoading">
+				加载中...
 			</view>
 		</view>
 		
@@ -36,56 +41,10 @@
 	export default {
 		data () {
 			return {
-				showList: [
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					},
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					},
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					},
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					},
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					},
-					{
-						storeName: '成都美妆店',
-						month: 4,
-						day: 13,
-						time:'16:22',
-						addPrice: 2.01,
-						syNum: 99.01, //剩余金额
-					}
-				],
+				showList: [],
+				page: 1,
+				limit: 10,
+				isLoading: false,
 			}
 		},
 		computed:{
@@ -97,13 +56,62 @@
 			}
 		},
 		onLoad(){
-			
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this 
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							uid: reg.data.uid,
+							page: _this.page,
+							limit: _this.limit
+						}
+						console.log('账单明细参数', datas)
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/goods/tranDetailed',
+							method: 'POST',
+							data: datas,
+							success(res){
+								uni.hideLoading()
+								_this.isLoading = false
+								console.log('账单明细数据', res)
+								if(res.data.status === 200){
+									if(_this.showList.length == 0){
+										_this.showList = res.data.data
+									}else{
+										_this.showList = _this.showList.concat(res.data.data) 
+									}
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取数据列表失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 			
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('下拉刷新')
 		}
 	}
 </script>
@@ -121,8 +129,20 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			min-height: 100vh;
+			height: 100%;
+			background-color: #F4F4F4;
+			.loading{
+				width: 100%;
+				height: 70rpx;
+				line-height: 70rpx;
+				background-color: #eee;
+				text-align: center;
+				font-size: 28rpx;
+			}
 			.show_list{
 				width: 100%;
+				margin-top: 24rpx;
 				.null_box{
 					width: 100%;
 					height: 80rpx;

@@ -96,7 +96,7 @@
 	export default {
 		data () {
 			return {
-				isbandweixin: true, // 微信是否绑定
+				isbandweixin: false, // 微信是否绑定
 				isbandzhifu: false, // 支付宝是否绑定
 				isShowFloat: false, //控制解绑弹窗
 				showType: 1, // 1微信 2 支付宝
@@ -105,12 +105,26 @@
 			}
 		},
 		onLoad(){
+			//alipay_name
 			
 		},
 		onShow(){
-			
+			this.init()
 		},
 		methods:{
+			init(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						_this.zhifuValue = res.data.alipay_name
+						// 支付宝已经绑定
+						if(_this.zhifuValue){
+							_this.isbandzhifu = true
+						}
+					}
+				})
+			},
 			// 按钮点击事件
 			targetClick(index){
 				if(index == 1){
@@ -121,6 +135,10 @@
 						this.showType = 1
 					}else{
 						// 跳转绑定
+						uni.showModal({
+							title: '提示',
+							content: '敬请期待...'
+						})
 					}
 					
 				}else{
@@ -141,7 +159,52 @@
 				this.isShowFloat = false
 			},
 			okClick(){
-				this.isShowFloat = false
+				
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let userInfo = reg.data
+						uni.request({
+							url: _this.$http + '/api/index/alipayName',
+							method: 'POST',
+							data: {
+								token: reg.data.token,
+								number: ''
+							},
+							success(res){
+								console.log('解除绑定返回数据', res)
+								if(res.data.status === 200){
+									uni.showToast({
+										title: '解绑成功'
+									})
+									// _this.isFloatShow = false
+									// _this.isbandzhifu = true
+									_this.isShowFloat = false
+									_this.isbandzhifu = false
+									userInfo.alipay_name = ''
+									uni.setStorage({
+										key: 'userInfo',
+										data: userInfo
+									})
+									uni.getStorage({
+										key: 'userInfo',
+										success(rrr){
+											console.log('查看更新后的userInfo数据', rrr)
+										}
+									})
+								}else{
+									uni.showModal({
+										title: "提示",
+										content: '解绑失败'
+									})
+								}
+							}
+						})
+					}
+				})
+				
+				
 			},
 			// 确认绑定账号
 			bandOkClick(){
@@ -163,6 +226,7 @@
 							uni.getStorage({
 								key: 'userInfo',
 								success(ree){
+									let userInfo = ree.data
 									uni.request({
 										url: _this.$http + '/api/index/alipayName',
 										method: 'POST',
@@ -178,6 +242,17 @@
 												})
 												_this.isFloatShow = false
 												_this.isbandzhifu = true
+												userInfo.alipay_name = _this.zhifuValue
+												uni.setStorage({
+													key: 'userInfo',
+													data: userInfo
+												})
+												uni.getStorage({
+													key: 'userInfo',
+													success(rrr){
+														console.log('查看更新后的userInfo数据', rrr)
+													}
+												})
 											}else{
 												uni.showModal({
 													title: "提示",

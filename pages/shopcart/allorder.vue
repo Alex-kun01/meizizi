@@ -5,15 +5,15 @@
 		<view class="top_bar">
 			<image @click="goback" class="back" src="../../static/index/fanhui@3x.png" mode=""></image>
 			<view class="search_box">
-				<image src="../../static/index/sosuo.png" mode=""></image>
-				<input type="text" v-model="orderInfo" placeholder="搜索我的订单" />
+				<image @click="search" src="../../static/index/sosuo.png" mode=""></image>
+				<input type="text" v-model="content" placeholder="搜索我的订单" />
 			</view>
 		</view>
 		<!-- 赛选菜单 -->
 		<view class="menu_list">
 			<view
-			:class="{item:true,active: isActive === 10}"
-			@click='changeIndex(10)'
+			:class="{item:true,active: isActive === 11}"
+			@click='changeIndex(11)'
 			>
 				全部
 			</view>
@@ -36,8 +36,8 @@
 				待收货
 			</view> -->
 			<view
-			:class="{item:true,active: isActive === 4}"
-			@click='changeIndex(4)'
+			:class="{item:true,active: isActive === 5}"
+			@click='changeIndex(5)'
 			>
 				待评价
 			</view>
@@ -69,8 +69,12 @@
 					<view class="r_info">
 						<text v-if="item.type === 1">待付款</text>
 						<text v-if="item.type === 2">待取货</text>
-						<text v-if="item.type === 3">交易关闭</text>
-						<text v-if="item.type === 4">交易成功</text>
+						<text v-if="item.type === 3">已拿货</text>
+						<text v-if="item.type === 4">已完成</text>
+						<text v-if="item.type === 5">待评价</text>
+						<text v-if="item.type === 8">退款中</text>
+						<text v-if="item.type === 9">退款成功</text>
+						<text v-if="item.type === 10">退款失败</text>
 					</view>
 					
 				</view>
@@ -99,18 +103,19 @@
 							{{item.spe_name}}
 						</view>
 						<view class="tap_color">
-							七天无理由退换
+							三天无理由退换
 						</view>
 					</view>
 				</view>
 				<!-- 按钮  根据type显示不同按钮 -->
 				<view class="bom_btn"
 				@click="btnClick(item)"
+				v-if="item.type != 4"
 				>
 					<text v-if="item.type === 1">去付款</text>
 					<text v-if="item.type === 2">查看购物码</text>
-					<text v-if="item.type === 3">再次购买</text>
-					<text v-if="item.type === 4">去评价</text>
+					<text v-if="item.type === 3">查看订单</text>
+					<text v-if="item.type === 5">去评价</text>
 				</view>
 			</view>
 		</view>
@@ -125,10 +130,13 @@
 		data () {
 			return {
 				orderInfo: '', // 搜索我的订单值
-				isActive: 10,  // 订单类型
+				isActive: 11,  // 订单类型
+				content: '', // 搜索
 				page: 1,
 				limit: 10,
-				showList: []
+				showList: [],
+				opt: {},
+				state: 0, // 状态判断
 			}
 		},
 		computed:{
@@ -141,11 +149,19 @@
 			}
 		}	
 		},
-		onLoad(){
-			this.getData()
+		onLoad(opt){
+			console.log('opt', opt)
+			this.opt = opt
+			if(this.opt.type){
+				this.state = this.opt.type
+				if(this.state == 2){
+					this.isActive = 2
+				}
+			} 
+			
 		},
 		onShow(){
-			
+			this.getData()
 		},
 		methods:{
 			//获取订单列表
@@ -154,16 +170,21 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						uni.showLoading({
+							title: ''
+						})
 						uni.request({
 							url: _this.$http + '/api/goods/orderList',
 							method: 'POST',
 							data: {
 								uid: reg.data.uid,
 								type: _this.isActive,
+								content: _this.content,
 								page: _this.page,
 								limit: _this.limit,
 							},
 							success(res){
+								uni.hideLoading()
 								console.log('订单列表返回数据',res)
 								if(res.data.status === 200){
 									_this.showList = res.data.data
@@ -178,6 +199,10 @@
 						})
 					}
 				})
+			},
+			// 搜索
+			search(){
+				this.getData()
 			},
 			// 跳转订单详情
 			gotoOrderDetauls(item){
@@ -203,25 +228,25 @@
 				if(item.type === 1){
 					//去付款
 					uni.navigateTo({
-						url: '../index/orderdetails?type=' + '待付款' + '&id=' + item.id
+						url: '../index/orderdetails?type=' + '待付款' + '&orderId=' + item.order_sn + '&oid=' + item.id
 					})
 				}
 				if(item.type === 2){
 					//查看购物码
 					uni.navigateTo({
-						url: '../index/orderdetails?type=' + '查看购物码' + '&id=' + item.id
+						url: '../index/orderdetails?type=' + '查看购物码' + '&orderId=' + item.order_sn
 					})
 				}
-				// if(item.type === 3){
-				// 	// 
-				// 	uni.navigateTo({
-				// 		url: '../index/productdetails'
-				// 	})
-				// }
-				if(item.type === 4){
+				if(item.type === 3){
+					// 退款
+					uni.navigateTo({
+						url: '../index/orderdetails?type=' + '查看订单' + '&orderId=' + item.order_sn
+					})
+				}
+				if(item.type === 5){
 					//去评价
 					uni.navigateTo({
-						url: './comment?id=' + item.id
+						url: './comment?id=' + item.master_order_sn + "&gid=" + item.goods_id
 					})
 				}
 			},
@@ -346,15 +371,17 @@
 						.img{
 							width:182rpx;
 							height:182rpx;
+							min-width: 182rpx;
+							min-height: 182rpx;
 							background:rgba(250,250,250,1);
 							border-radius:6rpx;
 							display: flex;
 							justify-content: center;
 							align-items: center;
-							margin-right: 64rpx;
+							margin-right: 24rpx;
 							image{
-								width: 107rpx;
-								height: 111rpx;
+								width: 100%;
+								height: 100%;
 							}
 						}
 						.r_info{
@@ -365,7 +392,7 @@
 								justify-content: space-between;
 								.l_title{
 									width:280rpx;
-									height:57rpx;
+									height:60rpx;
 									font-size:26rpx;
 									font-weight:500;
 									color:rgba(62,62,62,1);
@@ -397,7 +424,6 @@
 								border-radius: 2rpx;
 								padding: 0 15rpx;
 								background:rgba(250,250,250,1);
-								background-color: pink;
 								font-size:24rpx;
 								font-weight:bold;
 								color:rgba(159,159,159,1);

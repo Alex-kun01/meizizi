@@ -78,6 +78,7 @@
 										title: '提示',
 										content: '消息列表数据获取失败！'
 									})
+									_this.isLoading = false
 								}
 							}
 						})

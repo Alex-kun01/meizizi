@@ -4,64 +4,62 @@
 		<!-- 出货单 -->
 		<view class="user_info">
 			<view class="user">
-				<image style="width: 161rpx;height: 157rpx;" src="../../../static/mine/avatar.jpg" mode=""></image>
+				<image style="width: 161rpx;height: 157rpx;" :src="info.avatar || staticpic" mode=""></image>
 				<view class="info">
 					<view class="item">
 						<text class="tit_txt">姓名:</text>
-						<text class="con_text">李森森(市级代理)</text>
+						<text class="con_text">{{info.nickname}}</text>
 					</view>
 					<view class="item">
 						<text class="tit_txt">订单编号:</text>
-						<text class="con_text">1233456567722</text>
+						<text class="con_text">{{shopList.master_order_sn}}</text>
 					</view>
 					<view class="phone_box">
 						<image style="width: 23rpx;height: 26rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
-						<text class="con_text" style="margin-right: 20rpx;">123456789</text>
+						<text class="con_text" style="margin-right: 20rpx;">{{info.phone}}</text>
 						<image style="width: 30rpx;height: 25rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
-						<text class="con_text">123456789</text>
+						<text class="con_text">{{info.wx_name}}</text>
 					</view>
 				</view>
 			</view>
 			<view class="address">
 				<image style="width: 19rpx;height: 25rpx;" src="../../../static/mine/dizhi@2x.png" mode=""></image>
-				<text>四川省成都市金牛区西华街道茶店子客运站金耀路18号西岸观邸</text>
+				<text>{{info.addres}}</text>
 			</view>
 		</view>
 		<!-- 商品列表 -->
 		<view class="shop_list">
 			<view class="item"
-			v-for="(item, index) in shopList"
-			:key="index"
 			>
-				<image :src="item.img" mode=""></image>
+				<image :src="shopList.image" mode=""></image>
 				<view class="shop_info">
 					<view class="title_box">
 						<view class="title">
-							{{item.title}}
+							{{shopList.goods_name}}
 						</view>
 						<view class="r_price">
 							<view>
 								<text style="font-size: 24rpx;">￥</text>
-								<text style="font-size: 32rpx;">{{item.price}}</text>
+								<text style="font-size: 32rpx;">{{shopList.price}}</text>
 							</view>
 							<view class="num">
-								x{{item.num}}
+								x{{shopList.number}}
 							</view>
 						</view>
 					</view>
-					<view class="color_type">
-						颜色分类:{{item.colorType}}
+					<view class="color_type" v-if="shopList.spe_name">
+						{{shopList.spe_name}}
 					</view>
 				</view>
 			</view>
 			<view class="bom_info">
 				<view class="all_price">
 					<text>商品总价</text>
-					<text>￥660.00</text>
+					<text>￥{{shopList.price}}</text>
 				</view>
 				<view class="price_box">
 					<text>实付款</text>
-					<text style="color: #FF7528;">￥660.00</text>
+					<text style="color: #FF7528;">￥{{shopList.price}}</text>
 				</view>
 			</view>
 		</view>
@@ -73,11 +71,11 @@
 			</view>
 			<view class="item">
 				<text class="name">订单编号</text>
-				<text>20023409497987349873</text>
+				<text>{{shopList.master_order_sn}}</text>
 			</view>
 			<view class="item">
 				<text class="name">下单时间</text>
-				<text>2020-04-20 14:24:28</text>
+				<text>{{shopList.add_time}}</text>
 			</view>
 			<!-- <view class="item">
 				<text class="name">订单状态</text>
@@ -92,7 +90,6 @@
 		>
 			确认发货
 		</view>
-		
 	</view>
 </template>
 
@@ -100,53 +97,98 @@
 	export default {
 		data () {
 			return {
-				isShip: true, //确认发货按钮显示
-				shopList: [
-					{
-						img: '../../../static/mine/avatar.jpg',
-						title: 'Dior迪奥烈焰蓝金红管经典 口红唇Dior迪奥烈焰蓝金红管',
-						colorType: '126WNG',
-						price: 330.00,
-						num: 1
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						title: 'Dior迪奥烈焰蓝金红管经典 口红唇Dior迪奥烈焰蓝金红管',
-						colorType: '126WNG',
-						price: 330.00,
-						num: 1
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						title: 'Dior迪奥烈焰蓝金红管经典 口红唇Dior迪奥烈焰蓝金红管',
-						colorType: '126WNG',
-						price: 330.00,
-						num: 1
-					},
-					{
-						img: '../../../static/mine/avatar.jpg',
-						title: 'Dior迪奥烈焰蓝金红管经典 口红唇Dior迪奥烈焰蓝金红管',
-						colorType: '126WNG',
-						price: 330.00,
-						num: 1
-					}
-				]
+				isShip: true, //确认发货按钮显示shopList
+				opt: {},
+				info: {
+					
+				},
+				staticpic: '../../../static/mine/staticAvatar.jpg', 
+				shopList: []
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			this.opt = opt
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: ''
+						})
+						let datas = {
+							token: reg.data.token,
+							order_id: _this.opt.id
+						}
+						console.log('出货单参数', datas)
+						uni.request({
+							url: _this.$http + '/api/goods/shipment',
+							method: 'POST',
+							data: datas,
+							success(res){
+								console.log('出货单返回数据', res)
+								uni.hideLoading()
+								if(res.data.status === 200){
+									_this.shopList = res.data.data.goods_list
+									_this.info = res.data.data.info
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '获取数据列表失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			// 确认发货
 			submitClick(){
 				// 模拟确认发货
-				uni.showToast({
-					title: '发货成功'
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							order_id: _this.opt.id
+						}
+						console.log('查看出货单参数', datas)
+						uni.request({
+							url: _this.$http + '/api/goods/shopShipment',
+							method: 'POST',
+							data: datas,
+							success(res){
+								console.log('出货单返回数据', res)
+								if(res.data.status === 200){
+									uni.showToast({
+										title: '收货成功',
+										success(){
+											_this.isShip = false
+											uni.navigateBack({
+												
+											})
+										}
+									})
+									
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					}
 				})
-				this.isShip = false
+				
+				
 			}
 		}
 	}
@@ -246,6 +288,8 @@
 					image{
 						width: 170rpx;
 						height: 166rpx;
+						min-width: 170rpx;
+						min-height: 166rpx;
 						margin-right: 25rpx;
 					}
 					.shop_info{

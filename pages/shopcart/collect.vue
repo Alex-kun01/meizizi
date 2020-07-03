@@ -109,6 +109,7 @@
 		.content{
 			width: 100%;
 			height: 100%;
+			min-height: 100vh;
 			background-color: #F4F4F4;
 			.show_list{
 				width: 100%;
@@ -129,6 +130,7 @@
 					background-color: #FFFFFF;
 					border-radius: 12rpx;
 					display: flex;
+					margin-bottom: 24rpx;
 					.img{
 						width: 222rpx;
 						height: 198rpx;
@@ -142,6 +144,11 @@
 							color:rgba(39,39,39,1);
 							line-height:41rpx;
 							margin-bottom: 25rpx;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							-webkit-line-clamp: 3; //行数
+							-webkit-box-orient: vertical;
 						}
 						.shoucangNum{
 							font-size:24rpx;

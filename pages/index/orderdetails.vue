@@ -35,7 +35,7 @@
 				{{orderInfo.goods_name}}
 			</view>
 			<view class="pic_box">
-				<image style="width: 190rpx;height: 186rpx;" src="../../static/index/2233.png" mode=""></image>
+				<image style="width: 190rpx;height: 186rpx;" :src="orderInfo.image" mode=""></image>
 				<view class="right_con">
 					<view class="title_box">
 						<view class="tit_txt">
@@ -51,7 +51,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="color_type">
+					<view v-if="orderInfo.spe_name" class="color_type">
 						{{orderInfo.spe_name}}
 					</view>
 				</view>
@@ -90,18 +90,27 @@
 		</view>
 		<!-- 付款按钮 -->
 		<view class="pay_btn"
-		v-if="!isPayEnd"
+		v-if="opt.type == '查看订单'"
+		@click="gototuiClick"
+		>
+			申请退货
+		</view>
+		<view class="pay_btn"
+		v-if="!isPayEnd && opt.type != '查看订单'"
 		@click="submitClick"
 		>
 			付款
 		</view>
+		
 		<!-- 二维码 -->
 		<view class="erweima"
 		v-if="isPayEnd"
 		>
-			<image style="width: 252rpx;height: 252rpx;" src="../../static/index/erweima.png" mode=""></image>
+			<image style="width: 252rpx;height: 252rpx;" :src="orderInfo.take_delivery" mode=""></image>
 			<text>凭购物码到附近门店取货</text>
-			<view class="mendian">
+			<view class="mendian"
+			@click="gotoMendian"
+			>
 				附近门店
 			</view>
 		</view>
@@ -121,10 +130,11 @@
 				minute: '', // 分钟数
 				second: '', // 秒数
 				orderId: '', // 接收opt的订单id
+				staticpic: '../../static/index/erweima.png', //默认二维码
 				times: null, // 
 				opt: {},
 				orderInfo: {
-					master_order_sn: '1234567890'
+					master_order_sn: ''
 				}, //订单信息
 			}
 		},
@@ -151,19 +161,65 @@
 				this.orderId = opt.orderId 
 			}
 			
+			
 			if(opt.type == '待付款'){
 				this.isPayEnd = false
+				
+				this.getData()
 			}
 			if(opt.type == '查看购物码'){
 				this.isPayEnd = true
+				this.getDataComplete()
 			}
+			if(opt.type == '查看订单'){
+				this.getDataComplete()
+			}
+				
 			
-			this.getData()
+			
 		},
 		onShow(){
 		 	
 		},
 		methods:{
+			// 付款成功查看购物码
+			getDataComplete(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showLoading({
+							title: '加载中...'
+						})
+						let datas = {
+							order_id: _this.orderId,
+							uid: reg.data.uid
+						}
+						console.log('传递参数', datas)
+						uni.request({
+							url: _this.$http + '/api/goods/orderCom',
+							method: 'POST',
+							data: datas,
+							success(res){
+								console.log('付款成功查看购物码', res)
+								
+								uni.hideLoading()
+								if(res.data.status === 200){
+									let info = res.data.data
+									info.take_delivery = _this.$http + info.take_delivery
+									_this.orderInfo = res.data.data
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '数据获取失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			// 待付款请求数据
 			getData(){
 				let _this = this
 				uni.getStorage({
@@ -172,17 +228,22 @@
 						uni.showLoading({
 							title: '加载中...'
 						})
+						let datas = {
+							uid: reg.data.uid,
+							order_id: _this.opt.orderId
+						}
+						console.log('查看待付款参数', datas)
+						
 						uni.request({
 							url: _this.$http + '/api/goods/orderInfo',
 							method:'POST',
-							data: {
-								uid: reg.data.uid,
-								order_id: _this.opt.id
-							},
+							data: datas,
 							success(res){
 								console.log('订单详情返回数据',res)
 								if(res.data.status == 200){
-									_this.orderInfo = res.data.data
+									let info = res.data.data
+									info.uid = reg.data.uid
+									_this.orderInfo = info
 									_this.getRemTimes(res.data.data.pay_time)
 									_this.countDown()
 								}else{
@@ -259,13 +320,30 @@
 					})
 					return
 				}
+				console.log('查看存储本地之前的数据', this.orderInfo)
+				this.$store.commit('setProductOrderInfo',this.orderInfo)
 				uni.navigateTo({
-					url: './pay'
+					url: './confirmorder?store_info='+ this.orderInfo.store_info + '&image=' + this.orderInfo.image + '&danjia=' + +this.orderInfo.price / this.orderInfo.number + '&oid=' + this.opt.oid
 				})
+			},
+			// 退款按钮
+			gototuiClick(){
+				let info = this.orderInfo
+				console.log('info',info)
+				this.$store.commit('setTuiOrderInfo', info)
+				uni.navigateTo({
+					url: '../shopcart/reqreturn'
+				})	
 			},
 			goback(){
 				uni.navigateBack({
 					
+				})
+			},
+			// 跳转附近门店
+			gotoMendian(){
+				uni.switchTab({
+					url: '../nearbystore/nearbystore'
 				})
 			},
 			paste(value) {
@@ -296,6 +374,8 @@
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
+			height: 100vh;
+			background-color: #F4F4F4;
 			.top_con{
 				width:750rpx;
 				height:298rpx;

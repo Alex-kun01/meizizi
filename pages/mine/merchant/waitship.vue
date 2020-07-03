@@ -197,6 +197,7 @@
 						font-size: 26rpx;
 						font-weight: 500;
 						color: #333333;
+						
 					}
 				}
 			}
@@ -214,6 +215,8 @@
 							color: #A1A1A1;
 							font-size: 24rpx;
 							// font-weight: 500;
+							
+							
 							
 						}
 					}

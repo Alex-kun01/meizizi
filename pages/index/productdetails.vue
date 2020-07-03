@@ -1,13 +1,15 @@
 <template>
 	<!-- 产品详情 -->
 	<scroll-view class="content"
+	:style="content_css"
 	:scroll-into-view="toView" 
 	scroll-y="true"
 	scroll-with-animation="true"
 	@touchstart='touchstart'
 	@touchend='touchend'
+	
 	>
-			<view class="titleNview-placing"></view>
+			<view class="titleNview-placing" :id="shangpin"></view>
 			<!-- 顶部搜索 -->
 			<view class="top_search">
 				<image @click="goback" style="width: 20rpx;height: 34rpx;" src="../../static/index/fanhui@2x.png" mode=""></image>
@@ -15,24 +17,26 @@
 					<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
 					<input type="text" v-model="searchValue" placeholder="神仙水" />
 				</view>
-				<image @click="share" style="width: 28rpx;height: 32rpx;" src="../../static/index/femxiang@2x.png" mode=""></image>
+				<!-- <image @click="share" style="width: 28rpx;height: 32rpx;" src="../../static/index/femxiang@2x.png" mode=""></image> -->
+				<!-- 分享需要审核一些数据 暂时隐藏 -->
+				<text></text>
 			</view>
 			<!-- 导航菜单 -->
 			<view class="menu_list"
 			v-if="isShowNavagatar"
 			>
-				<view :class="{item: true, active: isActive == 1}" @click='getElement(1)'>
+				<view :class="{item: true, active: isActive == 1}" @click.stop='changeActive(1)'>
 					商品
 				</view>
 				<view 
-				:class="{item: true, active: isActive == 2}" @click='getElement(2)'>
+				:class="{item: true, active: isActive == 2}" @click.stop='changeActive(2)'>
 				
 					评价
 				</view>
-				<view :class="{item: true, active: isActive == 3}" @click='getElement(3)'>
+				<view :class="{item: true, active: isActive == 3}" @click.stop='changeActive(3)'>
 					详情
 				</view>
-				<view :class="{item: true, active: isActive == 4}" @click='getElement(4)'>
+				<view :class="{item: true, active: isActive == 4}" @click.stop='changeActive(4)'>
 					推荐
 				</view>
 			</view>
@@ -164,19 +168,25 @@
 		<!-- 假一罚十 -->
 		<view class="pay_box">
 			<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">保障</text>
-			<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 七天无理由退换</text>
+			<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 三天无理由退换</text>
 		</view>
 		<!--
 		 宝贝评价
 		 -->
 		<view class="baby_Pingjia"
 		:id="pingjia"
-		v-if="evaList.eva_list.length != 0"
+		
 		>
 			<view class="top_btn">
-				<text  style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;">
-					宝贝评价{{evaList.ex_count+evaList.in_count+evaList.di_count}}
+					<text  style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;"
+					v-if="evaList.eva_list.length != 0"
+					>
+						宝贝评价{{evaList.ex_count+evaList.in_count+evaList.di_count}}
 					</text>
+					<text
+					style="font-size: 26rpx;color: #2F2F2F;font-weight: 500;"
+					v-else
+					>宝贝评价</text>
 				<view class="right_btn"
 				@click="gotopingjia"
 				>
@@ -184,7 +194,9 @@
 					<image style="width: 12rpx;height: 19rpx;margin-left: 25rpx;" src="../../static/index/chakangengduo@2x.png" mode=""></image>
 				</view>
 			</view>
-			<view class="con_box">
+			<view class="con_box"
+			v-if="evaList.eva_list.length != 0"
+			>
 				<view class="item">
 					好评{{'(' + evaList.ex_count +')'}}
 				</view>
@@ -196,7 +208,7 @@
 				</view>
 			</view>
 			<view class="user_info"
-			
+			v-if="evaList.eva_list.length != 0"
 			>
 				<view class="user_name"
 				>
@@ -213,13 +225,17 @@
 			</view>
 		</view>
 		
+		<view class="staticHen">
+		</view>
+		
 		<!-- 
 		详情列表 
 		-->
-		<view  :id="xiangqing"
-			v-html="info.description"
-			class="description"
-		>
+			<view  
+				v-html="info.description"
+				class="description"
+				:id="xiangqing"
+			>
 			
 		</view>
 		<!-- 
@@ -299,7 +315,7 @@
 				</view>
 				<view class="top_pic">
 					<view class="img">
-						<image style="width: 149rpx;height: 162rpx;" :src="targetProduct.image || staticImage" mode=""></image>
+						<image :src="targetProduct.image || staticImage" mode=""></image>
 						<view class="float_btn"
 						v-if="isPreslale"
 						>
@@ -307,7 +323,9 @@
 						</view>
 					</view>
 					<view class="price_box">
-						<view style="font-size: 26rpx;color: #505050;font-weight: 500;">
+						<view 
+						style="font-size: 26rpx;color: #505050;font-weight: 500;width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;;"
+						>
 							{{info.store_name}}
 						</view>
 						<view class="price">
@@ -395,7 +413,7 @@
 				targetProduct: {
 					image:''
 				}, //目标产品规格信息
-				staticImage: '', //默认图片地址
+				staticImage: '../../static/public/nopic.png', //默认图片地址
 				isPreslale: false, // 预售  是否有预售
 				fightTogether: false, // 拼团 是否有拼团
 				isBuyto: false, // 买二送一 是否有买二送一
@@ -404,6 +422,9 @@
 				evaList: {
 					eva_list:[]
 				}, // 评价info
+				content_css: {
+					height: 0
+				}
 			}
 		},
 		computed:{
@@ -449,13 +470,36 @@
 		onLoad(opt){
 			console.log('产品详情opt',opt)
 			this.opt = opt
+		
 			this.getData(opt)
+			// this.jisun()
+			
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 计算屏幕高度
+			jisun(){
+				let _this = this
+				uni.getSystemInfo({
+				    success: function (res) {
+						console.log('屏幕高度',res)
+						return
+						_this.jsHeig = res.screenHeight
+				        console.log(res.model);
+				        console.log(res.pixelRatio);
+				        console.log(res.windowWidth);
+				        console.log(res.windowHeight);
+				        console.log(res.language);
+				        console.log(res.version);
+				        console.log(res.platform);
+				    }
+				});
+			},
+			// 切换导航
 			getElement(index){
+				this.isActive = index
 				// console.log('document', document)
 				// //  评价元素
 				// var pingjia = document.getElementById('pingjia')
@@ -477,6 +521,10 @@
 				})
 				
 			},
+			// 监听距离屏幕顶部高度
+			onPageScroll(res){
+				console.log('监听距离屏幕顶部高度',res.scrollTop);//距离页面顶部距离
+			},
 			getData(opt){
 				let _this = this
 				let userInfo = this.$store.state.userInfo
@@ -495,11 +543,23 @@
 						console.log('产品详情返回数据', res)
 						if(res.data.status === 200){
 							_this.info = res.data.data.info
+							console.log(_this.info.description,'descr')
+							let desscrp = _this.info.description
+							 let imgbox = desscrp.split('</p>')
+							 let newbox = []
+							 imgbox.forEach((img=>{
+								 if (img) {
+								newbox.push(img.replace(/style=""/g,"style='width:100%;margin:-8px 0'")+"</p>")  
+								 }
+							 }))
+							 let Newdesscrp = newbox.join(',').replace(/,/g,'')
+							 _this.info.description = Newdesscrp
+							 console.log(Newdesscrp)
 							_this.stock = res.data.data.info.stock
 							_this.reco_list = res.data.data.reco_list
 							_this.productValue = res.data.data.productValue
 							_this.productAttr = res.data.data.productAttr
-							_this.staticImage = res.data.data.info.image
+							// _this.staticImage = res.data.data.info.image
 							let newEvaList = res.data.data.eva_list 
 							
 							newEvaList.eva_list.forEach(item =>{
@@ -507,12 +567,21 @@
 							})
 							console.log('修改后', newEvaList)
 							_this.evaList = newEvaList
+							const { windowHeight } = uni.getSystemInfoSync();
+							console.log('屏幕高度查看', windowHeight*2 + 'rpx')
+							_this.content_css.height = windowHeight*2 + 'rpx'
 							uni.hideLoading()
 						}else{
 							uni.showModal({
 								title: '提示',
-								content: res.data.msg
+								content: res.data.msg,
+								success(){
+									uni.navigateBack({
+										
+									})
+								}
 							})
+							
 						}
 					}
 				})
@@ -592,8 +661,10 @@
 						console.log('本地存储订单参数',_this.$store.state.productOrderInfo)
 						if(type == 1){
 							// 立即购买
+							let img = _this.targetProduct.image || _this.staticImage
+							console.log('跳转参数', img)
 							uni.navigateTo({
-								url:'./confirmorder?store_name=' + _this.info.store_name + '&store_info=' + _this.info.store_info + '&image=' + _this.info.image +'&danjia=' + _this.danjia
+								url:'./confirmorder?store_name=' + _this.info.store_name + '&store_info=' + _this.info.store_info + '&image=' + img +'&danjia=' + _this.danjia
 							})
 						}
 					}
@@ -642,6 +713,7 @@
 				if(index === 1){
 					// 商品
 					this.toView = 'sp'
+					this.isShowNavagatar = false
 				}
 				if(index === 2){
 					// 评价
@@ -752,8 +824,27 @@
 					url: './productdetails?id=' + item.id 
 				})
 			},
+			// 搜索
 			search(){
-				
+				let _this = this
+					console.log(this.$store.state.userInfo)
+					let userInfo = this.$store.state.userInfo
+					uni.request({
+						url: this.$http + '/api/goods/userAddSearch',
+						method: 'POST',
+						data: {
+							uid: userInfo.uid,
+							value: this.searchValue
+						},
+						success(res){
+							console.log('搜索按钮返回数据',res)
+							if(res.data.status === 200){
+								uni.navigateTo({
+									url: './productlist?value=' + _this.searchValue + '&type=' + '0' 
+								})
+							}
+						}
+					})
 			},
 			goback(){
 				console.log('返回', getCurrentPages())
@@ -779,31 +870,32 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						let datas =  {
+								id: _this.opt.id,
+								type: 1,
+								re_type: 1,
+								token: reg.data.token
+							}
+							console.log('查看收藏参数pppp', datas)
 						uni.showLoading({
 							title: '请稍后...'
 						})
 						uni.request({
 							url: _this.$http + '/api/index/relation',
 							method: 'POST',
-							data: {
-								id: _this.opt.id,
-								type: 1,
-								re_type: 1,
-								token: reg.data.token
-							},
+							data:datas,
 							success(res){
+								uni.hideLoading()
 								console.log('收藏返回数据',res.data.status)
 								if(res.data.status === 200){
 									uni.showToast({
-										title: '已收藏'
+										title: '收藏成功'
 									})
-									uni.hideLoading()
 								}else{
 									uni.showModal({
 										title: '提示',
 										content: '收藏失败'
 									})
-									uni.hideLoading()
 								}
 								
 							}
@@ -823,6 +915,7 @@
 </script>
 
 <style lang="less" scoped>
+	
 	// 适配异形屏幕
 	.titleNview-placing {
 		height: var(--status-bar-height);
@@ -834,13 +927,17 @@
 		width: 100%;
 		height: 100%;
 		background: #F4F4F4;
+		// .description{
+		// 	width: 100%;
+		// 	margin-top: 24rpx;
+		// }
 		scroll-view{
 			
 			height: 100vh;
 		}
 		.content{
 			width: 100%;
-			height: 100%;
+			height: 10000px;
 			background: #F4F4F4;
 				.top_search{
 					width: 100%;
@@ -887,6 +984,7 @@
 					position: fixed;
 					top: 80rpx;
 					z-index: 9999;
+					padding-left: 40rpx;
 					.item{
 						height: 85rpx;
 						box-sizing: border-box;
@@ -1002,6 +1100,7 @@
 				.right{
 					font-size: 24rpx;
 					.price_box{
+						
 						margin-left: 24rpx;
 						text{
 							display: inline-block;
@@ -1024,10 +1123,19 @@
 				background-color: #FFFFFF;
 				position: relative;
 				swiper{
-					// background-color: pink;
+					position:relative;
+					width: 750rpx;
 					height: 100%;
+					overflow:hidden;
 					image{
-						width: 100%;
+						// height: 100%;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						display: block;
+						min-width: 100%;
+						min-height: 100%;
+						transform:translate(-50%,-50%);
 					}
 				}
 			}
@@ -1164,6 +1272,7 @@
 				padding: 30rpx;
 				background-color: #FFFFFF;
 				margin-top: 25rpx;
+				margin-bottom: 24rpx;
 				.top_btn{
 					display: flex;
 					align-items: center;
@@ -1232,6 +1341,11 @@
 			}
 			.description{
 				width: 100%;
+			}
+			.staticHen{
+				width: 100%;
+				height: 24rpx;
+				background: #F4F4F4;
 			}
 			.like_box{
 				margin-top: 40rpx;
@@ -1407,9 +1521,13 @@
 							border-radius:12rpx;
 							text-align: center;
 							box-sizing: border-box;
-							padding-top: 38rpx;
+							// padding-top: 38rpx;
 							margin-right: 18rpx;
 							position: relative;
+							image{
+								width: 100%;
+								height: 100%;
+							}
 							.float_btn{
 								width: 100%;
 								height: 40rpx;

@@ -62,6 +62,10 @@
 		methods:{
 			submit(){
 				console.log(this.priceValue)
+				uni.showModal({
+					title: '提示',
+					content: '该功能尚未开放'
+				})
 			},
 			changeIndex(index){
 				this.isActive = index

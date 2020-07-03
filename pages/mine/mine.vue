@@ -11,9 +11,9 @@
 					 @click="gotoTarget('./set/news')" 
 					>
 							<image style="width: 32rpx;height: 34rpx;" src="../../static/mine/xiaoxi@2x.png" mode=""></image>
-							<view class="mesInfo">
+							<!-- <view class="mesInfo">
 								1
-							</view>
+							</view> -->
 					</view>
 					<image @click="gotoTarget('./set/setup')" style="width: 35rpx;height: 35rpx;margin-left: 25rpx;" src="../../static/mine/shezhi@2x.png" mode=""></image>
 				</view>
@@ -45,14 +45,14 @@
 				@click="gotoTarget('../shopcart/collect')"
 				>
 					<text>收藏夹</text>
-					<text class="num">7</text>
+					<text class="num">{{coll_count}}</text>
 				</view>
 				<view class="shu"></view>
 				<view class="item"
 				@click="gotoTarget('../shopcart/myfootprint')"
 				>
 					<text>足迹</text>
-					<text class="num">98</text>
+					<text class="num">{{foot_count}}</text>
 				</view>
 			</view>
 			<view class="my_order">
@@ -89,6 +89,7 @@
 		
 		<view class="item line"
 		@click="gotoTarget2(1)"
+		v-if="mineButton.includes('我的团队')"
 		>
 			<view class="left">
 				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wodetuandui@2x.png" mode=""></image>
@@ -103,6 +104,7 @@
 		
 		<view class="item line"
 		@click="gotoTarget2(2)"
+		v-if="mineButton.includes('我的商家')"
 		>
 			<view class="left">
 				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/shangjia@2x.png" mode=""></image>
@@ -116,12 +118,28 @@
 		</view>
 		
 		<view class="item line"
-		@click="gotoTarget('./member/myteam')"
+		@click="gotoTarget2(3)"
+		v-if="mineButton.includes('团队管理')"
 		>
 			<view class="left">
 				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/tuandui@2x.png" mode=""></image>
 				<view class="menu_name">
 					团队管理
+				</view>
+			</view>
+			<view class="right">
+				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+			</view>
+		</view>
+		
+		<view class="item line"
+		@click="gotoTarget2(4)"
+		v-if="mineButton.includes('配送管理')"
+		>
+			<view class="left">
+				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wuliu.png" mode=""></image>
+				<view class="menu_name">
+					配送管理
 				</view>
 			</view>
 			<view class="right">
@@ -156,10 +174,13 @@
 	>
 		<view class="box">
 			<image @click="isShowrqCode = false" class="close" src="../../static/index/closeX2.png" mode=""></image>
-			<image class="rqcode" :src="rqCodeInfo.imgUrl" mode=""></image>
-			<view class="code_box">
-				<text>您的邀请码：</text>
-				<text>{{rqCodeInfo.rqCode}}</text>
+			<view class="position">
+				<image class="rqcodepic" :src="rqCodeInfo.imgUrl" mode=""></image>
+				<view class="code_box">
+					<text>您的邀请码：</text>
+					<text style="font-weight: 500;">{{rqCodeInfo.rqCode}}</text>
+					<text @click="fuzhi" style="margin-left: 40rpx;color: #FF4E03;">复制</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -179,15 +200,23 @@
 				avatar: '', // 头像
 				birthday: '', // 生日
 				// 角色
-				character: 5, // 1 会员 2加盟店 3市级代理 4团队管理 5讲师  
+				character: 5, // 1 会员 2加盟店 3服务商 4 物流商 5 团队管理 6 业务员
 				 // 推荐吗数据
 				rqCodeInfo:{
 					imgUrl: '',
 					rqCode: ''
 				},
+				// 权限
+				mineButton: [],
+				coll_count: 0, //收藏数量
+				foot_count: 0, //足迹数量
 			}
 		},
 		onLoad() {
+			
+		},
+		onShow(){
+			this.init()
 			let _this = this
 			// 获取用户信息
 			uni.getStorage({
@@ -195,12 +224,11 @@
 				success(res){
 					console.log('用户本地',res.data)
 					_this.nickName = res.data.nickname || '暂无昵称'
-					_this.avatar = res.data.avatar || '../../static/mine/avatar.jpg'
+					_this.mineButton = res.data.mineButton || []
+					_this.character = res.data.group_id
+					_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
 				}
 			})
-		},
-		onShow(){
-			this.init()
 		},
 		methods: {
 			init(){
@@ -210,9 +238,27 @@
 					success(res){
 						_this.nickName = res.data.nickname || '暂无昵称'
 						_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
-						_this.birthday = res.data.birthday.substring(0,10)
+						_this.birthday = res.data.birthday//.substring(0,10)
+						// 收藏夹 足迹
+						uni.request({
+							url: _this.$http + '/api/index/info',
+							method: 'POST',
+							data: {
+								token: res.data.token
+							},
+							success(reg){
+								console.log('购物车，收藏夹',reg)
+								if(reg.data.status === 200){
+									_this.coll_count = reg.data.data.coll_count
+									_this.foot_count = reg.data.data.foot_count
+								}else{
+									
+								}
+							}
+						})
 					}
 				})
+				
 			},
 			// 页面跳转
 			gotoTarget(url){
@@ -222,10 +268,10 @@
 			},
 			// 不同角色跳转不同页面
 			gotoTarget2(index){
-				// index = 1 团队管理 2 我的商家
+				// index = 1 我的团队 2 我的商家 3 团队管理
 				let url = ''
 				if(index === 1){
-					//团队管理
+					//我的团队
 					switch(this.character) {
 						 case 1:
 						    // 会员
@@ -235,40 +281,61 @@
 					        // 加盟店
 					        url = './join/joinmyteamtuijian'
 					        break;
-					     case 3:
-					        // 市级代理
-					        url = './merchant/mymerchant'
-					        break;
 					} 
 				}
 				if(index === 2){
 					//我的商家
 					switch(this.character) {
-					     case 2:
+						case 2:
 							// 加盟店
-					        url = './merchant/mymerchantx'
-					        break;
+							url = './merchant/mymerchantx'
+							break;
 					     case 3:
-						 	// 市级代理
-					        url = './merchant/mymerchant'
+							// 服务商
+					        url = './join/quyujoin'
 					        break;
-						 case 4:
-						 	// 团队管理
-							url = './join/teammentmy'
+					     case 4:
+						 	// 物流商
+					        url = './merchant/mymerchantx?show=' + 1
+					        break;
 						 case 5:
-							// 业务员/讲师
-						    url = './member/teacher'
+							// 团队管理
+						    url = './join/teammentmy'
+							break;
+						 case 6:
+						 // 业务员/讲师
+						 url = './member/teacher'
+						 break;
 					} 
+				}
+				if(index === 3){
+					// 团队管理
+					switch(this.character) {
+						case 5:
+							// 团队管理
+							url = './member/myteam'
+							break;
+					} 
+				}
+				if(index === 4){
+					// 配送管理
+					url = './merchant/mymerchant'
 				}
 				uni.navigateTo({
 					url: url
 				})
+				
 			},
 			test(){
 				uni.showModal({
 					title: '提示',
 					content: '敬请期待...'
 				})
+			},
+			fuzhi(){
+				uni.setClipboardData({
+						data: this.rqCodeInfo.rqCode
+					});
 			},
 			moveHandle(){},
 			rqCodeOpen(){
@@ -332,46 +399,43 @@
 		.content{
 			width: 100%;
 			height: 100%;
+			min-height: 100vh;
+			background-color: #F4F4F4;
 			.rqcode{
 				width: 100%;
 				height: 100%;
 				background-color: rgba(0,0,0,.8);
 				position: absolute;
-				top: 0;
-				
+				top: 30rpx;
+				.close{
+					width: 30rpx;
+					height: 30rpx;
+					position: absolute;
+					top: 20rpx;
+					right: 20rpx;
+				}
+				.rqcodepic{
+					width: 400rpx;
+					height: 400rpx;
+				}
 				.box{
 					width: 100%;
-					height: 80%;
+					height: 50%;
+					padding: 60rpx 0;
 					background-color: #FFFFFF;
 					position: absolute;
-					bottom: 0;
-					border-radius: 5rpx 5rpx 0 0;
-					box-sizing: border-box;
-					padding: 24rpx;
+					bottom: -60rpx;
 					display: flex;
-					align-items: center;
-					flex-direction: column;
 					justify-content: center;
-					.close{
-						width: 30rpx;
-						height: 30rpx;
-						position: absolute;
-						top: 20rpx;
-						right: 20rpx;
-					}
-					.rqcode{
-						width: 400rpx;
-						height: 400rpx;
-						margin-top: 200rpx;
-					}
-					.code_box{
-						width: 100%;
-						height: 100rpx;
-						line-height: 100rpx;
+					align-items: center;
+					.position{
+						// background-color: pink;
+						width: 500rpx;
+						height: 500rpx;
 						text-align: center;
-						margin-top: 600rpx;
-						text{
-							font-size: 30rpx;
+						.code_box{
+							margin-top: 30rpx;
+							
 						}
 					}
 				}
