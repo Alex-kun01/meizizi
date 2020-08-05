@@ -109,9 +109,9 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/team/teamAmdin',
 							method:'POST',
@@ -121,7 +121,7 @@
 								limit: _this.limit
 							},
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								console.log('我的团队返回数据', res)
 								_this.isLoading =false
 								if(res.data.status === 200){

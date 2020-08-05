@@ -12,21 +12,24 @@
 			<picker-view-column>
 				<view class="u-column-item" v-for="(item,index) in districtsObj.provinces" :key="index">
 					<view class="u-line-1">
-						{{item.AreaName}}
+						<!-- {{item.AreaName}} -->
+						{{item.name}}
 					</view>
 				</view>
 			</picker-view-column>
 			<picker-view-column>
 				<view class="u-column-item" v-for="(item,index) in districtsObj.cities" :key="index">
 					<view class="u-line-1">
-						{{item.AreaName}}
+						<!-- {{item.AreaName}} -->
+						{{item.name}}
 					</view>
 				</view>
 			</picker-view-column>
 			<picker-view-column>
 				<view class="u-column-item" v-for="(item,index) in districtsObj.areas" :key="index">
 					<view class="u-line-1">
-						{{item.AreaName}}
+						<!-- {{item.AreaName}} -->
+						{{item.name}}
 					</view>
 				</view>
 			</picker-view-column>
@@ -70,10 +73,10 @@
 		watch: {
 			// 如果地区发生变化，为了让picker联动起来，必须重置this.citys和this.areas
 			province(val) {
-				this.loadCities(this.districtsObj.provinces[this.province].AreaId);
+				this.loadCities(this.districtsObj.provinces[this.province].id);
 			},
 			city(val) {
-				this.loadAreas(this.districtsObj.cities[this.city].AreaId);
+				this.loadAreas(this.districtsObj.cities[this.city].id);
 			}
 		},
 		mounted() {
@@ -88,42 +91,52 @@
 			},
 			loadProvinces() { // 加载省份
 				uni.request({
-					url: 'http://test-api.tiananhub.com/api/province/GetListProvince',
-					method: 'get',
+					// url: 'http://test-api.tiananhub.com/api/province/GetListProvince',
+					url: 'http://www.mzz2020.com/api/index/getProvince',
+					// method: 'GET',
+					method: 'POST',
 					success: async (res) => {
 						let {data} = res.data
+						console.log('查看我想看的数据-省', data)
 						this.districtsObj.provinces = data
-						this.loadCities(data[0].AreaId)
+						this.loadCities(data[0].id)
 					},
 					fail:async(res) => {
 					}
 				})
 			},
-			loadCities(AreaId) {
+			loadCities(code) {
 				uni.request({
-					url: 'http://test-api.tiananhub.com/api/province/GetListCity',
+					// url: 'http://test-api.tiananhub.com/api/province/GetListCity',
+					url: 'http://www.mzz2020.com/api/index/getCity',
 					data: {
-						AreaId
+						// AreaId
+						code
 					},
-					method: 'get',
+					// method: 'get',
+					method: 'POST',
 					success: async (res) => {
 						let {data} = res.data
+						console.log('查看我想看的数据-市', res)
 						this.districtsObj.cities = data
-						this.loadAreas(data[0].AreaId)
+						this.loadAreas(data[0].id)
 					},
 					fail:async(res) => {
 					}
 				})
 			},
-			loadAreas(AreaId) {
+			loadAreas(code) {
 				uni.request({
-					url: 'http://test-api.tiananhub.com/api/province/GetListCity',
+					// url: 'http://test-api.tiananhub.com/api/province/GetListCity',
+					url: 'http://www.mzz2020.com/api/index/getCity',
 					data: {
-						AreaId
+						code
 					},
-					method: 'get',
+					// method: 'get',
+					method: 'POST',
 					success: async (res) => {
 						let {data} = res.data
+						console.log('查看我想看的数据-区', res)
 						this.districtsObj.areas = data
 					},
 					fail:async(res) => {

@@ -12,19 +12,26 @@
 			</view>
 			<view class="top_text">
 				<view
-				 v-if="isPayEnd"
+				 v-if="isPayEnd && opt.type != '已完成查看订单'"
 				 style="font-size: 36rpx;color: #FFFFFF;"
 				 >
 					买家已付款
 				</view>
-				<view v-if="!isPayEnd">
+				<view v-if="!isPayEnd &&  opt.type != '已完成查看订单'">
 					<view style="font-size: 36rpx;color: #FFFFFF;">
 						等待买家付款
 					</view>
-					<view style="font-size: 24rpx;color: #FFFFFF;margin-top: 15rpx;">
+					<view style="font-size: 24rpx;color: #FFFFFF;margin-top: 15rpx;"
+					v-if=" opt.type != '已完成查看订单'"
+					>
 						<text v-if="orderIsFailure">订单已失效</text>
 						<text v-else>剩{{hours}}小时{{minute}}分{{second}}秒自动关闭</text>
 					</view>
+				</view>
+				<view v-if="opt.type == '已完成查看订单'"
+				 style="font-size: 36rpx;color: #FFFFFF;"
+				>
+					订单已完成
 				</view>
 				<image style="width: 168rpx;height: 170rpx;" src="../../static/index/tupian@2x.png" mode=""></image>
 			</view>
@@ -96,7 +103,7 @@
 			申请退货
 		</view>
 		<view class="pay_btn"
-		v-if="!isPayEnd && opt.type != '查看订单'"
+		v-if="!isPayEnd && opt.type != '查看订单' && opt.type != '已完成查看订单'"
 		@click="submitClick"
 		>
 			付款
@@ -174,7 +181,11 @@
 			if(opt.type == '查看订单'){
 				this.getDataComplete()
 			}
-				
+			
+			if(opt.type == '已完成查看订单'){
+				// this.isPayEnd = false
+				this.getDataComplete()
+			}
 			
 			
 		},
@@ -211,7 +222,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '数据获取失败'
+										content: res.data.msg
 									})
 								}
 							}

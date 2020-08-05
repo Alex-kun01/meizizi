@@ -31,7 +31,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				page: 1,
@@ -40,12 +42,24 @@
 				showList: []
 			}
 		},
-		onLoad(){
-			this.getData()
-		},
-		onShow(){
-			
-		},
+		// onLoad(){
+		// 	this.showList = []
+		// 	this.getData()
+		// 	  setTimeout(function () {
+		// 		console.log('start pulldown');
+		// 	}, 1000);
+		// 	uni.startPullDownRefresh();
+		// },
+		// // 下拉刷新
+		// onPullDownRefresh(){
+		// 	console.log('混入-下拉刷新')
+		// 	this.page = 1
+		// 		this.showList = []
+		// 	this.getData()
+		// 	 setTimeout(function () {
+		// 		uni.stopPullDownRefresh();
+		// 	}, 1000);
+		// },
 		methods:{
 			getData(){
 				let _this = this
@@ -64,12 +78,12 @@
 							success(ref){
 								console.log('收藏返回数据',ref)
 								if(ref.data.status === 200){
-									_this.showList = ref.data.data
+									_this.showList =  [..._this.showList,...ref.data.data]
 									_this.isLoading = false
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取列表数据失败'
+										content: ref.data.msg
 									})
 								}
 							}

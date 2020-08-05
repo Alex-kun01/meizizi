@@ -15,7 +15,7 @@
 				<image @click="goback" style="width: 20rpx;height: 34rpx;" src="../../static/index/fanhui@2x.png" mode=""></image>
 				<view class="search_box">
 					<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-					<input type="text" v-model="searchValue" placeholder="神仙水" />
+					<input confirm-type="search" @confirm="search()" type="text" v-model="searchValue" placeholder="神仙水" />
 				</view>
 				<!-- <image @click="share" style="width: 28rpx;height: 32rpx;" src="../../static/index/femxiang@2x.png" mode=""></image> -->
 				<!-- 分享需要审核一些数据 暂时隐藏 -->
@@ -114,9 +114,9 @@
 		<!-- priceTitle -->
 		<view class="price_title">
 			<view class="price">
-				<text style="font-size: 26rpx; color: #F74E06;font-weight: 500;">￥</text>
-				<text style="font-size: 34rpx; color: #F74E06;font-weight: 500;">{{info.price}}</text>
-				<!-- <text class="oldPrice">原价{{info.price}}</text> -->
+				<text style="font-size: 24rpx; color: #F74E06;font-weight: 500;">会员价: </text>
+				<text style="font-size: 36rpx; color: #F74E06;font-weight: 500;margin-right: 14rpx;">￥{{info.vip_price}}</text>
+				<text class="oldPrice">原价:￥{{info.price}}</text>
 			</view>
 			<view class="title">
 				{{info.store_name}}
@@ -167,8 +167,11 @@
 		</view>
 		<!-- 假一罚十 -->
 		<view class="pay_box">
-			<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">保障</text>
-			<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 三天无理由退换</text>
+			<view>
+				<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">保障</text>
+				<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 三天无理由退换</text>
+			</view>
+			<text style="font-size: 26rpx;color: #A3A3A3;">销量:{{info.ficti}}</text>
 		</view>
 		<!--
 		 宝贝评价
@@ -264,15 +267,16 @@
 				@click="gotDetauls(item,index)"
 				>
 					<view class="img">
-							<image style="width: 252rpx;height: 243rpx;" :src="item.image" mode=""></image>
+							<image :src="item.image" mode=""></image>
 					</view>
 					<view class="title">
 						{{item.store_name}}
 					</view>
 					<view class="bom_btn">
+						<image style="width: 23rpx;height: 23rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
 						<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
-						<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;margin-right: 25rpx;">{{item.price}}</text>
-						<text style="font-size: 23rpx;color: #666666;">浏览量{{item.browse}}</text>
+						<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;margin-right: 15rpx;">{{item.vip_price}}</text>
+						<text style="font-size: 23rpx;color: #666666;">￥{{item.price}}</text>
 					</view>
 					
 				</view>
@@ -307,9 +311,7 @@
 		>
 		
 			<view class="show_box">
-				<view  @click="closeClick" id="close" 
-				
-				>
+				<view  @click="closeClick" id="close" >
 					<image src="../../static/index/closeX2.png" mode=""></image>
 					
 				</view>
@@ -329,9 +331,16 @@
 							{{info.store_name}}
 						</view>
 						<view class="price">
-							<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
-							<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;">{{info.price}}</text>
-							<text style="font-size: 28rpx;margin-left: 30rpx;color: #999;">库存：{{stock}}</text>
+							<view>
+								<image style="width: 23rpx;height: 23rpx;" src="../../static/index/huiyuan@3x(6).png" mode=""></image>
+								<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
+								<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;">{{info.vip_price}}</text>
+								<text style="font-size: 28rpx;margin-left: 30rpx;color: #999;">库存：{{stock}}</text>
+							</view>
+							<view>
+								<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
+								<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;">{{info.price}}</text>
+							</view>
 						</view>
 						
 					</view>
@@ -444,33 +453,12 @@
 					return false
 				}
 			},
-			// 计算订单金额
-			orderMoney(){
-				let num 
-				let temp = this.productValue[this.paySpecStr] || {}
-				if(temp.suk){
-					num = this.payNum * temp.price
-				}else{
-					num = this.payNum * this.info.price
-				}
-				return num
-			},
-			// 单价
-			danjia(){
-				let num
-				let temp = this.productValue[this.paySpecStr] || {}
-				if(temp.suk){
-					num = temp.price
-				}else{
-					num = this.info.price
-				}
-				return num
-			}
 		},
 		onLoad(opt){
 			console.log('产品详情opt',opt)
 			this.opt = opt
-		
+			this.staticImage = opt.img
+			
 			this.getData(opt)
 			// this.jisun()
 			
@@ -500,13 +488,6 @@
 			// 切换导航
 			getElement(index){
 				this.isActive = index
-				// console.log('document', document)
-				// //  评价元素
-				// var pingjia = document.getElementById('pingjia')
-				// // 详情元素
-				// var xiangqing = document.getElementById('xiangqing')
-				// // 推荐元素
-				// var tuijian = document.getElementById('tuijian')
 				
 				uni.getSystemInfo({
 				　　success: function(res) { // res - 各种参数
@@ -562,10 +543,10 @@
 							// _this.staticImage = res.data.data.info.image
 							let newEvaList = res.data.data.eva_list 
 							
-							newEvaList.eva_list.forEach(item =>{
-								item.avatar = _this.$http + item.avatar
-							})
-							console.log('修改后', newEvaList)
+							// newEvaList.eva_list.forEach(item =>{
+							// 	item.avatar = _this.$http + item.avatar
+							// })
+							// console.log('修改后', newEvaList)
 							_this.evaList = newEvaList
 							const { windowHeight } = uni.getSystemInfoSync();
 							console.log('屏幕高度查看', windowHeight*2 + 'rpx')
@@ -640,9 +621,39 @@
 			// 将所需参数存到本地
 			initcanshu(type){
 				let _this = this
+				
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						let danjia
+						let allPrice
+						let temp = _this.productValue[_this.paySpecStr] || {}
+						if(reg.data.is_member === 1){
+							// 是会员 拿会员价格
+							if(temp.suk){
+								allPrice = _this.payNum * +temp.vip_price
+								danjia = temp.vip_price
+							}else{
+								allPrice = _this.payNum * _this.info.vip_price
+								danjia = _this.info.vip_price
+							}
+						}
+						else if(reg.data.is_member === 0){
+							// 不是会员 拿非会员价格
+							if(temp.suk){
+								allPrice = _this.payNum * +temp.price
+								danjia = temp.price
+							}else{
+								allPrice = _this.payNum * +_this.info.price
+								danjia = _this.info.price
+							}
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: '会员身份判断出错,请联系管理员!'
+							})
+						}
+						
 						console.log('reg',reg)
 						let data = {
 							uid: reg.data.uid, 
@@ -651,7 +662,7 @@
 							spe_name: _this.paySpecStr,
 							number: _this.payNum,
 							server: '',
-							money: _this.orderMoney,
+							money: allPrice,
 							postage: 0 // 邮费暂时没有
 						}
 						
@@ -664,7 +675,7 @@
 							let img = _this.targetProduct.image || _this.staticImage
 							console.log('跳转参数', img)
 							uni.navigateTo({
-								url:'./confirmorder?store_name=' + _this.info.store_name + '&store_info=' + _this.info.store_info + '&image=' + img +'&danjia=' + _this.danjia
+								url:'./confirmorder?store_name=' + _this.info.store_name + '&store_info=' + _this.info.store_info + '&image=' + img +'&danjia=' + danjia
 							})
 						}
 					}
@@ -740,6 +751,7 @@
 			},
 			// 确认加入购物车
 			addShopCart(){
+				console.log('我被点击了')
 				let _this = this
 				this.initcanshu()
 				console.log('判断是否可以提交', this.isSubmitOk)
@@ -762,8 +774,29 @@
 					uni.getStorage({
 						key: 'userInfo',
 						success(reg){
+							let is_member = reg.data.is_member
 							console.log('reg',reg)
-							
+							if(reg.data.tourist){
+								
+								uni.showModal({
+									title: '提示',
+									content: '游客没有该权限，是否去登录？',
+									success(rr){
+										console.log('rr',rr)
+										if(rr.confirm){
+											uni.redirectTo({
+												url: '../mine/login/login'
+											})
+										}
+										if(rr.cancel){
+											// uni.switchTab({
+											// 	url: './index'
+											// })
+										}
+									}
+								})
+								return
+							}
 							let datas = {
 								token: reg.data.token,
 								goods_id: _this.info.id, // 商品id
@@ -799,7 +832,35 @@
 				}else{
 					
 					// 立即购买
-					this.initcanshu(1)
+					uni.getStorage({
+						key: 'userInfo',
+						success(reg){
+							if(reg.data.tourist){
+								
+								uni.showModal({
+									title: '提示',
+									content: '游客没有该权限，是否去登录？',
+									success(rr){
+										console.log('rr',rr)
+										if(rr.confirm){
+											uni.redirectTo({
+												url: '../mine/login/login'
+											})
+										}
+										if(rr.cancel){
+											// uni.switchTab({
+											// 	url: './index'
+											// })
+										}
+									}
+								})
+								return
+							}else{
+								_this.initcanshu(1)
+							}
+						}
+					})
+					
 					
 				}
 				
@@ -820,8 +881,9 @@
 			// 看了又看 跳转订单详情页面
 			gotDetauls(item,index){
 				console.log(item,index)
+				let img = item.image
 				uni.navigateTo({
-					url: './productdetails?id=' + item.id 
+					url: './productdetails?id=' + item.id + '&img=' + img
 				})
 			},
 			// 搜索
@@ -829,6 +891,9 @@
 				let _this = this
 					console.log(this.$store.state.userInfo)
 					let userInfo = this.$store.state.userInfo
+					uni.showLoading({
+						title: ''
+					})
 					uni.request({
 						url: this.$http + '/api/goods/userAddSearch',
 						method: 'POST',
@@ -837,6 +902,7 @@
 							value: this.searchValue
 						},
 						success(res){
+							uni.hideLoading()
 							console.log('搜索按钮返回数据',res)
 							if(res.data.status === 200){
 								uni.navigateTo({
@@ -870,36 +936,56 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						let datas =  {
-								id: _this.opt.id,
-								type: 1,
-								re_type: 1,
-								token: reg.data.token
-							}
-							console.log('查看收藏参数pppp', datas)
-						uni.showLoading({
-							title: '请稍后...'
-						})
-						uni.request({
-							url: _this.$http + '/api/index/relation',
-							method: 'POST',
-							data:datas,
-							success(res){
-								uni.hideLoading()
-								console.log('收藏返回数据',res.data.status)
-								if(res.data.status === 200){
-									uni.showToast({
-										title: '收藏成功'
-									})
-								}else{
-									uni.showModal({
-										title: '提示',
-										content: '收藏失败'
-									})
+						if(reg.data.tourist){
+							
+							uni.showModal({
+								title: '提示',
+								content: '游客没有该权限，是否去登录？',
+								success(rr){
+									console.log('rr',rr)
+									if(rr.confirm){
+										uni.redirectTo({
+											url: '../mine/login/login'
+										})
+									}
+									if(rr.cancel){
+									}
 								}
-								
-							}
-						})
+							})
+							return
+						}else{
+							let datas =  {
+									id: _this.opt.id,
+									type: 1,
+									re_type: 1,
+									token: reg.data.token
+								}
+								console.log('查看收藏参数pppp', datas)
+							uni.showLoading({
+								title: '请稍后...'
+							})
+							uni.request({
+								url: _this.$http + '/api/index/relation',
+								method: 'POST',
+								data:datas,
+								success(res){
+									uni.hideLoading()
+									console.log('收藏返回数据',res.data.status)
+									if(res.data.status === 200){
+										uni.showToast({
+											title: '收藏成功'
+										})
+									}else{
+										uni.showModal({
+											title: '提示',
+											content: '收藏失败'
+										})
+									}
+									
+								}
+							})
+						}
+						
 					}
 				})
 				
@@ -1162,7 +1248,7 @@
 						color: #858585;
 						font-weight: 500;
 						margin-left: 25rpx;
-						text-decoration: line-through;
+						// text-decoration: line-through;
 					}
 				}
 				.title{
@@ -1178,6 +1264,8 @@
 				padding: 30rpx;
 				background-color: #FFFFFF;
 				margin-top: 25rpx;
+				display: flex;
+				justify-content: space-between;
 			}
 			.color_type{
 				width: 100%;
@@ -1387,22 +1475,28 @@
 					display: flex;
 					justify-content: space-between;
 					flex-wrap: wrap;
-					margin-bottom: 80rpx;
+					padding-bottom: 100rpx;
 					.item{
 						width: 340rpx;
 						box-sizing: border-box;
-						padding: 12rpx;
+						// padding: 12rpx;
 						background-color: #FFFFFF;
 						margin-bottom: 18rpx;
 						border-radius:12rpx 12rpx 0 0;
 						.img{
 							width: 100%;
 							text-align: center;
+							image{
+								width: 100%;
+								height: 305rpx;
+							}
 						}
 						.title{
 							width: 100%;
 							font-size: 25rpx;
 							color: #272727;
+							padding: 0 12rpx;
+							box-sizing: border-box;
 							font-weight: 500;
 							margin-bottom: 25rpx;
 							overflow: hidden;
@@ -1412,7 +1506,8 @@
 							   -webkit-box-orient: vertical;
 						}
 						.bom_btn{
-							
+							box-sizing: border-box;
+							padding: 0 12rpx 15rpx 12rpx;
 						}
 					}
 					
@@ -1477,6 +1572,7 @@
 				width: 100%;
 				height: 100%;
 				background: rgba(0,0,0,.8);
+				z-index: 999999;
 				.show_box{
 					width: 100%;
 					// height: 85%;
@@ -1493,6 +1589,8 @@
 						right: 30rpx;
 						top: 30rpx;
 						text-align: right;
+						z-index: 99999;
+						
 						image{
 							width: 30rpx;
 							height: 30rpx;

@@ -90,9 +90,6 @@
 		onLoad(opt){
 			this.opt = opt
 		},
-		onShow(){
-			
-		},
 		methods:{
 			
 			// 评分选择星星
@@ -143,8 +140,8 @@
 										title: '发布成功'
 									})
 									setTimeout(()=>{
-										uni.navigateBack({
-											
+										uni.redirectTo({
+											url: './allorder'
 										})
 									}, 1000)
 								}else{

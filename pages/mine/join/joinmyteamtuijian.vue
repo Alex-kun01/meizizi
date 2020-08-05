@@ -7,18 +7,17 @@
 				<image style="width: 23rpx;height: 36rpx;" src="../../../static/index/fanhui@2x.png" mode=""></image>
 			</view>
 			<view @click="changeIndex(1)" :class="{item:true,active: isActive === 1}">
-				加盟店{{'('+ strCount+ ')'}}
+				直推加盟店{{'('+ strCount+ ')'}}
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
 				会员{{'('+ betCount+ ')'}}
 			</view>
 		</view>
-		<!-- 加盟店 -->
+		<!-- 加盟店 @click="gotshangInfo(item)" -->
 		<view class="show_list" v-if="isActive === 1">
 			<view class="item"
 			v-for="(item, index) in joinList"
 			:key='index'
-			@click="gotshangInfo(item)"
 			>
 				<view class="title">
 					{{item.company}}
@@ -37,6 +36,12 @@
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
 								<text>{{item.wx_name}}</text>
+							</view>
+							<view class="item">
+								<text>会员总数:</text>
+								<text style="margin-right: 20rpx;">{{item.user_count}}</text>
+								<text>收益总数:</text>
+								<text>{{item.total_revenue}}</text>
 							</view>
 						</view>
 					</view>
@@ -78,15 +83,15 @@
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
 			<view :class="{option:true, active: memberActive === 2}" @click="changMember(2)">
-				<text>复购人数</text>
+				<text>复购瓶数{{'(' + pay_count + ')'}}</text>
 				<image v-if="memberActive === 2" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
 			</view>
-			<view :class="{option:true, active: memberActive === 3}" @click="changMember(3)">
+	<!-- 		<view :class="{option:true, active: memberActive === 3}" @click="changMember(3)">
 				<text>直推人数</text>
 				<image v-if="memberActive === 3" style="width: 14rpx;height: 8rpx;" src="../../../static/mine/geng@2x.png" mode=""></image>
 				<image v-else style="width: 14rpx;height: 8rpx;" src="../../../static/mine/gengd@2x.png" mode=""></image>
-			</view>
+			</view> -->
 		</view>
 		
 		<view class="member_list" v-if="isActive === 2"> 
@@ -100,9 +105,9 @@
 					<image :src="item.avatar" mode=""></image>
 					<view class="con_r">
 						<view class="name">
-							{{item.nickname}}
+							{{item.phone}}
 						</view>
-						<text>复购频数：{{item.pay_count}}</text>
+						<text>复购瓶数：{{item.pay_count}}</text>
 						<text>直推人数：{{item.spread_count}}</text>
 						<text>入会时间：{{item.member_time}}</text>
 					</view>
@@ -123,7 +128,9 @@
 </template>
 
 <script>
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
+		// mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -135,6 +142,7 @@
 				activeHuiyuan: '全部会员',
 				betCount: 0,
 				strCount:0,
+				pay_count: 0,
 				isLoading: false, // loading
 				joinList: [],
 				// 会员展示列表
@@ -142,10 +150,24 @@
 			}
 		},
 		onLoad(){
+			this.joinList = []
+			this.memberList = []
 			this.getData()
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
 		},
-		onShow(){
-			
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			this.joinList = []
+			this.memberList = []
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		},
 		methods:{
 			getData(){
@@ -190,24 +212,27 @@
 								console.log('我的团队返回数据', res)
 								uni.hideLoading()
 								if(res.data.status == 200){
+									let {bet_count,str_count,pay_count,str_data,bet_data} = res.data.data
 									_this.isLoading = false
-									_this.betCount = res.data.data.bet_count
-									_this.strCount = res.data.data.str_count
+									_this.betCount = bet_count
+									_this.strCount = str_count
+									_this.pay_count = pay_count
 									// 加盟店
-									if(res.data.data.str_data.length != 0){
+									
+									if(str_data.length != 0){
 										if(_this.joinList.length == 0){
-											_this.joinList = res.data.data.str_data
+											_this.joinList = str_data
 										}else{
-											_this.joinList = _this.joinList.concat(res.data.data.str_data)
+											_this.joinList = _this.joinList.concat(str_data)
 										}
 										
 									}
 									// 会员
-									if(res.data.data.bet_data.length != 0){
+									if(bet_data.length != 0){
 										if(_this.memberList.length == 0){
-											_this.memberList = res.data.data.bet_data
+											_this.memberList = bet_data
 										}else{
-											_this.memberList = _this.memberList.concat(res.data.data.bet_data)
+											_this.memberList = _this.memberList.concat(bet_data)
 										}
 									}
 									
@@ -445,7 +470,7 @@
 				height: 80rpx;
 				background-color: #FFFFFF;
 				display: flex;
-				justify-content: space-between;
+				justify-content: space-around;
 				box-sizing: border-box;
 				padding: 0 24rpx;
 				margin-bottom: 24rpx;
@@ -456,7 +481,7 @@
 					background-color: #FFFFFF;
 					position: absolute;
 					bottom: -178rpx;
-					left: -24rpx;
+					left: 100rpx;
 					z-index: 999;
 					padding: 15rpx 0 0 0;
 					opacity: .9;

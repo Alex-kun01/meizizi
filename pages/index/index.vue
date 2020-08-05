@@ -3,7 +3,15 @@
 	<view class="content">
 		<view class="titleNview-placing"></view>
 		<view class="top_search">
-			<image @click="scanCode" src="../../static/index/saoyisao.png" mode=""></image>
+			<!-- <image @click="scanCode" src="../../static/index/saoyisao.png" mode=""></image> -->
+			<view class="location_box"
+				@click="reClick"
+			>
+				<image src="../../static/mine/dizhi@2x.png" mode=""></image>
+				<view class="address_show">
+					{{address}}
+				</view>
+			</view>
 			<view class="search_box"
 			@click="gotoTarget('./search')"
 			>
@@ -25,16 +33,20 @@
 			</view>
 			
 		</view>
-		
 		<!-- 轮播 -->
 		
 		<view class="lunbo">
-			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+			<swiper class="screen-swiper"
+			:class="dotStyle?'square-dot':'round-dot'"
+			:indicator-dots="true" :circular="true"
+			 :autoplay="true"
+			 :height="100"
+			 interval="5000"
+			 duration="400">
 				<swiper-item
-				v-for="(img, imx) in banner"
-				:key="imx"
-				>
-					<image :src="img.pic" mode=""></image>
+				v-for="(item,index) in banner"
+				:key="index">
+					<image style="height: 276rpx;" :src="item.pic" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -107,10 +119,10 @@
 					<view style="display: flex;align-items: center;">
 						<image src="../../static/index/huiyuan@3x(3).png" mode=""></image>
 						<view class="price">
-							￥{{item.price}}
+							￥{{item.vip_price}}
 						</view>
 						<view class="oldPrice">
-							￥{{item.ot_price}}
+							￥{{item.price}}
 						</view>
 					</view>
 						<view class="dian">
@@ -148,7 +160,7 @@
 				@click="gotoproduct(item, index)"
 				>
 					<view class="img">
-						<image style="width: 204rpx;height: 189rpx;"  :src="item.image" mode=""></image>
+						<image class="showPic" :src="item.image" mode=""></image>
 						<image style="width: 65rpx;height: 30rpx;position: absolute;top: 0;left: 0;" v-if="item.biqiangImg" :src="item.biqiangImg" mode=""></image>
 					</view>
 					
@@ -175,6 +187,26 @@
 				</view>
 			</view>
 		</view>
+		<!-- 弹出广告层 -->
+		<view class="float_ad"
+		v-if="isAdShow"
+		@touchmove.stop.prevent="moveHandle" 
+		>
+			<view class="show_box">
+				<!-- 广告小标签 -->
+				<view class="ad_bar">
+					广告
+				</view>
+				<image class="adImg" :src="adImg" mode=""></image>
+				<!-- 关闭按钮 -->
+				<view class="close_float"
+				@click="isAdShow = false"
+				>
+					<image src="../../static/index/close3.png" mode=""></image>
+				</view>
+			</view>
+			
+		</view>
 		
 		
 		
@@ -183,15 +215,11 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data() {
 			return {
-				background: ['color1', 'color2', 'color3'],
-				indicatorDots: true,
-				autoplay: true,
-				interval: 4000,
-				duration: 1000,
-				// 今日秒杀列表
 				ddd: 36000000, // 临时毫秒数 24小时
 				hours: '', //小时数
 				minute: '', // 分钟数
@@ -209,7 +237,9 @@
 					scrollTop: 0
 				},
 				cart_count: 0, 
-				
+				isAdShow: false, // 控制弹窗广告显示
+				adImg: '../../static/index/item4.png', // 广告图片
+				address: '定位中...'
 			}
 		},
 		onLoad() {
@@ -221,6 +251,7 @@
 			this.getData()
 			this.userInit()
 			this.getLocatiion()
+			this.locationInit()
 		},
 		methods: {
 			scroll(e) {
@@ -251,6 +282,26 @@
 								}
 							}
 						})
+					}
+				})
+			},
+			// 重新定位
+			reClick(){
+				uni.showLoading({
+					title: ''
+				})
+				this.locationInit()
+			},
+			// 初始化定位
+			locationInit(){
+				let _this = this
+				uni.getLocation({
+					type: 'gcj02',
+					geocode:true,
+					success(res){
+						uni.hideLoading()
+						console.log('中文信息', res)
+						_this.address = res.address.district
 					}
 				})
 			},
@@ -326,17 +377,18 @@
 						url: url
 					})
 				},
+				moveHandle(){},
 				gotoproduct(item, index){
+					console.log('item',item)
+					let img = item.image
+					// return
 					uni.navigateTo({
-						url:'./productdetails?id=' + item.id
+						url:'./productdetails?id=' + item.id + '&img=' + img
 					})
 				},
 				// 为您推荐
 				tuijianClick(url){
-					uni.navigateTo({
-						url: url
-					})
-					return
+					
 					uni.showModal({
 						title: '提示',
 						content: '敬请期待'
@@ -446,7 +498,16 @@
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
+	uni-swiper-dots{
+		background-color: deeppink !important;
+	}
+	.uni-swiper-item{
+		height:1000px !important;
+	}
+	uni-swiper .uni-swiper-dots-horizontal{
+		bottom:100rpx !important;
+	}
 	// 适配异形屏幕
 	.titleNview-placing {
 		height: var(--status-bar-height);
@@ -456,11 +517,61 @@
 	 }
 	page{
 		width: 100%;
+		height: 100%;
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
+			.float_ad{
+				width: 100%;
+				height: 100vh;
+				background: rgba(0,0,0,.6);
+				position: absolute;
+				top: 0;
+				.show_box{
+					width: 600rpx;
+					height: 600rpx;
+					background-color: #FFFFFF;
+					position: absolute;
+					top: calc(50% - 300rpx);
+					left: calc(50% - 300rpx);
+					border-radius: 15rpx;
+					.adImg{
+						width: 100%;
+						height: 100%;
+						border-radius: 15rpx;
+					}
+					.ad_bar{
+						display: inline-block;
+						color: #FFFFFF;
+						font-size: 22rpx;
+						background: rgba(0,0,0,.7);
+						padding: 2rpx 5rpx;
+						position: absolute;
+						top: 10rpx;
+						left: 10rpx;
+						z-index: 9999;
+					}
+					.close_float{
+						width: 50rpx;
+						height: 50rpx;
+						border-radius: 50%;
+						background: rgba(0,0,0,.6);
+						position: absolute;
+						top: -70rpx;
+						right: 0;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						image{
+							width: 20rpx;
+							height: 20rpx;
+						}
+					}
+				}
+				
+			}
 			
 			.top_search{	
 				width: 100%;
@@ -472,6 +583,29 @@
 				justify-content: space-between;
 				align-items: center;
 				background-color: #FFFFFF;
+				.location_box{
+					width: 140rpx;
+					height: 60rpx;
+					display: flex;
+					align-items: center;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					// background-color: pink;
+					image{
+						min-width: 22rpx;
+						width:22rpx;
+						height: 28rpx;
+						margin-right: 10rpx;
+					}
+					.address_show{
+						width: 118rpx;
+						font-size: 24rpx;
+					    white-space:nowrap;
+						overflow:hidden;
+						text-overflow:ellipsis;
+					}
+				}
 				.float{
 					width:18rpx;
 					height:18rpx;
@@ -520,22 +654,19 @@
 					}
 				}
 			}
+			// .uni-swiper-wrapper{
+			// 	 height: 276rpx !important;
+			//  }
 			
 			.lunbo{
-				width: 100%;
-				height: 324rpx;
+				width: 750rpx;
 				background-color: #FFFFFF;
-				// background-color: pink;
 				box-sizing: border-box;
 				padding: 24rpx;
-				swiper{
-					height: 100%;
-					image{
-						width: 100%;
-						height: 276rpx;
-					}
+				image{
+					height:300upx !important;
+					border-radius: 20upx;
 				}
-				
 			}
 			.menu_box{
 				width: 100%;
@@ -684,8 +815,8 @@
 							.oldPrice{
 								margin-left: 23rpx;
 								font-size: 22rpx;
-								color: #666666;
-								text-decoration:line-through;
+								color: #FF5807;
+								// text-decoration:line-through;
 							}
 							.dian{
 								// align-self: flex-end;
@@ -734,18 +865,25 @@
 					display: flex;
 					justify-content: space-between;
 					flex-wrap: wrap;
+					margin-bottom: 130rpx;
 					.item{
 						width: 335rpx;
-						height: 341rpx;
+						// height: 341rpx;
 						background-color: #FFFFFF;
 						border-radius:6rpx 6rpx 0rpx 0rpx;
+						box-sizing: border-box;
+						padding-bottom: 10rpx;
 						margin-bottom: 24rpx;
 						.img{
 							width: 100%;
-							height: 250rpx;
+							// height: 250rpx;
 							position: relative;
-							padding: 22rpx 0 0 67rpx;
+							// padding: 22rpx 0 0 67rpx;
 							box-sizing: border-box;
+							.showPic{
+								width: 100%;
+								height: 303rpx;
+							}
 						}
 						.bom_con{
 							width: 100%;
@@ -776,7 +914,8 @@
 									}
 									.oldPrice{
 										margin-left: 23rpx;
-										text-decoration:line-through; 
+										color: #FF5807;
+										// text-decoration:line-through; 
 									}
 								}
 								

@@ -1,60 +1,22 @@
 <template>
 	<view class="content">
-		<view class="titleNview-placing"></view>
-		
-		<!-- 导航 -->
-		<view class="daohang">
-			<view class="item"
-			:data-id="a"
-			@tap="bindToView"
-			>
-				一
+		<view class=""
+		v-for="(item,index) in colorList"
+		:key='index'
+		>
+			<view class="box" :style="'background:' + item.color + ';' ">
+				
 			</view>
-			<view class="item"
-			:data-id="b"
-			@tap="bindToView"
-			>
-				二
-			</view>
-			<view class="item"
-			:data-id="c"
-			@tap="bindToView"
-			>
-				三
-			</view>
-			<view class="item"
-			:data-id="d"
-			@tap="bindToView"
-			>
-				四
+		</view>
+		<view class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
+			<view class="tower-item" :class="item.zIndex==1?'none':''" v-for="(item,index) in swiperList" :key="index" :style="[{'--index': item.zIndex,'--left':item.mLeft}]" :data-direction="direction">
+				<view class="swiper-item">
+					<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
+					<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
+				</view>
 			</view>
 		</view>
 		
-		<scroll-view class="scroller" :scroll-into-view="toView" scroll-y="true" scroll-with-animation="true">
-			<view class="option pink" 
-			:id="a" 
-			>
-				一
-			</view>
-			
-			<view class="option green" 
-			:id="b" 
-			>
-				二
-			</view>
-			
-			<view class="option red" 
-			:id="c" 
-			>
-				三
-			</view>
-			
-			<view class="option black" 
-			:id="d" 
-			>
-				四
-			</view>
-		</scroll-view>
 	</view>
 </template>
 
@@ -62,79 +24,97 @@
 	export default {
 		data () {
 			return {
-				toView: '',
-				a: 'a',
-				b: 'b',
-				c: 'c',
-				d: 'd',
+				colorList: this.ColorList,
+				cardCur: 0,
+				swiperList: [{
+					id: 0,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+				}, {
+					id: 1,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg',
+				}, {
+					id: 2,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+				}, {
+					id: 3,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+				}, {
+					id: 4,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
+				}, {
+					id: 5,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
+				}, {
+					id: 6,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
+				}],
+				dotStyle: false,
+				towerStart: 0,
+				direction: ''
 			}
 		},
 		onLoad(){
-			
+			console.log(this.ColorList,'mmmm')
 		},
 		onShow(){
 			
 		},
 		methods:{
-			bindToView(event){
-				var id = event.currentTarget.dataset.id;
-				console.log(id)
-				this.toView = id;
-				console.log(this.toView)
-			}
+			// towerSwiper计算方向
+			TowerMove(e) {
+				this.direction = e.touches[0].pageX - this.towerStart > 0 ? 'right' : 'left'
+			},
+			// towerSwiper触摸开始
+			TowerStart(e) {
+				this.towerStart = e.touches[0].pageX
+			},
+			// towerSwiper计算滚动
+			TowerEnd(e) {
+				let direction = this.direction;
+				let list = this.swiperList;
+				if (direction == 'right') {
+					let mLeft = list[0].mLeft;
+					let zIndex = list[0].zIndex;
+					for (let i = 1; i < this.swiperList.length; i++) {
+						this.swiperList[i - 1].mLeft = this.swiperList[i].mLeft
+						this.swiperList[i - 1].zIndex = this.swiperList[i].zIndex
+					}
+					this.swiperList[list.length - 1].mLeft = mLeft;
+					this.swiperList[list.length - 1].zIndex = zIndex;
+				} else {
+					let mLeft = list[list.length - 1].mLeft;
+					let zIndex = list[list.length - 1].zIndex;
+					for (let i = this.swiperList.length - 1; i > 0; i--) {
+						this.swiperList[i].mLeft = this.swiperList[i - 1].mLeft
+						this.swiperList[i].zIndex = this.swiperList[i - 1].zIndex
+					}
+					this.swiperList[0].mLeft = mLeft;
+					this.swiperList[0].zIndex = zIndex;
+				}
+				this.direction = ""
+				this.swiperList = this.swiperList
+			},
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-	// 适配异形屏幕
-	.titleNview-placing {
-		height: var(--status-bar-height);
-		background: #FFFFFF;
-		padding-top: 0;
-		box-sizing: content-box;
-	 }
-	page{
-		width: 100%;
-		background-color: #F4F4F4;
-		.content{
-			width: 100%;
-			padding: 0 24rpx;
-			box-sizing: border-box;
-			background-color: #F4F4F4;
-			.daohang{
-				width: 100%;
-				display: flex;
-				justify-content: space-between;
-				.item{
-					width: 100rpx;
-					height: 100rpx;
-					background-color: #f40;
-				}
-			}
-			scroll-view{
-				height: 100vh;
-				}
-			.scroller{
-				width: 100%;
-				.option{
-					width: 100%;
-					height: 600rpx;
-				}
-				.pink{
-					background-color: pink;
-				}
-				.green{
-					background-color: green;
-				}
-				.red{
-					background-color: red;
-				}
-				.black{
-					background-color: black;
-				}
-			}
-			
+	.tower-swiper {
+		.tower-item{
+			transform: scale(calc(0.5 + var(--index) / 10));
+			margin-left: calc(var(--left) * 100upx - 150upx);
+			z-index: var(--index);
 		}
+	}
+	.box{
+		width: 200rpx;
+		height: 200rpx;
 	}
 </style>

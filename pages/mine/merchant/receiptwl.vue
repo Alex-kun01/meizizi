@@ -17,7 +17,7 @@
 						<text class="tit_txt">订单编号:</text>
 						<text class="con_text">{{info.order_code}}</text>
 					</view>
-					<view class="phone_box">
+					<view class="phone_box" style="margin-top: 14rpx;">
 						<image style="width: 23rpx;height: 26rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
 						<text class="con_text" style="margin-right: 20rpx;">{{info.phone}}</text>
 						<image style="width: 30rpx;height: 25rpx;" src="../../../static/mine/weixin@2x.png" mode=""></image>
@@ -115,7 +115,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -151,6 +151,9 @@
 								if(res.data.status == 200){
 									uni.showToast({
 										title: '收货成功'
+									})
+									uni.navigateBack({
+										
 									})
 								}else{
 									uni.showModal({

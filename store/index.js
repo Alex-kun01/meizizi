@@ -17,11 +17,22 @@ const store = new Vuex.Store({
 		// 清除缓存时可清除
 		// 用户当前位置
 		address:{},
+		// 店铺定位信息存放
+		locationInfo: {
+			address: '选择店铺位置'
+		},
+		showOrderId: '', // 临时存放订单id
 		
 		
 	},
 	mutations:{
-		
+		setOrderId(state,str){
+			state.showOrderId = str
+		},
+		// 修改定位信息
+		setLocationInfo(state, obj){
+			state.locationInfo = obj
+		},
 		// 修改用户信息
 		setUserInfo(state, obj){
 			state.userInfo = obj

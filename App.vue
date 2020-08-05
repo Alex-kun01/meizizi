@@ -12,12 +12,14 @@
 		},
 		methods:{
 			
-			getData(){
+			getData(target){
 				let _this = this
+				let type = target == 'android' ? 1 : 2
+				let datas = {type: type}
 				uni.request({
 					url: this.$http + '/api/index/edition',
 					method: 'post',
-					data: {type: 2},
+					data: datas,
 					success(res){
 						console.log('版本更新数据', res)
 						if(res.data.status === 200){
@@ -37,7 +39,7 @@
 								_this.test = '版本不一致'
 								uni.showModal({
 									title: '版本更新提示',
-									content: '检测到新的版本，请更新！',
+									content: '检测到新的版本，请更新！' + '当前版本:' + _this.version  + '新版本:' + newVersion ,
 									success() {
 										// 更新
 										plus.runtime.openURL(_this.updateUrl)
@@ -64,15 +66,23 @@
 				console.log('客户端详情数据',JSON.stringify(wgtinfo));//客户端详情数据
 				console.log('应用版本号',wgtinfo.version);//应用版本号
 				this.version = wgtinfo.version
-				this.getData()
+				// 获取设备类型 安卓 ios
+				let target = uni.getSystemInfoSync().platform
+				this.getData(target)
 			})
 		},
+		
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
+		// 定时器 不断请求 接口判断该用户是否为会员
+		// 此方法，情非得已 十分消耗性能，如有更好解决办法，请优化！！！
+		
 	}
 </script>
 
 <style>
 	/*每个页面公共css */
+	@import "colorui/main.css";
+	@import "colorui/icon.css";
 </style>

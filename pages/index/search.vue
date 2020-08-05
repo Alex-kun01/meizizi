@@ -5,7 +5,7 @@
 		<view class="top_search">
 			<view class="search_box">
 				<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-				<input type="text" v-model="searchValue" placeholder="搜索"/>
+				<input  confirm-type="search" @confirm="search()" type="text" bindconfirm="bindconfirm" v-model="searchValue" placeholder="搜索"/>
 			</view>
 			<view class="quxiao"
 			@click="goback"
@@ -33,7 +33,8 @@
 		<!-- 历史记录 -->
 		<view class="menu_item">
 			<view class="title">
-				历史记录
+				<text>历史记录</text>
+				<image @click="clearhistory" src="../../static/mine/deletes.png" mode=""></image>
 			</view>
 			<view class="list">
 				<view class="item"
@@ -103,6 +104,41 @@
 					}
 				})
 			},
+			// 清除历史记录
+			clearhistory(){
+				console.log('清除了')
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							uid: reg.data.uid
+						}
+						uni.showLoading({
+							title: ''
+						})
+						uni.request({
+							url: _this.$http + '/api/goods/userDelSearch',
+							method: 'POST',
+							data: datas,
+							success(res){
+								uni.hideLoading()
+								console.log('清除历史记录', res)
+								if(res.data.status === 200){
+									uni.showToast({
+										title: '清除成功'
+									})
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: '清除失败'
+									})
+								}
+							}
+						})
+					}
+				})
+			},
 			// 搜索按钮
 			search(){
 				let _this = this
@@ -119,18 +155,27 @@
 							console.log('搜索按钮返回数据',res)
 							if(res.data.status === 200){
 								uni.navigateTo({
-									url: './productlist?value=' + _this.searchValue + '&type=' + '0' 
+									url: './productlist?value=' + _this.searchValue + '&type=' + '2' 
+								})
+							}else{
+								uni.showModal({
+									title: '提示',
+									content: res.data.msg
 								})
 							}
 						}
 					})
 			},
+			// bindconfirm(e){
+			// 	let _this = this
+			// 	console.log('搜索键盘',e.detail.value)
+			// },
 			// 热门搜索跳转详情
 			gotoDetalus(item,type){
-				let id = item.id
+				let title = item.title
 				
 				uni.navigateTo({
-					url: './productlist?value=' + id + '&type=' + type
+					url: './productlist?value=' + title + '&type=' + type
 				})
 			},
 			goback(){
@@ -155,6 +200,9 @@
 		background-color: #FFFFFF;
 		.content{
 			width: 100%;
+			min-height: 100vh;
+			height: 100%;
+			background-color: #FFFFFF;
 			box-sizing: border-box;
 			padding: 30rpx 30rpx 0 30rpx;
 			.top_search{
@@ -191,6 +239,13 @@
 					font-size: 34rpx;
 					color: #222222;
 					font-weight: 500;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					image{
+						width: 25rpx;
+						height: 30rpx;
+					}
 				}
 				.list{
 					margin-top: 30rpx;

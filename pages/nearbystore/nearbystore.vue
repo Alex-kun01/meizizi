@@ -1,6 +1,11 @@
 <template>
 	<view class="content">
 		<!-- <view class="titleNview-placing"></view> -->
+		<!-- 搜索框 -->
+		<view class="search_box">
+			<image src="../../static/index/sosuo@2x.png" mode=""></image>
+			<input  confirm-type="search" @confirm="getData()" type="text" v-model="searchValue" />
+		</view>
 		<!-- 附近店铺 -->
 		<view class="store_list">
 			<view class="none_list" v-if="storeList.length == 0">
@@ -16,7 +21,9 @@
 				<view class="left_info">
 					<view class="pic">
 						<image :src="item.logo || '../../static/nearbystore/test2.png'" mode=""></image>
-						
+						<view class="box_start" v-if="item.grade != 0">
+							<image style="width: 22rpx;height: 22rpx;" v-for="start in item.grade" :key="start" src="../../static/mine/start.png" mode=""></image>
+						</view>
 					</view>
 					<view class="con">
 						<view class="title">
@@ -38,9 +45,12 @@
 						<image style="width: 22rpx;height: 22rpx;" src="../../static/nearbystore/dianhua(1).png" mode=""></image>
 						<!-- <image style="width: 26rpx;height: 22rpx;margin-left: 12rpx;" src="../../static/nearbystore/liaotian(1).png" mode=""></image> -->
 					</view>
-					<view class="bom">
+					<view class="bom"
+					@click="mapGotoClick(item)"
+					>
 						<image style="width: 26rpx;height: 25rpx;margin-right: 12rpx;" src="../../static/nearbystore/daohang@2x(1).png" mode=""></image>
-						<text>{{item.distance}}km</text>
+						<text>{{(item.distance/1000).toFixed(2)}}km</text>
+						<text class="goto">去这里</text>
 					</view>
 				</view>
 				
@@ -51,19 +61,18 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data() {
 			return {
 				storeList: [],
 				page: 1,
 				limit: 10,
 				long_number: 0,
-				lati_number: 0
+				lati_number: 0,
+				searchValue: '', // 搜索value
 			}
-		},
-		onLoad() {
-			
-			
 		},
 		onShow() {
 			this.mgetLocation()
@@ -80,6 +89,7 @@
 								limit: _this.limit,
 								long_number: _this.long_number,
 								lati_number: _this.lati_number,
+								content: _this.searchValue
 							}
 							console.log('datas', datas)
 						uni.showLoading({
@@ -98,7 +108,11 @@
 									})
 									_this.storeList = newList
 									uni.hideLoading()
-									
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
 								}
 							}
 						})
@@ -126,6 +140,26 @@
 						console.log('拨打电话成功')
 					}
 				})
+			},
+			// 跳转地图导航
+			mapGotoClick(item){
+				let _this = this
+				console.log('item', item)
+				// return
+				uni.openLocation({
+					latitude: +item.lati_number,
+					longitude: +item.long_number,
+					success(){
+						 if(plus.runtime.isApplicationExist({pname:'com.autonavi.minimap',action:'iosamap://'})){    // 判断高德地图 是否安装  
+							
+						}else{  
+							uni.showModal({
+								title: '温馨提示',
+								content: '检测到您未安装高德地图,为了您更好的导航体验,请下载高德地图,使用高德地图进行导航'
+							})
+						}  
+					}
+				})
 			}
 		}
 	}
@@ -147,6 +181,31 @@ page{
 		height: 100%;
 		min-height: 100vh;
 		background-color: #F4F4F4;
+		.search_box{
+			width: 600rpx;
+			height: 60rpx;
+			// background-color: #FFFFFF;
+			border: 1rpx solid black;
+			border-radius: 30rpx;
+			margin-left: 75rpx;
+			margin-top: 24rpx;
+			box-sizing: border-box;
+			padding: 2rpx 20rpx;
+			display: flex;
+			align-items: center;
+			input{
+				width: 500rpx;
+				height: 60rpx;
+				margin-left: 15rpx;
+				font-size: 26rpx;
+				// background-color: #eee;
+			}
+			image{
+				width: 30rpx;
+				height: 30rpx;
+				// margin-top: 15rpx;
+			}
+		}
 		.store_list{
 			// margin-top: 30rpx;
 			width: 100%;
@@ -193,13 +252,19 @@ page{
 					}
 					
 					.pic{
+						width: 120rpx;
+						height: 120rpx;
 						display: flex;
+						flex-direction: column;
+						// border: 1rpx solid #999;
+						margin-right: 24rpx;
+						 // display: table-cell;
+						 // vertical-align: middle;
 						image{
-							width: 99rpx;
-							height: 79rpx;
-							min-height: 79rpx;
-							min-width: 99rpx;
-							margin-right: 24rpx;
+							max-width: 100%;
+							max-height: 100%;
+							// display: block;
+							// margin: auto;
 						}
 					}
 				}
@@ -213,6 +278,13 @@ page{
 					.bom{
 						font-size: 22rpx;
 						color: #323232;
+						.goto{
+							background-color: #008c8c;
+							border-radius: 15rpx;
+							color: #FFFFFF;
+							margin-left: 10rpx;
+							padding: 4rpx 10rpx;
+						}
 					}
 				}
 			}

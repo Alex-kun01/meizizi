@@ -36,7 +36,9 @@
 			</view>
 		</view>
 		<!-- 会员列表 -->
-		<view class="member_list">
+		<view class="member_list"
+		v-if="memberList.length !== 0"
+		>
 		
 			<view class="item"
 			v-for="(item, index) in memberList"
@@ -105,17 +107,13 @@
 								_this.isLoading = false
 								console.log('会员信息返回数据', res)
 								if(res.data.status === 200){
-									if(_this.memberList.length == 0){
-										_this.memberList = res.data.data.list
-									}else{
-										_this.memberList = _this.memberList.concat(res.data.data.list) 
-									}
-									
-									_this.info = res.data.data.user_info
+									let {list,user_info} = res.data.data
+									_this.memberList = [..._this.memberList,...list]
+									_this.info = user_info
 								}else{
 									uni.showModal({
 										title:'提示',
-										content: '数据请求失败'
+										content:  res.data.msg
 									})
 								}
 							}

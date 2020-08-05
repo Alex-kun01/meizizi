@@ -7,7 +7,7 @@
 		</view>
 		<view class="search_box">
 			<image @click="seachClick" style="width: 30rpx;height: 30rpx;" src="../../../static/index/sosuo.png" mode=""></image>
-			<input type="text" v-model="searchValue" placeholder="搜索" />
+			<input confirm-type="search" @confirm="seachClick()"  type="text" v-model="searchValue" placeholder="搜索" />
 		</view>
 		<!--成员列表 -->
 		<view class="member_list" v-if="showList.length != 0">
@@ -20,12 +20,7 @@
 					<view class="con_box">
 						<!-- 职位（1-超级管理员 2-总经理 3-总监 4-省代理 5-业务员/讲师 6-服务商 7-物流商 8-加盟店 9-会员消费者 10-普通消费者 11-市级服务商） -->
 						<view class="name">{{item.nickname}}</view>
-						<view class="zhiwei" v-if="item.position == 3">职位：总监</view>
-						<view class="zhiwei" v-if="item.position == 4">职位：省区经理</view>
-						<view class="zhiwei" v-if="item.position == 5">职位：业务员</view>
-						<view class="zhiwei" v-if="item.position == 6">职位：服务商</view>
-						<view class="zhiwei" v-if="item.position == 7">职位：物流商</view>
-						<view class="zhiwei" v-if="item.position == 11">职位：市级代理</view>
+						<view class="zhiwei">职位：{{statusList[+item.position].name}}</view>
 					</view>
 				</view>
 				<view class="btn_r" @click="renmClick(item, index)">任命</view>
@@ -135,7 +130,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isShow: false,  // 是否展示任命弹窗
@@ -155,7 +152,44 @@
 				shenList: [], // 省选择列表
 				shiList: [], // 市选择列表
 				targetCode: '', // 目标code /省code/市code
-				
+				statusList:[
+					{
+						name: '数据错误'
+					},
+					{
+						name: '超级管理员'
+					},
+					{
+						name: '总经理'
+					},
+					{
+						name: '总监'
+					},
+					{
+						name: '省区经理'
+					},
+					{
+						name: '业务员'
+					},
+					{
+						name: '服务商'
+					},
+					{
+						name: '物流商'
+					},
+					{
+						name: '加盟店'
+					},
+					{
+						name: '会员消费者'
+					},
+					{
+						name: '普通消费者'
+					},
+					{
+						name: '市级代理'
+					},
+				]
 			}
 		},
 		onLoad(){
@@ -187,12 +221,7 @@
 								if(res.data.status === 200){
 									_this.renmingList = res.data.data.appo_list
 									_this.reNmingId = _this.renmingList[0].id
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data.user_list
-									}else{
-										_this.showList = _this.showList.concat(res.data.data.user_list) 
-									}
-									
+									_this.showList = [..._this.showList,...res.data.data.user_list]
 								}else{
 									uni.showModal({
 										title: '提示',

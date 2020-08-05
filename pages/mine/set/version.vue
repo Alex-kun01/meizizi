@@ -76,7 +76,7 @@
 							// 
 							uni.showModal({
 								title: '提示',
-								content: '请求服务器出错,请稍后再试...'
+								content:  res.data.msg
 							})
 						}
 					}

@@ -20,10 +20,14 @@
 				</view>
 			</view>
 			<view class="con_info">
-				<image style="width: 180rpx;height: 180rpx;" src="../../../static/mine/avatar.jpg" mode=""></image>
+				<image style="width: 180rpx;height: 180rpx;" :src="info.logo" v-if="info.logo" mode=""></image>
+				<image v-else style="width: 180rpx;height: 180rpx;" src="../../../static/mine/staticAvatar.jpg" mode=""></image>
 				<view class="text_box">
 					<view style="margin-bottom: 30rpx;">
 						授信额度:<text style="font-size: 34rpx;font-weight: 500;color: ;">{{info.credit}}</text>
+					</view>
+					<view style="margin-bottom: 30rpx;">
+						剩余授信额度:<text style="font-size: 34rpx;font-weight: 500;color: ;">{{info.surplus}}</text>
 					</view>
 					<view class="text">
 						<image style="width: 22rpx;height: 18rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
@@ -60,7 +64,7 @@
 			</view>
 			<view :class="{item:true, active: isActive == 3}" @click="changeIndex(3)">
 				<view class="title">
-					出货单
+					待发货
 				</view>
 				<view class="info">
 					<text>{{info.shop_count}}</text>
@@ -68,7 +72,7 @@
 			</view>
 		</view>
 		<!-- 显示区域 库存 -->
-		<view class="kucun_box box_i" v-if='isActive == 1' >
+		<view class="shipping_box box_i" v-if='isActive == 1' >
 			<view class="title_list">
 				<view class="title"
 				v-for="(tit, int) in titleList"
@@ -78,20 +82,22 @@
 				</view>
 			</view>
 			
-			<view class="show_list">
+			<!-- <view class="show_list"> -->
 				<view class="item"
 				v-for="(item, index) in product_list"
 				:key='index'
 				>
-					<view class="item_i" @click="showMore(item)">{{item.store_name.substring(0,4)}}</view>
-					<view class="item_i">{{item.price}}</view>
-					<view class="item_i">{{item.stock}}</view>
-					<view class="item_i">
-					{{item.need_stock}}
+					
+					<view class="name">{{item.store_name}}</view>
+					<view class="item_box">
+						<view class="item_i">{{item.price}}</view>
+						<view class="item_i">{{item.total_stock}}</view>
+						<view class="item_i">{{item.stock}}</view>
+						<view class="item_i">{{item.need_stock}}</view>
+						<view class="item_i">{{item.alarm_stock}}</view>
 					</view>
-					<view class="item_i">{{item.alarm_stock}}</view>
 				</view>
-			</view>
+			<!-- </view> -->
 		</view>
 		
 		<!-- 显示区域 会员 -->
@@ -122,7 +128,7 @@
 		<view class="shipping_box box_i" v-if='isActive == 3'>
 			<view class="title_list">
 				<view class="title"
-				v-for="(tit, int) in chuhuoTitleList"
+				v-for="(tit, int) in titleList"
 				:key='int'
 				>
 					{{tit}}
@@ -133,11 +139,24 @@
 			v-for="(item, index) in order_list"
 			:key='index'
 			>
-				<view class="item_i">{{item.store_name.substring(0,4)}}</view>
-				<view class="item_i">{{item.price}}</view>
-				<view class="item_i">{{item.quantity}}</view>
-				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
+				<view class="name">{{item.store_name}}</view>
+				<view class="item_box">
+					<view class="item_i">{{item.price}}</view>
+					<view class="item_i">{{item.total_stock}}</view>
+					<view class="item_i">{{item.stock}}</view>
+					<view class="item_i input"><input type="text" v-model="item.need_stock" /></view>
+					<view class="item_i">{{item.alarm_stock}}</view>
+				</view>
 				
+			</view>
+			<view class="sub_btn">
+				<view style="margin-right: 30rpx;">
+					总金额：<text style="font-size: 34rpx;font-weight: 500;">{{allPrice}}</text>
+				</view>
+				<view class="btn" @click="submitClick" v-if="is_auto != 0">
+					
+					提交
+				</view>
 			</view>
 		</view>
 		<view class="loading" v-if="isLoading">
@@ -148,7 +167,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -156,7 +177,7 @@
 				limit:10,
 				isLoading:false, 
 				opt: {},
-				titleList: ['商品名','单价','现有库存','所需库存','报警线',],
+				titleList: ['单价','总库存','现有库存','所需库存','报警线',],
 				info: {},
 				// 总库存展示列表
 				product_list: [],
@@ -164,18 +185,35 @@
 				user_list:[],
 				// 出货单展示列表
 				order_list: [],
-				chuhuoTitleList: ['商品名','单价','数量','打印时间'],
+				is_auto: 0, //是否展示确认发货
 				
 			}
 		},
 		onLoad(opt){
 			console.log('opt',opt)
 			this.opt = opt
-			this.getData()
+			// this.getData()
 			
 		},
-		onShow(){
-			
+		computed:{
+			// 计算总金额
+			allPrice(){
+				let allP = 0
+				this.order_list.forEach(item =>{
+					allP = allP + +item.price * +item.need_stock
+				})
+				return allP
+			},
+			// 所需库存是否超过总库存
+			isSubmitOk(){
+				let arr = []
+				this.order_list.forEach(item =>{
+					if(+item.need_stock + +item.stock > +item.total_stock){
+						arr.push(1)
+					}
+				})
+				return arr.includes(1)
+			}
 		},
 		methods:{
 			getData(){
@@ -185,45 +223,35 @@
 					success(reg){
 						let datas = {
 							token: reg.data.token,
-							shop_id: _this.opt.id || 9,
+							shop_id: _this.opt.id,
 							page: _this.page,
 							limit: _this.limit,
 							give_type: _this.isActive
 						}
 						console.log('我的商家详情参数', datas)
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/user/logisticsDetails',
 							method: 'GET',
 							data: datas,
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								_this.isLoading = false
 								console.log('我的商家详情返回数据', res)
-								if(res.data.status == 200){
-									_this.info = res.data.data.shop_info
+								if(res.data.status === 200){
 									
-									if(_this.order_list.length == 0){
-										_this.order_list = res.data.data.order_list
-									}else{
-										_this.order_list = _this.order_list.concat(res.data.data.order_list)
-									}
-									if(_this.product_list.length == 0){
-										_this.product_list = res.data.data.product_list 
-									}else{
-										_this.product_list = _this.product_list.concat(res.data.data.product_list)  
-									}
-									if(_this.user_list.length == 0){
-										_this.user_list = res.data.data.user_list 
-									}else{
-										_this.user_list = _this.user_list.concat(res.data.data.user_list ) 
-									}
+									let {order_list,product_list,user_list,shop_info,is_auto} = res.data.data
+									_this.is_auto = is_auto
+									_this.info = shop_info
+									_this.order_list = order_list
+									_this.product_list = [..._this.product_list,...product_list]
+									_this.user_list = [..._this.user_list,...user_list]
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据列表失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -248,6 +276,7 @@
 					this.order_list = []
 					this.user_list =[]
 					this.isActive = index
+					this.page = 1
 					this.getData()
 				}
 				this.isActive = index
@@ -262,6 +291,55 @@
 			record(){
 				uni.navigateTo({
 					url: './jiaoyichuhuo?id=' + this.opt.id
+				})
+			},
+			// 提交
+			submitClick(){
+				let _this = this
+				if(this.isSubmitOk){
+					uni.showModal({
+						title: '提示',
+						content: '某个商品输入所需库存超过该商品总库存!!!'
+					})
+					return
+				}
+				if(this.allPrice > this.info.surplus){
+					uni.showModal({
+						title: '提示',
+						content: '补货总金额超过剩余授信额度!!!'
+					})
+					return
+				}
+				// 请求
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+								token: reg.data.token,
+								take_id: _this.info.id,
+								product_list: JSON.stringify(_this.order_list),
+								type: 2
+							}
+							console.log('传递参数',datas)
+						uni.request({
+							url: _this.$http + '/api/user/addShopOrder',
+							method: 'POST',
+							data:datas,
+							success(res){
+								console.log('手动补货返回数据',res)
+								if(res.data.status == 200){
+									uni.showToast({
+										title: '操作成功!'
+									})
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					}
 				})
 			},
 			onReachBottom(e){
@@ -290,6 +368,22 @@
 			height: 100%;
 			min-height: 100vh;
 			background-color: #F4F4F4;
+			.sub_btn{
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 30rpx;
+				.btn{
+					height:46rpx;
+					line-height: 46rpx;
+					text-align: center;
+					background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
+					border-radius:23rpx;
+					font-size: 28rpx;
+					color:rgba(255,255,255,1);
+					padding: 0 20rpx;
+				}
+			}
 			.loading{
 				width: 100%;
 				height: 70rpx;
@@ -475,16 +569,32 @@
 				}
 				.item{
 					display: flex;
-					justify-content: space-between;
-					align-items: center;
+					flex-direction: column;
 					color: #919191;
 					font-size: 24rpx;
 					font-weight: 500;
 					margin-bottom: 10rpx;
-					.item_i{
-						width: 175rpx;
-						text-align: center;
+					border-bottom: 1rpx solid #DDDDDD;
+					padding: 15rpx 0;
+					.name{
+						margin-bottom: 15rpx;
+						margin-left: 40rpx;
+						color: black;
 					}
+					.item_box{
+						display: flex;
+						.item_i{
+							width: 175rpx;
+							text-align: center;
+						}
+						.input{
+							border: 1rpx solid #999999;
+							input{
+								font-size: 28rpx;
+							}
+						}
+					}
+					
 				}
 			}
 			

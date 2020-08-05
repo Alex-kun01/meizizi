@@ -23,18 +23,21 @@
 						<view class="price_box">
 							<view>
 								<text style="font-size: 26rpx;">￥</text>
-								<text style="font-size: 32rpx;">{{allPrice}}</text>
+								<text style="font-size: 32rpx;">{{opt.danjia}}</text>
 							</view>
 							<view style="font-size: 20rpx;color: #9F9F9F;text-align: right;">
 								x{{addNum}}
 							</view>
 						</view>
 					</view>
-					<view class="color_type">
+					<view class="color_type"
+					v-if="orderInfo.spe_name"
+					>
+					
 						{{orderInfo.spe_name}}
 					</view>
 					<view class="info">
-						三天无理由退换
+						三天内有问题可到提货店退换
 					</view>
 				</view>
 			</view>
@@ -54,6 +57,9 @@
 				<text class="num_color">订单备注</text>
 				<input type="text" value="" placeholder="选填" />
 			</view>
+			<view class="beizhu" style="display: flex;justify-content: flex-end;">
+				<text style="color: #F86B25;">小计:￥{{allPrice}}</text>
+			</view>
 		</view>
 		
 		<!-- 支付方式 -->
@@ -64,7 +70,7 @@
 					<text>微信支付</text>
 				</view>
 				<view class="right">
-					<image v-if="isPayType === 2" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image v-if="isPayType === 2" src="../../static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 			</view>
 			<view class="item" @click="changePayType(1)">
@@ -73,7 +79,7 @@
 					<text>支付宝支付</text>
 				</view>
 				<view class="right">
-					<image  v-if="isPayType === 1" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image  v-if="isPayType === 1" src="../../static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 			</view>
 			<view class="item" @click="changePayType(3)">
@@ -82,7 +88,7 @@
 					<text>余额(0)</text>
 				</view>
 				<view class="right">
-					<image v-if="isPayType === 3" style="width: 25rpx;height: 25rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image v-if="isPayType === 3" src="../../static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -90,7 +96,7 @@
 		<view class="submit_btn"
 		@click="submitClick"
 		>
-			提交订单
+			立即支付
 		</view>
 		
 		
@@ -105,7 +111,11 @@
 				addNum: 1, // 数量
 				orderInfo: {}, //订单信息
 				staticImage: '../../static/public/nopic.png', //默认图片地址
-				opt: {}
+				opt: {},
+				orderId: null, // 订单id
+				timersArr: [],
+				timers: null,
+				ispayall: false
 			}
 		},
 		computed:{
@@ -123,6 +133,7 @@
 			
 		},
 		onShow(){
+			let _this = this
 			
 		},
 		methods:{
@@ -178,23 +189,16 @@
 								 provider: "alipay",
 								 orderInfo: datas,
 								 success: (res) => {
-									 console.log('支付宝返回数据', res)
 									 
-									 let orderIdstr = JSON.parse(res.rawdata).result
-									 let orderId =  JSON.parse(orderIdstr).alipay_trade_app_pay_response.out_trade_no
-									 
-									 console.log('获取到订单编号', orderId)
-									 // 付款成功
-									 uni.showToast({
-									 	title: '付款成功',
-										success(){
+									 setTimeout(function () {uni.hideLoading();}, 100);
+										uni.showLoading({
+										  title: '跳转中',
+										})
+										setTimeout(() => {
 											uni.redirectTo({
-												// url: './orderdetails?type='+ '查看购物码' + '&orderId='+ orderId
-												 url: '../shopcart/allorder?type=' + 2
+												url: '../shopcart/allorder?type=' + 2
 											})
-										}
-									 })
-									 
+										}, 1000);
 								 },
 								 fail(reh) {
 								 	console.log('支付宝错误信息',reh)
@@ -316,7 +320,7 @@
 					}
 					.info{
 						width:166rpx;
-						height:33rpx;
+						// height:33rpx;
 						line-height: 33rpx;
 						text-align: center;
 						background:rgba(251,243,240,1);
@@ -335,7 +339,7 @@
 					width: 100%;
 					display: flex;
 					justify-content: space-between;
-					margin-top: 50rpx;
+					margin-top: 30rpx;
 					.btn{
 						display: flex;
 						
@@ -367,6 +371,7 @@
 				.beizhu{
 					display: flex;
 					align-items: center;
+					margin-top: 25rpx;
 					input{
 						margin-left: 30rpx;
 						color: #9A9A9A;
@@ -404,12 +409,14 @@
 					}
 				}
 				.right{
-					width:25rpx;
-					height:25rpx;
+					width:35rpx;
+					height:35rpx;
 					border:2rpx solid rgba(206,206,206,1);
 					border-radius:50%;
 					position: relative;
 					image{
+						width: 100%;
+						height: 30rpx;
 						position: absolute;
 						top: 0;
 						left: 0;

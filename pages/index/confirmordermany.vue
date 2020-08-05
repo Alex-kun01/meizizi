@@ -40,7 +40,7 @@
 							{{item.spe_name}}
 						</view>
 						<view class="info">
-							七天无理由退换
+							三天内有问题可到提货店退换
 						</view>
 					</view>
 				</view>
@@ -121,7 +121,7 @@
 			allPrice(){
 			   let num = 0
 			   this.orderList.forEach(item =>{
-				   num = num + +item.market_price
+				   num = num + +item.market_price * +item.goods_num
 			   })
 			   return num
 			},
@@ -135,7 +135,12 @@
 			
 		},
 		onShow(){
-			
+			uni.getStorage({
+				key: 'userInfo',
+				success(reg){
+					console.log('用户数据',reg)
+				}
+			})
 		},
 		methods:{
 			// 重新计算金额
@@ -175,6 +180,7 @@
 				   uni.getStorage({
 				   	key:'userInfo',
 					success(reg){
+						
 						_this.orderList.forEach(item =>{
 							delete item.image
 							delete item.goods_name
@@ -211,16 +217,11 @@
 															 
 															 console.log('获取到订单编号', orderId)
 															 // 付款成功
-															 uni.showToast({
-															 	title: '付款成功',
-																success(){
-																	uni.redirectTo({
-																		// url: './orderdetails?type='+ '查看购物码' + '&orderId='+ orderId 
-																		url: '../shopcart/allorder?type=' + 2
-																	})
-																}
-															 })
-															 
+															 setTimeout(()=>{
+																 uni.redirectTo({
+																 	url: '../shopcart/allorder?type=' + 2
+																 })
+															 },1000)
 														 },
 														 fail(reh) {
 														 	console.log('支付宝错误信息',reh)
@@ -347,7 +348,7 @@
 					}
 					.info{
 						width:166rpx;
-						height:33rpx;
+						// height:33rpx;
 						line-height: 33rpx;
 						text-align: center;
 						background:rgba(251,243,240,1);

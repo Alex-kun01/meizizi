@@ -2,8 +2,8 @@
     "name" : "美孜孜",
     "appid" : "__UNI__1E09FF4",
     "description" : "内部测试版本",
-    "versionName" : "1.0.0",
-    "versionCode" : "100",
+    "versionName" : "1.1.0",
+    "versionCode" : 110,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -104,37 +104,37 @@
             "splashscreen" : {
                 "ios" : {
                     "iphone" : {
-                        "portrait-896h@3x" : "unpackage/images/logo.png",
-                        "landscape-896h@3x" : "unpackage/images/logo.png",
-                        "portrait-896h@2x" : "unpackage/images/logo.png",
-                        "landscape-896h@2x" : "unpackage/images/logo.png",
-                        "iphonex" : "unpackage/images/logo.png",
-                        "iphonexl" : "unpackage/images/logo.png",
-                        "retina55" : "unpackage/images/logo.png",
-                        "retina55l" : "unpackage/images/logo.png",
-                        "retina47" : "unpackage/images/logo.png",
-                        "retina47l" : "unpackage/images/logo.png",
-                        "retina40" : "unpackage/images/logo.png",
-                        "retina40l" : "unpackage/images/logo.png",
-                        "retina35" : "unpackage/images/logo.png"
+                        "portrait-896h@3x" : "",
+                        "landscape-896h@3x" : "",
+                        "portrait-896h@2x" : "",
+                        "landscape-896h@2x" : "",
+                        "iphonex" : "",
+                        "iphonexl" : "",
+                        "retina55" : "",
+                        "retina55l" : "",
+                        "retina47" : "",
+                        "retina47l" : "",
+                        "retina40" : "",
+                        "retina40l" : "",
+                        "retina35" : ""
                     },
                     "ipad" : {
-                        "portrait-1366h@2x" : "unpackage/images/logo.png",
-                        "landscape-1366h@2x" : "unpackage/images/logo.png",
-                        "portrait-1194h@2" : "unpackage/images/logo.png",
-                        "landscape-1194h@2x" : "unpackage/images/logo.png",
-                        "portrait-1112h@2x" : "unpackage/images/logo.png",
-                        "landscape-1112h@2x" : "unpackage/images/logo.png",
-                        "portrait-retina7" : "unpackage/images/logo.png",
-                        "landscape-retina7" : "unpackage/images/logo.png",
-                        "portrait7" : "unpackage/images/logo.png",
-                        "landscape7" : "unpackage/images/logo.png"
+                        "portrait-1366h@2x" : "",
+                        "landscape-1366h@2x" : "",
+                        "portrait-1194h@2" : "",
+                        "landscape-1194h@2x" : "",
+                        "portrait-1112h@2x" : "",
+                        "landscape-1112h@2x" : "",
+                        "portrait-retina7" : "",
+                        "landscape-retina7" : "",
+                        "portrait7" : "",
+                        "landscape7" : ""
                     }
                 },
                 "android" : {
-                    "xxhdpi" : "unpackage/images/logo.png",
-                    "hdpi" : "unpackage/images/logo.png",
-                    "xhdpi" : "unpackage/images/logo.png"
+                    "xxhdpi" : "",
+                    "hdpi" : "",
+                    "xhdpi" : ""
                 }
             }
         }
@@ -160,5 +160,14 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "CXGBZ-JAKWP-K6VDA-LVN22-PEJFK-YWF4H"
+                }
+            }
+        }
     }
 }

@@ -75,7 +75,7 @@
 		computed:{
 			// 校验是否为11位有效手机号
 			isCaptchaOk(){
-				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				var myreg= /^[1][0,1,2,3,4,5,6,7,8,9][0-9]{9}$/;
 				if (!myreg.test(this.phone)) {
 					return false;
 				} else {
@@ -133,9 +133,14 @@
 									console.log('手机号注册返回数据', red)
 									if(red.data.status === 200){
 										// 注册成功
-										uni.navigateTo({
-											url: './login'
+										uni.showToast({
+											title: '注册成功！',
+											success(){
+												_this.login()
+												
+											}
 										})
+										
 									}else{
 										uni.showModal({
 											title: '提示',
@@ -148,6 +153,50 @@
 							uni.showModal({
 								title: '提示',
 								content: res.data.msg
+							})
+						}
+					}
+				})
+			},
+			//直接登录
+			login(){
+				let _this = this
+				uni.showLoading({
+					title: '正在登录...'
+				})
+				uni.request({
+					url: _this.$http + '/api/index/phoneLogin',
+					method: 'POST',
+					data: {
+						phone: _this.phone
+					},
+					success(backres){
+						console.log('验证码用户信息', backres.data.data)
+						if(backres.data.status === 200){
+							uni.hideLoading()
+							// 登录成功
+							_this.$store.commit('setUserInfo', backres.data.data)
+							console.log('l',_this.$store.state.userInfo)
+							uni.setStorage({
+								key: 'userInfo',
+								data: backres.data.data
+							})
+							uni.getStorage({
+								key: 'userInfo',
+								success(res){
+									console.log('本地储存的数据', res)
+								}
+							})
+							// return
+							uni.switchTab({
+								url: '../../index/index'
+							})
+							
+							
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: '登录失败！'
 							})
 						}
 					}

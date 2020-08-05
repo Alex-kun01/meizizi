@@ -64,7 +64,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -104,29 +106,22 @@
 							condition_type: ''
 						}
 						console.log('传递参数', datas)
-						uni.showLoading({
-							title: ''
-						})
 						uni.request({
 							url: _this.$http + '/api/team/myTeam',
 							method: 'POST',
 							data:datas,
 							success(res){
-								uni.hideLoading()
 								console.log('会员-我的团队返回数据', res)
 								if(res.data.status == 200){
-									_this.betCount = res.data.data.bet_count
-									_this.strCount = res.data.data.str_count
+									let {bet_count,str_count,str_data} = res.data.data
+									_this.betCount = bet_count
+									_this.strCount = str_count
 									_this.isLoading = false
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data.str_data
-									}else{
-										_this.showList = _this.showList.concat(res.data.data.str_data)
-									}
+									_this.showList = [..._this.showList,...str_data]
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '数据列表获取失败'
+										content: res.data.msg
 									})
 								}
 							}

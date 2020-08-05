@@ -1,6 +1,14 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 	{
+		"path": "pages/mine/login/firstawait",
+		"style": { 
+			"navigationBarTitleText": "",// 等待页面广告
+			"navigationBarBackgroundColor": "#FFFFFF",
+			"navigationStyle":"custom"
+		}
+	},
+	{
 		"path": "pages/mine/login/login",
 		"style": { 
 			"navigationBarTitleText": "登录" ,// 邀请码
@@ -29,7 +37,34 @@
 			"style": {
 				// "navigationBarTitleText": "购物车"
 				"navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/shopcart/account/StoreInventory",
+			"style": {
+				"navigationBarTitleText": "门店库存",
+				// "navigationStyle":"custom",
 				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/shopcart/account/productList",
+			"style": {
+				"navigationBarTitleText": "商品列表",
+				// "navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/shopcart/account/productDetual",
+			"style": {
+				"navigationBarTitleText": "修改", // 修改商品详情
+				// "navigationStyle":"custom",
+				"navigationBarBackgroundColor": "#FFFFFF"
+				// "enablePullDownRefresh": true
 			}
 		},
 		{
@@ -101,7 +136,8 @@
 			"path": "pages/index/shoplist/hufuarea",
 			"style": {
 				"navigationBarTitleText": "护肤专区",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -115,28 +151,32 @@
 			"path": "pages/index/shoplist/caizhuangvenue",
 			"style": {
 				"navigationBarTitleText": "彩妆会场",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/index/shoplist/huodongarea",
 			"style": {
 				"navigationBarTitleText": "活动专区",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/index/shoplist/caizhuangxilie",
 			"style": {
 				"navigationBarTitleText": "彩妆系列",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/index/shoplist/maijiashow",
 			"style": {
 				"navigationBarTitleText": "买家秀",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -177,7 +217,8 @@
 			"style": {
 				// "navigationBarTitleText": "总监" ,//我的团队-总监
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -191,7 +232,8 @@
 			"path": "pages/mine/member/teacher",
 			"style": {
 				"navigationBarTitleText": "我的商家", // 我的商家-业务员
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -205,8 +247,9 @@
 		{
 			"path": "pages/mine/merchant/mymerchant",
 			"style": {
-				"navigationBarTitleText": "我的商家",//物流商-我的商家
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarTitleText": "我的商家",//物流商-配送管理
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -307,15 +350,17 @@
 			"path": "pages/mine/join/quyujoinmember",
 			"style": { 
 				"navigationBarTitleText": "会员",  //会员团队
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/mine/join/teammentmy",
-			"style": { 
+			"style": {
 				// "navigationBarTitleText": "" ,//  团队管理-我的商家
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -448,7 +493,8 @@
 			"style": { 
 				// "navigationBarTitleText": "全部订单"
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -497,7 +543,8 @@
 			"style": { 
 				// "navigationBarTitleText": "我的钱包"
 				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -532,6 +579,14 @@
 				"navigationBarBackgroundColor": "#FFFFFF"
 				// "navigationStyle":"custom"
 			}
+		}, 
+		{
+			"path": "pages/mine/login/mapshow",
+			"style": { 
+				"navigationBarTitleText": "店铺定位",// 高德地图
+				"navigationBarBackgroundColor": "#FFFFFF"
+				// "navigationStyle":"custom"
+			}
 		},
 		{
 			"path": "pages/mine/login/register",
@@ -541,7 +596,14 @@
 				// "navigationStyle":"custom"
 			}
 		},
-		
+		{
+			"path": "pages/mine/login/protocolinfo",
+			"style": { 
+				"navigationBarTitleText": "",// 协议
+				"navigationBarBackgroundColor": "#FFFFFF"
+				// "navigationStyle":"custom"
+			}
+		},
 		{
 			"path": "pages/mine/member/teacherregion",
 			"style": { 
@@ -574,8 +636,42 @@
 				"navigationBarBackgroundColor": "#FFFFFF"
 				// "navigationStyle":"custom"
 			}
+		},
+		{
+			"path": "pages/mine/newTeam/newteam",
+			"style": { 
+				"navigationBarTitleText": "团队管理", // 新团队管理
+				"navigationBarBackgroundColor": "#FFFFFF"
+				// "navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/mine/newTeam/recommend",
+			"style": { 
+				"navigationBarTitleText": "直推门店", // 新推荐门店
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+				// "navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/mine/newTeam/municipal",
+			"style": { 
+				// "navigationBarTitleText": "市级代理", // 新市级代理
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true,
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/mine/newTeam/appointment",
+			"style": { 
+				"navigationBarTitleText": "任命", // 新任命
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+				// "navigationStyle":"custom"
+			}
 		}
-		
 	],
 	"tabBar": {
 		"color": "#8a8a8a",
@@ -593,13 +689,15 @@
 					"pagePath": "pages/nearbystore/nearbystore",
 					"text": "附近店铺",
 					"iconPath": "static/index/dianpu@2x.png",
-					"selectedIconPath": "static/nearbystore/mendian@3x.png"
+					"selectedIconPath": "static/nearbystore/mendian@3x.png",
+					 "enablePullDownRefresh": true
 				},
 			{
 					"pagePath": "pages/shopcart/shopcart",
 					"text": "购物车",
 					"iconPath": "static/index/gouwuche@2x.png",
-					"selectedIconPath": "static/index/gouwuche@8x.png"
+					"selectedIconPath": "static/index/gouwuche@8x.png",
+					 "enablePullDownRefresh": true
 				},
 			{
 					"pagePath": "pages/mine/mine",

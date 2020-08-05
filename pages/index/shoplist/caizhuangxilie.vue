@@ -77,7 +77,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				background: ['color1', 'color2', 'color3'],

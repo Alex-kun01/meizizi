@@ -7,7 +7,7 @@
 				<image style="width: 23rpx;height: 36rpx;" src="../../../static/index/fanhui@2x.png" mode=""></image>
 			</view>
 			<view @click="changeIndex(1)" :class="{item:true,active: isActive === 1}">
-				加盟店（50）
+				直推加盟店（50）
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
 				会员（50）

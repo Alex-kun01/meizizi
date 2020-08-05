@@ -7,6 +7,12 @@
 			<image v-else :src="imgUrl" class="navar"  mode=""></image>
 			<image @click="editAvtar" class="edit" src="../../../static/mine/xiugaitouxiang@2x.png" mode=""></image>
 		</view>
+		<view class="item">
+			<view class="title">
+				手机号
+			</view>
+			<input disabled type="text"  v-model="userInfo.phone" />
+		</view>
 		
 		<view class="item">
 			<view class="title">
@@ -14,6 +20,7 @@
 			</view>
 			<input type="text"  v-model="userInfo.nickName" placeholder="输入名字" />
 		</view>
+		
 		<view class="item">
 			<view class="title">
 				生日
@@ -26,13 +33,13 @@
 			<view class="title">
 				微信
 			</view>
-			<input type="text"  v-model="userInfo.weixin" placeholder="输入名字" />
+			<input type="text"  v-model="userInfo.weixin" placeholder="输入微信名" />
 		</view>
 		<view class="item">
 			<view class="title">
 				详细地址
 			</view>
-			<input type="text"  v-model="userInfo.address" placeholder="输入名字" />
+			<input type="text"  v-model="userInfo.address" placeholder="输入详细地址" />
 		</view>
 		<view class="item">
 			<view class="title">
@@ -98,7 +105,13 @@
 			console.log('我现在的日期', this.isXiugai)
 		},
 		onShow(){
-			
+			// uni.getStorage({
+			// 	key: 'userInfo',
+			// 	success(res){
+			// 		console.log('查看本地的userInfo',res)
+			// 		//mineButton
+			// 	}
+			// })
 		},
 		methods:{
 			// 初始化页面
@@ -109,6 +122,7 @@
 					success(res){
 						console.log('初始化页面数据', res)
 						_this.userInfo.nickName = res.data.nickname
+						_this.userInfo.phone = res.data.phone
 						if(res.data.sex == 1){
 							_this.current = 0
 							_this.userInfo.sex = '男'
@@ -141,6 +155,8 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(res){
+						console.log('本地数据',res)
+						let userInfo1 = res.data
 						datas.token = res.data.token
 						datas.avatar = _this.imgUrl	
 						datas.sex = _this.userInfo.sex == '男' ? 1 : 2
@@ -168,17 +184,16 @@
 									uni.showToast({
 										title: ref.data.msg
 									})
-									// return
 									console.log('token', res.data.token	)
 									
 									let bData = ref.data.data
-									console.log('bData', bData)
-									bData.token = res.data.token
-									// return
+									// bData.token = res.data.token
+									let targetData = Object.assign(userInfo1,bData)
+									console.log('targetData',targetData)
 									// 更新本地userInfo
 									uni.setStorage({
 										key: 'userInfo',
-										data: bData
+										data: targetData
 									})
 									setTimeout(()=>{
 										uni.switchTab({
@@ -295,7 +310,7 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 24rpx;
-				border-bottom: 1rpx solid #ECECEC;
+				border-bottom: 1rpx solid #DDDDDD;
 				.title{
 					font-size: 30rpx;
 					color: #969696;
@@ -308,7 +323,7 @@
 					color: #383838;
 				}
 				input,.uni-input{
-					font-size: 24rpx;
+					font-size: 28rpx;
 					color: #8A8A8A;
 				}
 			}

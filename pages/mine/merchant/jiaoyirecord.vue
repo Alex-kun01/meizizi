@@ -5,9 +5,9 @@
 		<view class="show_list"
 		v-if="showList.length != 0"
 		>
-		<view class="">
+		<!-- <view class="">
 			物流商交易记录
-		</view>
+		</view> -->
 			<view class="item"
 			v-for="(item, index) in showList"
 			:key='index'
@@ -31,9 +31,7 @@
 						{{item.need_time.substring(0,10)}}
 					</view>
 					<view class="tap_type">
-						<text v-if="item.order_status == 1">未发货</text>
-						<text v-if="item.order_status == 2">已发货</text>
-						<text v-if="item.order_status == 3">已收货</text>
+						<text>{{statusList[+item.order_status].name}}</text>
 					</view>
 				</view>
 			</view>
@@ -50,19 +48,30 @@
 		data () {
 			return {
 				showList: [],
-					page: 1,
-					limit:10,
-					isLoading: false,
-					opt: {}
-					
+				page: 1,
+				limit:10,
+				isLoading: false,
+				opt: {},
+				statusList: [{name:'数据错误'},{name:'未发货'},{name:'已发货'},{name:'已收货'}]
 			}
 		},
 		onLoad(opt){
 			this.opt = opt
+			this.showList = []
 			this.getData()
+			setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
 		},
-		onShow(){
-			
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			this.showList = []
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		},
 		methods:{
 			getData(){
@@ -77,23 +86,24 @@
 							shop_id: _this.opt.id
 						}
 						console.log('交易记录参数', datas)
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/user/getShopOrderList',
 							method:'GET',
 							data:datas,
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								_this.isLoading = false
 								console.log('交易记录返回数据',res)
 								if(res.data.status === 200){
-									if(_this.showList.length === 0){
-										_this.showList = res.data.data
-									}else{
-										_this.showList = _this.showList.concat(res.data.data) 
-									}
+									_this.showList = [..._this.showList,...res.data.data]
+								}else{
+									uni.showModal({
+										title: '提示',
+										content: res.data.msg
+									})
 								}
 							}
 						})
@@ -180,9 +190,9 @@
 							height:34rpx;
 							line-height: 34rpx;
 							text-align: center;
-							color: #FF7A2D;
+							color: #FFFFFF;
+							background-color: #FF7A2D;
 							font-size: 22rpx;
-							border:1rpx solid rgba(255,122,45,1);
 							border-radius:17rpx;
 						}
 					}

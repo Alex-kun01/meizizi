@@ -69,15 +69,19 @@
 			</view>
 			<view class="item">
 				<view class="title">
-					<text>详细地址</text>
-					<input style="padding-left: 20rpx;" type="text"  v-model="merchantInfo.address" placeholder="请输入地址" />
+					<text style="margin-right: 10rpx;">详细地址</text>
+					<view style="width: 500rpx;20rpx;"
+						@click="gotoChooseLocation('regin')"
+					>
+						{{merchantInfo.address}}
+					</view>
+					<!-- <input style="padding-left: 20rpx;" type="text"  v-model="merchantInfo.address" placeholder="请输入地址" /> -->
 				</view>
 			</view>
-			<view class="address">
+			<!-- <view class="address">
 				<image src="../../../static/mine/dinwei@2x.png" mode=""></image>
 				<text>{{address}}</text>
-			</view>
-			
+			</view> -->
 		</view>
 		<!-- 门头照片 -->
 		<view class="pic_box">
@@ -177,7 +181,7 @@
 					recCode: '', //推荐码
 					name: '', //姓名
 					phone: '', // 
-					address: '', // 
+					address: '选择店铺位置', // 
 					captcha: '', // 验证码
 					wx_name: '', // 微信
 					storeName: '', // 店铺名
@@ -202,10 +206,17 @@
 			},
 			// 是否具备提交条件
 			isSubmitOk(){
-				if(!this.merchantInfo.recCode || !this.merchantInfo.name || !this.merchantInfo.storeName || !this.merchantInfo.phone || !this.merchantInfo.address || !this.merchantInfo.captcha){
+				if(!this.merchantInfo.recCode || !this.merchantInfo.name || !this.merchantInfo.storeName || !this.merchantInfo.phone || !this.merchantInfo.captcha){
 					uni.showModal({
 						title: '提示',
 						content: '信息填写有误'
+					})
+					return false
+				}
+				if(this.merchantInfo.address == '选择店铺位置'){
+					uni.showModal({
+						title: '提示',
+						content: '请选择店铺位置'
 					})
 					return false
 				}
@@ -234,7 +245,7 @@
 			},
 			// 校验是否为11位有效手机号
 			isCaptchaOk(){
-				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				var myreg=/^[1][0-9][0-9]{9}$/;
 				if (!myreg.test(this.merchantInfo.phone)) {
 					return false;
 				} else {
@@ -254,10 +265,15 @@
 			}
 		},
 		onLoad(){
-			this.mgetLocation()
+			
+			// this.mgetLocation()
 		},
 		onShow(){
-			
+			let temp = this.$store.state.locationInfo
+			console.log('vuex参数', temp)
+			this.merchantInfo.address = temp.address
+			this.lat = temp.la
+			this.lng = temp.lg
 		},
 		methods:{
 			// 提交按钮
@@ -297,62 +313,95 @@
 							return
 						}else{
 							console.log('满足注册条件')
-							//获取位置信息
-							uni.getLocation({
-								type: 'gcj02',
-								geocode:true,
-								success(amp){
-									_this.lat = amp.longitude
-									_this.lng = amp.latitude
-									let datas = {
-										code: _this.merchantInfo.recCode,//推荐码
-										name: _this.merchantInfo.name,//姓名
-										phone: _this.merchantInfo.phone,// 电话
-										wx_name: _this.merchantInfo.wx_name, // 微信
-										address: _this.merchantInfo.address,//地址
-										long_number: amp.longitude,//经度
-										lati_number: amp.latitude,//纬度
-										front_img: _this.mentouStr, //门面照片
-										business_img: _this.licenseUrl, //营业执照	
-										province: _this.shenAreaId, // 省code
-										city: _this.cityAreaId, // 市code
-										area: _this.quAreaId, // 区code
-										type: _this.pickerIndex, // 
-										company: _this.merchantInfo.storeName, // 店铺名字
-										logo: _this.licenseUrl3, // 店铺logo
+							let datas = {
+								code: _this.merchantInfo.recCode,//推荐码
+								name: _this.merchantInfo.name,//姓名
+								phone: _this.merchantInfo.phone,// 电话
+								wx_name: _this.merchantInfo.wx_name, // 微信
+								address: _this.merchantInfo.address,//地址
+								long_number: _this.lng,//经度
+								lati_number: _this.lat,//纬度
+								front_img: _this.mentouStr, //门面照片
+								business_img: _this.licenseUrl, //营业执照	
+								province: _this.shenAreaId, // 省code
+								city: _this.cityAreaId, // 市code
+								area: _this.quAreaId, // 区code
+								type: _this.pickerIndex, // 
+								company: _this.merchantInfo.storeName, // 店铺名字
+								logo: _this.licenseUrl3, // 店铺logo
+							}
+							console.log('传递参数', datas)
+							// return
+							uni.request({
+								url: _this.$http + '/api/index/addShop',
+								method: 'POST',
+								data: datas,
+								success(okres){
+									console.log('okres', okres)
+									if(okres.data.status == 200){
+										uni.showModal({
+											title: '提示',
+											content: '注册成功！'
+										})
+										_this.login()
+									}else{
+										uni.showModal({
+											title: '提示',
+											content: okres.data.msg || '注册失败'
+										})
 									}
-									console.log('传递参数', datas)
-									// return
-									uni.request({
-										url: _this.$http + '/api/index/addShop',
-										method: 'POST',
-										data: datas,
-										success(okres){
-											console.log('okres', okres)
-											if(okres.data.status == 200){
-												uni.showModal({
-													title: '提示',
-													content: '注册成功！'
-												})
-												setTimeout(()=>{
-													uni.navigateTo({
-														url: './login'
-													})
-												}, 1300)
-											}else{
-												uni.showModal({
-													title: '提示',
-													content: okres.data.msg || '注册失败'
-												})
-											}
-										}
-									})
-									
-									
 								}
+							})
+						}
+					}
+				})
+			},
+			// 跳转选择店铺位置
+			gotoChooseLocation(type){
+				uni.navigateTo({
+					url: './mapshow?type=' + type
+				})
+			},
+			//直接登录
+			login(){
+				let _this = this
+				uni.showLoading({
+					title: '正在登录...'
+				})
+				uni.request({
+					url: _this.$http + '/api/index/phoneLogin',
+					method: 'POST',
+					data: {
+						phone: _this.merchantInfo.phone
+					},
+					success(backres){
+						console.log('验证码用户信息', backres.data.data)
+						if(backres.data.status === 200){
+							uni.hideLoading()
+							// 登录成功
+							_this.$store.commit('setUserInfo', backres.data.data)
+							console.log('l',_this.$store.state.userInfo)
+							uni.setStorage({
+								key: 'userInfo',
+								data: backres.data.data
+							})
+							uni.getStorage({
+								key: 'userInfo',
+								success(res){
+									console.log('本地储存的数据', res)
+								}
+							})
+							// return
+							uni.switchTab({
+								url: '../../index/index'
 							})
 							
 							
+						}else{
+							uni.showModal({
+								title: '提示',
+								content: '登录失败！'
+							})
 						}
 					}
 				})
@@ -401,15 +450,15 @@
 			},
 			// 地址选择
 			addresspick(obj) {
-				console.log('城市', obj)
-				this.shenAreaId = obj.province.AreaId // 省code
-				this.cityAreaId = obj.city.AreaId // 市code
-				this.quAreaId = obj.area.AreaId // 区code
+				console.log('我看看看看城市', obj)
+				this.shenAreaId = obj.province.id // 省code
+				this.cityAreaId = obj.city.id // 市code
+				this.quAreaId = obj.area.id // 区code
 				let arr = [ 'province', 'city', 'area'];
 				let place = '';
 				arr.map(key => {
 					this.form[key] = obj[key].AreaId
-					place += obj[key].AreaName
+					place += obj[key].name
 				})
 				this.address1 = place
 			},
@@ -534,13 +583,17 @@
 					align-items: center;
 					border-bottom: 1rpx solid #eee;
 					.getCaptcha{
-						width: 150rpx;
+						width: 180rpx;
 						border: 1rpx solid #999;
 						border-radius: 5rpx;
 						font-size: 28rpx;
 						text-align: center;
 						padding: 0 10rpx;
 						margin-left: 130rpx;
+						.bbx_show{
+							width: auto;
+							// background-color: pink;
+						}
 					}
 					image{
 						width: 28rpx;

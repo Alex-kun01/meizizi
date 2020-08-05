@@ -51,6 +51,27 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						if(reg.data.tourist){
+							
+							uni.showModal({
+								title: '提示',
+								content: '游客没有该权限，是否去登录？',
+								success(rr){
+									console.log('rr',rr)
+									if(rr.confirm){
+										uni.redirectTo({
+											url: '../login/login'
+										})
+									}
+									if(rr.cancel){
+										uni.switchTab({
+											url: '../../index/index'
+										})
+									}
+								}
+							})
+							return
+						}
 						uni.showLoading({
 							title: '加载中...'
 						})
@@ -76,7 +97,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '消息列表数据获取失败！'
+										content: res.data.msg
 									})
 									_this.isLoading = false
 								}

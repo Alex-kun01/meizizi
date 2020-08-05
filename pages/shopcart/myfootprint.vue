@@ -37,7 +37,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				// 今日查看列表
@@ -47,12 +49,24 @@
 				isLoading: false,
 			}
 		},
-		onLoad(){
-			this.getData()
-		},
-		onShow(){
-			
-		},
+		// onLoad(){
+		// 	this.showList = []
+		// 	this.getData()
+		// 	  setTimeout(function () {
+		// 		console.log('start pulldown');
+		// 	}, 1000);
+		// 	uni.startPullDownRefresh();
+		// },
+		// // 下拉刷新
+		// onPullDownRefresh(){
+		// 	console.log('混入-下拉刷新')
+		// 	this.page = 1
+		// 	this.showList = []
+		// 	this.getData()
+		// 	 setTimeout(function () {
+		// 		uni.stopPullDownRefresh();
+		// 	}, 1000);
+		// },
 		methods:{
 			gotoDetauls(item){
 				console.log('item', item)
@@ -87,16 +101,12 @@
 								uni.hideLoading()
 								console.log('足迹列表数据',res)
 								if(res.data.status == 200){
-									if(_this.showList.length === 0){
-										_this.showList = res.data.data
-									}else{
-										_this.showList = _this.showList .concat(res.data.data) 
-									}
+									_this.showList = [..._this.showList, ...res.data.data]
 									_this.isLoading = false
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '足迹列表数据获取失败'
+										content: res.data.msg
 									})
 								}
 								

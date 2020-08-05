@@ -21,16 +21,6 @@
 			v-for="(item, index) in shopList"
 			:key='index'
 			>
-				<!-- <view class="top_title"> -->
-					<!-- <view class="yuan"
-					@click="chooseStore(item)"
-					>
-						<image v-if="showStore.includes(item.storeId)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
-					</view> -->
-					<!-- <view class="title">
-						{{item.shopName}}
-					</view> -->
-				<!-- </view> -->
 				
 				<view class="con_info">
 					
@@ -104,14 +94,12 @@
 						
 						<view class="bom_btn">
 							<view style="display: flex;align-items: center;">
-								<image style="width: 21rpx;height: 21rpx;margin-right: 15rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image>
+								<image style="width: 21rpx;height: 21rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image>
 								<view class="fukuan">
-									￥{{item.price}}
+									<text style="margin-right: 15rpx;">￥{{item.vip_price}}</text>
+									<text>￥{{item.price}}</text>
 								</view>
 							</view>
-							<!-- <view class="more">
-								相似
-							</view> -->
 						</view>
 					</view>
 				</view>
@@ -186,13 +174,15 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data() {
 			return {
 				isMg: false, // 是否是管理模式
 				isDeleteShow: false, // 控制删除提示弹出层显示
 				allActive: false, //全选 控制
-				showThing: [], // 被选中的商品列表
+				showThing: [], // 被选中的商品列表 
 				shopList: [],
 				goodsList: [], // goods_id
 				likeList: [],
@@ -220,12 +210,6 @@
 				return false
 			}
 		},
-		onLoad() {
-			
-		},
-		onShow(){
-			this.getData()
-		},
 		methods: {
 			
 			// 获取列表数	
@@ -234,6 +218,28 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						console.log('pppp',reg)
+						if(reg.data.tourist){
+							
+							uni.showModal({
+								title: '提示',
+								content: '游客没有该权限，是否去登录？',
+								success(rr){
+									console.log('rr',rr)
+									if(rr.confirm){
+										uni.redirectTo({
+											url: '../mine/login/login'
+										})
+									}
+									if(rr.cancel){
+										uni.switchTab({
+											url: '../index/index'
+										})
+									}
+								}
+							})
+							return
+						}
 						uni.showLoading({
 							title: ''
 						})
@@ -254,7 +260,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '列表数据获取失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -356,6 +362,9 @@
 											uni.showToast({
 												title: '删除成功'
 											})
+											_this.showThing = []
+											_this.goodsList = []
+											_this.storeList = []
 											_this.getData()
 											_this.isDeleteShow = false
 										}
@@ -371,8 +380,9 @@
 			},
 			gotoDetauls(item){
 				console.log('item', item)
+				let img = item.image
 				uni.navigateTo({
-					url: '../index/productdetails?id=' + item.id
+					url: '../index/productdetails?id=' + item.id + '&img=' + img
 				})
 			},
 			// 根据数组 和值 返回该值在数组中的下标
@@ -394,7 +404,7 @@
 					let index = this.isHasElementOne(this.showThing, item.id)
 					console.log('原来数组',this.showThing)
 					console.log('返回的下标',index)
-					this.showThing.splice(index, 1)
+					this.showThing.splice(index,1)
 					this.goodsList.splice(index,1)
 					this.storeList.splice(index,1)
 					
@@ -738,6 +748,7 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 0 25rpx;
+				margin-bottom: 100rpx;
 				.like{
 					display: flex;
 					justify-content: center;

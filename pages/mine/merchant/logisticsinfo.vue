@@ -57,12 +57,12 @@
 					<text>{{info.user_count}}</text>
 				</view>
 			</view>
-			<view :class="{item:true, active: isActive == 3}" @click="changeIndex(3)">
+			<view :class="{item:true, active: isActive == 4}" @click="changeIndex(4)">
 				<view class="title">
-					收益
+					复购瓶数
 				</view>
 				<view class="info">
-					<text>{{info.income_count}}</text>
+					<text>{{info.repeat_count}}</text>
 				</view>
 			</view>
 		</view>
@@ -111,40 +111,31 @@
 							<text>入会时间：{{item.member_time}}</text>
 						</view>
 					</view>
-					<view class="r_shouyi">
-						收益:{{item.benefit}}
+					<view class="r_shouyi" >
+						收益:
+						<view>
+							{{item.benefit}}
+						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 		<!-- 显示区域 收益 -->
-		<view class="shipping_box box_i" v-if='isActive == 3'>
+		<view class="shipping_box box_i" v-if='isActive == 4'>
 			<view class="item"
-			v-for="(item, index) in income_list"
+			v-for="(item, index) in repeat_list"
 			:key='index'
 			>
-			<view class="left">
-				<!-- <image :src="item.image" mode=""></image> -->
-				<view class="content_l">
-					<view style="color: #333333;font-weight: 500;">
-						<text>{{item.content}}</text>
+				<image class="avatar" :src="item.avatar" mode=""></image>
+				<view class="right_con">
+					<view class="top">
+						用户{{item.account}}在{{item.company}}购买了{{item.money}}元
 					</view>
-					<!-- <view style="font-size: 24rpx;margin-top: 20rpx;">
-						<text>订单编号：</text>
-						<text>{{item.orderNum}}</text>
-					</view> -->
+					<view class="bom">
+						<text>{{item.member_time}}</text>
+						<text style="color: #FF792C;">复购瓶数:{{item.pay_count}} 瓶</text>
+					</view>
 				</view>
-			</view>
-			<view class="right">
-				<view style="color: #FF792C;font-weight: 500;">
-					<text v-if="item.type == 1">收入：</text>
-					<text v-if="item.type == 2">支出：</text>
-					{{item.money}}
-				</view>
-				<view style="font-size: 22rpx;margin-top: 20rpx;">
-					{{item.add_time}}
-				</view>
-			</view>
 			</view>
 		</view>
 		<view class="loading" v-if="isLoading">
@@ -155,7 +146,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -164,7 +157,7 @@
 				isLoading: true,
 				opt: {},
 				info: {},
-				income_list: [], // 总收益列表
+				repeat_list: [], // 总收益列表
 				titleList: ['商品名','单价','现有库存','所需库存','报警线',],
 				// 总库存展示列表
 				showList: [],
@@ -178,7 +171,7 @@
 		onLoad(opt){
 			console.log('opt',opt)
 			this.opt = opt
-			this.getData()
+			// this.getData()
 		},
 		onShow(){
 			
@@ -197,40 +190,27 @@
 							give_type: _this.isActive
 						}
 						console.log('传递参数', datas)
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/user/cityShopDetails',
 							method: 'GET',
 							data: datas,
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								_this.isLoading = false
 								console.log('我的商家详情返回数据', res)
 								if(res.data.status == 200){
-									_this.info = res.data.data.shop_info
-									if(_this.income_list.length == 0){
-										_this.income_list = res.data.data.income_list
-									}else{
-										_this.income_list = _this.income_list.concat(res.data.data.income_list)
-									}
-									if(_this.product_list.length == 0){
-										_this.product_list = res.data.data.product_list 
-									}else{
-										_this.product_list = _this.product_list.concat(res.data.data.product_list)  
-									}
-									if(_this.user_list.length == 0){
-										_this.user_list = res.data.data.user_list 
-									}else{
-										_this.user_list = _this.user_list.concat(res.data.data.user_list ) 
-									}
-									
-									
+									let {shop_info,repeat_list,product_list,user_list} = res.data.data
+									_this.info = shop_info
+									_this.repeat_list  = [..._this.repeat_list,...repeat_list]
+									_this.product_list = [..._this.product_list,...product_list]
+									_this.user_list = [..._this.user_list,...user_list]
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据列表失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -252,7 +232,7 @@
 				}else{
 					// 非点击当前菜单
 					this.product_list = []
-					this.income_list = []
+					this.repeat_list = []
 					this.user_list =[]
 					this.isActive = index
 					this.getData()
@@ -478,22 +458,22 @@
 					align-items: center;
 					border-bottom: 1rpx solid #ddd;
 					padding: 24rpx 0;
-					.left{
-						display: flex;
-						align-items: center;
-						.content_l{
-							text{
-								font-size: 28rpx;
-							}
-						}
-						image{
-							width: 104rpx;
-							height: 104rpx;
-							margin-right: 24rpx;
-						}
+					.avatar{
+						max-width: 120rpx;
+						height: 120rpx;
 					}
-					.right{
-						font-size: 28rpx;
+					.right_con{
+						min-height: 100rpx;
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						box-sizing: border-box;
+						padding-left: 24rpx;
+						.bom{
+							display: flex;
+							justify-content: space-between;
+						}
 					}
 				}
 			}

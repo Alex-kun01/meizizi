@@ -10,7 +10,7 @@
 				市级代理（50）
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
-				加盟店（50）
+				直推加盟店（50）
 			</view>
 		</view>
 		<!-- 市级代理 -->
@@ -60,7 +60,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 

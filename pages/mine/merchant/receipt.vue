@@ -80,7 +80,7 @@
 			}else{
 				this.isConfirm = false
 			}
-			this.getData()
+			// this.getData()
 		},
 		onShow(){
 			
@@ -109,7 +109,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据失败'
+										content: res.data.msg
 									})
 								}
 							}

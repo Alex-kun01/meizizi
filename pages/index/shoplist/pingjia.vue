@@ -30,17 +30,18 @@
 			</view>
 		</view>
 		
-		<view class="show_list">
+		<view class="show_list"
+		v-if="showList.length != 0"
+		>
 			<view class="item"
 			v-for="(item, index) in showList"
 			:key="index"
 			>
 				<view class="top_name">
-					<image style="width: 35rpx;height: 35rpx;" :src="item.avatar" mode=""></image>
-					<text>{{item.name}}</text>
+					<image style="width: 35rpx;height: 35rpx;margin-right: 13rpx;" :src="item.avatar" mode=""></image>
+					<text style="font-weight: 500;color: #000000;">{{item.nickname}}</text>
 				</view>
 				<view class="title">
-					<!-- <text>{{item.day}}</text> -->
 					<text>{{item.add_time}}</text>
 				</view>
 				<view class="text">
@@ -48,7 +49,7 @@
 				</view>
 				<view class="piv_lis">
 					<image
-					v-for="(pic, inx) in item.pics || []"
+					v-for="(pic, inx) in item.picture || []"
 					:key="inx"
 					 :src="pic" mode=""></image>
 				</view>
@@ -106,17 +107,25 @@
 					success(res){
 						console.log('评价列表返回数据',res)
 						if(res.data.status === 200){
-							_this.haoping = res.data.data.ex_count
-							_this.zhongping = res.data.data.in_count
-							_this.chaping = res.data.data.di_count
+							let {ex_count,in_count,di_count,eva_list} = res.data.data
+								
+							_this.haoping = ex_count
+							_this.zhongping = in_count
+							_this.chaping = di_count
 							
-							_this.showList = res.data.data.eva_list
+							// _this.haoping = res.data.data.ex_count
+							// _this.zhongping = res.data.data.in_count
+							// _this.chaping = res.data.data.di_count
+							// let arr = res.data.data.eva_list
 							
-							_this.showList.forEach(item =>{
-								console.log('每一项', item)
-								item.add_time = new Date(item.add_time).toLocaleString().replace(/:\d{1,2}$/,' ') 
-								item.avatar = 'http://192.168.31.14' + item.avatar
-							})
+							if(_this.showList.length == 0){
+								_this.showList = eva_list
+							}else{
+								_this.showList = _this.showList.concat(eva_list) 
+							}
+							
+							
+							
 						}else{
 							uni.showModal({
 								title: '提示',
@@ -131,6 +140,7 @@
 				this.isShow = !this.isShow
 			},
 			chooseTap(index){
+				this.showList = []
 				this.isActive = index
 				this.getData()
 			},
@@ -224,7 +234,7 @@
 					.title{
 						color: #666666;
 						font-size: 22rpx;
-						// font-weight: 500;
+						font-weight: 500;
 						box-sizing: border-box;
 						padding-left: 70rpx;
 						margin: 15rpx 0;
@@ -232,9 +242,9 @@
 					.text{
 						box-sizing: border-box;
 						padding: 0 24rpx;
-						font-weight: 500;
+						// font-weight: 500;
 						font-size: 26rpx;
-						color: #3C3C3C;
+						color: #99999;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						display: -webkit-box;

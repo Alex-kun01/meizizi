@@ -4,16 +4,13 @@
 		<!-- 顶部区域 -->
 		<view class="top_box">
 			<view class="top_bar">
-				<view></view>
+				<view style="width: 80rpx;"></view>
 				<view style="color: #FFFFFF;font-size: 36rpx;font-weight: 400;">个人中心</view>
 				<view class="btn">
 					<view class="lingdang"
 					 @click="gotoTarget('./set/news')" 
 					>
 							<image style="width: 32rpx;height: 34rpx;" src="../../static/mine/xiaoxi@2x.png" mode=""></image>
-							<!-- <view class="mesInfo">
-								1
-							</view> -->
 					</view>
 					<image @click="gotoTarget('./set/setup')" style="width: 35rpx;height: 35rpx;margin-left: 25rpx;" src="../../static/mine/shezhi@2x.png" mode=""></image>
 				</view>
@@ -24,14 +21,16 @@
 					<view class="mine_f">
 						<view class="mine_name">
 							<text class="name">{{nickName}}</text>
-							<image style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="../../static/mine/huiyuan@2x.png" mode=""></image>
+							<image v-if="isMember" style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="../../static/mine/huiyuan@2x.png" mode=""></image>
 						</view>
 						<view class="date">
 							{{birthday}}
 						</view>
 					</view>
 					</view>
-					<view class="tuijianma"
+					
+					<!-- 推荐码 -->
+				<view class="tuijianma"
 				@click="rqCodeOpen"
 				>
 					<image style="width: 49rpx;height: 49rpx;" src="../../static/mine/erweima@2x.png" mode=""></image>
@@ -39,6 +38,8 @@
 						推荐码
 					</view>
 				</view>
+				
+				
 			</view>
 			<view class="shoucahng">
 				<view class="item"
@@ -55,14 +56,14 @@
 					<text class="num">{{foot_count}}</text>
 				</view>
 			</view>
-			<view class="my_order">
+			<view class="my_order"  @click="gotoTarget('../shopcart/allorder')">
 				<view class="left">
 					<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/dingdan@2x.png" mode=""></image>
 					<view class="order">
 						我的订单
 					</view>
 				</view>
-				<view class="right" @click="gotoTarget('../shopcart/allorder')">
+				<view class="right">
 					<text class="lookAllOrder">查看全部订单</text>
 					<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
 				</view>
@@ -147,6 +148,21 @@
 			</view>
 		</view>
 		
+		<view class="item line"
+		@click="gotoTarget2(5)"
+		v-if="mineButton.includes('产品库存设置')"
+		>
+			<view class="left">
+				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wuliu.png" mode=""></image>
+				<view class="menu_name">
+					产品库存设置
+				</view>
+			</view>
+			<view class="right">
+				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+			</view>
+		</view>
+		
 		<view class="item bom"
 		@click="gotoTarget('./set/helpcenter')"
 		>
@@ -210,6 +226,7 @@
 				mineButton: [],
 				coll_count: 0, //收藏数量
 				foot_count: 0, //足迹数量
+				isMember: false, // 是否是会员
 			}
 		},
 		onLoad() {
@@ -227,6 +244,9 @@
 					_this.mineButton = res.data.mineButton || []
 					_this.character = res.data.group_id
 					_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
+					if(res.is_member == 1){
+						_this.isMember = true
+					}
 				}
 			})
 		},
@@ -239,6 +259,27 @@
 						_this.nickName = res.data.nickname || '暂无昵称'
 						_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
 						_this.birthday = res.data.birthday//.substring(0,10)
+						if(res.data.tourist){
+							
+							uni.showModal({
+								title: '提示',
+								content: '游客没有该权限，是否去登录？',
+								success(rr){
+									console.log('rr',rr)
+									if(rr.confirm){
+										uni.redirectTo({
+											url: '../mine/login/login'
+										})
+									}
+									if(rr.cancel){
+										uni.switchTab({
+											url: '../index/index'
+										})
+									}
+								}
+							})
+							return
+						}
 						// 收藏夹 足迹
 						uni.request({
 							url: _this.$http + '/api/index/info',
@@ -252,7 +293,10 @@
 									_this.coll_count = reg.data.data.coll_count
 									_this.foot_count = reg.data.data.foot_count
 								}else{
-									
+									uni.showModal({
+										title: '提示',
+										content: reg.data.msg
+									})
 								}
 							}
 						})
@@ -268,6 +312,7 @@
 			},
 			// 不同角色跳转不同页面
 			gotoTarget2(index){
+				console.log('xx',index,this.character)
 				// index = 1 我的团队 2 我的商家 3 团队管理
 				let url = ''
 				if(index === 1){
@@ -281,9 +326,13 @@
 					        // 加盟店
 					        url = './join/joinmyteamtuijian'
 					        break;
+						 default: uni.showModal({
+										title: '警告',
+										content: '您没有该权限！'
+									})
 					} 
 				}
-				if(index === 2){
+				else if(index === 2){
 					//我的商家
 					switch(this.character) {
 						case 2:
@@ -296,7 +345,9 @@
 					        break;
 					     case 4:
 						 	// 物流商
+							// 改整
 					        url = './merchant/mymerchantx?show=' + 1
+					        // url = './merchant/mymerchant'
 					        break;
 						 case 5:
 							// 团队管理
@@ -306,21 +357,39 @@
 						 // 业务员/讲师
 						 url = './member/teacher'
 						 break;
+						 default: uni.showModal({
+						 			title: '警告',
+						 			content: '您没有该权限！'
+						 		})
 					} 
 				}
-				if(index === 3){
+				else if(index === 3){
 					// 团队管理
 					switch(this.character) {
 						case 5:
 							// 团队管理
-							url = './member/myteam'
+							url = './newTeam/newteam'
 							break;
+						default: uni.showModal({
+									title: '警告',
+									content: '您没有该权限！'
+								})
 					} 
 				}
-				if(index === 4){
+				else if(index === 4){
 					// 配送管理
 					url = './merchant/mymerchant'
 				}
+				else if (index === 5){
+					// 产品库存设置
+					url = '../shopcart/account/StoreInventory'
+				}else {
+					uni.showModal({
+						title: '警告',
+						content: '您没有该权限！'
+					})
+				}
+				
 				uni.navigateTo({
 					url: url
 				})
@@ -417,12 +486,14 @@
 				.rqcodepic{
 					width: 400rpx;
 					height: 400rpx;
+					margin-top: 30rpx;
 				}
 				.box{
 					width: 100%;
-					height: 50%;
+					height: 100%;
 					padding: 60rpx 0;
 					background-color: #FFFFFF;
+					// background-color: pink;
 					position: absolute;
 					bottom: -60rpx;
 					display: flex;
@@ -431,10 +502,12 @@
 					.position{
 						// background-color: pink;
 						width: 500rpx;
-						height: 500rpx;
+						// height: 500rpx;
 						text-align: center;
+						margin-bottom: 100rpx;
 						.code_box{
 							margin-top: 30rpx;
+							margin-bottom: 30rpx;
 							
 						}
 					}
@@ -618,7 +691,7 @@
 				height: 323rpx;
 				box-sizing: border-box;
 				padding: 0 25rpx;
-				margin: 18rpx 0;
+				margin: 18rpx 0 0 25rpx;
 				image{
 					width: 700rpx;
 					height: 323rpx;

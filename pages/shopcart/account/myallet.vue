@@ -20,10 +20,10 @@
 					余额(元)
 				</view>
 				<view class="price">
-					￥{{price}}
+					￥{{allPrice}}
 				</view>
 			</view>
-			<!-- <view class="float_box">
+			<view class="float_box">
 				<view class="t_title">
 					<image src="../../../static/shopcart/wodeshouyi@2x.png" mode=""></image>
 					<text>我的收益</text>
@@ -31,7 +31,7 @@
 				<view class="menu_list">
 					<view class="item">
 						<view class="price_i">
-							￥0.00
+							￥{{now_money}}
 						</view>
 						<view class="text">
 							可提现
@@ -39,13 +39,13 @@
 					</view>
 					<view class="item">
 						<view class="price_i">
-							￥0.00
+							￥{{frozen_money}}
 						</view>
 						<view class="text">
 							不可提现
 						</view>
 					</view>
-					<view class="item">
+				<!-- 	<view class="item">
 						<view class="price_i">
 							￥0.00
 						</view>
@@ -60,9 +60,9 @@
 						<view class="text">
 							今日到账
 						</view>
-					</view>
+					</view> -->
 				</view>
-			</view> -->
+			</view>
 		</view>
 		<!-- 菜单项 -->
 		<view class="option_list">
@@ -88,17 +88,16 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
-				price: 0.00
+				allPrice: 0.00, // 总余额
+				now_money: 0.00, // 余额
+				frozen_money: 0.00, // 不可提现余额
+				
 			}
-		},
-		onLoad(){
-			this.getData()
-		},
-		onShow(){
-			
 		},
 		methods:{
 			getData(){
@@ -115,7 +114,9 @@
 							success(res){
 								console.log('我的钱包返回数据', res)
 								if(res.data.status === 200){
-									_this.price = res.data.data
+									_this.now_money = res.data.data.now_money
+									_this.frozen_money = res.data.data.frozen_money
+									_this.allPrice = +_this.now_money + +_this.frozen_money
 								}else{
 									uni.showModal({
 										title: '提示',
@@ -194,7 +195,7 @@
 				position: relative;
 				width:750rpx;
 				// height:256rpx;
-				height: 206rpx;
+				height: 256rpx;
 				background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,143,2,1));
 				.price_box{
 					padding: 36rpx 0 0 59rpx;
@@ -236,7 +237,7 @@
 					}
 					.menu_list{
 						display: flex;
-						justify-content: space-between;
+						justify-content: flex-start;
 						align-items: center;
 						.item{
 							width: 158rpx;
@@ -261,7 +262,7 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 0 24rpx;
-				margin-top: 24rpx;
+				margin-top: 164rpx;
 				// margin-top: 154rpx;
 				.option{
 					width:100%;

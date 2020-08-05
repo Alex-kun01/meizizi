@@ -10,7 +10,7 @@
 						<text class="tit_txt">姓名:</text>
 						<text class="con_text">{{info.name}}{{'('+ info.group_name+')'}}</text>
 					</view>
-					<view class="item">
+					<view class="item" style="margin-bottom: 20rpx;">
 						<text class="tit_txt">订单编号:</text>
 						<text class="con_text">{{info.order_code}}</text>
 					</view>
@@ -42,7 +42,7 @@
 			v-for="(item, index) in chuhuoList"
 			:key='index'
 			>
-				<view @click="lookInfo(item.store_name)" v-if="item.store_name" class="item_i">{{item.store_name.substring(0,4)}}</view>
+				<view v-if="item.store_name" class="item_i">{{item.store_name}}</view>
 				<view class="item_i">{{item.price}}</view>
 				<view class="item_i">{{item.quantity}}</view>
 				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
@@ -110,7 +110,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -145,6 +145,11 @@
 										title: '发货成功！'
 									})
 									_this.isConfirm = false
+									setTimeout(()=>{
+										uni.navigateBack({
+											
+										})
+									},1000)
 								}else{
 									uni.showModal({
 										title: '提示',

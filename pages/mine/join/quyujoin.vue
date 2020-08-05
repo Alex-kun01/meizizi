@@ -10,7 +10,7 @@
 				区域加盟店{{'(' + quyuNum + ')'}}
 			</view>
 			<view @click="changeIndex(2)" :class="{item:true,active: isActive === 2}">
-				推荐加盟店{{'(' + tuijianNum + ')'}}
+				直推加盟店{{'(' + tuijianNum + ')'}}
 			</view>
 		</view>
 		<!-- 区域加盟店 -->
@@ -51,47 +51,13 @@
 			</view>
 		</view>
 		
-		<!-- 推荐加盟店 -->
-		<!-- <view class="show_list" v-else>
-			<view class="item"
-			v-for="(item, index) in tuijianList"
-			:key='index'
-			>
-				<view class="title">
-					{{item.store}}
-				</view>
-				<view class="con_box">
-					<image :src="item.img" mode=""></image>
-					<view class="con_con">
-						<view class="address">
-							{{item.address}}
-						</view>
-						<view class="item_box">
-							<view class="item">
-								<image src="../../../static/mine/dianhua@2x.png" mode=""></image>
-								<text>{{item.phone}}</text>
-							</view>
-							<view class="item">
-								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.weixin}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="btn_r"
-					@click="gotpage"
-					>
-						查看收益
-					</view>
-				</view>
-			</view>
-		</view> -->
-		
-		
 	</view>
 </template>
 
 <script>
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
+		// mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -134,19 +100,14 @@
 								uni.hideLoading()
 								console.log('服务商返回数据', res)
 								if(res.data.status === 200){
-									
-									_this.quyuNum = res.data.data.area_quantity
-									_this.tuijianNum = res.data.data.recommend_quantity
-									
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data.shop_list
-									}else{
-										_this.showList = _this.showList.concat(res.data.data.shop_list) 
-									}
+									let {area_quantity,recommend_quantity,shop_list,} = res.data.data
+									_this.quyuNum = area_quantity
+									_this.tuijianNum = recommend_quantity
+									_this.showList = [..._this.showList,...shop_list]
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据列表失败'
+										content: res.data.msg
 									})
 								}
 							}

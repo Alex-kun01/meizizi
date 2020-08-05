@@ -6,7 +6,7 @@
 			<image @click="goback" class="back" src="../../static/index/fanhui@3x.png" mode=""></image>
 			<view class="search_box">
 				<image @click="search" src="../../static/index/sosuo.png" mode=""></image>
-				<input type="text" v-model="content" placeholder="搜索我的订单" />
+				<input confirm-type="search" @confirm="search()"  type="text" v-model="content" placeholder="搜索我的订单" />
 			</view>
 		</view>
 		<!-- 赛选菜单 -->
@@ -56,7 +56,6 @@
 			<view class="item"
 			v-for="(item,index) in showList"
 			:key='index'
-			
 			>
 				<view class="title">
 					<view class="l_box">
@@ -103,19 +102,27 @@
 							{{item.spe_name}}
 						</view>
 						<view class="tap_color">
-							三天无理由退换
+							三天内有问题可到提货店退换
 						</view>
 					</view>
 				</view>
-				<!-- 按钮  根据type显示不同按钮 -->
-				<view class="bom_btn"
-				@click="btnClick(item)"
-				v-if="item.type != 4"
-				>
-					<text v-if="item.type === 1">去付款</text>
-					<text v-if="item.type === 2">查看购物码</text>
-					<text v-if="item.type === 3">查看订单</text>
-					<text v-if="item.type === 5">去评价</text>
+				<view class="bom_box_con">
+					<!-- 按钮  根据type显示不同按钮 -->
+					<view class="bom_btn"
+					@click="btnClick(item)"
+					>
+						<text v-if="item.type === 1">去付款</text>
+						<text v-if="item.type === 2">查看购物码</text>
+						<text v-if="item.type === 3">查看订单</text>
+						<text v-if="item.type === 4">查看订单</text>
+						<text v-if="item.type === 5">去评价</text>
+					</view>
+					<view class="bom_btn red"
+					v-if="item.type == 1"
+					@click="deleteClick(item)"
+					>
+						<text style="color: red;" v-if="item.type === 1">删除订单</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -126,7 +133,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				orderInfo: '', // 搜索我的订单值
@@ -160,9 +169,6 @@
 			} 
 			
 		},
-		onShow(){
-			this.getData()
-		},
 		methods:{
 			//获取订单列表
 			getData(){
@@ -192,7 +198,7 @@
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '订单列表获取失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -243,6 +249,12 @@
 						url: '../index/orderdetails?type=' + '查看订单' + '&orderId=' + item.order_sn
 					})
 				}
+				if(item.type === 4){
+					// 已完成
+					uni.navigateTo({
+						url: '../index/orderdetails?type=' + '已完成查看订单' + '&orderId=' + item.order_sn
+					})
+				}
 				if(item.type === 5){
 					//去评价
 					uni.navigateTo({
@@ -254,7 +266,67 @@
 				uni.navigateBack({
 					
 				})
-			}
+			},
+			deleteClick(item){
+				let _this = this
+				console.log('查看item',item)
+				uni.showModal({
+					title: '提示',
+					content: '是否删除当前订单？',
+					success(res){
+						console.log(res)
+						if(res.confirm){
+							// 确认删除
+							uni.getStorage({
+								key: 'userInfo',
+								success(reg){
+									let datas = {
+										token: reg.data.token,
+										order_id: item.id
+									}
+									console.log('删除订单查看参数',datas)
+									uni.showLoading({
+										title: ''
+									})
+									uni.request({
+										url: _this.$http + '/api/goods/delOrder',
+										method:'POST',
+										data: datas,
+										success(res){
+											uni.hideLoading()
+											console.log('删除订单返回数据', res)
+											if(res.data.status == 200){
+												uni.showToast({
+													title: '删除成功'
+												})
+												_this.getData()
+											}else{
+												uni.showModal({
+													title: '提示',
+													content: res.data.msg
+												})
+											}
+										}
+									})
+								}
+							})
+							uni.showToast({
+								title: '已模拟删除'
+							})
+						}
+						if(res.cancel){
+							// 取消删除
+							
+						}
+					}
+				})
+			},
+			// onReachBottom(e){
+			// 	console.log('下拉刷新')
+			// },
+			// onPullDownRefresh(){
+			// 	console.log('下拉刷新')
+			// }
 		}
 	}
 </script>
@@ -441,19 +513,28 @@
 							
 						}
 					}
-					.bom_btn{
-						width:165rpx;
-						height:57rpx;
-						border:2rpx solid rgba(255,123,0,1);
-						border-radius:29rpx;
-						font-size:26rpx;
-						font-weight:500;
-						color:rgba(255,126,0,1);
-						line-height: 57rpx;
-						text-align: center;
-						align-self: flex-end;
-						margin-top: 10rpx;
+					.bom_box_con{
+						display: flex;
+						justify-content: flex-end;
+						.bom_btn{
+							width:165rpx;
+							height:57rpx;
+							border:2rpx solid rgba(255,123,0,1);
+							border-radius:29rpx;
+							font-size:26rpx;
+							font-weight:500;
+							color:rgba(255,126,0,1);
+							line-height: 57rpx;
+							text-align: center;
+							align-self: flex-end;
+							margin-top: 10rpx;
+							margin-right: 5rpx;
+						}
+						.bom_btn.red{
+							border: 2rpx solid red;
+						}
 					}
+					
 				}
 			}
 			.on_order{

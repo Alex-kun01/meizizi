@@ -45,7 +45,7 @@
 		},
 		computed:{
 			isOk(){
-				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				var myreg=/^[1][0-9][0-9]{9}$/;
 				if (!myreg.test(this.phone)) {
 					return false;
 				} else {
@@ -94,12 +94,15 @@
 								console.log('绑定手机号res',res)
 								if(res.data.status === 200){
 									uni.hideLoading()
+									uni.removeStorage({
+										key: 'userInfo'
+									})
 									uni.showToast({
-										title: '绑定成功'
+										title: '换绑成功，请重新登录！'
 									})
 									setTimeout(()=>{
-										uni.switchTab({
-											url: '../mine'
+										uni.navigateTo({
+											url: '../login/login'
 										})
 									},1000)
 								}else{

@@ -4,17 +4,7 @@
 		<view class="top_box_bar">
 			<image @click="goback" src="../../../static/index/fanhui@3x.png" mode=""></image>
 			<view class="title">
-				<text v-if='position == 1'>超级管理员</text>
-				<text v-if='position == 2'>总经理</text>
-				<text v-if='position == 3'>总监</text>
-				<text v-if='position == 4'>省代理</text>
-				<text v-if='position == 5'>业务员</text>
-				<text v-if='position == 6'>服务商</text>
-				<text v-if='position == 7'>物流商</text>
-				<text v-if='position == 8'>加盟店</text>
-				<text v-if='position == 9'>会员消费者</text>
-				<text v-if='position == 10'>普通消费者</text>
-				<text v-if='position == 11'>市级服务商</text>
+				<text>职位: {{statusList[+position].name}}</text>
 			</view>
 			<text></text>
 		</view>
@@ -26,10 +16,7 @@
 					<view class="con_con">
 						<view class="name">
 							{{userInfo.real_name}}
-							<text v-if="userInfo.position == 1">职位: 总监</text>
-							<text v-if="userInfo.position == 2">职位: 省区经理</text>
-							<text v-if="userInfo.position == 3">职位: 业务员</text>
-							<text v-if="userInfo.position == 4">职位: 店铺</text>
+							<text>职位: {{statusList[+userInfo.position].name}}</text>
 						</view>
 						<view class="region">
 							管理区域：{{userInfo.manag_area}}
@@ -91,12 +78,7 @@
 						</view>
 						<!-- 职位（1-超级管理员 2-总经理 3-总监 4-省代理 5-业务员/讲师 6-服务商 7-物流商 8-加盟店 9-会员消费者 10-普通消费者 11-市级服务商） -->
 						<view class="item">
-							<text v-if="item.position == 3">职位: 总监</text>
-							<text v-if="item.position == 4">职位: 省区经理</text>
-							<text v-if="item.position == 5">职位: 业务员</text>
-							<text v-if="item.position == 6">职位: 服务商</text>
-							<text v-if="item.position == 7">职位: 物流商</text>
-							<text v-if="item.position == 11">职位: 市级代理</text>
+							<text>职位: {{statusList[+item.position].name}}</text>
 						</view>
 					</view>
 				</view>
@@ -138,45 +120,13 @@
 					</view>
 				</view>
 				</view>
-			
-			
-			
-			<!-- 更改区域弹窗 -->
-			<!-- <view class="renming_float"
-			v-if="isShow"
-			@touchmove.stop.prevent="moveHandle" 
-			>
-				<view class="con_box">
-					<view class="title">
-						更改区域
-					</view>
-					<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-					@scroll="scroll"
-					>
-						<view class="item"
-						v-for="(item, index) in renmingList"
-						:key="index"
-						@click="chooseActive(index)"
-						>
-						<view class="yuan">
-							<image v-if="isActive === index" src="../../../static/mine/gouxuan@2x.png" mode=""></image>
-						</view>	
-						<view class="text">
-							{{item}}
-						</view>
-						</view>
-					 </scroll-view>
-					<view class="btn_box">
-						<view class="on_btn" @click="onClick">取消</view>
-						<view class="ok_btn" @click="okClick">确定</view>
-					</view>
-				</view>
-			</view> -->
 	</view>
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				userInfo: {
@@ -200,6 +150,44 @@
 				memberList: [],
 				storeList:[],
 				position: '', //身份
+				statusList:[
+					{
+						name: '数据错误'
+					},
+					{
+						name: '超级管理员'
+					},
+					{
+						name: '总经理'
+					},
+					{
+						name: '总监'
+					},
+					{
+						name: '省区经理'
+					},
+					{
+						name: '业务员'
+					},
+					{
+						name: '服务商'
+					},
+					{
+						name: '物流商'
+					},
+					{
+						name: '加盟店'
+					},
+					{
+						name: '会员消费者'
+					},
+					{
+						name: '普通消费者'
+					},
+					{
+						name: '市级代理'
+					},
+				]
 			}
 		},
 		onLoad(opt){
@@ -217,9 +205,6 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						uni.showLoading({
-							title: ''
-						})
 						uni.request({
 							url: _this.$http + '/api/team/heTeam',
 							method: 'POST',
@@ -232,21 +217,12 @@
 							},
 							success(res){
 								console.log('团队角色数据', res)
-								uni.hideLoading()
 								_this.isLoading = false
 								if(res.data.status === 200){
-									_this.userInfo = res.data.data.info
-									if(_this.memberList.length == 0){
-										_this.memberList = res.data.data.list
-									}else{
-										_this.memberList = _this.memberList.concat(res.data.data.list) 
-									}
-									if(_this.storeList.length == 0){
-										_this.storeList = res.data.data.shop_list
-									}else{
-										_this.storeList = _this.storeList.concat(res.data.data.shop_list) 
-									}
-									
+									let {info,list,shop_list} = res.data.data
+									_this.userInfo = info
+									_this.memberList = [..._this.memberList,...list]
+									_this.storeList = [..._this.storeList,...shop_list]
 								}else{
 									uni.showModal({
 										title:'提示',

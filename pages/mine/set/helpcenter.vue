@@ -16,7 +16,7 @@
 			</view>
 			<view class="search_box">
 				<image @click="searchClick" src="../../../static/index/sosuo.png" mode=""></image>
-				<input type="text" v-model="searchValue" placeholder="搜索常见问题" />
+				<input confirm-type="search" @confirm="searchClick()" type="text" v-model="searchValue" placeholder="搜索常见问题" />
 			</view>
 			<view class="bom_bar">
 				常见问题
@@ -59,7 +59,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isLoading: false,
@@ -118,7 +120,7 @@
 						}else{
 							uni.showModal({
 								title: '提示',
-								content: '获取问题列表失败'
+								content:  res.data.msg
 							})
 						}
 						uni.hideLoading()

@@ -10,7 +10,7 @@
 						<text class="tit_txt">姓名:</text>
 						<text class="con_text">{{info.nickname}}</text>
 					</view>
-					<view class="item">
+					<view class="item" style="margin-bottom: 10rpx;">
 						<text class="tit_txt">订单编号:</text>
 						<text class="con_text">{{shopList.master_order_sn}}</text>
 					</view>
@@ -103,7 +103,7 @@
 					
 				},
 				staticpic: '../../../static/mine/staticAvatar.jpg', 
-				shopList: []
+				shopList: [],
 			}
 		},
 		onLoad(opt){
@@ -119,12 +119,12 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						let datas = {
 							token: reg.data.token,
-							order_id: _this.opt.id
+							order_id:  _this.opt.id
 						}
 						console.log('出货单参数', datas)
 						uni.request({
@@ -133,15 +133,16 @@
 							data: datas,
 							success(res){
 								console.log('出货单返回数据', res)
-								uni.hideLoading()
+								// uni.hideLoading()
 								if(res.data.status === 200){
 									_this.shopList = res.data.data.goods_list
 									_this.info = res.data.data.info
 								}else{
-									uni.showModal({
-										title: '提示',
-										content: '获取数据列表失败'
-									})
+										uni.showModal({
+											title: '提示',
+											content: res.data.msg
+										})
+									
 								}
 							}
 						})
@@ -155,6 +156,7 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						let userInfo = reg.data
 						let datas = {
 							token: reg.data.token,
 							order_id: _this.opt.id
@@ -168,14 +170,13 @@
 								console.log('出货单返回数据', res)
 								if(res.data.status === 200){
 									uni.showToast({
-										title: '收货成功',
-										success(){
-											_this.isShip = false
-											uni.navigateBack({
-												
-											})
-										}
+										title: '发货成功'
 									})
+									_this.isShip = false
+									
+									setTimeout(()=>{
+										uni.navigateBack({})
+									},1000)
 									
 								}else{
 									uni.showModal({
@@ -204,10 +205,12 @@
 	 }
 	page{
 		width: 100%;
+		min-height: 100vh;
 		background-color: #F4F4F4;
 		.content{
 			width: 100%;
-			height: 100vh;
+			min-height: 100vh;
+			height: 100%;
 			background-color: #F4F4F4;
 			.user_info{
 				width: 100%;

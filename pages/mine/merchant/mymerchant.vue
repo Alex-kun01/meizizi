@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<!-- <view class="titleNview-placing"></view> -->
-		<!-- 讲师 -->
+		<!-- 物流商-我的商家 -->
 		<view class="show_list">
 			<view class="item"
 			v-for="(item, index) in showList"
@@ -24,20 +24,21 @@
 							</view>
 							<view class="item">
 								<image src="../../../static/mine/weixin@2x.png" mode=""></image>
-								<text>{{item.wx_name}}</text>
+								<text>{{item.d}}</text>
 							</view>
 						</view>
 						<view class="num_box">
 							总库存:
-							<text style="color: #EB5204;">{{item.now_stock}}/</text>
+							<text style="color: #EB5204;">{{item.total_stock}}/</text>
 							<text>{{item.total_stock}}</text>
+							<image v-if="item.is_call == 1" style="width: 23rpx;height: 23rpx;margin-left: 12rpx;" src="../../../static/mine/baojing@2x.png" mode=""></image>
 						</view>
 					</view>
 					<view class="btn_r"
 					@click="gotpage"
 					>
-						<text v-if="item.is_auto == 1">自动补货</text>
-						<text v-if="item.is_auto == 0">手动补货</text>
+						<text v-if="item.is_auto == 1">自动</text>
+						<text v-if="item.is_auto == 2">手动</text>
 					</view>
 				</view>
 			</view>
@@ -50,7 +51,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				showList: [],
@@ -58,12 +61,6 @@
 				limit: 10,
 				isLoading: false
 			}
-		},
-		onLoad(){
-			this.getData()
-		},
-		onShow(){
-			
 		},
 		methods:{
 			getData(){
@@ -81,23 +78,19 @@
 							title: ''
 						})
 						uni.request({
-							url: _this.$http + '/api/user/logisticsShopList',
-							method: 'GET',
+							url: _this.$http + '/api/store/logisticsList',
+							method: 'POST',
 							data:datas,
 							success(res){
 								uni.hideLoading()
 								_this.isLoading = false
 								console.log('我的商家-物流商', res)
 								if(res.data.status === 200){
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data
-									}else{
-										_this.showList = _this.showList.concat(res.data.data) 
-									}
+									_this.showList = [..._this.showList,...res.data.data]
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '获取数据列表失败'
+										content: res.data.msg
 									})
 								}
 							}
@@ -115,7 +108,7 @@
 			gotoInfo(item){
 				console.log('item',item)
 				uni.navigateTo({
-					url: './mymerchantinfo?id=' + item.shop_id
+					url: './mymerchantinfo?id=' + item.id
 				})
 			},
 			onReachBottom(e){
@@ -203,7 +196,7 @@
 						}
 						.btn_r{
 							// width:70rpx;
-							padding: 2rpx 5rpx;
+							padding: 0 15rpx;
 							height:31rpx;
 							line-height: 31rpx;
 							text-align: center;

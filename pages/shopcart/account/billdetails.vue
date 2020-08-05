@@ -38,6 +38,7 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
 		data () {
 			return {
@@ -47,6 +48,7 @@
 				isLoading: false,
 			}
 		},
+		mixins:[myMixins],
 		computed:{
 			// 是否有账单数据
 			isNull(){
@@ -54,12 +56,6 @@
 					return true
 				}
 			}
-		},
-		onLoad(){
-			this.getData()
-		},
-		onShow(){
-			
 		},
 		methods:{
 			getData(){
@@ -85,11 +81,7 @@
 								_this.isLoading = false
 								console.log('账单明细数据', res)
 								if(res.data.status === 200){
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data
-									}else{
-										_this.showList = _this.showList.concat(res.data.data) 
-									}
+									_this.showList = [..._this.showList,...res.data.data]
 								}else{
 									uni.showModal({
 										title: '提示',
@@ -109,10 +101,6 @@
 			},
 			
 		},
-		// 下拉刷新
-		onPullDownRefresh(){
-			console.log('下拉刷新')
-		}
 	}
 </script>
 

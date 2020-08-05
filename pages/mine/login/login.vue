@@ -61,6 +61,43 @@
 			<text @click="gotoregin" style="color: #007AFF;">去注册</text>
 		</view>
 		
+		<view class="protocol">
+			<text @click="isShowFloat = true">服务协议和隐私政策</text>
+			<text class="yuan" @click="protocolClick">
+				<image v-if="isProtocol" src="../../../static/index/gou@2x.png" mode=""></image>
+			</text>
+		</view>
+		
+		<view class="float_box"
+		v-if="isShowFloat"
+		>
+			<view class="con_box">
+				<view class="titlet"
+				
+				>
+					服务协议和隐私政策
+				</view>
+				<view class="text">
+					请您务必审慎阅读，充分理解“服务协议”和“隐私协议”各条款，包括但不限与于：为了向您提供即使通讯，内容分享等服务，我们需要收集你的设备信息。操作日志等个人信息。您可以在“设置”中查看、变更、删除个人信息并管理您的授权。您可以阅读<text @click="gotoPInfo(1)" style="color: #DD524D;font-weight: 500;">《服务协议》</text>和<text @click="gotoPInfo(2)" style="font-weight: 500;color: #DD524D;">《隐私协议》</text>了解详细信息。如您同意、请点击“同意”开始接受我们的服务。
+				</view>
+				<view class="bomm_btn">
+					<view class="item" @click="onClick">
+						暂不使用
+					</view>
+					<view @click="arggenClick" class="item" style="color: #2C405A;">
+						同意
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		
+		<view class="tourist"
+			@click="touristClick"
+		>
+			游客登录
+		</view>
+		
 	</view>
 </template>
 
@@ -74,13 +111,15 @@
 				invitationCode: '', // 验证码
 				isShowCode: false, // 
 				number:60, // 倒计时时间
-				timers: ''
+				timers: '',
+				isProtocol: false, // 服务协议是否选中
+				isShowFloat: false, // 服务协议弹窗显示
 			}
 		},
 		computed:{
 			// 校验是否为11位有效手机号
 			phoneIsOk(){
-				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				var myreg=/^[1][0-9][0-9]{9}$/;
 				if (!myreg.test(this.phone)) {
 					return false;
 				} else {
@@ -99,6 +138,26 @@
 			
 		},
 		methods:{
+			// 同意使用协议
+			arggenClick(){
+				this.isProtocol = true
+				this.isShowFloat = false
+			},
+			// 协议暂不使用
+			onClick(){
+				this.isProtocol = false
+				this.isShowFloat = false
+			},
+			// 跳转协议详情
+			gotoPInfo(type){
+				uni.navigateTo({
+					url: './protocolinfo?type=' + type
+				})
+			},
+			// 服务协议
+			protocolClick(){
+				this.isProtocol = !this.isProtocol
+			},
 			// 获取验证码
 			getinvitation(){
 				if(this.isShowCode){
@@ -163,12 +222,16 @@
 					url: './chooseregin'
 				})
 			},
+			
 			// 判断是否登录
 			isLOgin(){
 				let _this = this
 				uni.getStorage({
 					key: 'userInfo',
 					success(res){
+						if(res.data.tourist){
+							return
+						}
 						// 验证token
 						uni.request({
 							url: _this.$http + '/api/index/verToken',
@@ -198,13 +261,37 @@
 					}
 				})
 			},
+			// 游客登录
+			touristClick(){
+				uni.setStorage({
+					key: 'userInfo',
+					data: {
+						tourist: 1, // 游客
+					}
+				})
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						console.log('查看游客数据', res.data)
+					}
+				})
+				uni.switchTab({
+					url: '../../index/index'
+				})
+			},
 			//登录按钮
 			loginClick(){
 				let _this = this
 				let data = {
 					username: this.phone
 				}
-				
+				if(!this.isProtocol){
+					uni.showModal({
+						title: '提示',
+						content: '请仔细阅读服务协议和隐私政策并同意！'
+					})
+					return
+				}
 				// 账号密码登录
 				if(this.loginType === 1){
 					data.password = this.password
@@ -333,6 +420,18 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #FFFFFF;
+			.tourist{
+				width: 180rpx;
+				height: 50rpx;
+				border-radius: 10rpx;
+				background-color: #AAAAAA;
+				color: #FFFFFF;
+				line-height: 50rpx;
+				text-align: center;
+				position: absolute;
+				bottom: 60rpx;
+				left: calc(50% - 90rpx);
+			}
 			.title{
 				width: 100%;
 				box-sizing: border-box;
@@ -403,6 +502,72 @@
 				
 				display: flex;
 				justify-content: space-between;
+			}
+			.float_box{
+				position: absolute;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.7);
+				z-index: 9999;
+				
+				.con_box{
+					width: 650rpx;
+					box-sizing: border-box;
+					padding: 24rpx;
+					border-radius: 10rpx;
+					background-color: #FFFFFF;
+					position: fixed;
+					top: calc(50% - 200rpx);
+					left: calc(50% - 325rpx);
+					.titlet{
+						font-size: 32rpx;
+						text-align: center;
+						font-weight: 500;
+						margin-bottom: 24rpx;
+					}
+					.text{
+						font-size: 28rpx;
+						line-height: 40rpx;
+						text-indent: 40rpx;
+					}
+					.bomm_btn{
+						margin-top: 24rpx;
+						display: flex;
+						.item{
+							width: 50%;
+							height: 60rpx;
+							line-height: 60rpx;
+							text-align: center;
+							font-size: 30rpx;
+							font-weight: 500;
+							border: 1rpx solid #eee;
+						}
+					}
+				}
+			}
+			.protocol{
+				display: flex;
+				align-items: center;
+				font-size: 26rpx;
+				margin-top: 24rpx;
+				margin-left: 24rpx;
+				color: rgba(255,122,45,1);
+				.yuan{
+					width: 25rpx;
+					height: 25rpx;
+					border: 1rpx solid #999;
+					display: inline-block;
+					margin-left: 30rpx;
+					position: relative;
+					image{
+						width: 35rpx;
+						height: 35rpx;
+						position: absolute;
+						top: -14rpx;
+						left: 4rpx;
+					}
+				}
 			}
 			
 		}

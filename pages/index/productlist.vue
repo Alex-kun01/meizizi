@@ -5,7 +5,7 @@
 		<view class="top_search">
 			<view class="search_box">
 				<image @click="search" style="width: 31rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
-				<input type="text" v-model="searchValue" placeholder="口红 / 唇膏" />
+				<input confirm-type="search" @confirm="search()" type="text" v-model="searchValue" placeholder="口红 / 唇膏" />
 			</view>
 			<view class="quxiao"
 			@click="goback"
@@ -42,14 +42,14 @@
 			@click="gotdetalus(item)"
 			>
 				<view class="img">
-					<image style="width: 193rpx;height: 201rpx;" :src="item.image" mode=""></image>
+					<image :src="item.image" mode=""></image>
 				</view>
 				<view class="text_con">
 					<view class="title">
 						{{item.store_name}}
 					</view>
 					<view class="old_price">
-						原价￥{{item.price}}
+						￥{{item.price}}
 					</view>
 				</view>
 				
@@ -94,7 +94,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				searchValue: '',
@@ -109,10 +111,17 @@
 				// 产品列表
 				shopList:[],
 				opt: {}, //页面跳转接受参数
+				type: 2, // 
+				
 			}
 		},
 		onLoad(opt){
 			console.log('产品列表opt',opt)
+			this.searchValue = opt.value
+			if(opt.type){
+				this.type = opt.type
+			}
+			
 			this.getData(opt)
 			this.opt = opt
 		},
@@ -133,17 +142,23 @@
 			getData(opt){
 				let _this = this
 				let userInfo = this.$store.state.userInfo
+				uni.showLoading({
+					title: ''
+				})
+				let datas = {
+					search_type: _this.type,
+					content: _this.searchValue,
+					type: _this.typeIndex,
+					p: _this.p,
+					limit: _this.limit,
+				}
+				console.log('传递参数', datas)
 				uni.request({
 					url: this.$http + '/api/goods/goodsList',
 					method:'POST',
-					data: {
-						search_type: opt.type,
-						content: opt.value || '',
-						type: _this.typeIndex,
-						p: _this.p,
-						limit: _this.limit,
-					},
+					data: datas,
 					success(res){
+						uni.hideLoading()
 						console.log('产品详情返回数据1', res)
 						if(res.data.status === 200){
 							if(_this.p === 1){
@@ -166,6 +181,9 @@
 			},
 			search(){
 				console.log(this.searchValue)
+				this.type = 2
+				this.shopList = []
+				this.getData()
 			},
 			// 导航改变
 			changeActive(index){
@@ -210,7 +228,7 @@
 			},
 			gotdetalus(item){
 				uni.navigateTo({
-					url: './productdetails?id=' + item.id 
+					url: './productdetails?id=' + item.id + '&img=' + item.image
 				})
 			},
 			moveHandle(){},
@@ -354,16 +372,20 @@
 				flex-wrap: wrap;
 				.item{
 					width: 341rpx;
-					height: 447rpx;
+					// height: 447rpx;
 					background-color: #FFFFFF;
 					margin-bottom: 18rpx;
 					border-radius:12rpx;
 					position: relative;
-					
+					padding-bottom: 10rpx;
 					.img{
 						width: 100%;
 						box-sizing: border-box;
-						padding: 23rpx 0 0 80rpx;
+						// padding: 23rpx 0 0 80rpx;
+						image{
+							width: 100%;
+							height: 305rpx;
+						}
 					}
 					.text_con{
 						width: 100%;
@@ -381,7 +403,7 @@
 						.old_price{
 							font-size:24rpx;
 							font-weight:bold;
-							text-decoration:line-through;
+							// text-decoration:line-through;
 							color:rgba(133,133,133,1);
 							line-height:37rpx;
 							margin-top: 20rpx;

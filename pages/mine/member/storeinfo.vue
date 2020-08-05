@@ -29,7 +29,9 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				titleList: ['商品名', '单价' , '库存', '营业额'],
@@ -59,26 +61,22 @@
 							page: _this.page,
 							limit: _this.limit
 						}
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/user/recommendShopDetails',
 							method: 'POST',
 							data: datas,
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								console.log('店铺信息数据', res)
 								if(res.data.status === 200){
-									if(_this.showList.length == 0){
-										_this.showList = res.data.data
-									}else{
-										_this.showList = _this.showList.concat(res.data.data) 
-									}
-									
+									_this.showList = [..._this.showList,...res.data.data]
 								}else{
 									uni.showModal({
-										title: '店铺信息数据获取失败'
+										title: '提示',
+										content: res.data.msg
 									})
 								}
 							}

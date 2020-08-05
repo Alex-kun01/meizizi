@@ -25,7 +25,7 @@
 							授信额度：<text style="font-size: 34rpx;font-weight: 500;color: ;">{{info.credit}}</text>
 						</view>
 						<view style="margin-bottom: 20rpx;">
-							总金额：<text style="font-size: 34rpx;font-weight: 500;color: ;">{{allPrice}}</text>
+							剩余授信额度：<text style="font-size: 34rpx;font-weight: 500;color: ;">{{info.surplus}}</text>
 						</view>
 						<view class="text">
 							<image style="width: 22rpx;height: 18rpx;" src="../../../static/mine/dianhua@2x.png" mode=""></image>
@@ -80,9 +80,7 @@
 					<text style="color: #EB5204;">{{info.now_stock}}</text>
 					<text>/{{info.total_stock}}</text>
 				</view>
-				<view class="btn" @click="submitClick" v-if="isActive == 2">
-					提交
-				</view>
+				
 			</view>
 			<view class="title_list">
 				<view class="title"
@@ -98,20 +96,34 @@
 				v-for="(item, index) in showList"
 				:key='index'
 				>
-					<view@click="lookInfo(item)" class="item_i">{{item.store_name.substring(0,4)}}</view>
-					<view class="item_i">{{item.price}}</view>
-					<view class="item_i">{{item.stock}}</view>
-					<view class="item_i">
-						<input v-if="isActive == 2" type="text" v-model="showList[index].need_stock" />
-						<text v-else>{{item.need_stock}}</text>
+					<view class="name">{{item.store_name}}</view>
+					
+					<view class="item_box">
+						<view class="item_i">{{item.price}}</view>
+						<view class="item_i">{{item.stock}}</view>
+						<view class="item_i">
+							<input v-if="isActive == 2" type="text" v-model="showList[index].need_stock" />
+							<text v-else>{{item.need_stock}}</text>
+						</view>
+						<view class="item_i">{{item.alarm_stock}}</view>
 					</view>
-					<view class="item_i">{{item.alarm_stock}}</view>
+					
+					
 				</view>
 			</view>
 			<view class="loading" v-if="isLoading">
 				加载中...
 			</view>
+			<view class="sub_btn">
+				<view style="margin-right: 30rpx;">
+					总金额：<text style="font-size: 34rpx;font-weight: 500;color: ;">{{allPrice}}</text>
+				</view>
+				<view class="btn" @click="submitClick" v-if="isActive == 2">
+					提交
+				</view>
+			</view>
 		</view>
+		
 		
 		
 		
@@ -119,12 +131,14 @@
 </template>
 
 <script>
+	import {myMixins} from '@/components/mixins.js'
 	export default {
+		mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, // 1自动补货 2手动补货 
 				isLoading: false,
-				titleList: ['商品名','单价','现有库存','所需库存','报警线',],
+				titleList: ['单价','现有库存','所需库存','报警线',],
 				page: 1,
 				limit: 10,
 				info: {
@@ -157,7 +171,7 @@
 			if(opt.show){
 				this.opt = opt
 			}
-			this.getData()
+			// this.getData()
 		},
 		onShow(){
 			
@@ -169,9 +183,9 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						uni.showLoading({
-							title: ''
-						})
+						// uni.showLoading({
+						// 	title: ''
+						// })
 						uni.request({
 							url: _this.$http + '/api/user/storeList',
 							method: 'GET',
@@ -181,21 +195,52 @@
 								limit: _this.limit
 							},
 							success(res){
-								uni.hideLoading()
+								// uni.hideLoading()
 								_this.isLoading = false
 								console.log('我的商家返回数据',res)
 								if(res.data.status == 200){
+									let {product_list,is_auto} = res.data.data
 									_this.info = res.data.data
+									
 									if(_this.showList.length == 0){
-										_this.showList = res.data.data.product_list
+										_this.showList = product_list
+										_this.isActive = is_auto
 									}else{
-										_this.showList = _this.showList.concat(res.data.data.product_list)
+										_this.showList = _this.showList.concat(product_list)
 									}
 									
 								}else{
 									uni.showModal({
 										title: '提示',
-										content: '数据请求失败'
+										content: res.data.msg
+									})
+								}
+							}
+						})
+					}
+				})
+			},
+			// 改变补货方式
+			changeStatus(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							id: _this.info.id,
+							is_auto: _this.isActive
+						}
+						console.log('查看参数',datas)
+						uni.request({
+							url: _this.$http + '/api/store/isAuto',
+							method: 'POST',
+							data: datas,
+							success(res){
+								console.log('我的商家-数据',res)
+								if(res.data.status === 200){
+									uni.showToast({
+										title: '切换成功'
 									})
 								}
 							}
@@ -212,6 +257,7 @@
 			},
 			changeIndex(index){
 				this.isActive = index
+				this.changeStatus()
 			},
 			// 返回
 			goback(){
@@ -258,10 +304,10 @@
 					})
 					return
 				}
-				if(this.allPrice > this.info.credit){
+				if(this.allPrice > this.info.surplus){
 					uni.showModal({
 						title: '提示',
-						content: '补货总金额超过授信额度!!!'
+						content: '补货总金额超过剩余授信额度!!!'
 					})
 					return
 				}
@@ -271,18 +317,15 @@
 						let datas = {
 								token: reg.data.token,
 								take_id: _this.info.take_id,
-								product_list: JSON.stringify(_this.showList)
+								product_list: JSON.stringify(_this.showList),
+								type: 1
 							}
 							console.log('传递参数',datas)
-							// uni.showLoading({
-							// 	title: ''
-							// })
 						uni.request({
 							url: _this.$http + '/api/user/addShopOrder',
 							method: 'POST',
 							data:datas,
 							success(res){
-								// uni.hideLoading()
 								console.log('手动补货返回数据',res)
 								if(res.data.status == 200){
 									uni.showToast({
@@ -326,6 +369,22 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.sub_btn{
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 30rpx;
+				.btn{
+					width:108rpx;
+					height:46rpx;
+					line-height: 46rpx;
+					text-align: center;
+					background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
+					border-radius:23rpx;
+					font-size: 28rpx;
+					color:rgba(255,255,255,1);
+				}
+			}
 			.loading{
 				width: 100%;
 				height: 70rpx;
@@ -462,17 +521,6 @@
 					font-weight: 500;
 					display: flex;
 					justify-content: space-between;
-					.btn{
-						width:108rpx;
-						height:46rpx;
-						line-height: 46rpx;
-						text-align: center;
-						background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
-						border-radius:23rpx;
-						font-size: 28rpx;
-						color:rgba(255,255,255,1);
-					}
-					
 				}
 				.title_list{
 					margin-top: 20rpx;
@@ -484,6 +532,7 @@
 					font-weight: 500;
 					margin-bottom: 20rpx;
 					box-sizing: border-box;
+					padding-left: 35rpx;
 					.title{
 						width: 140rpx;
 						text-align: center;
@@ -495,20 +544,31 @@
 					font-size: 28rpx;
 					font-weight: 500;
 					box-sizing: border-box;
+					padding-left: 0rpx;
 					.item{
 						
 						display: flex;
-						justify-content: space-between;
-						align-items: center;
+						flex-direction: column;
 						margin-bottom: 20rpx;
-						input{
-							font-size: 28rpx;
-							border: 1rpx solid #666666;
+						border-bottom: 1rpx solid #DDDDDD;
+						padding: 15rpx 0;
+						.name{
+							margin-bottom: 10rpx;
+							margin-left: 40rpx;
 						}
-						.item_i{
-							width: 140rpx;
-							text-align: center;
+						.item_box{
+							width: 100%;
+							display: flex;
+							input{
+								font-size: 28rpx;
+								border: 1rpx solid #666666;
+							}
+							.item_i{
+								width: 175rpx;
+								text-align: center;
+							}
 						}
+						
 					}
 				}
 			}
