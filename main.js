@@ -12,6 +12,8 @@ Vue.prototype.$store = store
 Vue.prototype.$http = 'http://www.mzz2020.com' 
 // 客服电话
 Vue.prototype.$mobel = '17780156403'
+// 退换货
+Vue.prototype.$text = '工厂直卖，三天有问题退货'
 
 const app = new Vue({
     ...App

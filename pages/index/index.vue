@@ -3,7 +3,6 @@
 	<view class="content">
 		<view class="titleNview-placing"></view>
 		<view class="top_search">
-			<!-- <image @click="scanCode" src="../../static/index/saoyisao.png" mode=""></image> -->
 			<view class="location_box"
 				@click="reClick"
 			>
@@ -25,11 +24,12 @@
 			@click="gotoshop"
 			>
 				<image src="../../static/index/gouwuche@2x.png" mode=""></image>
+				<!-- <image src="../../static/index/gouwuche@8x.png" mode=""></image> -->
 				<view class="float">{{cart_count}}</view>
 			</view>
 			<view style="position: relative;">
 				<image @click="gotoTarget('../mine/set/news')" src="../../static/index/xiaoxi.png" mode=""></image>
-				<!-- <view class="float">9</view> -->
+				<!-- <image  @click="gotoTarget('../mine/set/news')"  src="../../static/mine/kefu@2x.png" mode=""></image> -->
 			</view>
 			
 		</view>
@@ -45,13 +45,13 @@
 			 duration="400">
 				<swiper-item
 				v-for="(item,index) in banner"
-				:key="index">
+				:key="index"
+				@click="gotomenu(item)"
+				>
 					<image style="height: 276rpx;" :src="item.pic" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
-		
-		
 		<!-- 菜单列 -->
 		
 		<view class="menu_box">
@@ -64,7 +64,7 @@
 						<view class="box"
 						v-for="(box, iox) in item"
 						:key="iox"
-						@click="gotomenu(box.url)"
+						@click="gotomenu(box)"
 						>
 							<image :src="box.pic" mode=""></image>
 							<text>{{box.name}}</text>
@@ -79,9 +79,15 @@
 		
 		<!-- 活动专区  没图先不写-->
 		<view class="activity"
-		@click="tuijianClick"
 		>
-			<image src="../../static/index/huodongzhuanqu.png" mode=""></image>
+			<image class="pic_1" @click="gotomenu(activity[0])" :src="activity[0].pic" mode=""></image>
+			<view class="pic_bom_box">
+				<image class="pic_2" @click="gotomenu(activity[1])"  :src="activity[1].pic" mode=""></image>
+				<view class="pic_box2">
+					<image class="pic_3" @click="gotomenu(activity[2])" :src="activity[2].pic" mode=""></image>
+					<image class="pic_4" @click="gotomenu(activity[3])" :src="activity[3].pic" mode=""></image>
+				</view>
+			</view>
 		</view>
 		
 		<!-- 今日秒杀 -->
@@ -89,15 +95,8 @@
 			<view class="today_top">
 				<view class="time_box">
 					<text class="miaosha">今日秒杀</text>
-					<!-- <view class="black_time">
-						<text class="item">{{hours}}</text>
-						<text>:</text>
-						<text class="item">{{minute}}</text>
-						<text>:</text>
-						<text class="item">{{second}}</text>
-					</view> -->
 				</view>
-				<view class="more_btn">
+				<view class="more_btn" v-if="storeList.length != 0">
 					<text>更多好货</text>
 					<text>></text>
 				</view>
@@ -116,26 +115,23 @@
 						{{item.title}}
 					</view>
 					<view class="bom_mes">
-					<view style="display: flex;align-items: center;">
-						<image src="../../static/index/huiyuan@3x(3).png" mode=""></image>
+					<view class="bom_price" style="display: flex;align-items: center;">
+						<!-- <image src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
 						<view class="price">
-							￥{{item.vip_price}}
+							会员价￥{{item.vip_price}}
 						</view>
 						<view class="oldPrice">
 							￥{{item.price}}
 						</view>
 					</view>
-						<view class="dian">
-							...
-						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<!-- 为你推荐 -->
+		<!-- 会员礼品 -->
 		<view class="recommend">
 			<view class="title">
-				为您推荐
+				会员礼品
 			</view>
 			<view class="recommend_list">
 				<view class="item"
@@ -170,18 +166,15 @@
 								{{item.store_name}}
 							</view>
 							<view class="price_box">
-								<image style="width: 21rpx;height: 21rpx;min-width: 21rpx;min-height: 21rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
+								<!-- <image style="width: 21rpx;height: 21rpx;min-width: 21rpx;min-height: 21rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
 								<view class="price">
-									￥{{item.vip_price}}
+									会员价￥{{item.vip_price}}
 								</view>
 								<view class="oldPrice">
 									￥{{item.price}}
 								</view>
 							</view>
 						</view>
-						<!-- <view class="right_btn">
-							<image style="width: 38rpx;height: 38rpx;" src="../../static/index/tianjia@2x(3).png" mode=""></image>
-						</view> -->
 					</view>
 					
 				</view>
@@ -207,7 +200,7 @@
 			</view>
 			
 		</view>
-		
+
 		
 		
 		
@@ -239,21 +232,26 @@
 				cart_count: 0, 
 				isAdShow: false, // 控制弹窗广告显示
 				adImg: '../../static/index/item4.png', // 广告图片
-				address: '定位中...'
+				address: '定位中...',
+				activity: [], // 活动图片存放
+				test:'../../static/index/maijiaxiu1.png'
 			}
 		},
 		onLoad() {
-			
+			this.init()
 		},
 		onShow() {
-			this.getRemTimes(this.ddd)
-			this.countDown()
-			this.getData()
-			this.userInit()
-			this.getLocatiion()
-			this.locationInit()
+			
 		},
 		methods: {
+			init(){
+				this.getRemTimes(this.ddd)
+				this.countDown()
+				this.getData()
+				this.userInit()
+				this.getLocatiion()
+				this.locationInit()
+			},
 			scroll(e) {
 				console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
@@ -340,16 +338,19 @@
 					success(res){
 						console.log('首页返回数据',res)
 						if(res.data.status === 200){
+							let {banner, menus, store_list, reco_list, likeInfo, activity_list} =  res.data.data
 							// 轮播图列表
-							_this.banner = res.data.data.banner
+							_this.banner = banner
 							// 菜单列表
-						    _this.menus = _this.getTargetData(res.data.data.menus, 10)
+						    _this.menus = _this.getTargetData(menus, 10)
 							// 秒杀列表
-							_this.storeList = res.data.data.store_list
+							_this.storeList = store_list
 							//为你推荐列表
-							_this.recoList = res.data.data.reco_list
+							_this.recoList = reco_list
 							// 专题精选列表
-							_this.likeInfo = res.data.data.likeInfo
+							_this.likeInfo = likeInfo
+							// 活动列表
+							_this.activity = activity_list
 							uni.hideLoading()
 						}else{
 							uni.showModal({
@@ -394,11 +395,29 @@
 						content: '敬请期待'
 					})
 				},
-				// 菜单跳转
-				gotomenu(url){
+				// 菜单项跳转
+				gotomenu(item){
+					console.log(item)
+					// return
+					let url = null
+					let {condition, type} = item
+					// 根据type值跳转响应页面  1 详情页面，2 列表页面
+					if(type == 1){
+						url = './productdetails'
+					}else if (type == 2){
+						url = './productlist'
+					}
+					else {
+						return
+					}
+					let obj = JSON.parse(condition)
+					this.setParameter(obj)
 					uni.navigateTo({
 						url: url
 					})
+				},
+				setParameter(obj){
+					this.$store.commit('setParameter', obj)
 				},
 				// 跳转购物车
 				gotoshop(){
@@ -411,23 +430,23 @@
 				getRemTimes(time){
 					
 					let allSecond = time / 1000  // 总共的秒数
-					console.log('总共的秒数',allSecond)
+					// console.log('总共的秒数',allSecond)
 					let hours = allSecond / 3600 // 总的小时数
-					console.log('总的小时数',hours)
+					// console.log('总的小时数',hours)
 					let targetHours = parseInt(hours)  //目标小时数
-					console.log('目标小时数',targetHours)
+					// console.log('目标小时数',targetHours)
 					let syhours = hours - targetHours
 					
-					console.log('余下小时数',syhours)
+					// console.log('余下小时数',syhours)
 					// return
 					let minute = +syhours * 3600 / 60 //分钟数
-					console.log('分钟数',minute)
+					// console.log('分钟数',minute)
 					let targetMinute = parseInt(minute)  //目标分钟数
-					console.log('目标分钟数',targetMinute)
+					// console.log('目标分钟数',targetMinute)
 					let syMinute = '0.' + minute.toString().replace(/\d+\.(\d*)/,"$1") //剩余秒数
-					console.log('剩余秒数',syMinute)
+					// console.log('剩余秒数',syMinute)
 					let targetSecond = Math.ceil(+syMinute * 60) //目标秒数
-					console.log('目标秒数',targetSecond)
+					// console.log('目标秒数',targetSecond)
 					this.hours = targetHours
 					this.minute = targetMinute
 					this.second = targetSecond
@@ -488,7 +507,7 @@
 					　　 geocode:true,
 					    success: function (res) {
 							let maddress = res.address || {}
-					        console.log('获取当前位置',maddress)
+					        // console.log('获取当前位置',maddress)
 							_this.$store.commit('setAddress', maddress)
 					    }
 					});
@@ -654,10 +673,6 @@
 					}
 				}
 			}
-			// .uni-swiper-wrapper{
-			// 	 height: 276rpx !important;
-			//  }
-			
 			.lunbo{
 				width: 750rpx;
 				background-color: #FFFFFF;
@@ -670,13 +685,13 @@
 			}
 			.menu_box{
 				width: 100%;
-				padding: 25rpx;
+				padding: 25rpx 25rpx 0 25rpx;
 				box-sizing: border-box;
 				background-color: #FFFFFF;
-				// background-color: lightblue;
-				// margin-top: 40rpx;
 				padding-top: 40rpx;
+				// background-color: pink;
 				.swiper{
+					height: 300rpx;
 					// background-color: green;
 					.item{
 						display: flex;
@@ -731,13 +746,41 @@
 			}
 			.activity{
 				width: 750rpx;
-				height: 552rpx;
+				// height: 552rpx;
 				padding: 0 25rpx;
 				box-sizing: border-box;
 				background-color: #FFFFFF;
-				image{
-					width: 100%;
-					height: 100%;
+				.pic_1{
+					width: 605rpx;
+					height: 203rpx;
+					margin-left: 50rpx;
+					margin-bottom: 18rpx;
+				}
+				.pic_bom_box{
+					width: 701rpx;
+					height: 322rpx;
+					display: flex;
+					justify-content: space-between;
+					.pic_2{
+						width: 348rpx;
+						height: 322rpx;
+						// background-color: red;
+					}
+					.pic_box2{
+						width: 348rpx;
+						height: 322rpx;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						.pic_3{
+							width: 348rpx;
+							height: 159rpx;
+						}
+						.pic_4{
+							width: 348rpx;
+							height: 159rpx;
+						}
+					}
 				}
 			}
 			.today{
@@ -781,6 +824,7 @@
 					}
 				}
 				.today_list{
+					min-height: 1000rpx;
 					margin-top: 34rpx;
 					display: flex;
 					justify-content: space-between;
@@ -790,10 +834,18 @@
 						border-radius: 12rpx;
 						margin-bottom: 24rpx;
 						background-color: #FFFFFF;
+						box-shadow: #DDDDDD 0 0 15rpx 5rpx;
+						position: relative;
 						.title{
 							font-size: 24rpx;
 							color: #272727;
 							padding: 0 18rpx;
+							width: 330rpx;
+							// background-color: pink;
+							display: -webkit-box;
+							-webkit-box-orient: vertical;
+							-webkit-line-clamp: 2;
+							overflow: hidden;
 						}
 						.bom_mes{
 							margin-top: 20rpx;
@@ -802,6 +854,8 @@
 							align-items: center;
 							padding: 0 12rpx;
 							margin-bottom: 10rpx;
+							position: absolute;
+							bottom: 10rpx;
 							image{
 								width: 21rpx;
 								height: 21rpx;
@@ -816,7 +870,6 @@
 								margin-left: 23rpx;
 								font-size: 22rpx;
 								color: #FF5807;
-								// text-decoration:line-through;
 							}
 							.dian{
 								// align-self: flex-end;
@@ -874,6 +927,7 @@
 						box-sizing: border-box;
 						padding-bottom: 10rpx;
 						margin-bottom: 24rpx;
+						box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 						.img{
 							width: 100%;
 							// height: 250rpx;
@@ -904,10 +958,12 @@
 									margin: 10rpx 0;
 								}
 								.price_box{
+									width: 300rpx;
 									display: flex;
 									align-items: center;
 									margin-bottom: 10rpx;
 									.price{
+										display: inline-block;
 										margin-left: 10rpx;
 										color: #FF5807;
 										font-weight: bold;

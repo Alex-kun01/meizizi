@@ -128,8 +128,8 @@
 			console.log('opt',opt)
 			this.opt = opt
 			console.log('下单参数', this.$store.state.productOrderInfo)
-				this.orderInfo = this.$store.state.productOrderInfo
-				this.addNum = this.$store.state.productOrderInfo.number
+			this.orderInfo = this.$store.state.productOrderInfo
+			this.addNum = this.$store.state.productOrderInfo.number
 			
 		},
 		onShow(){

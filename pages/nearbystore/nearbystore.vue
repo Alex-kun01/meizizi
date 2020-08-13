@@ -20,11 +20,14 @@
 				<image id="yuantou" v-if="item.is_source == 1" src="../../static/nearbystore/yuantoudian@2x.png" mode=""></image>
 				<view class="left_info">
 					<view class="pic">
-						<image :src="item.logo || '../../static/nearbystore/test2.png'" mode=""></image>
+						<image style="border: 4rpx solid #007AFF;min" :src="item.logo" mode=""></image>
 						<view class="box_start" v-if="item.grade != 0">
 							<image style="width: 22rpx;height: 22rpx;" v-for="start in item.grade" :key="start" src="../../static/mine/start.png" mode=""></image>
 						</view>
 					</view>
+					
+					
+					
 					<view class="con">
 						<view class="title">
 							{{item.company || '暂无店铺信息'}}
@@ -220,7 +223,7 @@ page{
 			}
 			.item{
 				width: 700rpx;
-				height: 161rpx;
+				height: 200rpx;
 				box-sizing: border-box;
 				background-color: #FFFFFF;
 				border-radius:18rpx;
@@ -229,6 +232,7 @@ page{
 				justify-content: space-between;
 				margin-bottom: 18rpx;
 				position: relative;
+				box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 				#yuantou{
 					width: 61rpx;
 					height: 22rpx;
@@ -240,10 +244,14 @@ page{
 					display: flex;
 					.con{
 						.title{
+							width: 400rpx;
 							font-size:30rpx;
 							color: #111111;
 							font-weight: bold;
 							margin-bottom: 10rpx;
+							overflow: hidden;
+							text-overflow:ellipsis;
+							white-space: nowrap;
 						}
 						.weixin,.phone{
 							font-size: 26rpx;
@@ -253,19 +261,11 @@ page{
 					
 					.pic{
 						width: 120rpx;
-						height: 120rpx;
+						height: 150rpx;
 						display: flex;
 						flex-direction: column;
-						// border: 1rpx solid #999;
 						margin-right: 24rpx;
-						 // display: table-cell;
-						 // vertical-align: middle;
-						image{
-							max-width: 100%;
-							max-height: 100%;
-							// display: block;
-							// margin: auto;
-						}
+						// background-color: pink;
 					}
 				}
 				.right_btn{
@@ -276,6 +276,9 @@ page{
 						align-self: flex-end;
 					}
 					.bom{
+						position: absolute;
+						right: 10rpx;
+						bottom: 10rpx;
 						font-size: 22rpx;
 						color: #323232;
 						.goto{

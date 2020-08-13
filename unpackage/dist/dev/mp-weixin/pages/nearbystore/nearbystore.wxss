@@ -1,0 +1,140 @@
+.titleNview-placing.data-v-fe49e7e8 {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-fe49e7e8 {
+  width: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-fe49e7e8 {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #F4F4F4;
+}
+page .content .search_box.data-v-fe49e7e8 {
+  width: 600rpx;
+  height: 60rpx;
+  border: 1rpx solid black;
+  border-radius: 30rpx;
+  margin-left: 75rpx;
+  margin-top: 24rpx;
+  box-sizing: border-box;
+  padding: 2rpx 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .search_box input.data-v-fe49e7e8 {
+  width: 500rpx;
+  height: 60rpx;
+  margin-left: 15rpx;
+  font-size: 26rpx;
+}
+page .content .search_box image.data-v-fe49e7e8 {
+  width: 30rpx;
+  height: 30rpx;
+}
+page .content .store_list.data-v-fe49e7e8 {
+  width: 100%;
+  padding: 24rpx 25rpx  0 25rpx;
+  box-sizing: border-box;
+}
+page .content .store_list .none_list.data-v-fe49e7e8 {
+  width: 100%;
+  height: 300rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 300rpx;
+}
+page .content .store_list .item.data-v-fe49e7e8 {
+  width: 700rpx;
+  height: 161rpx;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border-radius: 18rpx;
+  padding: 25rpx 18rpx 24rpx 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  margin-bottom: 18rpx;
+  position: relative;
+}
+page .content .store_list .item #yuantou.data-v-fe49e7e8 {
+  width: 61rpx;
+  height: 22rpx;
+  position: absolute;
+  top: 0;
+  left: 2rpx;
+}
+page .content .store_list .item .left_info.data-v-fe49e7e8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+page .content .store_list .item .left_info .con .title.data-v-fe49e7e8 {
+  font-size: 30rpx;
+  color: #111111;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+page .content .store_list .item .left_info .con .weixin.data-v-fe49e7e8,
+page .content .store_list .item .left_info .con .phone.data-v-fe49e7e8 {
+  font-size: 26rpx;
+  color: #ABABAB;
+}
+page .content .store_list .item .left_info .pic.data-v-fe49e7e8 {
+  width: 120rpx;
+  height: 120rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-right: 24rpx;
+}
+page .content .store_list .item .left_info .pic image.data-v-fe49e7e8 {
+  max-width: 100%;
+  max-height: 100%;
+}
+page .content .store_list .item .right_btn.data-v-fe49e7e8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+page .content .store_list .item .right_btn .top.data-v-fe49e7e8 {
+  -webkit-align-self: flex-end;
+          align-self: flex-end;
+}
+page .content .store_list .item .right_btn .bom.data-v-fe49e7e8 {
+  font-size: 22rpx;
+  color: #323232;
+}
+page .content .store_list .item .right_btn .bom .goto.data-v-fe49e7e8 {
+  background-color: #008c8c;
+  border-radius: 15rpx;
+  color: #FFFFFF;
+  margin-left: 10rpx;
+  padding: 4rpx 10rpx;
+}
+page .content .store_list .item.active.data-v-fe49e7e8 {
+  background: rgba(255, 122, 45, 0.1);
+}
+

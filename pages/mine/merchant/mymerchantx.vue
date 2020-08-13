@@ -163,6 +163,9 @@
 					if(+item.need_stock + +item.stock > +item.total_stock){
 						arr.push(1)
 					}
+					if(item.need_stock == 0){
+						arr.push(1)
+					}
 				})
 				return arr.includes(1)
 			}
@@ -183,9 +186,6 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
-						// uni.showLoading({
-						// 	title: ''
-						// })
 						uni.request({
 							url: _this.$http + '/api/user/storeList',
 							method: 'GET',
@@ -195,7 +195,6 @@
 								limit: _this.limit
 							},
 							success(res){
-								// uni.hideLoading()
 								_this.isLoading = false
 								console.log('我的商家返回数据',res)
 								if(res.data.status == 200){
@@ -300,7 +299,7 @@
 				if(this.isSubmitOk){
 					uni.showModal({
 						title: '提示',
-						content: '某个商品输入所需库存超过总库存量!!!'
+						content: '某个商品输入所需库存超过总库存量/某项所需库存为0'
 					})
 					return
 				}
@@ -314,11 +313,17 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(reg){
+						console.log('reg',reg)
+						let type = 1
+						let {position,token} = reg.data
+						if(position === 7){
+							type = 2
+						}
 						let datas = {
-								token: reg.data.token,
+								token: token,
 								take_id: _this.info.take_id,
 								product_list: JSON.stringify(_this.showList),
-								type: 1
+								type: type
 							}
 							console.log('传递参数',datas)
 						uni.request({

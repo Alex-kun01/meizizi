@@ -133,9 +133,9 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				orderInfo: '', // 搜索我的订单值
@@ -168,6 +168,27 @@
 				}
 			} 
 			
+		},
+		onShow() {
+			this.showList = []
+			this.getData()
+		},
+		onLoad(){
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			if(this.showList){
+				this.showList = []
+			}
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		},
 		methods:{
 			//获取订单列表
@@ -219,12 +240,6 @@
 			},
 			changeIndex(index){
 				this.isActive = index
-				// 模拟 请求数据时 待付款/待发货/待评价没有数据展示效果
-				// if(index != 1){
-				// 	this.isOrderHave = true
-				// }else{
-				// 	this.isOrderHave = false
-				// }
 				this.getData()
 			},
 			// 付款 查看购物码 再次购买 去评价 按钮点击事件
@@ -311,7 +326,7 @@
 								}
 							})
 							uni.showToast({
-								title: '已模拟删除'
+								title: '已删除'
 							})
 						}
 						if(res.cancel){
@@ -402,7 +417,7 @@
 				margin-top: 24rpx;
 				.item{
 					width:702rpx;
-					height:369rpx;
+					// height:369rpx;
 					background:rgba(255,255,255,1);
 					border-radius:12rpx;
 					box-sizing: border-box;
@@ -502,13 +517,15 @@
 								margin-top: 15rpx;
 							}
 							.tap_color{
-								width:166rpx;
+								// width:166rpx;
+								display: inline-block;
 								height:33rpx;
 								background:rgba(251,243,240,1);
 								font-size:22rpx;
 								font-weight:500;
 								color:rgba(255,136,34,1);
 								margin-top: 15rpx;
+								padding: 0 10rpx;
 							}
 							
 						}

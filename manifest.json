@@ -2,8 +2,8 @@
     "name" : "美孜孜",
     "appid" : "__UNI__1E09FF4",
     "description" : "内部测试版本",
-    "versionName" : "1.1.0",
-    "versionCode" : 110,
+    "versionName" : "1.1.7",
+    "versionCode" : 117,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -54,7 +54,15 @@
                 ]
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "privacyDescription" : {
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "美孜孜：若不允许,你将无法在美孜孜中使用附近店铺、商家入驻、导航到店铺相关功能。",
+                    "NSLocationAlwaysUsageDescription" : "",
+                    "NSLocationWhenInUseUsageDescription" : "美孜孜：获取定位权限: 美孜孜会在附近店铺、路线查询和导航等服务中使用您的位置信息。",
+                    "NSCameraUsageDescription" : "美孜孜将调用您的摄像头功能，若不允许，您将无法在美孜孜中使用扫码出货功能。",
+                    "NSPhotoLibraryUsageDescription" : "美孜孜：请点击”好”以允许访问.若不允许,你将无法在美孜孜中使用扫码出货功能。"
+                }
+            },
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {},
@@ -143,11 +151,15 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxc529eaacfb962977",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {}
     },
     "mp-alipay" : {
         "usingComponents" : true

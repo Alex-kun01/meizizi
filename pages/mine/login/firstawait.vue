@@ -2,7 +2,6 @@
 	<view class="content"
 	@touchmove.stop.prevent="moveHandle" 
 	>
-		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 广告等待页面 -->
 		<view class="con_box">
 			<image :src="img" mode=""></image>
@@ -12,7 +11,6 @@
 		</view>
 	</view>
 </template>
-
 <script>
 	export default {
 		data () {

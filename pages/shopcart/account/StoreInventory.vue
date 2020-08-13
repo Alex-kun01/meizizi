@@ -22,12 +22,6 @@
 				<input type="text" value="" placeholder="请输入现有库存" v-model="stock" />
 			</view>
 		</view>
-		<!-- <view class="item">
-			<text>报警库存</text>
-			<view class="con">
-				<input type="text" value="" placeholder="请输入报警" v-model="alarm_stock" />
-			</view>
-		</view> -->
 		<view class="item">
 			<text>总的库存</text>
 			<view class="con">
@@ -191,6 +185,9 @@
 					width: 500rpx;
 					height: 100%;
 					font-size: 28rpx;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
 					input{
 						height: 100%;
 						font-size: 30rpx;

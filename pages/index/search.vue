@@ -94,12 +94,13 @@
 					success(res) {
 						console.log('搜索列表数据', res)
 						if(res.data.status === 200){
+							let {search_list, history_list, common_list} = res.data.data
 							// 热门搜索列表
-							_this.search_list = res.data.data.search_list
+							_this.search_list = search_list
 							// 历史记录列表
-							_this.history_list = res.data.data.history_list
+							_this.history_list = history_list
 							// 常用分类列表
-							_this.common_list = res.data.data.common_list
+							_this.common_list = common_list
 						}
 					}
 				})
@@ -166,10 +167,6 @@
 						}
 					})
 			},
-			// bindconfirm(e){
-			// 	let _this = this
-			// 	console.log('搜索键盘',e.detail.value)
-			// },
 			// 热门搜索跳转详情
 			gotoDetalus(item,type){
 				let title = item.title

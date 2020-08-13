@@ -20,8 +20,12 @@
 				</view>
 				<view class="right_price">
 					<view class="addPrice">
-						<text v-if="item.type == 1">+</text>
-						<text v-if="item.type == 2">-</text>
+						<text v-if="item.type == 1">收入</text>
+						<text v-if="item.type == 2">消费</text>
+						<text v-if="item.type == 3">冻结</text>
+						<text v-if="item.type == 4">提现</text>
+						<text v-if="item.type == 5">提现驳回</text>
+						<text v-if="item.type == 6">同意提现</text>
 						{{item.money}}
 					</view>
 					<view class="syNum">

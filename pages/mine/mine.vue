@@ -103,6 +103,10 @@
 			</view>
 		</view>
 		
+		<!-- <view class="linshi" @click="gotokf">
+			临时跳转客服
+		</view> -->
+		
 		<view class="item line"
 		@click="gotoTarget2(2)"
 		v-if="mineButton.includes('我的商家')"
@@ -251,6 +255,11 @@
 			})
 		},
 		methods: {
+			gotokf(){
+				uni.navigateTo({
+					url: '../chat/chatLive'
+				})
+			},
 			init(){
 				let _this = this
 				uni.getStorage({
@@ -643,6 +652,7 @@
 				box-sizing: border-box;
 				padding: 0 25rpx;
 				margin-top: 80rpx;
+				box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 				.item{
 					width: 100%;
 					height: 93rpx;
@@ -652,6 +662,7 @@
 					align-items: center;
 					box-sizing: border-box;
 					padding: 0 24rpx;
+					
 					.left{
 						display: flex;
 						align-items: center;

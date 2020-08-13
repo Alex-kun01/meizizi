@@ -148,13 +148,13 @@
 							success(res){
 								_this.isConfirm = true
 								console.log('确认收货', res)
-								if(res.data.status == 200){
+								if(res.data.status === 200){
 									uni.showToast({
 										title: '收货成功'
 									})
-									uni.navigateBack({
-										
-									})
+									setTimeout(()=>{
+										uni.navigateBack({})
+									},1000)
 								}else{
 									uni.showModal({
 										title: '提示',

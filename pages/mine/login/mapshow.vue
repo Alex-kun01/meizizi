@@ -36,7 +36,6 @@
 				//map
 				longitude: 0,
 				latitude: 0,
-				
 				key : "cbf6527378664135f4a17c027e051bcd",
 				//搜索框输入的地址
 				searchAddress:"",
@@ -46,9 +45,7 @@
 				addressLocation:"",
 				//分割返回的经纬度存数组
 				locationArr:[],
-				locations:{},
-				
-				
+				locations:{}
 			}
 		},
 		onLoad() {
@@ -66,7 +63,7 @@
 				let arr = this.locations.locations.split(",");
 				let lg = arr[0]; // 经度
 				let la = arr[1]; // 纬度
-				
+				console.log('经纬度',la, lg, address)
 				let temp = {
 					address,
 					la,
@@ -92,10 +89,6 @@
 							that.locationArr = that.addressLocation.split(",");
 							that.longitude = that.locationArr[0];
 							that.latitude = that.locationArr[1];
-							
-							// that.setLocation({
-								
-							// })
 							console.log("输入获取经纬度",that.longitude,that.latitude);
 							that.mapInterface();
 						}
@@ -141,41 +134,26 @@
 				let lud = Number(this.longitude).toFixed(6);
 				let lat = Number(this.latitude).toFixed(6);
 				let location = `${lud},${lat}`;
-				console.log(location);
+				console.log('传递经纬度',location);
 				uni.request({
 					url:`https://restapi.amap.com/v3/geocode/regeo?key=${this.key}&location=${location}`,
 					success: (res) => {
 						console.log("地址：",res.data);
-					   // console.log("地址：",res.data.regeocode.formatted_address);
 					    this.address = res.data.regeocode.formatted_address;
 						
 						this.locations = {
 							city:res.data.regeocode.addressComponent.city,
 							area:res.data.regeocode.addressComponent.district,
-							locations:res.data.regeocode.addressComponent.streetNumber.location,
+							locations:res.data.regeocode.addressComponent.streetNumber.location || location,
 							address:res.data.regeocode.formatted_address
 						}
 						console.log("返回数据集合：",this.locations);
-						// let lg = "";
-						// let la = "";
-						// let arr = [];
-						// arr = this.locations.locations.split(",");
-						// lg = arr[0];
-						// la = arr[1];
-						// this.latitude = la
-						// this.longitude = lg
-						// console.log('经纬度xx', this.latitude)
 					}
 				})
 			}
-			
-			
 		},
 		onLoad() {
 			let that = this;
-			// uni.showLoading({
-			// 	title: '定位中...'
-			// })
 			uni.getLocation({
 			    type: 'gcj02', //腾讯地图坐标系
 				geocode:true,
@@ -200,13 +178,6 @@
 </script>
 
 <style lang="scss" scoped>
-	// 适配异形屏幕
-	// .titleNview-placing {
-	// 	height: var(--status-bar-height);
-	// 	background: #FFFFFF;
-	// 	padding-top: 0;
-	// 	box-sizing: content-box;
-	//  }
 	page{
 		width: 100%;
 		

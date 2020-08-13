@@ -94,9 +94,9 @@
 						
 						<view class="bom_btn">
 							<view style="display: flex;align-items: center;">
-								<image style="width: 21rpx;height: 21rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image>
+								<!-- <image style="width: 21rpx;height: 21rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image> -->
 								<view class="fukuan">
-									<text style="margin-right: 15rpx;">￥{{item.vip_price}}</text>
+									<text style="margin-right: 15rpx;color: #FF792C;">会员价￥{{item.vip_price}}</text>
 									<text>￥{{item.price}}</text>
 								</view>
 							</view>
@@ -614,6 +614,7 @@
 					padding: 31rpx 24rpx 24rpx 24rpx;
 					box-sizing: border-box;
 					margin-bottom: 24rpx;
+					box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 					.yuan{
 						width: 30rpx;
 						height: 30rpx;
@@ -790,6 +791,7 @@
 						background:rgba(255,255,255,1);
 						border-radius:12rpx;
 						margin-bottom: 26rpx;
+						box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 						image{
 							width: 100%;
 							height: 315.7rpx;

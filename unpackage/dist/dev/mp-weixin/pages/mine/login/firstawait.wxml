@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['touchmove',[['moveHandle',['$event']]]]]}}" class="content data-v-1333bac2" catchtouchmove="__e"><view class="con_box data-v-1333bac2"><image src="{{img}}" mode class="data-v-1333bac2"></image><view class="yuan data-v-1333bac2">{{''+num+''}}</view></view></view>

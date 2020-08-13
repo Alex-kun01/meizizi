@@ -27,7 +27,10 @@
 						{{item.need_time.substring(0,10)}}
 					</view>
 					<view class="tap_type">
-						<text>{{statusList[+item.order_status].name}}</text>
+						<!-- <text>{{statusList[+item.order_status].name}}</text> -->
+						<text v-if="item.order_status == 1.">未发货</text>
+						<text v-if="item.order_status == 2.">已发货</text>
+						<text v-if="item.order_status == 3.">已收货</text>
 					</view>
 				</view>
 			</view>
@@ -47,15 +50,14 @@
 				limit:10,
 				isLoading: false,
 				opt: {},
-				statusList: [{name:'数据错误'},{name:'未发货'},{name: '已发货'},{name:'已收货'}]
+				// statusList: [{name:'数据错误'},{name:'未发货'},{name: '已发货'},{name:'已收货'}],
+				// isEnd: true
 			}
 		},
 		onLoad(opt){
 			this.opt = opt
-			// this.getData()
 		},
 		onShow(){
-			console.log('我show了')
 			this.showList = []
 			this.getData()
 		},

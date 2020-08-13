@@ -169,7 +169,7 @@
 		<view class="pay_box">
 			<view>
 				<text style="font-size: 26rpx;color: #A3A3A3;margin-right: 43rpx;">保障</text>
-				<text style="font-size: 26rpx;color: #3E3E3E;">假一赔十 三天无理由退换</text>
+				<text style="font-size: 26rpx;color: #3E3E3E;">{{$text}}</text>
 			</view>
 			<text style="font-size: 26rpx;color: #A3A3A3;">销量:{{info.ficti}}</text>
 		</view>
@@ -273,8 +273,8 @@
 						{{item.store_name}}
 					</view>
 					<view class="bom_btn">
-						<image style="width: 23rpx;height: 23rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
-						<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
+						<!-- <image style="width: 23rpx;height: 23rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
+						<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">会员价￥</text>
 						<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;margin-right: 15rpx;">{{item.vip_price}}</text>
 						<text style="font-size: 23rpx;color: #666666;">￥{{item.price}}</text>
 					</view>
@@ -433,7 +433,9 @@
 				}, // 评价info
 				content_css: {
 					height: 0
-				}
+				},
+				// 首页菜单跳转参数
+				parameter: {}
 			}
 		},
 		computed:{
@@ -458,9 +460,9 @@
 			console.log('产品详情opt',opt)
 			this.opt = opt
 			this.staticImage = opt.img
-			
+			this.parameter = this.$store.state.parameter
+			this.$store.commit('setParameter', {});
 			this.getData(opt)
-			// this.jisun()
 			
 		},
 		onShow(){
@@ -475,13 +477,13 @@
 						console.log('屏幕高度',res)
 						return
 						_this.jsHeig = res.screenHeight
-				        console.log(res.model);
-				        console.log(res.pixelRatio);
-				        console.log(res.windowWidth);
-				        console.log(res.windowHeight);
-				        console.log(res.language);
-				        console.log(res.version);
-				        console.log(res.platform);
+				        // console.log(res.model);
+				        // console.log(res.pixelRatio);
+				        // console.log(res.windowWidth);
+				        // console.log(res.windowHeight);
+				        // console.log(res.language);
+				        // console.log(res.version);
+				        // console.log(res.platform);
 				    }
 				});
 			},
@@ -513,13 +515,25 @@
 				uni.showLoading({
 					title: '加载中...'
 				})
+				
+				
+				let datas = {}
+				console.log('检查parmeter是否为空', this.parameter)
+				if(JSON.stringify(this.parameter) == "{}"){
+					datas = {
+						id: opt.id,
+						uid: userInfo.uid || ''
+					}
+				}else{
+					datas = this.parameter
+				}
+				
+				
+				console.log('参送参数查看', datas)
 				uni.request({
 					url: this.$http + '/api/goods/goodsInfo',
 					method:'POST',
-					data: {
-						id: opt.id,
-						uid: userInfo.uid || ''
-					},
+					data: datas,
 					success(res){
 						console.log('产品详情返回数据', res)
 						if(res.data.status === 200){
@@ -1483,6 +1497,7 @@
 						background-color: #FFFFFF;
 						margin-bottom: 18rpx;
 						border-radius:12rpx 12rpx 0 0;
+						box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 						.img{
 							width: 100%;
 							text-align: center;

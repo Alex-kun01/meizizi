@@ -1,0 +1,97 @@
+.titleNview-placing.data-v-7f3b3b50 {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-7f3b3b50 {
+  width: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-7f3b3b50 {
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F4F4;
+  box-sizing: border-box;
+  padding: 24rpx;
+}
+page .content .loading.data-v-7f3b3b50 {
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+  background-color: #eee;
+  text-align: center;
+  font-size: 28rpx;
+}
+page .content .show_list.data-v-7f3b3b50 {
+  width: 100%;
+}
+page .content .show_list .item.data-v-7f3b3b50 {
+  width: 100%;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  padding: 25rpx 15rpx;
+  margin-bottom: 24rpx;
+}
+page .content .show_list .item .title.data-v-7f3b3b50 {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 24rpx;
+}
+page .content .show_list .item .con_box.data-v-7f3b3b50 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .show_list .item .con_box image.data-v-7f3b3b50 {
+  width: 180rpx;
+  height: 180rpx;
+  margin-right: 24rpx;
+}
+page .content .show_list .item .con_box .con_con.data-v-7f3b3b50 {
+  font-size: 24rpx;
+}
+page .content .show_list .item .con_box .con_con .address.data-v-7f3b3b50 {
+  width: 390rpx;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+page .content .show_list .item .con_box .con_con .item_box.data-v-7f3b3b50 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 15rpx;
+}
+page .content .show_list .item .con_box .con_con .item_box .item.data-v-7f3b3b50 {
+  margin: 0;
+  padding: 0;
+}
+page .content .show_list .item .con_box .con_con .item_box .item image.data-v-7f3b3b50 {
+  width: 28rpx;
+  height: 23rpx;
+  margin: 0 5rpx;
+}
+page .content .show_list .item .con_box .con_con .num_box.data-v-7f3b3b50 {
+  font-weight: 500;
+}
+page .content .show_list .item .con_box .btn_r.data-v-7f3b3b50 {
+  padding: 0 15rpx;
+  height: 31rpx;
+  line-height: 31rpx;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 22rpx;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);
+  background: linear-gradient(-88deg, #ff5005, #ff7a2d);
+  border-radius: 16rpx;
+  -webkit-align-self: flex-end;
+          align-self: flex-end;
+}
+

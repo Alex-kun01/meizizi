@@ -133,7 +133,7 @@
 			}
 		},
 		{
-			"path": "pages/index/shoplist/hufuarea",
+			"path": "pages/index/shoplist/area",
 			"style": {
 				"navigationBarTitleText": "护肤专区",
 				"navigationBarBackgroundColor": "#FFFFFF",
@@ -141,40 +141,9 @@
 			}
 		},
 		{
-			"path": "pages/index/shoplist/meirongarea",
-			"style": {
-				"navigationBarTitleText": "美容专区",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/index/shoplist/caizhuangvenue",
-			"style": {
-				"navigationBarTitleText": "彩妆会场",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/index/shoplist/huodongarea",
-			"style": {
-				"navigationBarTitleText": "活动专区",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/index/shoplist/caizhuangxilie",
+			"path": "pages/index/shoplist/xilie",
 			"style": {
 				"navigationBarTitleText": "彩妆系列",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/index/shoplist/maijiashow",
-			"style": {
-				"navigationBarTitleText": "买家秀",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"enablePullDownRefresh": true
 			}
@@ -183,40 +152,6 @@
 			"path": "pages/index/shoplist/pingjia",
 			"style": {
 				"navigationBarTitleText": "评价",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/member/menber",
-			"style": {
-				"navigationBarTitleText": "会员成员",
-				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/mine/member/myteam",
-			"style": {
-				// "navigationBarTitleText": "我的团队",
-				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/member/memberteam",
-			"style": {
-				"navigationBarTitleText": "成员" ,// 我的团队-成员管理
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/member/regionset",
-			"style": {
-				// "navigationBarTitleText": "总监" ,//我的团队-总监
-				"navigationStyle":"custom",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"enablePullDownRefresh": true
 			}
@@ -285,7 +220,7 @@
 				"navigationBarTitleText": "收货单", // 服务商
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
-		}, 
+		},
 		{
 			"path": "pages/mine/merchant/receiptwl",
 			"style": { 
@@ -315,41 +250,9 @@
 			}
 		},
 		{
-			"path": "pages/mine/merchant/jiaoyirecord",
-			"style": { 
-				"navigationBarTitleText": "交易记录",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/merchant/jiaoyichuhuo",
-			"style": { 
-				"navigationBarTitleText": "交易记录",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
 			"path": "pages/mine/join/quyujoin",
 			"style": { 
 				"navigationStyle":"custom", // 服务商-我的商家
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/join/tuijianjoinmember",
-			"style": { 
-				"navigationBarTitleText": "会员",//推荐加盟店会员
-				"navigationBarBackgroundColor": "#FFFFFF"
-				
-			}
-		},
-		{
-			"path": "pages/mine/join/quyujoinmember",
-			"style": { 
-				"navigationBarTitleText": "会员",  //会员团队
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"enablePullDownRefresh": true
 			}
@@ -387,14 +290,6 @@
 				"navigationStyle":"custom",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/mine/member/tuijianmember",
-			"style": { 
-				// "navigationBarTitleText": ""  ,// 推荐的会员
-				"navigationStyle":"custom",
-				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
@@ -505,14 +400,6 @@
 			}
 		},
 		{
-			"path": "pages/shopcart/follwshop",
-			"style": { 
-				"navigationBarTitleText": "关注店铺",
-				"navigationBarBackgroundColor": "#FFFFFF"
-				// "navigationStyle":"custom"
-			}
-		},
-		{
 			"path": "pages/shopcart/collect",
 			"style": { 
 				"navigationBarTitleText": "收藏",
@@ -573,14 +460,6 @@
 			}
 		},
 		{
-			"path": "pages/mine/login/invitationcode",
-			"style": { 
-				"navigationBarTitleText": "",// 邀请码
-				"navigationBarBackgroundColor": "#FFFFFF"
-				// "navigationStyle":"custom"
-			}
-		}, 
-		{
 			"path": "pages/mine/login/mapshow",
 			"style": { 
 				"navigationBarTitleText": "店铺定位",// 高德地图
@@ -602,15 +481,6 @@
 				"navigationBarTitleText": "",// 协议
 				"navigationBarBackgroundColor": "#FFFFFF"
 				// "navigationStyle":"custom"
-			}
-		},
-		{
-			"path": "pages/mine/member/teacherregion",
-			"style": { 
-				// "navigationBarTitleText": "业务员",// 我的团队-业务员
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true,
-				"navigationStyle":"custom"
 			}
 		},
 		{
@@ -671,6 +541,48 @@
 				"enablePullDownRefresh": true
 				// "navigationStyle":"custom"
 			}
+		},
+		{
+			"path": "pages/chat/chatLive",
+			"style": { 
+				"navigationBarTitleText": "客服", 
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+				// "navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/mine/member/memberteam",
+			"style": {
+				"navigationBarTitleText": "成员" ,// 我的团队-成员管理
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
+		},
+		// {
+		// 	"path": "pages/mine/member/regionset",
+		// 	"style": {
+		// 		// "navigationBarTitleText": "总监" ,//我的团队-总监
+		// 		"navigationStyle":"custom",
+		// 		"navigationBarBackgroundColor": "#FFFFFF",
+		// 		"enablePullDownRefresh": true
+		// 	}
+		// },
+		{
+			"path": "pages/mine/merchant/jiaoyirecord",
+			"style": { 
+				"navigationBarTitleText": "交易记录",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/mine/merchant/jiaoyichuhuo",
+			"style": { 
+				"navigationBarTitleText": "交易记录",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": true
+			}
 		}
 	],
 	"tabBar": {
@@ -699,13 +611,14 @@
 					"selectedIconPath": "static/index/gouwuche@8x.png",
 					 "enablePullDownRefresh": true
 				},
-			{
-					"pagePath": "pages/mine/mine",
-					"text": "我的",
-					"iconPath": "static/index/wode@2x.png",
-					"selectedIconPath": "static/mine/wode@2x.png"
-				}
-		
+			
+				{
+						"pagePath": "pages/mine/mine",
+						"text": "我的",
+						"iconPath": "static/index/wode@2x.png",
+						"selectedIconPath": "static/mine/wode@2x.png"
+					}
+				
 		]
 	},
 	"globalStyle": {

@@ -55,9 +55,9 @@
 				
 				<view class="price_btn">
 					<view class="left_price">
-						<image style="width: 25rpx;height: 24rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image>
+						<!-- <image style="width: 25rpx;height: 24rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
 						<view class="price">
-							<text style="font-size: 26rpx;font-weight: 500;">￥</text>
+							<text style="font-size: 26rpx;font-weight: 500;">会员价￥</text>
 							{{item.vip_price}}
 						</view>
 					</view>
@@ -112,7 +112,8 @@
 				shopList:[],
 				opt: {}, //页面跳转接受参数
 				type: 2, // 
-				
+				// 首页菜单跳转参数
+				parameter: {}
 			}
 		},
 		onLoad(opt){
@@ -121,7 +122,8 @@
 			if(opt.type){
 				this.type = opt.type
 			}
-			
+			this.parameter = this.$store.state.parameter
+			this.$store.commit('setParameter', {})
 			this.getData(opt)
 			this.opt = opt
 		},
@@ -145,13 +147,18 @@
 				uni.showLoading({
 					title: ''
 				})
-				let datas = {
-					search_type: _this.type,
-					content: _this.searchValue,
-					type: _this.typeIndex,
-					p: _this.p,
-					limit: _this.limit,
-				}
+				let datas = {}
+				if(JSON.stringify(this.parameter) == '{}'){
+					datas = {
+						search_type: _this.type,
+						content: _this.searchValue,
+						type: _this.typeIndex,
+						p: _this.p,
+						limit: _this.limit,
+					}
+				}else{
+					datas = this.parameter
+				} 
 				console.log('传递参数', datas)
 				uni.request({
 					url: this.$http + '/api/goods/goodsList',
@@ -240,6 +247,9 @@
 			onReachBottom(e){
 				console.log('触底了')
 				this.isLoading = true
+				if(this.parameter.p){
+					this.parameter.p++
+				}
 				this.p++
 				this.getData(this.opt)
 			},
@@ -372,19 +382,21 @@
 				flex-wrap: wrap;
 				.item{
 					width: 341rpx;
-					// height: 447rpx;
+					// height: 520rpx;
 					background-color: #FFFFFF;
 					margin-bottom: 18rpx;
 					border-radius:12rpx;
 					position: relative;
 					padding-bottom: 10rpx;
+					box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 					.img{
 						width: 100%;
 						box-sizing: border-box;
-						// padding: 23rpx 0 0 80rpx;
+						
 						image{
 							width: 100%;
 							height: 305rpx;
+							border-radius: 12rpx 12rpx 0 0;
 						}
 					}
 					.text_con{
@@ -426,6 +438,7 @@
 							.price{
 								font-size: 34rpx;
 								font-weight: 500;
+								color: #FF5807;
 							}
 						}
 					}

@@ -67,7 +67,7 @@
 		<!-- 菜单项 -->
 		<view class="option_list">
 			<view class="option"
-			@click="gototarget('./withdraw')"
+			@click="gototarget('./withdraw?now_money=')"
 			>
 				<image style="width: 39rpx;height: 29rpx;" src="../../../static/shopcart/woyaotixian@2x.png" mode=""></image>
 				<view class="name">
@@ -134,13 +134,8 @@
 				})
 			},
 			gototarget(url){
-				uni.showModal({
-					title: '提示',
-					content: '该功能尚未开放'
-				})
-				return
 				uni.navigateTo({
-					url: url
+					url: url + this.now_money
 				})
 			},
 			gototarget2(url){

@@ -1,0 +1,182 @@
+.titleNview-placing.data-v-4fab2e80 {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-4fab2e80 {
+  width: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-4fab2e80 {
+  width: 100%;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+page .content .tourist.data-v-4fab2e80 {
+  width: 180rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  background-color: #AAAAAA;
+  color: #FFFFFF;
+  line-height: 50rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 60rpx;
+  left: calc(50% - 90rpx);
+}
+page .content .title.data-v-4fab2e80 {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 56rpx 80rpx;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #111111;
+}
+page .content .box.data-v-4fab2e80 {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 62rpx;
+}
+page .content .box .item.data-v-4fab2e80 {
+  width: 100%;
+  height: 70rpx;
+  border-bottom: 1rpx solid #ddd;
+  margin-bottom: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding-bottom: 20rpx;
+}
+page .content .box .item .l_item.data-v-4fab2e80 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .box .item .l_item .name.data-v-4fab2e80 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #111111;
+  margin-right: 30rpx;
+}
+page .content .box .item .l_item input.data-v-4fab2e80 {
+  font-size: 30rpx;
+  color: #999999;
+}
+page .content .box .item .r_item.data-v-4fab2e80 {
+  width: 208rpx;
+  height: 61rpx;
+  line-height: 61rpx;
+  text-align: center;
+  border: 1rpx solid #cacaca;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #111111;
+}
+page .content .bom_btn.data-v-4fab2e80 {
+  width: 690rpx;
+  height: 91rpx;
+  line-height: 91rpx;
+  text-align: center;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);
+  background: linear-gradient(-88deg, #ff5005, #ff7a2d);
+  border-radius: 46rpx;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 43rpx 0 0 30rpx;
+}
+page .content .gologin.data-v-4fab2e80 {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #111111;
+  margin: 36rpx 30rpx 0 30rpx;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+page .content .float_box.data-v-4fab2e80 {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+page .content .float_box .con_box.data-v-4fab2e80 {
+  width: 650rpx;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-radius: 10rpx;
+  background-color: #FFFFFF;
+  position: fixed;
+  top: calc(50% - 200rpx);
+  left: calc(50% - 325rpx);
+}
+page .content .float_box .con_box .titlet.data-v-4fab2e80 {
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 24rpx;
+}
+page .content .float_box .con_box .text.data-v-4fab2e80 {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  text-indent: 40rpx;
+}
+page .content .float_box .con_box .bomm_btn.data-v-4fab2e80 {
+  margin-top: 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+page .content .float_box .con_box .bomm_btn .item.data-v-4fab2e80 {
+  width: 50%;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: 1rpx solid #eee;
+}
+page .content .protocol.data-v-4fab2e80 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 26rpx;
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  color: #ff7a2d;
+}
+page .content .protocol .yuan.data-v-4fab2e80 {
+  width: 25rpx;
+  height: 25rpx;
+  border: 1rpx solid #999;
+  display: inline-block;
+  margin-left: 30rpx;
+  position: relative;
+}
+page .content .protocol .yuan image.data-v-4fab2e80 {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: -14rpx;
+  left: 4rpx;
+}
+

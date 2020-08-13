@@ -12,7 +12,7 @@
 			}
 		},
 		methods:{
-			
+			//#ifdef APP-PLUS
 			getData(target){
 				let _this = this
 				let datas = {type: 1}
@@ -61,28 +61,31 @@
 				}
 				
 				
-			},
+			}
+			//#endif
 		},
 		onLaunch: function() {
 			console.log('App Launch')
 		},
 		onShow: function() {
 			console.log('App Show')
-			plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-				console.log('客户端详情数据',JSON.stringify(wgtinfo));//客户端详情数据
-				console.log('应用版本号',wgtinfo.version);//应用版本号
-				this.version = wgtinfo.version
-				// 获取设备类型 安卓 ios
-				this.target = uni.getSystemInfoSync().platform
-				this.getData(this.target)
-			})
+			
+			  //#ifdef APP-PLUS
+					plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+						console.log('客户端详情数据',JSON.stringify(wgtinfo));//客户端详情数据
+						console.log('应用版本号',wgtinfo.version);//应用版本号
+						this.version = wgtinfo.version
+						// 获取设备类型 安卓 ios
+						this.target = uni.getSystemInfoSync().platform
+						this.getData(this.target)
+					})
+			  //#endif
+			
 		},
 		
 		onHide: function() {
 			console.log('App Hide')
 		},
-		// 定时器 不断请求 接口判断该用户是否为会员
-		// 此方法，情非得已 十分消耗性能，如有更好解决办法，请优化！！！
 		
 	}
 </script>

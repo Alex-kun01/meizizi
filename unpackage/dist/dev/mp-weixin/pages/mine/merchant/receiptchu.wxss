@@ -1,0 +1,116 @@
+.titleNview-placing.data-v-699a985c {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-699a985c {
+  width: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-699a985c {
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F4F4;
+}
+page .content .user_info.data-v-699a985c {
+  width: 100%;
+  height: 300rpx;
+  background-color: #FFFFFF;
+  margin-top: 24rpx;
+  box-sizing: border-box;
+  padding: 24rpx 30rpx;
+}
+page .content .user_info .user.data-v-699a985c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 15rpx;
+}
+page .content .user_info .user .info.data-v-699a985c {
+  margin-left: 24rpx;
+}
+page .content .user_info .user .info .phone_box image.data-v-699a985c {
+  margin-right: 15rpx;
+}
+page .content .user_info .user .info .tit_txt.data-v-699a985c {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #333333;
+  margin-right: 15rpx;
+}
+page .content .user_info .user .info .con_text.data-v-699a985c {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #8F8F8F;
+}
+page .content .user_info .address image.data-v-699a985c {
+  margin-right: 20rpx;
+}
+page .content .user_info .address text.data-v-699a985c {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #333333;
+}
+page .content .show_list.data-v-699a985c {
+  width: 100%;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  padding: 24rpx;
+  margin-top: 24rpx;
+}
+page .content .show_list .title_list.data-v-699a985c {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+}
+page .content .show_list .title_list .title.data-v-699a985c {
+  width: 140rpx;
+  text-align: center;
+}
+page .content .show_list .item.data-v-699a985c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #919191;
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+page .content .show_list .item .item_i.data-v-699a985c {
+  width: 175rpx;
+  text-align: center;
+}
+page .content .show_list .title_list .title.data-v-699a985c {
+  width: 175rpx;
+  text-align: center;
+}
+page .content .bom_btn.data-v-699a985c {
+  width: 540rpx;
+  height: 91rpx;
+  line-height: 91rpx;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 36rpx;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);
+  background: linear-gradient(-88deg, #ff5005, #ff7a2d);
+  border-radius: 46rpx;
+  margin: 50rpx 0 50rpx 105rpx;
+}
+

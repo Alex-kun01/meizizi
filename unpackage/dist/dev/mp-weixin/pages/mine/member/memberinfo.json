@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员信息",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

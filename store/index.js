@@ -23,9 +23,14 @@ const store = new Vuex.Store({
 		},
 		showOrderId: '', // 临时存放订单id
 		
+		// 首页菜单跳转参数
+		parameter: {}
 		
 	},
 	mutations:{
+		setParameter(state,obj){
+			state.parameter = obj
+		},
 		setOrderId(state,str){
 			state.showOrderId = str
 		},

@@ -12,6 +12,7 @@
 						推荐码
 					</view>
 					<input v-model="referralCode" type="text" placeholder="请输入推荐码" />
+					<image  @click="scanCode" class="erweiCode" style="width: 40rpx;height: 40rpx;" src="../../../static/index/saoyisao.png" mode=""></image>
 				</view>
 				<view></view>
 			</view>
@@ -202,6 +203,16 @@
 					}
 				})
 			},
+			// 扫描二维码
+			scanCode(){
+				let _this = this
+				uni.scanCode({
+					success(res) {
+						console.log('扫描二维码',res)
+						_this.referralCode = res.result
+					}
+				})
+			},
 			// 获取验证码
 			getInCode(){
 				if(this.isShowCode){
@@ -281,12 +292,19 @@
 				.item{
 					width: 100%;
 					height: 80rpx;
+					// background-color: pink;
 					border-bottom: 1rpx solid #ddd;
 					margin-bottom: 30rpx;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					padding-bottom: 20rpx;
+					position: relative;
+					.erweiCode{
+						position: absolute;
+						top: 20rpx;
+						right: 30rpx;
+					}
 					.l_item{
 						display: flex;
 						align-items: center;

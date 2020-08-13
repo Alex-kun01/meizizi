@@ -41,12 +41,12 @@
 			<view class="item"
 			v-for="(item, index) in chuhuoList"
 			:key='index'
+			v-if="item.quantity != 0"
 			>
 				<view class="item_i">{{item.store_name}}</view>
 				<view class="item_i">{{item.price}}</view>
 				<view class="item_i">{{item.quantity}}</view>
 				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
-				
 			</view>
 		</view>
 		<!-- 底部按钮 -->

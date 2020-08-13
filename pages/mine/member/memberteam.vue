@@ -20,7 +20,18 @@
 					<view class="con_box">
 						<!-- 职位（1-超级管理员 2-总经理 3-总监 4-省代理 5-业务员/讲师 6-服务商 7-物流商 8-加盟店 9-会员消费者 10-普通消费者 11-市级服务商） -->
 						<view class="name">{{item.nickname}}</view>
-						<view class="zhiwei">职位：{{statusList[+item.position].name}}</view>
+						<!-- <view class="zhiwei">职位：{{statusList[+item.position].name}}</view> -->
+						<text v-if="item.position == 1">职位：超级管理员</text>
+						<text v-if="item.position == 2">职位：总经理</text>
+						<text v-if="item.position == 3">职位：总监</text>
+						<text v-if="item.position == 4">职位：省代理</text>
+						<text v-if="item.position == 5">职位：业务员</text>
+						<text v-if="item.position == 6">职位：服务商</text>
+						<text v-if="item.position == 7">职位：物流商</text>
+						<text v-if="item.position == 8">职位：加盟店</text>
+						<text v-if="item.position == 9">职位：会员消费者</text>
+						<text v-if="item.position == 10">职位：普通消费者</text>
+						<text v-if="item.position == 11">职位：市级服务商</text>
 					</view>
 				</view>
 				<view class="btn_r" @click="renmClick(item, index)">任命</view>
@@ -152,44 +163,6 @@
 				shenList: [], // 省选择列表
 				shiList: [], // 市选择列表
 				targetCode: '', // 目标code /省code/市code
-				statusList:[
-					{
-						name: '数据错误'
-					},
-					{
-						name: '超级管理员'
-					},
-					{
-						name: '总经理'
-					},
-					{
-						name: '总监'
-					},
-					{
-						name: '省区经理'
-					},
-					{
-						name: '业务员'
-					},
-					{
-						name: '服务商'
-					},
-					{
-						name: '物流商'
-					},
-					{
-						name: '加盟店'
-					},
-					{
-						name: '会员消费者'
-					},
-					{
-						name: '普通消费者'
-					},
-					{
-						name: '市级代理'
-					},
-				]
 			}
 		},
 		onLoad(){

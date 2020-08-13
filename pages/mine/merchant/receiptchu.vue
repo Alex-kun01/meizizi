@@ -41,6 +41,7 @@
 			<view class="item"
 			v-for="(item, index) in chuhuoList"
 			:key='index'
+			v-if="item.quantity != 0"
 			>
 				<view v-if="item.store_name" class="item_i">{{item.store_name}}</view>
 				<view class="item_i">{{item.price}}</view>
@@ -48,6 +49,7 @@
 				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
 				
 			</view>
+			
 		</view>
 		<!-- 底部按钮 -->
 		<view class="bom_btn"
@@ -55,6 +57,9 @@
 		v-if="isConfirm"
 		>
 			确认发货
+		</view>
+		<view class="allPrice">
+			总金额：{{allPrice}}
 		</view>
 	</view>
 		
@@ -72,6 +77,15 @@
 				opt: {},
 				page: 1,
 				limit: 10
+			}
+		},
+		computed:{
+			allPrice(){
+				let allPrice = 0;
+				this.chuhuoList.forEach(item =>{
+					allPrice += +item.price * +item.quantity
+				})
+				return allPrice;
 			}
 		},
 		onLoad(opt){
@@ -281,6 +295,15 @@
 				background:linear-gradient(-88deg,rgba(255,80,5,1),rgba(255,122,45,1));
 				border-radius:46rpx;
 				margin: 50rpx 0 50rpx 105rpx;
+			}
+			.allPrice{
+				height: 80rpx;
+				line-height: 80rpx;
+				width: 100%;
+				background-color: #FFFFFF;
+				text-align: right;
+				padding-right: 30rpx;
+				
 			}
 		}
 	}

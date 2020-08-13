@@ -160,7 +160,7 @@
 			}
 		},
 		onLoad(opt){
-			console.log('opt', opt)
+			console.log('opt订单详情', opt)
 			
 			this.opt = opt
 			if(opt.orderId){

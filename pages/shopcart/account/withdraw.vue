@@ -1,12 +1,11 @@
 <template>
 	<view class="content">
-		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 提现 -->
 		<view class="menu_box">
 			<view :class="{item:true, active: isActive === 1}"
 			@click='changeIndex(1)'
 			>
-				微信
+				人工提现
 			</view>
 			<view :class="{item:true, active: isActive === 2}"
 			@click='changeIndex(2)'
@@ -32,11 +31,11 @@
 			</view>
 			<view class="input">
 				<text>￥</text>
-				<input type="text" v-model="priceValue" placeholder="12231" />
+				<input type="text" v-model="priceValue" placeholder="请输入提现金额" />
 			</view>
 			<view class="yue">
-				<text>当前零钱余额99.00元</text>
-				<text style="color: #FF792C;">全部提现</text>
+				<text>当前可提现余额{{opt.now_money}}元</text>
+				<text @click="allTiXianClick" style="color: #FF792C;">全部提现</text>
 			</view>
 		</view>
 		<!-- 充值 -->
@@ -55,19 +54,77 @@
 			return {
 				priceValue: '', //提现输入值
 				isActive: 1, // 提现方式 1微信 2支付宝 3银行卡
+				opt:{}
 			}
 		},
-		onLoad(){
-			
+		onLoad(opt){
+			this.opt = opt
 		},
 		onShow(){
 			
 		},
 		methods:{
+			// 全部提现事件
+			allTiXianClick(){
+				this.priceValue = this.opt.now_money
+			},
+			// 是否具备提交条件
+			isReady(){
+				return this.priceValue > this.opt.now_money
+			},
+			// 提现
 			submit(){
-				console.log(this.priceValue)
+				let _this = this
+				console.log(this.isReady())
+				
+				if(this.isReady()){
+					uni.showModal({
+						title: '提示',
+						content: '提现金额不得超过可提现金额！'
+					})
+					return
+				}else if(!this.priceValue){
+					uni.showModal({
+						title: '提示',
+						content: '请输入提现金额！'
+					})
+					return
+				}
+				else{
+					uni.getStorage({
+						key: 'userInfo',
+						success(reg){
+							let datas = {
+								token: reg.data.token,
+								money: _this.priceValue
+							}
+							uni.request({
+								url: _this.$http + '/api/team/withdrawal',
+								method: 'POST',
+								data: datas,
+								success(res){
+									console.log('提现返回数据',res)
+									if(res.data.status === 200){
+										uni.showToast({
+											title: '操作成功！'
+										})
+										setTimeout(() =>{
+											uni.navigateBack({})
+										},1000)
+									}
+								}
+							})
+						}
+					})
+				}
 			},
 			changeIndex(index){
+				if(index != 1){
+					uni.showModal({
+						title: '敬请期待...'
+					})
+					return
+				}
 				this.isActive = index
 			}
 		}
