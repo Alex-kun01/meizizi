@@ -20,7 +20,7 @@
 				<image id="yuantou" v-if="item.is_source == 1" src="../../static/nearbystore/yuantoudian@2x.png" mode=""></image>
 				<view class="left_info">
 					<view class="pic">
-						<image style="border: 4rpx solid #007AFF;min" :src="item.logo" mode=""></image>
+						<image :src="item.logo" mode=""></image>
 						<view class="box_start" v-if="item.grade != 0">
 							<image style="width: 22rpx;height: 22rpx;" v-for="start in item.grade" :key="start" src="../../static/mine/start.png" mode=""></image>
 						</view>

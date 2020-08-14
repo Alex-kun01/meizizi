@@ -14,6 +14,9 @@
 				规格
 			</view>
 			<view class="item blod">
+				单价
+			</view>
+			<view class="item blod">
 				现有库存
 			</view>
 			<view class="item blod">
@@ -43,6 +46,9 @@
 					{{item.suk.substring(0,5)}}
 				</view>
 				<view class="item">
+					{{item.price}}
+				</view>
+				<view class="item">
 					{{item.stock}}
 				</view>
 				<view class="item">
@@ -51,14 +57,18 @@
 				<view class="item">
 					{{item.total_stock}}
 				</view>
-				<view class="item"
-				@click="gotoInfo(item)"
-				>
-					<view class="btn_edit">
+				<view class="item" style="display: flex;">
+					<view style="margin-right: 10rpx;color: #0081FF;" @click="gotoInfo(item)" class="btn_edit">
 						修改
+					</view>
+					<view @click="deleteClick(item)" style="font-weight: 500;color: #F43F3B" class="btn_delete">
+						删除
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="btn_price">
+			总价格：{{getAllPrice}}
 		</view>
 		
 		<view class="noneShow" v-if="showList.length == 0">
@@ -74,9 +84,9 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				searchValue: '',
@@ -84,6 +94,37 @@
 				page: 1,
 				limit: 10,
 				showList: []
+			}
+		},
+		onLoad(){
+			//   setTimeout(function () {
+			// 	console.log('start pulldown');
+			// }, 1000);
+			
+		},
+		onShow() {
+			
+			uni.startPullDownRefresh();
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			if(this.showList){
+				this.showList = []
+			}
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
+		computed:{
+			getAllPrice(){
+				let allPrice = 0;
+				this.showList.forEach(item =>{
+					allPrice = allPrice + (+item.price * +item.total_stock)
+				})
+				return allPrice;
 			}
 		},
 		methods:{
@@ -136,6 +177,54 @@
 				console.log(item.product_id, item.suk)
 				uni.navigateTo({
 					url: './productDetual?product_id=' + item.product_id + '&suk=' + item.suk
+				})
+			},
+			// 删除
+			deleteClick(item){
+				console.log('item', item)
+				let _this = this
+				uni.showModal({
+					title: '提示',
+					content: '该操作将删除此项，是否继续？',
+					success(data) {
+						console.log('data',data)
+						if(data.confirm){
+							// 同意删除
+							uni.getStorage({
+								key: 'userInfo',
+								success(reg){
+									let datas = {
+										token: reg.data.token,
+										action: 'del',
+										product_id: item.product_id,
+										suk: item.suk
+									}
+									uni.request({
+										url: _this.$http + '/api/user/stockSet/save',
+										method:'POST',
+										data: datas,
+										success(res){
+											console.log('删除返回数据', res)
+											if(res.data.status === 200){
+												uni.showToast({
+													title: '删除成功！'
+												})
+												_this.page = 1
+												_this.showList = []
+												_this.getData()
+											}else{
+												uni.showModal({
+													title: '提示',
+													content: res.data.msg
+												})
+											}
+										}
+									})
+								}
+							})
+							
+						}
+					}
 				})
 			},
 			onReachBottom(e){
@@ -244,6 +333,16 @@
 					height: 30rpx;
 					// margin-top: 15rpx;
 				}
+			}
+			.btn_price{
+				height: 80rpx;
+				width: 100%;
+				// background-color: #EEEEEE;
+				text-align: right;
+				padding-right: 20rpx;
+				padding-top: 35rpx;
+				color: #FFFFFF;
+				font-weight: 500;
 			}
 			.noneShow{
 				width: 100%;

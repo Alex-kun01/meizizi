@@ -583,8 +583,14 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"enablePullDownRefresh": true
 			}
+		},
+		{ // 自定义弹窗层
+			"path":"components/upWindow",
+			"style":{
+				"navigationStyle":"custom"
+			}
 		}
-	],
+    ],
 	"tabBar": {
 		"color": "#8a8a8a",
 		"selectedColor": "#FAAF05",

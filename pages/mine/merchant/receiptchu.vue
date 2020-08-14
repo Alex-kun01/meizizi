@@ -112,7 +112,7 @@
 								token: reg.data.token,
 								order_id: _this.opt.id,
 								page: _this.page,
-								limit: _this.limit,
+								limit: 500,
 							},
 							success(res){
 								console.log('收货单返回数据', res)

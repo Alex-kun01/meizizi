@@ -85,21 +85,22 @@
 				<image class="pic_2" @click="gotomenu(activity[1])"  :src="activity[1].pic" mode=""></image>
 				<view class="pic_box2">
 					<image class="pic_3" @click="gotomenu(activity[2])" :src="activity[2].pic" mode=""></image>
-					<image class="pic_4" @click="gotomenu(activity[3])" :src="activity[3].pic" mode=""></image>
+					<!-- <image class="pic_4" @click="gotomenu(activity[3])" :src="activity[3].pic" mode=""></image> -->
+					<image class="pic_4" @click="showCus" :src="activity[3].pic" mode=""></image>
 				</view>
 			</view>
 		</view>
 		
-		<!-- 今日秒杀 -->
+		<!-- 入会精选 -->
 		<view class="today">
 			<view class="today_top">
 				<view class="time_box">
-					<text class="miaosha">今日秒杀</text>
+					<text class="miaosha">入会精选</text>
 				</view>
-				<view class="more_btn" v-if="storeList.length != 0">
+				<!-- <view class="more_btn" v-if="storeList.length != 0">
 					<text>更多好货</text>
 					<text>></text>
-				</view>
+				</view> -->
 			</view>
 			<!-- 秒杀列表 -->
 			<view class="today_list">
@@ -118,11 +119,11 @@
 					<view class="bom_price" style="display: flex;align-items: center;">
 						<!-- <image src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
 						<view class="price">
-							会员价￥{{item.vip_price}}
+							优享价￥{{item.vip_price}}
 						</view>
-						<view class="oldPrice">
+						<!-- <view class="oldPrice">
 							￥{{item.price}}
-						</view>
+						</view> -->
 					</view>
 					</view>
 				</view>
@@ -203,11 +204,32 @@
 
 		
 		
-		
+		<view class="position_float"
+		@touchmove.stop.prevent="moveHandle" 
+		v-if="isCustomizeShow"
+		>
+			<view class="content_fl">
+				<image src="../../static/second/tan.png" mode=""></image>
+				<view class="btn_ok"
+					@click="closeCusClick"
+				>
+					好的
+				</view>
+				<view class="float_text">
+					<view class="float1">
+						到店咨询！
+					</view>
+					<view class="float2">
+						宝宝们，赶快来领取吧~
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	// import UpWindow from '../../components/upWindow.vue'
 	import {myMixins} from '@/components/mixins.js'
 	export default {
 		mixins: [myMixins],
@@ -234,7 +256,9 @@
 				adImg: '../../static/index/item4.png', // 广告图片
 				address: '定位中...',
 				activity: [], // 活动图片存放
-				test:'../../static/index/maijiaxiu1.png'
+				test:'../../static/index/maijiaxiu1.png',
+				// 弹出自定义弹窗
+				isCustomizeShow: false, 
 			}
 		},
 		onLoad() {
@@ -511,8 +535,14 @@
 							_this.$store.commit('setAddress', maddress)
 					    }
 					});
+				},
+				// 显示
+				showCus(){
+					this.isCustomizeShow = true
+				},
+				closeCusClick(){
+					this.isCustomizeShow = false
 				}
-
 		}
 	}
 </script>
@@ -542,6 +572,7 @@
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
+			position: relative;
 			.float_ad{
 				width: 100%;
 				height: 100vh;
@@ -984,6 +1015,59 @@
 					}
 				}
 				
+			}
+			.position_float{
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,.6);
+				position: fixed;
+				top: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.content_fl{
+					width: 100%;
+					height: 600rpx;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					position: relative;
+					margin-top: 200rpx;
+					image{
+						width: 100%;
+						height: 300rpx;
+					}
+					.float_text{
+						border: 1rpx solid #FFFFFF;
+						position: absolute;
+						top: 80rpx;
+						.float1{
+							font-size: 45rpx;
+							font-weight: 500;
+							text-align: center;
+							color:  #fd3325;
+						}
+						.float2{
+							font-size: 35rpx;
+							font-weight: 500;
+							text-align: center;
+							color:  #fd3325;
+							margin-top: 20rpx;
+						}
+					}
+					.btn_ok{
+						width: 270rpx;
+						height: 80rpx;
+						line-height: 80rpx;
+						border-radius: 50rpx;
+						text-align: center;
+						font-size: 38rpx;
+						background-color: #fd3325;
+						color: #FFFFFF;
+						font-weight: 500;
+						margin-top: 30rpx;
+					}
+				}
 			}
 			
 		}

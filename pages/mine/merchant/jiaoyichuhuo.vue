@@ -50,8 +50,6 @@
 				limit:10,
 				isLoading: false,
 				opt: {},
-				// statusList: [{name:'数据错误'},{name:'未发货'},{name: '已发货'},{name:'已收货'}],
-				// isEnd: true
 			}
 		},
 		onLoad(opt){
@@ -127,14 +125,18 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 24rpx;
-				background-color: #FFFFFF;
+				// background-color: #FFFFFF;
 				margin-top: 24rpx;
 				.item{
 					width: 100%;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					margin-bottom: 24rpx;
+					background-color: #FFFFFF;
+					box-shadow: #EEEEEE 0 0 10rpx 5rpx;
+					margin-bottom: 10rpx;
+					box-sizing: border-box;
+					padding: 24rpx;
 					image{
 						width: 107rpx;
 						height: 106rpx;

@@ -167,9 +167,9 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, 
@@ -186,13 +186,12 @@
 				// 出货单展示列表
 				order_list: [],
 				is_auto: 0, //是否展示确认发货
-				
 			}
 		},
 		onLoad(opt){
 			console.log('opt',opt)
 			this.opt = opt
-			// this.getData()
+			this.getData()
 			
 		},
 		computed:{
@@ -229,9 +228,6 @@
 							give_type: _this.isActive
 						}
 						console.log('我的商家详情参数', datas)
-						// uni.showLoading({
-						// 	title: ''
-						// })
 						uni.request({
 							url: _this.$http + '/api/user/logisticsDetails',
 							method: 'GET',
@@ -293,6 +289,12 @@
 					url: './jiaoyichuhuo?id=' + this.opt.id
 				})
 			},
+			// 处理出货单数组
+			getTargetList(){
+				return this.order_list.filter(item =>{
+					return item.need_stock != 0
+				})
+			},
 			// 提交
 			submitClick(){
 				let _this = this
@@ -317,10 +319,11 @@
 						let datas = {
 								token: reg.data.token,
 								take_id: _this.info.id,
-								product_list: JSON.stringify(_this.order_list),
+								product_list: JSON.stringify(_this.getTargetList()),
 								type: 2
 							}
 							console.log('传递参数',datas)
+							// return
 						uni.request({
 							url: _this.$http + '/api/user/addShopOrder',
 							method: 'POST',

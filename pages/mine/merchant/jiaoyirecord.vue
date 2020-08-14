@@ -160,14 +160,20 @@
 				width: 100%;
 				box-sizing: border-box;
 				padding: 24rpx;
-				background-color: #FFFFFF;
+				// background-color: #FFFFFF;
 				margin-top: 24rpx;
 				.item{
 					width: 100%;
+					// height: 120rpx;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					margin-bottom: 24rpx;
+					background-color: #FFFFFF;
+					padding: 10rpx;
+					box-sizing: border-box;
+					box-shadow: #EEEEEE 0 0 10rpx 5rpx;
+					margin-bottom: 10rpx;
+					padding: 24rpx;
 					image{
 						width: 107rpx;
 						height: 106rpx;

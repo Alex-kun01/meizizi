@@ -97,7 +97,7 @@
 							data: {
 								token: reg.data.token,
 								page: _this.page,
-								limit: _this.limit,
+								limit: 500,
 								order_id: _this.opt.id
 							},
 							success(res){

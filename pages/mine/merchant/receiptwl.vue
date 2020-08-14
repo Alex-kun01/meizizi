@@ -51,6 +51,9 @@
 				<view class="item_i">{{item.need_time.substring(0,10)}}</view>
 				
 			</view>
+			<view class="btn_price">
+				总价格：{{getAllPrice}}
+			</view>
 		</view>
 		<!-- 底部按钮 -->
 		<view class="bom_btn"
@@ -91,6 +94,15 @@
 		onShow(){
 			
 		},
+		computed:{
+			getAllPrice(){
+				let allPrice = 0;
+				this.chuhuoList.forEach(item =>{
+					allPrice = allPrice + (+item.price * +item.quantity)
+				})
+				return allPrice;
+			}
+		},
 		methods:{
 			getData(){
 				let _this = this
@@ -103,7 +115,7 @@
 							data: {
 								token: reg.data.token,
 								page: _this.page,
-								limit: _this.limit,
+								limit: 500,
 								order_id: _this.opt.id
 							},
 							success(res){
@@ -235,6 +247,15 @@
 				box-sizing: border-box;
 				padding: 24rpx;
 				margin-top: 24rpx;
+				.btn_price{
+					height: 80rpx;
+					width: 100%;
+					// background-color: pink;
+					// line-height: 80rpx;
+					text-align: right;
+					padding-right: 20rpx;
+					padding-top: 35rpx;
+				}
 				.title_list{
 					width: 100%;
 					display: flex;

@@ -163,9 +163,9 @@
 					if(+item.need_stock + +item.stock > +item.total_stock){
 						arr.push(1)
 					}
-					if(item.need_stock == 0){
-						arr.push(1)
-					}
+					// if(item.need_stock == 0){
+					// 	arr.push(1)
+					// }
 				})
 				return arr.includes(1)
 			}
@@ -292,6 +292,12 @@
 					}
 				})
 			},
+			// 处理showList数组
+			getTargetList(){
+				return this.showList.filter(item =>{
+					return item.need_stock != 0
+				})
+			},
 			// 提交
 			submitClick(){
 				let _this = this
@@ -299,7 +305,7 @@
 				if(this.isSubmitOk){
 					uni.showModal({
 						title: '提示',
-						content: '某个商品输入所需库存超过总库存量/某项所需库存为0'
+						content: '某个商品输入所需库存超过总库存量'
 					})
 					return
 				}
@@ -322,10 +328,11 @@
 						let datas = {
 								token: token,
 								take_id: _this.info.take_id,
-								product_list: JSON.stringify(_this.showList),
+								product_list: JSON.stringify(_this.getTargetList()),
 								type: type
 							}
 							console.log('传递参数',datas)
+							// return
 						uni.request({
 							url: _this.$http + '/api/user/addShopOrder',
 							method: 'POST',

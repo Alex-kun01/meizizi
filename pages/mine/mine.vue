@@ -182,11 +182,11 @@
 		</view>
 	</view>
 	<!-- 积分商城 -->
-	<view class="jifen_box"
+<!-- 	<view class="jifen_box"
 	@click="test"
 	>
 		<image src="../../static/mine/jifenshangcheng@2x.png" mode=""></image>
-	</view>
+	</view> -->
 		
 	<view class="rqcode"
 	@touchmove.stop.prevent="moveHandle"
@@ -206,7 +206,27 @@
 	</view>
 		
 		
-		
+		<view class="position_float"
+		@touchmove.stop.prevent="moveHandle" 
+		v-if="isCustomizeShow"
+		>
+			<view class="content_fl">
+				<image src="../../static/second/tan.png" mode=""></image>
+				<view class="btn_ok"
+					@click="closeCusClick"
+				>
+					好的
+				</view>
+				<view class="float_text">
+					<view class="float1">
+						到店咨询！
+					</view>
+					<view class="float2">
+						宝宝们，赶快来领取吧~
+					</view>
+				</view>
+			</view>
+		</view>
 		
 	</view>
 </template>
@@ -231,6 +251,8 @@
 				coll_count: 0, //收藏数量
 				foot_count: 0, //足迹数量
 				isMember: false, // 是否是会员
+				// 弹出自定义弹窗
+				isCustomizeShow: false, 
 			}
 		},
 		onLoad() {
@@ -409,11 +431,16 @@
 					title: '提示',
 					content: '敬请期待...'
 				})
+				return
+				this.isCustomizeShow = true
 			},
 			fuzhi(){
 				uni.setClipboardData({
 						data: this.rqCodeInfo.rqCode
 					});
+			},
+			closeCusClick(){
+				this.isCustomizeShow = false
 			},
 			moveHandle(){},
 			rqCodeOpen(){
@@ -652,7 +679,6 @@
 				box-sizing: border-box;
 				padding: 0 25rpx;
 				margin-top: 80rpx;
-				box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 				.item{
 					width: 100%;
 					height: 93rpx;
@@ -709,7 +735,58 @@
 				}
 			}
 			
-			
+			.position_float{
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,.6);
+				position: fixed;
+				top: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.content_fl{
+					width: 100%;
+					height: 600rpx;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					position: relative;
+					image{
+						width: 100%;
+						height: 300rpx;
+					}
+					.float_text{
+						border: 1rpx solid #FFFFFF;
+						position: absolute;
+						top: 80rpx;
+						.float1{
+							font-size: 45rpx;
+							font-weight: 500;
+							text-align: center;
+							color:  #fd3325;
+						}
+						.float2{
+							font-size: 35rpx;
+							font-weight: 500;
+							text-align: center;
+							color:  #fd3325;
+							margin-top: 20rpx;
+						}
+					}
+					.btn_ok{
+						width: 270rpx;
+						height: 80rpx;
+						line-height: 80rpx;
+						border-radius: 50rpx;
+						text-align: center;
+						font-size: 38rpx;
+						background-color: #fd3325;
+						color: #FFFFFF;
+						font-weight: 500;
+						margin-top: 30rpx;
+					}
+				}
+			}
 			
 		}
 	}
