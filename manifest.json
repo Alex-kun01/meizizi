@@ -2,8 +2,8 @@
     "name" : "美孜孜",
     "appid" : "__UNI__1E09FF4",
     "description" : "内部测试版本",
-    "versionName" : "1.2.0",
-    "versionCode" : 117,
+    "versionName" : "1.1.4",
+    "versionCode" : 119,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -61,7 +61,8 @@
                     "NSLocationWhenInUseUsageDescription" : "美孜孜：获取定位权限: 美孜孜会在附近店铺、路线查询和导航等服务中使用您的位置信息。",
                     "NSCameraUsageDescription" : "美孜孜将调用您的摄像头功能，若不允许，您将无法在美孜孜中使用扫码出货功能。",
                     "NSPhotoLibraryUsageDescription" : "美孜孜：请点击”好”以允许访问.若不允许,你将无法在美孜孜中使用扫码出货功能。"
-                }
+                },
+                "idfa" : true
             },
             /* SDK配置 */
             "sdkConfigs" : {
@@ -73,7 +74,13 @@
                     }
                 },
                 "payment" : {
-                    "alipay" : {}
+                    "alipay" : {},
+                    "weixin" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appid" : "wx1eb04506bc4e5924",
+                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                    },
+                    "appleiap" : {}
                 },
                 "share" : {}
             },
@@ -153,13 +160,17 @@
     "mp-weixin" : {
         "appid" : "wxc529eaacfb962977",
         "setting" : {
-            "urlCheck" : false,
+            "urlCheck" : true,
             "es6" : true,
             "postcss" : true,
             "minified" : true
         },
         "usingComponents" : true,
-        "permission" : {}
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于附近店铺、路线查询和导航等"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

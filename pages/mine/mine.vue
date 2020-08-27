@@ -8,11 +8,11 @@
 				<view style="color: #FFFFFF;font-size: 36rpx;font-weight: 400;">个人中心</view>
 				<view class="btn">
 					<view class="lingdang"
-					 @click="gotoTarget('./set/news')" 
+					 @click="gotoTarget('../../mine/set/news')" 
 					>
-							<image style="width: 32rpx;height: 34rpx;" src="../../static/mine/xiaoxi@2x.png" mode=""></image>
+							<image style="width: 32rpx;height: 34rpx;" src="@/static/mine/xiaoxi@2x.png" mode=""></image>
 					</view>
-					<image @click="gotoTarget('./set/setup')" style="width: 35rpx;height: 35rpx;margin-left: 25rpx;" src="../../static/mine/shezhi@2x.png" mode=""></image>
+					<image @click="gotoTarget('../../mine/set/setup')" style="width: 35rpx;height: 35rpx;margin-left: 25rpx;" src="@/static/mine/shezhi@2x.png" mode=""></image>
 				</view>
 			</view>
 			<view class="mine_info">
@@ -21,7 +21,7 @@
 					<view class="mine_f">
 						<view class="mine_name">
 							<text class="name">{{nickName}}</text>
-							<image v-if="isMember" style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="../../static/mine/huiyuan@2x.png" mode=""></image>
+							<image v-if="isMember" style="width: 32rpx;height: 32rpx;margin-left: 11rpx;" src="@/static/mine/huiyuan@2x.png" mode=""></image>
 						</view>
 						<view class="date">
 							{{birthday}}
@@ -33,7 +33,7 @@
 				<view class="tuijianma"
 				@click="rqCodeOpen"
 				>
-					<image style="width: 49rpx;height: 49rpx;" src="../../static/mine/erweima@2x.png" mode=""></image>
+					<image style="width: 49rpx;height: 49rpx;" src="@/static/mine/erweima@2x.png" mode=""></image>
 					<view>
 						推荐码
 					</view>
@@ -43,39 +43,39 @@
 			</view>
 			<view class="shoucahng">
 				<view class="item"
-				@click="gotoTarget('../shopcart/collect')"
+				@click="gotoTarget('../../shopcart/collect')"
 				>
 					<text>收藏夹</text>
 					<text class="num">{{coll_count}}</text>
 				</view>
 				<view class="shu"></view>
 				<view class="item"
-				@click="gotoTarget('../shopcart/myfootprint')"
+				@click="gotoTarget('../../shopcart/myfootprint')"
 				>
 					<text>足迹</text>
 					<text class="num">{{foot_count}}</text>
 				</view>
 			</view>
-			<view class="my_order"  @click="gotoTarget('../shopcart/allorder')">
+			<view class="my_order"  @click="gotoTarget('../../shopcart/allorder')">
 				<view class="left">
-					<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/dingdan@2x.png" mode=""></image>
+					<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/dingdan@2x.png" mode=""></image>
 					<view class="order">
 						我的订单
 					</view>
 				</view>
 				<view class="right">
 					<text class="lookAllOrder">查看全部订单</text>
-					<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+					<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 				</view>
 			</view>
 		</view>
 	<!-- 菜单列表 -->
 	<view class="menu_list">
 		<view class="item top line"
-		@click="gotoTarget('../shopcart/account/myallet')"
+		@click="gotoTarget('../../shopcart/account/myallet')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/qianbao@2x.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/qianbao@2x.png" mode=""></image>
 				<view class="menu_name">
 					我的钱包
 				</view>
@@ -84,7 +84,7 @@
 				<view class="chongzhi">
 					充值
 				</view>
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -93,15 +93,17 @@
 		v-if="mineButton.includes('我的团队')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wodetuandui@2x.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/wodetuandui@2x.png" mode=""></image>
 				<view class="menu_name">
 					我的团队
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
+		
+		<!-- #ifdef H5 || APP-PLUS -->
 		
 		<!-- <view class="linshi" @click="gotokf">
 			临时跳转客服
@@ -112,13 +114,13 @@
 		v-if="mineButton.includes('我的商家')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/shangjia@2x.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/shangjia@2x.png" mode=""></image>
 				<view class="menu_name">
 					我的商家
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -127,13 +129,13 @@
 		v-if="mineButton.includes('团队管理')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/tuandui@2x.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/tuandui@2x.png" mode=""></image>
 				<view class="menu_name">
 					团队管理
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -142,13 +144,13 @@
 		v-if="mineButton.includes('配送管理')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wuliu.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/wuliu.png" mode=""></image>
 				<view class="menu_name">
 					配送管理
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -157,27 +159,27 @@
 		v-if="mineButton.includes('产品库存设置')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/wuliu.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/wuliu.png" mode=""></image>
 				<view class="menu_name">
 					产品库存设置
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
-		
+		<!-- #endif -->
 		<view class="item bom"
-		@click="gotoTarget('./set/helpcenter')"
+		@click="gotoTarget('../../mine/set/helpcenter')"
 		>
 			<view class="left">
-				<image style="width: 41rpx;height: 41rpx;" src="../../static/mine/kefu@2x.png" mode=""></image>
+				<image style="width: 41rpx;height: 41rpx;" src="@/static/mine/kefu@2x.png" mode=""></image>
 				<view class="menu_name">
 					帮助中心
 				</view>
 			</view>
 			<view class="right">
-				<image style="width: 12rpx;height: 18rpx;" src="../../static/mine/gengduo@2x.png" mode=""></image>
+				<image style="width: 12rpx;height: 18rpx;" src="@/static/mine/gengduo@2x.png" mode=""></image>
 			</view>
 		</view>
 	</view>
@@ -185,7 +187,7 @@
 <!-- 	<view class="jifen_box"
 	@click="test"
 	>
-		<image src="../../static/mine/jifenshangcheng@2x.png" mode=""></image>
+		<image src="@/static/mine/jifenshangcheng@2x.png" mode=""></image>
 	</view> -->
 		
 	<view class="rqcode"
@@ -193,7 +195,7 @@
 	v-if="isShowrqCode"
 	>
 		<view class="box">
-			<image @click="isShowrqCode = false" class="close" src="../../static/index/closeX2.png" mode=""></image>
+			<image @click="isShowrqCode = false" class="close" src="@/static/index/closeX2.png" mode=""></image>
 			<view class="position">
 				<image class="rqcodepic" :src="rqCodeInfo.imgUrl" mode=""></image>
 				<view class="code_box">
@@ -211,7 +213,7 @@
 		v-if="isCustomizeShow"
 		>
 			<view class="content_fl">
-				<image src="../../static/second/tan.png" mode=""></image>
+				<image src="@/static/second/tan.png" mode=""></image>
 				<view class="btn_ok"
 					@click="closeCusClick"
 				>
@@ -269,7 +271,7 @@
 					_this.nickName = res.data.nickname || '暂无昵称'
 					_this.mineButton = res.data.mineButton || []
 					_this.character = res.data.group_id
-					_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
+					_this.avatar = res.data.avatar || '@/static/mine/staticAvatar.jpg'
 					if(res.is_member == 1){
 						_this.isMember = true
 					}
@@ -288,7 +290,7 @@
 					key: 'userInfo',
 					success(res){
 						_this.nickName = res.data.nickname || '暂无昵称'
-						_this.avatar = res.data.avatar || '../../static/mine/staticAvatar.jpg'
+						_this.avatar = res.data.avatar || '@/static/mine/staticAvatar.jpg'
 						_this.birthday = res.data.birthday//.substring(0,10)
 						if(res.data.tourist){
 							
@@ -299,7 +301,7 @@
 									console.log('rr',rr)
 									if(rr.confirm){
 										uni.redirectTo({
-											url: '../mine/login/login'
+											url: './login'
 										})
 									}
 									if(rr.cancel){
@@ -351,11 +353,11 @@
 					switch(this.character) {
 						 case 1:
 						    // 会员
-						    url = './member/membermyteam'
+						    url = '../../mine/member/membermyteam'
 						    break;
 					     case 2:
 					        // 加盟店
-					        url = './join/joinmyteamtuijian'
+					        url = '../../mine/join/joinmyteamtuijian'
 					        break;
 						 default: uni.showModal({
 										title: '警告',
@@ -368,25 +370,25 @@
 					switch(this.character) {
 						case 2:
 							// 加盟店
-							url = './merchant/mymerchantx'
+							url = '../../mine/merchant/mymerchantx'
 							break;
 					     case 3:
 							// 服务商
-					        url = './join/quyujoin'
+					        url = '../../mine/join/quyujoin'
 					        break;
 					     case 4:
 						 	// 物流商
 							// 改整
-					        url = './merchant/mymerchantx?show=' + 1
+					        url = '../../mine/merchant/mymerchantx?show=' + 1
 					        // url = './merchant/mymerchant'
 					        break;
 						 case 5:
 							// 团队管理
-						    url = './join/teammentmy'
+						    url = '../../mine/join/teammentmy'
 							break;
 						 case 6:
 						 // 业务员/讲师
-						 url = './member/teacher'
+						 url = '../../mine/member/teacher'
 						 break;
 						 default: uni.showModal({
 						 			title: '警告',
@@ -399,7 +401,7 @@
 					switch(this.character) {
 						case 5:
 							// 团队管理
-							url = './newTeam/newteam'
+							url = '../../mine/newTeam/newteam'
 							break;
 						default: uni.showModal({
 									title: '警告',
@@ -409,11 +411,11 @@
 				}
 				else if(index === 4){
 					// 配送管理
-					url = './merchant/mymerchant'
+					url = '../../mine/merchant/mymerchant'
 				}
 				else if (index === 5){
 					// 产品库存设置
-					url = '../shopcart/account/StoreInventory'
+					url = '../../shopcart/account/StoreInventory'
 				}else {
 					uni.showModal({
 						title: '警告',
@@ -554,6 +556,7 @@
 				height: 398rpx;
 				position: relative;
 				background:linear-gradient(179deg,rgba(255,78,3,1),rgba(255,123,46,1));
+				// background-color: #008c8c;
 				.top_bar{
 					display: flex;
 					align-items: center;

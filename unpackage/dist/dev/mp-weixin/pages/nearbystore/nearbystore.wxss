@@ -17,7 +17,7 @@ page .content.data-v-fe49e7e8 {
 page .content .search_box.data-v-fe49e7e8 {
   width: 600rpx;
   height: 60rpx;
-  border: 1rpx solid black;
+  border: 1rpx solid #008c8c;
   border-radius: 30rpx;
   margin-left: 75rpx;
   margin-top: 24rpx;
@@ -54,7 +54,7 @@ page .content .store_list .none_list.data-v-fe49e7e8 {
 }
 page .content .store_list .item.data-v-fe49e7e8 {
   width: 700rpx;
-  height: 161rpx;
+  height: 200rpx;
   box-sizing: border-box;
   background-color: #FFFFFF;
   border-radius: 18rpx;
@@ -67,6 +67,7 @@ page .content .store_list .item.data-v-fe49e7e8 {
           justify-content: space-between;
   margin-bottom: 18rpx;
   position: relative;
+  box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 }
 page .content .store_list .item #yuantou.data-v-fe49e7e8 {
   width: 61rpx;
@@ -81,10 +82,14 @@ page .content .store_list .item .left_info.data-v-fe49e7e8 {
   display: flex;
 }
 page .content .store_list .item .left_info .con .title.data-v-fe49e7e8 {
+  width: 400rpx;
   font-size: 30rpx;
   color: #111111;
   font-weight: bold;
   margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 page .content .store_list .item .left_info .con .weixin.data-v-fe49e7e8,
 page .content .store_list .item .left_info .con .phone.data-v-fe49e7e8 {
@@ -93,7 +98,7 @@ page .content .store_list .item .left_info .con .phone.data-v-fe49e7e8 {
 }
 page .content .store_list .item .left_info .pic.data-v-fe49e7e8 {
   width: 120rpx;
-  height: 120rpx;
+  height: 150rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -102,10 +107,6 @@ page .content .store_list .item .left_info .pic.data-v-fe49e7e8 {
   -webkit-flex-direction: column;
           flex-direction: column;
   margin-right: 24rpx;
-}
-page .content .store_list .item .left_info .pic image.data-v-fe49e7e8 {
-  max-width: 100%;
-  max-height: 100%;
 }
 page .content .store_list .item .right_btn.data-v-fe49e7e8 {
   display: -webkit-box;
@@ -124,6 +125,9 @@ page .content .store_list .item .right_btn .top.data-v-fe49e7e8 {
           align-self: flex-end;
 }
 page .content .store_list .item .right_btn .bom.data-v-fe49e7e8 {
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
   font-size: 22rpx;
   color: #323232;
 }

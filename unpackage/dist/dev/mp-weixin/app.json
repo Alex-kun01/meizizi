@@ -1,81 +1,92 @@
 {
   "pages": [
-    "pages/mine/login/firstawait",
-    "pages/mine/login/login",
+    "pages/mine/login",
     "pages/index/index",
-    "pages/nearbystore/nearbystore",
     "pages/shopcart/shopcart",
-    "pages/shopcart/account/StoreInventory",
-    "pages/shopcart/account/productList",
-    "pages/shopcart/account/productDetual",
     "pages/mine/mine",
-    "pages/index/search",
-    "pages/index/productlist",
-    "pages/index/productdetails",
-    "pages/index/confirmorder",
-    "pages/index/confirmordermany",
-    "pages/index/orderdetails",
-    "pages/index/pay",
-    "pages/index/shoplist/hufuarea",
-    "pages/index/shoplist/meirongarea",
-    "pages/index/shoplist/caizhuangvenue",
-    "pages/index/shoplist/huodongarea",
-    "pages/index/shoplist/caizhuangxilie",
-    "pages/index/shoplist/maijiashow",
-    "pages/index/shoplist/pingjia",
-    "pages/mine/member/shenregion",
-    "pages/mine/member/teacher",
-    "pages/mine/member/storeinfo",
-    "pages/mine/merchant/mymerchant",
-    "pages/mine/merchant/mymerchantinfo",
-    "pages/mine/merchant/logisticsinfo",
-    "pages/mine/merchant/mymerchantx",
-    "pages/mine/merchant/receipt",
-    "pages/mine/merchant/receiptwl",
-    "pages/mine/merchant/receiptchu",
-    "pages/mine/merchant/shipper",
-    "pages/mine/merchant/waitship",
-    "pages/mine/join/quyujoin",
-    "pages/mine/join/teammentmy",
-    "pages/mine/join/joinmyteamtuijian",
-    "pages/mine/member/memberinfo",
-    "pages/mine/member/membermyteam",
-    "pages/mine/set/setup",
-    "pages/mine/set/personalinfo",
-    "pages/mine/set/helpcenter",
-    "pages/mine/set/news",
-    "pages/mine/set/accountsecurity",
-    "pages/mine/set/version",
-    "pages/mine/set/changepassword",
-    "pages/mine/set/changephone",
-    "pages/mine/set/bandnewphone",
-    "pages/mine/set/insetpassword",
-    "pages/mine/set/setpassword",
-    "pages/shopcart/allorder",
-    "pages/shopcart/reqreturn",
-    "pages/shopcart/collect",
-    "pages/shopcart/comment",
-    "pages/shopcart/myfootprint",
-    "pages/shopcart/account/myallet",
-    "pages/shopcart/account/topup",
-    "pages/shopcart/account/billdetails",
-    "pages/shopcart/account/withdraw",
-    "pages/mine/login/mapshow",
-    "pages/mine/login/register",
-    "pages/mine/login/protocolinfo",
-    "pages/mine/set/bindaccount",
-    "pages/mine/login/storeregin",
-    "pages/mine/login/chooseregin",
-    "pages/mine/newTeam/newteam",
-    "pages/mine/newTeam/recommend",
-    "pages/mine/newTeam/municipal",
-    "pages/mine/newTeam/appointment",
-    "pages/chat/chatLive",
-    "pages/mine/member/memberteam",
-    "pages/mine/merchant/jiaoyirecord",
-    "pages/mine/merchant/jiaoyichuhuo"
+    "pages/nearbystore/nearbystore",
+    "pages/chat/chatLive"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "index",
+      "pages": [
+        "search",
+        "productlist",
+        "productdetails",
+        "confirmorder",
+        "confirmordermany",
+        "orderdetails",
+        "pay",
+        "shoplist/area",
+        "shoplist/xilie",
+        "shoplist/pingjia"
+      ]
+    },
+    {
+      "root": "shopcart",
+      "pages": [
+        "account/StoreInventory",
+        "account/productList",
+        "account/productDetual",
+        "allorder",
+        "reqreturn",
+        "collect",
+        "comment",
+        "myfootprint",
+        "account/myallet",
+        "account/topup",
+        "account/billdetails",
+        "account/withdraw"
+      ]
+    },
+    {
+      "root": "mine",
+      "pages": [
+        "member/shenregion",
+        "member/teacher",
+        "member/storeinfo",
+        "merchant/mymerchant",
+        "merchant/mymerchantinfo",
+        "merchant/logisticsinfo",
+        "merchant/mymerchantx",
+        "merchant/receipt",
+        "merchant/receiptwl",
+        "merchant/receiptchu",
+        "merchant/shipper",
+        "merchant/waitship",
+        "join/quyujoin",
+        "join/teammentmy",
+        "join/joinmyteamtuijian",
+        "member/memberinfo",
+        "member/membermyteam",
+        "set/setup",
+        "set/personalinfo",
+        "set/helpcenter",
+        "set/news",
+        "set/accountsecurity",
+        "set/version",
+        "set/changepassword",
+        "set/changephone",
+        "set/bandnewphone",
+        "set/insetpassword",
+        "set/setpassword",
+        "login/mapshow",
+        "login/register",
+        "login/protocolinfo",
+        "set/bindaccount",
+        "login/storeregin",
+        "login/chooseregin",
+        "newTeam/newteam",
+        "newTeam/recommend",
+        "newTeam/municipal",
+        "newTeam/appointment",
+        "member/memberteam",
+        "merchant/jiaoyirecord",
+        "merchant/jiaoyichuhuo"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -97,7 +108,7 @@
       {
         "pagePath": "pages/nearbystore/nearbystore",
         "text": "附近店铺",
-        "iconPath": "static/index/dianpu@2x.png",
+        "iconPath": "static/nearbystore/dianpu@2xx.png",
         "selectedIconPath": "static/nearbystore/mendian@3x.png",
         "enablePullDownRefresh": true
       },
@@ -116,6 +127,28 @@
       }
     ]
   },
-  "permission": {},
-  "usingComponents": {}
+  "preloadRule": {
+    "pages/index/index": {
+      "packages": [
+        "__APP__"
+      ]
+    },
+    "pages/mine/mine": {
+      "packages": [
+        "mine"
+      ]
+    },
+    "pages/shopcart/shopcart": {
+      "packages": [
+        "shopcart"
+      ]
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于附近店铺、路线查询和导航等"
+    }
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap62.json"
 }

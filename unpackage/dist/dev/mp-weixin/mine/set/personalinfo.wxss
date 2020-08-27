@@ -1,0 +1,74 @@
+.titleNview-placing.data-v-b9a49cce {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-b9a49cce {
+  width: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-b9a49cce {
+  width: 100%;
+}
+page .content .top_navar.data-v-b9a49cce {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-top: 60rpx;
+}
+page .content .top_navar .navar.data-v-b9a49cce {
+  width: 207rpx;
+  height: 207rpx;
+  border-radius: 50%;
+}
+page .content .top_navar .edit.data-v-b9a49cce {
+  width: 148rpx;
+  height: 49rpx;
+}
+page .content .item.data-v-b9a49cce {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #DDDDDD;
+}
+page .content .item .title.data-v-b9a49cce {
+  font-size: 30rpx;
+  color: #969696;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+page .content .item .sex_box.data-v-b9a49cce {
+  text-align: right;
+  font-size: 21rpx;
+  color: #383838;
+}
+page .content .item input.data-v-b9a49cce,
+page .content .item .uni-input.data-v-b9a49cce {
+  font-size: 28rpx;
+  color: #8A8A8A;
+}
+page .content .bao_btn.data-v-b9a49cce {
+  width: 470rpx;
+  height: 94rpx;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);
+  background: linear-gradient(-88deg, #ff5005, #ff7a2d);
+  border-radius: 47rpx;
+  line-height: 94rpx;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 500;
+  margin: 150rpx 0 250rpx 140rpx;
+}
+

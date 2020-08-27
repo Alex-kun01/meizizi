@@ -1,0 +1,147 @@
+.titleNview-placing.data-v-91ce2bd2 {
+  height: 25px;
+  background: #F4F4F4;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-91ce2bd2 {
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F4F4;
+}
+page .content.data-v-91ce2bd2 {
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F4F4;
+}
+page .content .top_bar.data-v-91ce2bd2 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+  padding: 24rpx;
+}
+page .content .top_bar .back.data-v-91ce2bd2 {
+  width: 23rpx;
+  height: 41rpx;
+}
+page .content .top_bar .name.data-v-91ce2bd2 {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #111111;
+}
+page .content .top_bar .r_btn.data-v-91ce2bd2 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #666666;
+}
+page .content .Top_color.data-v-91ce2bd2 {
+  position: relative;
+  width: 750rpx;
+  height: 256rpx;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff8f02);
+  background: linear-gradient(-88deg, #ff5005, #ff8f02);
+}
+page .content .Top_color .price_box.data-v-91ce2bd2 {
+  padding: 36rpx 0 0 59rpx;
+}
+page .content .Top_color .price_box .title.data-v-91ce2bd2 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #ffffff;
+}
+page .content .Top_color .price_box .price.data-v-91ce2bd2 {
+  font-size: 58rpx;
+  font-weight: 800;
+  color: #ffffff;
+}
+page .content .Top_color .float_box.data-v-91ce2bd2 {
+  width: 700rpx;
+  height: 215rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  position: absolute;
+  bottom: -130rpx;
+  left: 25rpx;
+  box-sizing: border-box;
+  padding: 33rpx 36rpx;
+}
+page .content .Top_color .float_box .t_title.data-v-91ce2bd2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-bottom: 20rpx;
+}
+page .content .Top_color .float_box .t_title image.data-v-91ce2bd2 {
+  width: 37rpx;
+  height: 42rpx;
+  margin-right: 20rpx;
+}
+page .content .Top_color .float_box .t_title text.data-v-91ce2bd2 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+}
+page .content .Top_color .float_box .menu_list.data-v-91ce2bd2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .Top_color .float_box .menu_list .item.data-v-91ce2bd2 {
+  width: 158rpx;
+  text-align: center;
+}
+page .content .Top_color .float_box .menu_list .item .price_i.data-v-91ce2bd2 {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #161616;
+  margin-bottom: 10rpx;
+}
+page .content .Top_color .float_box .menu_list .item .text.data-v-91ce2bd2 {
+  font-size: 26rpx;
+  color: #9a9a9a;
+}
+page .content .option_list.data-v-91ce2bd2 {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  margin-top: 164rpx;
+}
+page .content .option_list .option.data-v-91ce2bd2 {
+  width: 100%;
+  height: 96rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .option_list .option image.data-v-91ce2bd2 {
+  margin-right: 18rpx;
+}
+page .content .option_list .option .name.data-v-91ce2bd2 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+}
+

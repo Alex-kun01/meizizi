@@ -6,15 +6,15 @@
 			<view class="location_box"
 				@click="reClick"
 			>
-				<image src="../../static/mine/dizhi@2x.png" mode=""></image>
+				<image src="@/static/mine/dizhi@2x.png" mode=""></image>
 				<view class="address_show">
 					{{address}}
 				</view>
 			</view>
 			<view class="search_box"
-			@click="gotoTarget('./search')"
+			@click="gotoTarget('../../index/search')"
 			>
-				<image style="width: 30rpx;height: 30rpx;" src="../../static/index/sousuo.png" mode=""></image>
+				<image style="width: 30rpx;height: 30rpx;" src="@/static/index/sosuo@2x.png" mode=""></image>
 				<input type="text" value="" placeholder="搜索" />
 				<view class="search_btn">
 					搜索
@@ -23,16 +23,32 @@
 			<view style="position: relative;"
 			@click="gotoshop"
 			>
-				<image src="../../static/index/gouwuche@2x.png" mode=""></image>
-				<!-- <image src="../../static/index/gouwuche@8x.png" mode=""></image> -->
+				<image src="@/static/index/gouwuche@2x.png" mode=""></image>
+				<!-- <image src="@/static/index/gouwuche@8x.png" mode=""></image> -->
 				<view class="float">{{cart_count}}</view>
 			</view>
 			<view style="position: relative;">
-				<image @click="gotoTarget('../mine/set/news')" src="../../static/index/xiaoxi.png" mode=""></image>
-				<!-- <image  @click="gotoTarget('../mine/set/news')"  src="../../static/mine/kefu@2x.png" mode=""></image> -->
+				<image @click="gotoTarget('../../mine/set/news')" src="@/static/index/xiaoxi.png" mode=""></image>
+				<!-- <image  @click="gotoTarget('../mine/set/news')"  src="@/static/mine/kefu@2x.png" mode=""></image> -->
 			</view>
 			
 		</view>
+		
+		
+		<!-- 临时增加特效 -->
+	<!-- 	<view class="wrap_linshi">
+			    <view class="card">
+					<view>M</view>
+					<view>Z</view>
+					<view>Z</view>
+				</view>
+			    <view class="card"></view>
+			    <view class="card"></view>
+			    <view class="card"></view>
+			    <view class="card"></view>
+			    <view class="card"></view>
+		</view> -->
+		
 		<!-- 轮播 -->
 		
 		<view class="lunbo">
@@ -52,8 +68,9 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<!-- 菜单列 -->
 		
+		
+		<!-- 菜单列 -->
 		<view class="menu_box">
 			<swiper class="swiper">
 				<swiper-item
@@ -64,7 +81,7 @@
 						<view class="box"
 						v-for="(box, iox) in item"
 						:key="iox"
-						@click="gotomenu(box)"
+						@click="gotomenu(box,iox)"
 						>
 							<image :src="box.pic" mode=""></image>
 							<text>{{box.name}}</text>
@@ -73,18 +90,18 @@
 					</view>
 				</swiper-item>
 			</swiper>
-			
 		</view>
-		
 		
 		<!-- 活动专区  没图先不写-->
 		<view class="activity"
 		>
-			<image class="pic_1" @click="gotomenu(activity[0])" :src="activity[0].pic" mode=""></image>
+			<!-- <image class="pic_1" @click="gotomenu(activity[0])" :src="activity[0].pic" mode=""></image> -->
+			<image class="pic_1" @click="showPic('../../static/second/tan1.jpg')" :src="activity[0].pic" mode=""></image>
 			<view class="pic_bom_box">
 				<image class="pic_2" @click="gotomenu(activity[1])"  :src="activity[1].pic" mode=""></image>
 				<view class="pic_box2">
-					<image class="pic_3" @click="gotomenu(activity[2])" :src="activity[2].pic" mode=""></image>
+					<!-- <image class="pic_3" @click="gotomenu(activity[2])" :src="activity[2].pic" mode=""></image> -->
+					<image class="pic_3" @click="showPic('../../static/second/tan2.jpg')" :src="activity[2].pic" mode=""></image>
 					<!-- <image class="pic_4" @click="gotomenu(activity[3])" :src="activity[3].pic" mode=""></image> -->
 					<image class="pic_4" @click="showCus" :src="activity[3].pic" mode=""></image>
 				</view>
@@ -97,10 +114,6 @@
 				<view class="time_box">
 					<text class="miaosha">入会精选</text>
 				</view>
-				<!-- <view class="more_btn" v-if="storeList.length != 0">
-					<text>更多好货</text>
-					<text>></text>
-				</view> -->
 			</view>
 			<!-- 秒杀列表 -->
 			<view class="today_list">
@@ -117,18 +130,18 @@
 					</view>
 					<view class="bom_mes">
 					<view class="bom_price" style="display: flex;align-items: center;">
-						<!-- <image src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
+						<!-- <image src="@/static/index/huiyuan@3x(3).png" mode=""></image> -->
 						<view class="price">
 							优享价￥{{item.vip_price}}
 						</view>
-						<!-- <view class="oldPrice">
-							￥{{item.price}}
-						</view> -->
 					</view>
 					</view>
 				</view>
 			</view>
 		</view>
+		
+		
+		
 		<!-- 会员礼品 -->
 		<view class="recommend">
 			<view class="title">
@@ -144,6 +157,8 @@
 				</view>
 			</view>
 		</view>
+		
+		
 		
 		<!-- 专题精选 -->
 		<view class="Topic">
@@ -167,7 +182,7 @@
 								{{item.store_name}}
 							</view>
 							<view class="price_box">
-								<!-- <image style="width: 21rpx;height: 21rpx;min-width: 21rpx;min-height: 21rpx;" src="../../static/index/huiyuan@3x(3).png" mode=""></image> -->
+								<!-- <image style="width: 21rpx;height: 21rpx;min-width: 21rpx;min-height: 21rpx;" src="@/static/index/huiyuan@3x(3).png" mode=""></image> -->
 								<view class="price">
 									会员价￥{{item.vip_price}}
 								</view>
@@ -181,6 +196,9 @@
 				</view>
 			</view>
 		</view>
+		
+		
+		
 		<!-- 弹出广告层 -->
 		<view class="float_ad"
 		v-if="isAdShow"
@@ -196,7 +214,7 @@
 				<view class="close_float"
 				@click="isAdShow = false"
 				>
-					<image src="../../static/index/close3.png" mode=""></image>
+					<image src="@/static/index/close3.png" mode=""></image>
 				</view>
 			</view>
 			
@@ -209,7 +227,7 @@
 		v-if="isCustomizeShow"
 		>
 			<view class="content_fl">
-				<image src="../../static/second/tan.png" mode=""></image>
+				<image src="@/static/second/tan.png" mode=""></image>
 				<view class="btn_ok"
 					@click="closeCusClick"
 				>
@@ -225,11 +243,23 @@
 				</view>
 			</view>
 		</view>
+		
+		<!-- 临时图片弹窗 -->
+		<view class="pic_float"
+		@touchmove.stop.prevent="moveHandle" 
+		v-if="picFloatIsShow"
+		>
+		<view class="content">
+			<image @click="picFloatIsShow = false" class="close" src="@/static/index/close3.png" mode=""></image>
+			<image class="targetPic" :src="picFloatUrl" mode=""></image>
+		</view>
+		</view>
+		
 	</view>
 </template>
-
+<script src="https://wow.techbrood.com/libs/jquery/jquery-1.11.1.min.js"></script>
 <script>
-	// import UpWindow from '../../components/upWindow.vue'
+	import getLocation from '@/components/getLocations.js'
 	import {myMixins} from '@/components/mixins.js'
 	export default {
 		mixins: [myMixins],
@@ -253,16 +283,21 @@
 				},
 				cart_count: 0, 
 				isAdShow: false, // 控制弹窗广告显示
-				adImg: '../../static/index/item4.png', // 广告图片
+				adImg: '@/static/index/item4.png', // 广告图片
 				address: '定位中...',
 				activity: [], // 活动图片存放
-				test:'../../static/index/maijiaxiu1.png',
+				test:'@/static/index/maijiaxiu1.png',
 				// 弹出自定义弹窗
 				isCustomizeShow: false, 
+				picFloatUrl: '@/static/second/tan1.jpg',
+				picFloatIsShow: false
 			}
 		},
 		onLoad() {
 			this.init()
+		},
+		onUnload() {
+			uni.hideLoading()
 		},
 		onShow() {
 			
@@ -274,7 +309,6 @@
 				this.getData()
 				this.userInit()
 				this.getLocatiion()
-				this.locationInit()
 			},
 			scroll(e) {
 				console.log(e)
@@ -314,17 +348,12 @@
 				})
 				this.locationInit()
 			},
-			// 初始化定位
-			locationInit(){
+			// 获取当前位置
+			getLocatiion(){
 				let _this = this
-				uni.getLocation({
-					type: 'gcj02',
-					geocode:true,
-					success(res){
-						uni.hideLoading()
-						console.log('中文信息', res)
-						_this.address = res.address.district
-					}
+				getLocation(res =>{
+					console.log('公共方法获取地理位置：', res)
+					this.address = res.targetData.city || res.targetData.regeocodeData.addressComponent.city
 				})
 			},
 			// 将菜单数据截取成展示结构 传入一维数组，返回想要的二维数组结构
@@ -374,6 +403,7 @@
 							// 专题精选列表
 							_this.likeInfo = likeInfo
 							// 活动列表
+							console.log('我就要看看有不有ooooooooooooooooooooo',activity_list)
 							_this.activity = activity_list
 							uni.hideLoading()
 						}else{
@@ -408,7 +438,7 @@
 					let img = item.image
 					// return
 					uni.navigateTo({
-						url:'./productdetails?id=' + item.id + '&img=' + img
+						url:'../../index/productdetails?id=' + item.id + '&img=' + img
 					})
 				},
 				// 为您推荐
@@ -420,16 +450,23 @@
 					})
 				},
 				// 菜单项跳转
-				gotomenu(item){
-					console.log(item)
-					// return
+				gotomenu(item, index){
+					console.log(item, index)
+					// 将部分未规划好的菜单项阻拦下来，并自定义弹窗提示
+					// 需要被阻止的菜单下标
+					let onNavigate = [5,6,7,8]
+					if(onNavigate.includes(index)){
+						console.log('xxx')
+						this.isCustomizeShow = true
+						return
+					}
 					let url = null
 					let {condition, type} = item
 					// 根据type值跳转响应页面  1 详情页面，2 列表页面
 					if(type == 1){
-						url = './productdetails'
+						url = '../../index/productdetails'
 					}else if (type == 2){
-						url = './productlist'
+						url = '../../index/productlist'
 					}
 					else {
 						return
@@ -523,25 +560,34 @@
 						}
 					})
 				},
-				// 获取当前位置
-				getLocatiion(){
-					let _this = this
-					uni.getLocation({
-					    type: 'wgs84',
-					　　 geocode:true,
-					    success: function (res) {
-							let maddress = res.address || {}
-					        // console.log('获取当前位置',maddress)
-							_this.$store.commit('setAddress', maddress)
-					    }
-					});
-				},
 				// 显示
 				showCus(){
 					this.isCustomizeShow = true
 				},
+				showPic(url){
+					this.picFloatUrl = url
+					this.picFloatIsShow = true
+				},
 				closeCusClick(){
 					this.isCustomizeShow = false
+				},
+				testInsts(){
+					// 添加垃圾代码
+					let num = 1
+					let mun1 = num * 1
+					let mun2 = num * 2
+					let mun3 = num * 3
+					let mun4 = num * 4
+					let mun5 = num * 5
+					let mun6 = num * 6
+					let mun7 = num * 7
+					let mun8 = num * 8
+					let mun9 = num * 9
+					let mun10 = num * 10
+					let mun11 = num * 11
+					let mun12 = num * 12
+					let muns = mun1+mun2+mun3+mun4+mun5+mun6+mun7+mun8+mun9+mun10+mun11+mun12
+					console.log(muns)
 				}
 		}
 	}
@@ -660,6 +706,7 @@
 					width:18rpx;
 					height:18rpx;
 					background:linear-gradient(181deg,rgba(255,131,11,1),rgba(255,88,7,1));
+					// background-color: #008c8c;
 					border-radius:50%;
 					font-size: 18rpx;
 					color: #FFFFFF;
@@ -677,6 +724,7 @@
 					height: 60rpx;
 					width: 437rpx;
 					border:2rpx solid rgba(227,28,67,1);
+					// border:2rpx solid #008c8c;
 					// background:linear-gradient(-83deg,rgba(255,85,7,1),rgba(255,132,11,1));
 					border-radius:30rpx;
 					display: flex;
@@ -698,6 +746,7 @@
 						text-align: center;
 						color: #FFFFFF;
 						background:linear-gradient(-83deg,rgba(255,85,7,1),rgba(255,132,11,1));
+						// background-color: #008c8c;
 						border-radius:30px;
 						position: absolute;
 						right: 0;
@@ -786,6 +835,7 @@
 					height: 203rpx;
 					margin-left: 50rpx;
 					margin-bottom: 18rpx;
+					
 				}
 				.pic_bom_box{
 					width: 701rpx;
@@ -813,6 +863,117 @@
 						}
 					}
 				}
+			}
+			// 临时特效
+			.wrap_linshi {
+			    display: -webkit-box;
+			    display: -webkit-flex;
+			    display: -ms-flexbox;
+			    display: flex;
+				background-color: #FFFFFF;
+			    width: 100%;
+				height: 300rpx;
+			    -webkit-box-pack: center;
+			    -webkit-justify-content: center;
+			    -ms-flex-pack: center;
+			    justify-content: center;
+			    -webkit-box-align: center;
+			    -webkit-align-items: center;
+			    -ms-flex-align: center;
+			    align-items: center;
+			}
+			.card {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			    position: absolute;
+			    width: 22px;
+			    height: 102px;
+				line-height: 72px;
+				text-align: center;
+				color: #FFFFFF;
+				font-weight: 500;
+				text-align: center;
+			    border-radius: 40rpx;
+			    -webkit-animation-name: anim;
+			    animation-name: anim;
+			    -webkit-animation-duration: 2.4s;
+			    animation-duration: 2.4s;
+			    -webkit-animation-iteration-count: infinite;
+			    animation-iteration-count: infinite;
+			    -webkit-animation-timing-function: ease-in-out;
+			    animation-timing-function: ease-in-out;
+				view{
+					width: 30rpx;
+					height: 30rpx;
+					text-align: center;
+				}
+			}
+			.card:nth-of-type(6n+1) {
+			    // background: #ffea4b;
+			    background: #008c8c;
+				-webkit-animation-delay: 20ms;
+				animation-delay: 20ms;
+				z-index: 60;
+			}
+			.card:nth-of-type(6n+2) {
+			    background: #ffea4b;
+			    -webkit-animation-delay: 40ms;
+			    animation-delay: 40ms;
+			    z-index: 50;
+			}
+			.card:nth-of-type(6n+3) {
+			    background: #ee9024;
+			    -webkit-animation-delay: 80ms;
+			    animation-delay: 80ms;
+			    z-index: 40;
+			}
+			.card:nth-of-type(6n+4) {
+			    background: #ef532c;
+			    -webkit-animation-delay: 100ms;
+			    animation-delay: 100ms;
+			    z-index: 30;
+			}
+			.card:nth-of-type(6n+5) {
+			    background: #c11943;
+			    -webkit-animation-delay: 120ms;
+			    animation-delay: 120ms;
+			    z-index: 20;
+			}
+			.card:nth-of-type(6n+6) {
+			    background: #c11943;
+			    -webkit-animation-delay: 130ms;
+			    animation-delay: 130ms;
+			    z-index: 10;
+			}
+			@-webkit-keyframes anim {
+			    0% {
+			        -webkit-transform: translateX(-100px) rotate(0deg);
+			        transform: translateX(-100px) rotate(0deg);
+			    }
+			    50% {
+			        -webkit-transform: translateX(100px) rotate(360deg);
+			        transform: translateX(100px) rotate(360deg);
+			    }
+			    100% {
+			        -webkit-transform: translateX(-100px) rotate(0deg);
+			        transform: translateX(-100px) rotate(0deg);
+			    }
+			}
+			@keyframes anim {
+			    0% {
+			        -webkit-transform: translateX(-100px) rotate(0deg);
+			        transform: translateX(-100px) rotate(0deg);
+			    }
+			    50% {
+			        -webkit-transform: translateX(100px) rotate(360deg);
+			        transform: translateX(100px) rotate(360deg);
+			    }
+			    100% {
+			        -webkit-transform: translateX(-100px) rotate(0deg);
+			        transform: translateX(-100px) rotate(0deg);
+			    }
 			}
 			.today{
 				width: 750rpx;
@@ -1012,6 +1173,40 @@
 								text-align: center;
 							}
 						}
+					}
+				}
+				
+			}
+			.pic_float{
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,.6);
+				position: fixed;
+				top: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.content{
+					width: 100%;
+					height: 80%;
+					
+					overflow:hidden;
+					.targetPic{
+						 position: absolute;
+						top: 50%;
+						left: 50%;
+						display: block;
+						min-width: 100%;
+						min-height: 100%;
+						transform:translate(-50%,-50%);
+					}
+					image.close{
+						width: 40rpx;
+						height: 40rpx;
+						position: absolute;
+						top: 30rpx;
+						right: 30rpx;
+						z-index: 999;
 					}
 				}
 				

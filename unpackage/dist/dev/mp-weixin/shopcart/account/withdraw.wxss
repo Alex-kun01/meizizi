@@ -1,0 +1,108 @@
+.titleNview-placing.data-v-4f2ad267 {
+  height: 25px;
+  background: #FFFFFF;
+  padding-top: 0;
+  box-sizing: content-box;
+}
+page.data-v-4f2ad267 {
+  width: 100%;
+  height: 100%;
+  background-color: #F4F4F4;
+}
+page .content.data-v-4f2ad267 {
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F4F4;
+}
+page .content .menu_box.data-v-4f2ad267 {
+  width: 100%;
+  height: 70rpx;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+page .content .menu_box .item.data-v-4f2ad267 {
+  height: 100%;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+  border-bottom: 4rpx solid #FFFFFF;
+}
+page .content .menu_box .item.active.data-v-4f2ad267 {
+  border-bottom: 4rpx solid #FF792C;
+  color: #FF792C;
+}
+page .content .box_top.data-v-4f2ad267 {
+  width: 750rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  box-sizing: border-box;
+  padding: 40rpx 63rpx;
+}
+page .content .box_top .card.data-v-4f2ad267 {
+  width: 749rpx;
+  height: 90rpx;
+  background: #fcfcfc;
+  border-bottom: 1rpx solid #eee;
+  margin-bottom: 24rpx;
+}
+page .content .box_top .card text.data-v-4f2ad267 {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #111111;
+  margin-right: 24rpx;
+}
+page .content .box_top .card image.data-v-4f2ad267 {
+  width: 13rpx;
+  height: 23rpx;
+}
+page .content .box_top .yue text.data-v-4f2ad267 {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #a4a4a4;
+  margin-right: 25rpx;
+}
+page .content .box_top .title.data-v-4f2ad267 {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 20rpx;
+}
+page .content .box_top .input.data-v-4f2ad267 {
+  width: 100%;
+  height: 8a0rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+page .content .box_top .input text.data-v-4f2ad267 {
+  font-size: 54rpx;
+  font-weight: 800;
+  color: #111111;
+  margin-right: 20rpx;
+}
+page .content .top_btn.data-v-4f2ad267 {
+  width: 579rpx;
+  height: 94rpx;
+  line-height: 94rpx;
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 500;
+  text-align: center;
+  background: -webkit-linear-gradient(178deg, #ff5005, #ff7a2d);
+  background: linear-gradient(-88deg, #ff5005, #ff7a2d);
+  border-radius: 47rpx;
+  margin: 95rpx 0 0 85rpx;
+}
+

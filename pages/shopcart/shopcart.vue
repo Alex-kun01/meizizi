@@ -30,7 +30,7 @@
 						@click="chooseThing(item)"
 						>
 							<!-- 根据商品id显示 -->
-							<image v-if="showThing.includes(item.id)" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+							<image v-if="showThing.includes(item.id)" style="width: 30rpx;height: 30rpx;" src="@/static/index/gouxuan@2x.png" mode=""></image>
 						</view>
 						<image :src="item.image" mode=""></image>
 					</view>
@@ -94,7 +94,7 @@
 						
 						<view class="bom_btn">
 							<view style="display: flex;align-items: center;">
-								<!-- <image style="width: 21rpx;height: 21rpx;" src="../../static/shopcart/huiyuan.png" mode=""></image> -->
+								<!-- <image style="width: 21rpx;height: 21rpx;" src="@/static/shopcart/huiyuan.png" mode=""></image> -->
 								<view class="fukuan">
 									<text style="margin-right: 15rpx;color: #FF792C;">会员价￥{{item.vip_price}}</text>
 									<text>￥{{item.price}}</text>
@@ -110,7 +110,7 @@
 		<view class="bom_bar">
 			<view class="left">
 				<view @click="changeAllActive" :class="{yuan:true, active: allActive}">
-					<image v-if="allActive" style="width: 30rpx;height: 30rpx;" src="../../static/index/gouxuan@2x.png" mode=""></image>
+					<image v-if="allActive" style="width: 30rpx;height: 30rpx;" src="@/static/index/gouxuan@2x.png" mode=""></image>
 				</view>
 				<text style="margin-left: 20rpx; color: #6A6A6A;font-size: 30rpx;">
 					全选
@@ -228,7 +228,7 @@
 									console.log('rr',rr)
 									if(rr.confirm){
 										uni.redirectTo({
-											url: '../mine/login/login'
+											url: '../mine/login'
 										})
 									}
 									if(rr.cancel){
@@ -276,7 +276,7 @@
 				//将订单列表存到vuex
 				this.$store.commit('setOrderList', this.storeList)
 				uni.navigateTo({
-					url: '../index/confirmordermany'
+					url: '../../index/confirmordermany'
 				})
 			},
 			// 移入收藏夹
@@ -382,7 +382,7 @@
 				console.log('item', item)
 				let img = item.image
 				uni.navigateTo({
-					url: '../index/productdetails?id=' + item.id + '&img=' + img
+					url: '../../index/productdetails?id=' + item.id + '&img=' + img
 				})
 			},
 			// 根据数组 和值 返回该值在数组中的下标
@@ -509,7 +509,7 @@
 	// 适配异形屏幕
 	.titleNview-placing {
 		height: var(--status-bar-height);
-		background: #FFFFFF;
+		background: #F4F4F4;
 		padding-top: 0;
 		box-sizing: content-box;
 	 }

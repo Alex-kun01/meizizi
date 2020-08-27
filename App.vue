@@ -61,8 +61,46 @@
 				}
 				
 				
-			}
+			},
 			//#endif
+			// 更新用户会员信息
+			upDataIsMember(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let userInfo = reg.data
+						uni.request({
+							url: _this.$http + '/api/goods/userInfo',
+							method: 'GET',
+							data: {
+								token: reg.data.token
+							},
+							success(res){
+								console.log('查看更新用户会员信息', res)
+								if(res.data.status === 200){
+									let {is_member} = res.data.data
+									let oldIsMember = reg.data.is_member
+									if(oldIsMember != is_member){
+										// 更新用户会员信息
+										userInfo.is_member = is_member
+										uni.setStorage({
+											key: 'userInfo',
+											data: userInfo
+										})
+										uni.getStorage({
+											key:'userInfo',
+											success(xxx){
+												console.log('查看是否已经更新会员信息', xxx.data.is_member)
+											}
+										})
+									}
+								}
+							}
+						})
+					}
+				})
+			}
 		},
 		onLaunch: function() {
 			console.log('App Launch')
@@ -80,7 +118,7 @@
 						this.getData(this.target)
 					})
 			  //#endif
-			
+			this.upDataIsMember()
 		},
 		
 		onHide: function() {
@@ -91,7 +129,4 @@
 </script>
 
 <style>
-	/*每个页面公共css */
-	@import "colorui/main.css";
-	@import "colorui/icon.css";
 </style>

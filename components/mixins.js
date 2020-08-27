@@ -7,6 +7,9 @@ export const myMixins = {
 		}, 1000);
 		uni.startPullDownRefresh();
 	},
+	onUnload() {
+		uni.hideLoading()
+	},
 	// 下拉刷新
 	onPullDownRefresh(){
 		console.log('混入-下拉刷新')

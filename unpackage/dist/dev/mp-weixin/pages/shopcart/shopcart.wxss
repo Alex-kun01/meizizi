@@ -1,6 +1,6 @@
 .titleNview-placing.data-v-0d48e174 {
   height: 25px;
-  background: #FFFFFF;
+  background: #F4F4F4;
   padding-top: 0;
   box-sizing: content-box;
 }
@@ -111,6 +111,7 @@ page .content .shop_list .item.data-v-0d48e174 {
   padding: 31rpx 24rpx 24rpx 24rpx;
   box-sizing: border-box;
   margin-bottom: 24rpx;
+  box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 }
 page .content .shop_list .item .yuan.data-v-0d48e174 {
   width: 30rpx;
@@ -316,6 +317,7 @@ page .content .like_box .like_list .item.data-v-0d48e174 {
   background: #ffffff;
   border-radius: 12rpx;
   margin-bottom: 26rpx;
+  box-shadow: #DDDDDD 0 0 15rpx 5rpx;
 }
 page .content .like_box .like_list .item image.data-v-0d48e174 {
   width: 100%;

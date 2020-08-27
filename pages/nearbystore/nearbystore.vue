@@ -188,7 +188,7 @@ page{
 			width: 600rpx;
 			height: 60rpx;
 			// background-color: #FFFFFF;
-			border: 1rpx solid black;
+			border: 1rpx solid #008c8c;
 			border-radius: 30rpx;
 			margin-left: 75rpx;
 			margin-top: 24rpx;
