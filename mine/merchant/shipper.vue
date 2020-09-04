@@ -214,7 +214,7 @@
 			background-color: #F4F4F4;
 			.user_info{
 				width: 100%;
-				height: 300rpx;
+				// height: 300rpx;
 				background-color: #FFFFFF;
 				margin-top: 24rpx;
 				box-sizing: border-box;

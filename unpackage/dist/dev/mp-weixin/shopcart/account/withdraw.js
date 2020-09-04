@@ -180,13 +180,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
       priceValue: '', //提现输入值
       isActive: 1, // 提现方式 1微信 2支付宝 3银行卡
-      opt: {} };
+      payArr: ['请选择账号类型', '支付宝', '银行卡'],
+      payValue: 0,
+      payType: '选择支付类型',
+      opt: {},
+      card_id: '',
+      carPosition: '',
+      carNum: '',
+      showType: 0 };
 
   },
   onLoad: function onLoad(opt) {
@@ -202,12 +231,33 @@ var _default =
     },
     // 是否具备提交条件
     isReady: function isReady() {
-      return this.priceValue > this.opt.now_money;
+      return +this.priceValue > +this.opt.now_money;
     },
     // 提现
     submit: function submit() {
       var _this = this;
       console.log(this.isReady());
+      if (this.showType == 0) {
+        uni.showModal({
+          title: '提示',
+          content: '请选择账号类型！' });
+
+        return;
+      }
+      if (this.showType == 1 && this.card_id == '') {
+        uni.showModal({
+          title: '提示',
+          content: '请填写账号信息！' });
+
+        return;
+      }
+      if (this.showType == 2 && this.carPosition == '') {
+        uni.showModal({
+          title: '提示',
+          content: '请填写开户行！' });
+
+        return;
+      }
 
       if (this.isReady()) {
         uni.showModal({
@@ -223,12 +273,22 @@ var _default =
         return;
       } else
       {
+        var t_type = '';
+        if (_this.showType == 2) {
+          t_type = 'bank';
+        }
+        if (_this.showType == 1) {
+          t_type = 'alipay';
+        }
         uni.getStorage({
           key: 'userInfo',
           success: function success(reg) {
             var datas = {
               token: reg.data.token,
-              money: _this.priceValue };
+              money: _this.priceValue,
+              card_id: _this.card_id,
+              t_type: t_type,
+              bank: _this.carPosition };
 
             uni.request({
               url: _this.$http + '/api/team/withdrawal',
@@ -258,6 +318,11 @@ var _default =
         return;
       }
       this.isActive = index;
+    },
+    typeChange: function typeChange(e) {
+      console.log(e.target.value);
+      this.payValue = e.target.value;
+      this.showType = e.target.value;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -226,7 +226,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
+//
+//
+//
 //
 //
 //
@@ -336,10 +342,7 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { sea
       parameter: {} };}, onLoad: function onLoad(opt) {console.log('产品列表opt', opt);this.searchValue = opt.value;if (opt.type) {this.type = opt.type;}this.parameter = this.$store.state.parameter;this.$store.commit('setParameter', {});this.getData(opt);this.opt = opt;}, onShow: function onShow() {}, computed: { // 判断是否查询到了数据
     idNull: function idNull() {if (this.shopList.length === 0) {return true;} else {return false;}} }, methods: { getData: function getData(opt) {var _this = this;var userInfo = this.$store.state.userInfo;uni.showLoading({ title: '' });var datas = {};if (JSON.stringify(this.parameter) == '{}') {datas = { search_type: _this.type, content: _this.searchValue, type: _this.typeIndex, p: _this.p, limit: _this.limit };} else {datas = this.parameter;}console.log('传递参数', datas);uni.request({ url: this.$http + '/api/goods/goodsList', method: 'POST', data: datas, success: function success(res) {uni.hideLoading();console.log('产品详情返回数据1', res);if (res.data.status === 200) {if (_this.p === 1) {_this.shopList = res.data.data.list;} else {_this.shopList = _this.shopList.concat(res.data.data.list);}_this.shopingNum = res.data.data.total_count;_this.isLoading = false;} else {uni.showModal({ title: '提示', content: res.data.msg });_this.shopList = [];}} });}, search: function search() {console.log(this.searchValue);this.type = 2;this.shopList = [];this.getData();}, // 导航改变
     changeActive: function changeActive(index) {// 筛选 综合 销量 最新 价格
-      if (index === 1) {this.typeIndex = 1;this.p = 1;this.getData(this.opt);}if (index === 2) {this.typeIndex = 2;this.p = 1;this.getData(this.opt);
-      }
-      if (index === 3) {
-        this.typeIndex = 4;
+      if (index === 1) {this.typeIndex = 1;this.p = 1;this.getData(this.opt);}if (index === 2) {this.typeIndex = 2;this.p = 1;this.getData(this.opt);}if (index === 3) {this.typeIndex = 4;
         this.p = 1;
         this.getData(this.opt);
       }

@@ -2,6 +2,9 @@
 	<!-- 首页 -->
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<view class="top_search">
 			<view class="location_box"
 				@click="reClick"
@@ -34,22 +37,9 @@
 			
 		</view>
 		
+		<!-- <navigator url="../../shopcart/comment">临时跳转</navigator> -->
 		
-		<!-- 临时增加特效 -->
-	<!-- 	<view class="wrap_linshi">
-			    <view class="card">
-					<view>M</view>
-					<view>Z</view>
-					<view>Z</view>
-				</view>
-			    <view class="card"></view>
-			    <view class="card"></view>
-			    <view class="card"></view>
-			    <view class="card"></view>
-			    <view class="card"></view>
-		</view> -->
-		
-		<!-- 轮播 -->
+		<!-- 轮播图 -->
 		
 		<view class="lunbo">
 			<swiper class="screen-swiper"
@@ -64,7 +54,7 @@
 				:key="index"
 				@click="gotomenu(item)"
 				>
-					<image style="height: 276rpx;" :src="item.pic" mode="aspectFill"></image>
+					<image :src="item.pic" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -115,12 +105,12 @@
 					<text class="miaosha">入会精选</text>
 				</view>
 			</view>
-			<!-- 秒杀列表 -->
+			<!-- 入会精选 -->
 			<view class="today_list">
 				<view class="item"
 				v-for="(item, index) in storeList"
 				:key="index"
-				@click="gotoproduct(item, index)"
+				@click="gotoproduct(item, index, 1)"
 				>
 					<view class="img">
 						<image :src="item.image" mode=""></image>
@@ -186,9 +176,9 @@
 								<view class="price">
 									会员价￥{{item.vip_price}}
 								</view>
-								<view class="oldPrice">
+								<!-- <view class="oldPrice">
 									￥{{item.price}}
-								</view>
+								</view> -->
 							</view>
 						</view>
 					</view>
@@ -235,10 +225,14 @@
 				</view>
 				<view class="float_text">
 					<view class="float1">
-						到店咨询！
+						敬请期待！
+						<!-- 下月1-7号可购买 20-30号可拿货 -->
 					</view>
 					<view class="float2">
-						宝宝们，赶快来领取吧~
+						宝宝们，新产品还在路上...~
+					</view>
+					<view class="float3">
+						工厂价直接卖，值得你的等待
 					</view>
 				</view>
 			</view>
@@ -257,7 +251,7 @@
 		
 	</view>
 </template>
-<script src="https://wow.techbrood.com/libs/jquery/jquery-1.11.1.min.js"></script>
+<!-- <script src="https://wow.techbrood.com/libs/jquery/jquery-1.11.1.min.js"></script> -->
 <script>
 	import getLocation from '@/components/getLocations.js'
 	import {myMixins} from '@/components/mixins.js'
@@ -403,7 +397,6 @@
 							// 专题精选列表
 							_this.likeInfo = likeInfo
 							// 活动列表
-							console.log('我就要看看有不有ooooooooooooooooooooo',activity_list)
 							_this.activity = activity_list
 							uni.hideLoading()
 						}else{
@@ -433,17 +426,20 @@
 					})
 				},
 				moveHandle(){},
-				gotoproduct(item, index){
+				gotoproduct(item, index, type){
+					let t = 0;
+					if(type){
+						t = type
+					}
 					console.log('item',item)
 					let img = item.image
 					// return
 					uni.navigateTo({
-						url:'../../index/productdetails?id=' + item.id + '&img=' + img
+						url:'../../index/productdetails?id=' + item.id + '&img=' + img + '&t=' + t
 					})
 				},
 				// 为您推荐
 				tuijianClick(url){
-					
 					uni.showModal({
 						title: '提示',
 						content: '敬请期待'
@@ -454,7 +450,7 @@
 					console.log(item, index)
 					// 将部分未规划好的菜单项阻拦下来，并自定义弹窗提示
 					// 需要被阻止的菜单下标
-					let onNavigate = [5,6,7,8]
+					let onNavigate = [5,6,7,8,9]
 					if(onNavigate.includes(index)){
 						console.log('xxx')
 						this.isCustomizeShow = true
@@ -746,22 +742,38 @@
 						text-align: center;
 						color: #FFFFFF;
 						background:linear-gradient(-83deg,rgba(255,85,7,1),rgba(255,132,11,1));
-						// background-color: #008c8c;
 						border-radius:30px;
 						position: absolute;
 						right: 0;
 					}
 				}
 			}
+			
 			.lunbo{
-				width: 750rpx;
+				width: 100%;
 				background-color: #FFFFFF;
 				box-sizing: border-box;
 				padding: 24rpx;
-				image{
-					height:300upx !important;
-					border-radius: 20upx;
+				swiper-item{
+					
+					border-radius: 20rpx;
 				}
+				// uni-image{
+				// 	width: 100%;
+				// 	border-radius: 20rpx;
+				// 	img{
+				// 		border-radius: 20rpx;
+				// 	}
+				// }
+				image{
+					height:300rpx !important;
+					width: 701rpx!important;
+					border-radius: 20rpx;
+				}
+				.uni-swiper-dots-horizontal{
+					bottom: 20rpx!important;
+				}
+				
 			}
 			.menu_box{
 				width: 100%;
@@ -864,117 +876,7 @@
 					}
 				}
 			}
-			// 临时特效
-			.wrap_linshi {
-			    display: -webkit-box;
-			    display: -webkit-flex;
-			    display: -ms-flexbox;
-			    display: flex;
-				background-color: #FFFFFF;
-			    width: 100%;
-				height: 300rpx;
-			    -webkit-box-pack: center;
-			    -webkit-justify-content: center;
-			    -ms-flex-pack: center;
-			    justify-content: center;
-			    -webkit-box-align: center;
-			    -webkit-align-items: center;
-			    -ms-flex-align: center;
-			    align-items: center;
-			}
-			.card {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-			    position: absolute;
-			    width: 22px;
-			    height: 102px;
-				line-height: 72px;
-				text-align: center;
-				color: #FFFFFF;
-				font-weight: 500;
-				text-align: center;
-			    border-radius: 40rpx;
-			    -webkit-animation-name: anim;
-			    animation-name: anim;
-			    -webkit-animation-duration: 2.4s;
-			    animation-duration: 2.4s;
-			    -webkit-animation-iteration-count: infinite;
-			    animation-iteration-count: infinite;
-			    -webkit-animation-timing-function: ease-in-out;
-			    animation-timing-function: ease-in-out;
-				view{
-					width: 30rpx;
-					height: 30rpx;
-					text-align: center;
-				}
-			}
-			.card:nth-of-type(6n+1) {
-			    // background: #ffea4b;
-			    background: #008c8c;
-				-webkit-animation-delay: 20ms;
-				animation-delay: 20ms;
-				z-index: 60;
-			}
-			.card:nth-of-type(6n+2) {
-			    background: #ffea4b;
-			    -webkit-animation-delay: 40ms;
-			    animation-delay: 40ms;
-			    z-index: 50;
-			}
-			.card:nth-of-type(6n+3) {
-			    background: #ee9024;
-			    -webkit-animation-delay: 80ms;
-			    animation-delay: 80ms;
-			    z-index: 40;
-			}
-			.card:nth-of-type(6n+4) {
-			    background: #ef532c;
-			    -webkit-animation-delay: 100ms;
-			    animation-delay: 100ms;
-			    z-index: 30;
-			}
-			.card:nth-of-type(6n+5) {
-			    background: #c11943;
-			    -webkit-animation-delay: 120ms;
-			    animation-delay: 120ms;
-			    z-index: 20;
-			}
-			.card:nth-of-type(6n+6) {
-			    background: #c11943;
-			    -webkit-animation-delay: 130ms;
-			    animation-delay: 130ms;
-			    z-index: 10;
-			}
-			@-webkit-keyframes anim {
-			    0% {
-			        -webkit-transform: translateX(-100px) rotate(0deg);
-			        transform: translateX(-100px) rotate(0deg);
-			    }
-			    50% {
-			        -webkit-transform: translateX(100px) rotate(360deg);
-			        transform: translateX(100px) rotate(360deg);
-			    }
-			    100% {
-			        -webkit-transform: translateX(-100px) rotate(0deg);
-			        transform: translateX(-100px) rotate(0deg);
-			    }
-			}
-			@keyframes anim {
-			    0% {
-			        -webkit-transform: translateX(-100px) rotate(0deg);
-			        transform: translateX(-100px) rotate(0deg);
-			    }
-			    50% {
-			        -webkit-transform: translateX(100px) rotate(360deg);
-			        transform: translateX(100px) rotate(360deg);
-			    }
-			    100% {
-			        -webkit-transform: translateX(-100px) rotate(0deg);
-			        transform: translateX(-100px) rotate(0deg);
-			    }
-			}
+			
 			.today{
 				width: 750rpx;
 				padding: 0 25rpx;
@@ -1032,7 +934,7 @@
 							font-size: 24rpx;
 							color: #272727;
 							padding: 0 18rpx;
-							width: 330rpx;
+							width: 300rpx;
 							// background-color: pink;
 							display: -webkit-box;
 							-webkit-box-orient: vertical;
@@ -1188,7 +1090,7 @@
 				align-items: center;
 				.content{
 					width: 100%;
-					height: 80%;
+					height: 1038rpx;
 					
 					overflow:hidden;
 					.targetPic{
@@ -1237,17 +1139,30 @@
 						position: absolute;
 						top: 80rpx;
 						.float1{
-							font-size: 45rpx;
+							width: 360rpx;
+							font-size: 40rpx;
 							font-weight: 500;
 							text-align: center;
 							color:  #fd3325;
+							 overflow: hidden;
+						  text-overflow: ellipsis;
+						  display: -webkit-box;
+						  -webkit-line-clamp: 2; //行数
+						  -webkit-box-orient: vertical;
 						}
 						.float2{
-							font-size: 35rpx;
+							font-size: 32rpx;
 							font-weight: 500;
 							text-align: center;
 							color:  #fd3325;
-							margin-top: 20rpx;
+							margin-top: 15rpx;
+						}
+						.float3{
+							font-size: 26rpx;
+							// font-weight: 500;
+							text-align: center;
+							color:  #000000;
+							margin-top: 15rpx;
 						}
 					}
 					.btn_ok{

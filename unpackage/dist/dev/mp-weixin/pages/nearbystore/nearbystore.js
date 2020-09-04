@@ -148,73 +148,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
 //
 //
 //
@@ -279,10 +214,101 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
 //
 //
 //
-var _default = { mixins: [_mixins.myMixins], data: function data() {return { storeList: [], page: 1, limit: 10, long_number: 0, lati_number: 0, searchValue: '' // 搜索value
-    };}, onShow: function onShow() {this.mgetLocation();}, methods: { getData: function getData() {var _this = this;uni.getStorage({ key: 'userInfo', success: function success(reg) {var datas = { token: reg.data.token, page: _this.page, limit: _this.limit, long_number: _this.long_number, lati_number: _this.lati_number, content: _this.searchValue };console.log('datas', datas);uni.showLoading({ title: '加载中...' });uni.request({ url: _this.$http + '/api/index/nearbyShop', method: 'POST', data: datas, success: function success(res) {console.log('获取附近店铺列表', res);if (res.data.status === 200) {var newList = res.data.data;newList.forEach(function (item) {item.distance = item.distance.toFixed(2);});_this.storeList = newList;uni.hideLoading();} else {uni.showModal({ title: '提示', content: res.data.msg });}} });} });}, // 获取当前位置中文信息
-    mgetLocation: function mgetLocation() {var _this = this;uni.getLocation({ type: 'wgs84', geocode: true, success: function success(res) {console.log(res);_this.long_number = res.longitude;_this.lati_number = res.latitude;
-          _this.getData();
+//
+
+// import {myMixins} from '@/components/mixins.js'
+var _default = {
+  // mixins: [myMixins],
+  data: function data() {
+    return {
+      storeList: [],
+      page: 1,
+      limit: 10,
+      long_number: 0,
+      lati_number: 0,
+      searchValue: '', // 搜索value
+      isLoading: false };
+
+  },
+  onShow: function onShow() {
+    this.mgetLocation();
+  },
+  onLoad: function onLoad() {
+    // this.showList = []
+    // this.getData()
+    setTimeout(function () {
+      console.log('start pulldown');
+    }, 1000);
+    uni.startPullDownRefresh();
+  },
+  onUnload: function onUnload() {
+    uni.hideLoading();
+  },
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    console.log('混入-下拉刷新');
+    this.storeList = [];
+    this.page = 1;
+    this.getData();
+    setTimeout(function () {
+      uni.stopPullDownRefresh();
+    }, 1000);
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+      uni.getStorage({
+        key: 'userInfo',
+        success: function success(reg) {
+          var datas = {
+            token: reg.data.token,
+            page: _this.page,
+            limit: _this.limit,
+            long_number: _this.long_number,
+            lati_number: _this.lati_number,
+            content: _this.searchValue };
+
+          console.log('datas', datas);
+          uni.showLoading({
+            title: '加载中...' });
+
+          uni.request({
+            url: _this.$http + '/api/index/nearbyShop',
+            method: 'POST',
+            data: datas,
+            success: function success(res) {
+              console.log('获取附近店铺列表', res);
+              if (res.data.status === 200) {
+                var newList = res.data.data;
+                newList.forEach(function (item) {
+                  item.distance = item.distance.toFixed(2);
+                });
+                _this.isLoading = false;
+                _this.storeList = [].concat(_toConsumableArray(_this.storeList), _toConsumableArray(newList));
+                console.log('xooo', _this.storeList.length);
+                uni.hideLoading();
+              } else {
+                uni.showModal({
+                  title: '提示',
+                  content: res.data.msg });
+
+              }
+            } });
+
+        } });
+
+    },
+    // 获取当前位置中文信息
+    mgetLocation: function mgetLocation() {
+      var _this = this;
+      uni.getLocation({
+        type: 'wgs84',
+        geocode: true,
+        success: function success(res) {
+          console.log(res);
+          _this.long_number = res.longitude;
+          _this.lati_number = res.latitude;
+          // _this.getData()
         } });
 
     },
@@ -313,6 +339,12 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { sto
           }
         } });
 
+    },
+    onReachBottom: function onReachBottom(e) {
+      console.log('触底了');
+      this.isLoading = true;
+      this.page++;
+      this.getData();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

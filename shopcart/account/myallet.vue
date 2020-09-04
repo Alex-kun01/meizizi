@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<!-- 我的钱包 -->
 		<view class="top_bar">
 			<image @click="goback" class="back" src="@/static/index/fanhui@3x.png" mode=""></image>
@@ -88,9 +91,9 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				allPrice: 0.00, // 总余额
@@ -98,6 +101,9 @@
 				frozen_money: 0.00, // 不可提现余额
 				
 			}
+		},
+		onShow() {
+			this.getData()
 		},
 		methods:{
 			getData(){
@@ -114,9 +120,9 @@
 							success(res){
 								console.log('我的钱包返回数据', res)
 								if(res.data.status === 200){
-									_this.now_money = res.data.data.now_money
-									_this.frozen_money = res.data.data.frozen_money
-									_this.allPrice = +_this.now_money + +_this.frozen_money
+									_this.now_money = +res.data.data.now_money.toFixed(2)
+									_this.frozen_money = +res.data.data.frozen_money.toFixed(2)
+									_this.allPrice = (+_this.now_money + +_this.frozen_money).toFixed(2)
 								}else{
 									uni.showModal({
 										title: '提示',

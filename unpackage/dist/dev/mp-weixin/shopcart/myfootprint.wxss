@@ -14,6 +14,12 @@ page .content.data-v-523c24e8 {
   min-height: 100vh;
   background-color: #F4F4F4;
 }
+page .content .all_delete.data-v-523c24e8 {
+  font-size: 30rpx;
+  color: #f40;
+  text-align: right;
+  padding-bottom: 20rpx;
+}
 page .content .loading.data-v-523c24e8 {
   width: 100%;
   height: 70rpx;
@@ -43,6 +49,14 @@ page .content .show_list .item.data-v-523c24e8 {
   display: -webkit-flex;
   display: flex;
   margin-bottom: 24rpx;
+  position: relative;
+}
+page .content .show_list .item .close.data-v-523c24e8 {
+  width: 25rpx;
+  height: 25rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
 }
 page .content .show_list .item .img.data-v-523c24e8 {
   width: 222rpx;

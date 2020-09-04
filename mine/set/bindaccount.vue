@@ -335,6 +335,8 @@
 						margin: 50rpx 0;
 					}
 					input{
+						height: 50rpx;
+						line-height: 50rpx;
 						background-color: #eee;
 						font-size: 30rpx;
 						padding: 10rpx 15rpx;

@@ -405,11 +405,10 @@ var _default =
     },
     wxTypePay: function wxTypePay(datas) {
       console.log('参数', datas);
-      return;
       uni.request({
-        url: this.$http + '/api/goods/createOrder',
+        url: this.$http + '/api/goods/cartBuy',
         method: 'POST',
-        data: orderInfo,
+        data: datas,
         success: function success(wx) {
           console.log('f返回值', wx);var
           weixin = wx.data.data.weixin;
@@ -418,10 +417,9 @@ var _default =
             service: 'payment',
             success: function success(pay) {
               console.log('pay1', pay);
+              console.log('wxpay', pay.provider.includes("wxpay"));
               if (pay.provider.includes("wxpay")) {
-                console.log('pay2', pay);
-                console.log('ces', weixin.paySign);
-                console.log(weixin);
+
                 uni.requestPayment({
                   provider: "wxpay",
 
@@ -451,8 +449,8 @@ var _default =
                   fail: function fail(reh) {
                     console.log('weixinPayErr', reh);
                     uni.showModal({
-                      title: '支付错误',
-                      content: reh.errMsg });
+                      title: '提示',
+                      content: '支付已取消' });
 
                   } });
 
@@ -469,7 +467,6 @@ var _default =
       uni.getStorage({
         key: 'userInfo',
         success: function success(reg) {
-
           _this.orderList.forEach(function (item) {
             delete item.image;
             delete item.goods_name;

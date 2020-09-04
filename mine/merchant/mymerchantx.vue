@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<view class="top_bar_box">
 			
 			<image @click="goback" class="left" src="@/static/index/fanhui@3x.png" mode=""></image>

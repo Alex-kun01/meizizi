@@ -17,7 +17,6 @@ page .content.data-v-2e7c56b8 {
 }
 page .content .user_info.data-v-2e7c56b8 {
   width: 100%;
-  height: 300rpx;
   background-color: #FFFFFF;
   margin-top: 24rpx;
   box-sizing: border-box;

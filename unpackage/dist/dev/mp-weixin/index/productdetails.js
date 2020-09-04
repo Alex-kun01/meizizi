@@ -522,6 +522,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -568,7 +574,8 @@ var _default =
         height: 0 },
 
       // 首页菜单跳转参数
-      parameter: {} };
+      parameter: {},
+      priceName: '会员价' };
 
   },
   computed: {
@@ -591,6 +598,9 @@ var _default =
 
   onLoad: function onLoad(opt) {
     console.log('产品详情opt', opt);
+    if (opt.t == 1) {
+      this.priceName = '优享价';
+    }
     this.opt = opt;
     this.staticImage = opt.img;
     this.parameter = this.$store.state.parameter;
@@ -740,24 +750,6 @@ var _default =
         return;
       }
       this.startPageY = event.changedTouches[0].pageY;
-    },
-    testInsts: function testInsts() {
-      // 添加垃圾代码
-      var num = 1;
-      var mun1 = num * 1;
-      var mun2 = num * 2;
-      var mun3 = num * 3;
-      var mun4 = num * 4;
-      var mun5 = num * 5;
-      var mun6 = num * 6;
-      var mun7 = num * 7;
-      var mun8 = num * 8;
-      var mun9 = num * 9;
-      var mun10 = num * 10;
-      var mun11 = num * 11;
-      var mun12 = num * 12;
-      var muns = mun1 + mun2 + mun3 + mun4 + mun5 + mun6 + mun7 + mun8 + mun9 + mun10 + mun11 + mun12;
-      console.log(muns);
     },
     // 手指离开屏幕
     touchend: function touchend(event) {

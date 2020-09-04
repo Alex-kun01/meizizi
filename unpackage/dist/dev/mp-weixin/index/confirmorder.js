@@ -421,8 +421,8 @@ var _default =
                   fail: function fail(reh) {
                     console.log('weixinPayErr', reh);
                     uni.showModal({
-                      title: '支付错误',
-                      content: reh.errMsg });
+                      title: '提示',
+                      content: '支付已取消' });
 
                   } });
 

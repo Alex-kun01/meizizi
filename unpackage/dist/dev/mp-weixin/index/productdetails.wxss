@@ -698,7 +698,6 @@ page .content .shop_cart_float .show_box .top_pic.data-v-5049f9de {
   padding: 40rpx 0 0 31rpx;
 }
 page .content .shop_cart_float .show_box .top_pic .price_box.data-v-5049f9de {
-  height: 130rpx;
   width: 350rpx;
   overflow: hidden;
   text-overflow: ellipsis;

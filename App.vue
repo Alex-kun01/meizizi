@@ -129,4 +129,10 @@
 </script>
 
 <style>
+	.weixin-wx{
+		height: var(--status-bar-height);
+		background: #FFFFFF;
+		padding-top: 50rpx;
+		box-sizing: content-box;
+	}
 </style>

@@ -4,11 +4,18 @@
   padding-top: 0;
   box-sizing: content-box;
 }
+.weixin-wx.data-v-0d48e174 {
+  height: 25px;
+  background: #F4F4F4;
+  padding-top: 50rpx;
+  box-sizing: content-box;
+}
 page.data-v-0d48e174 {
   width: 100%;
   background-color: #F4F4F4;
 }
 page .content.data-v-0d48e174 {
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   background-color: #F4F4F4;

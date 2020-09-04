@@ -51,7 +51,7 @@
 			<view class="title">
 				{{title}}
 			</view>
-			<view class="content" v-html="content"></view>
+			<view class="content_con" v-html="content"></view>
 			<image @click="isShowProblemDetalus = false" src="@/static/index/closeX2.png" mode=""></image>
 		</view>
 		
@@ -135,30 +135,33 @@
 			problemDetalus(item){
 				let _this = this
 				console.log('item',item)
-				uni.showLoading({
-					title: '加载中...'
+				uni.navigateTo({
+					url: './helperInfo?id=' + item.id
 				})
-				uni.request({
-					url: this.$http + '/api/goods/helpInfo',
-					method: 'POST',
-					data: {
-						id: item.id
-					},
-					success(res){
-						console.log('问题详情数据', res)
-						if(res.data.status === 200){
-							_this.title = res.data.data.title
-							_this.content = res.data.data.content
-							_this.isShowProblemDetalus = true
-						}else{
-							uni.showModal({
-								title: '提示',
-								content: '获取详情数据失败'
-							})
-						}
-						uni.hideLoading()
-					}
-				})
+				// uni.showLoading({
+				// 	title: '加载中...'
+				// })
+				// uni.request({
+				// 	url: this.$http + '/api/goods/helpInfo',
+				// 	method: 'POST',
+				// 	data: {
+				// 		id: item.id
+				// 	},
+				// 	success(res){
+				// 		console.log('问题详情数据', res)
+				// 		if(res.data.status === 200){
+				// 			_this.title = res.data.data.title
+				// 			_this.content = res.data.data.content
+				// 			_this.isShowProblemDetalus = true
+				// 		}else{
+				// 			uni.showModal({
+				// 				title: '提示',
+				// 				content: '获取详情数据失败'
+				// 			})
+				// 		}
+				// 		uni.hideLoading()
+				// 	}
+				// })
 			},
 			tel(){
 				uni.makePhoneCall({
@@ -313,9 +316,9 @@
 					font-weight: 500;
 					margin-bottom: 30rpx;
 				}
-				.content{
+				.content_con{
+					width: 100%;
 					font-size: 28rpx;
-					
 					
 				}
 				image{

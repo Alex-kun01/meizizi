@@ -191,11 +191,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      start: 0, // 星星数
+      start: 1, // 星星数
       textValue: '',
       anonymous: false, // 是否匿名评论
       imgList: [], //上传图片后的地址列表
@@ -226,8 +229,13 @@ var _default =
 
     // 评分选择星星
     changeIndex: function changeIndex(index) {
-      console.log(index);
-      this.start = index;
+      console.log('索引', index);
+
+
+
+
+      this.start = index + 1;
+
     },
     // 选择是否匿名
     changeanonymous: function changeanonymous() {

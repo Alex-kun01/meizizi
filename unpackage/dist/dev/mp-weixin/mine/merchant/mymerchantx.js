@@ -263,7 +263,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
+//
+//
+//
 //
 //
 //
@@ -408,10 +414,7 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { isA
     lookInfo: function lookInfo(item) {uni.showModal({ title: '商品名', content: item.store_name });}, changeIndex: function changeIndex(index) {this.isActive = index;this.changeStatus();}, // 返回
     goback: function goback() {uni.navigateBack({});}, // 交易记录
     record: function record() {uni.navigateTo({ url: './jiaoyirecord?id=' + this.info.id });}, // 扫描二维码
-    scanCode: function scanCode() {var _this = this;uni.scanCode({ success: function success(res) {console.log('扫描二维码', res);var arr = JSON.parse(res.result);
-          console.log('arr', arr);
-
-          if (arr.mzzUrl) {
+    scanCode: function scanCode() {var _this = this;uni.scanCode({ success: function success(res) {console.log('扫描二维码', res);var arr = JSON.parse(res.result);console.log('arr', arr);if (arr.mzzUrl) {
             uni.navigateTo({
               url: arr.mzzUrl + '?id=' + arr.order_id });
 

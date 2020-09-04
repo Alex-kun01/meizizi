@@ -2,10 +2,13 @@
 	<!-- 搜索 -->
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<view class="top_search">
 			<view class="search_box">
 				<image @click="search" style="width: 31rpx;height: 30rpx;" src="@/static/index/sosuo@2x.png" mode=""></image>
-				<input focus confirm-type="search" @confirm="search()" type="text" bindconfirm="bindconfirm" v-model="searchValue" placeholder="搜索"/>
+				<input focus confirm-type="search" @confirm="search()" type="text" bindconfirm="bindconfirm" v-model="searchValue" placeholder="美孜孜"/>
 			</view>
 			<view class="quxiao"
 			@click="goback"

@@ -130,42 +130,43 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var _default =
-{
-  mixins: [_mixins.myMixins],
+// import {myMixins} from '@/components/mixins.js'
+var _default = {
+  // mixins: [myMixins],
   data: function data() {
     return {
       page: 1,
@@ -174,24 +175,29 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _to
       showList: [] };
 
   },
-  // onLoad(){
-  // 	this.showList = []
-  // 	this.getData()
-  // 	  setTimeout(function () {
-  // 		console.log('start pulldown');
-  // 	}, 1000);
-  // 	uni.startPullDownRefresh();
-  // },
-  // // 下拉刷新
-  // onPullDownRefresh(){
-  // 	console.log('混入-下拉刷新')
-  // 	this.page = 1
-  // 		this.showList = []
-  // 	this.getData()
-  // 	 setTimeout(function () {
-  // 		uni.stopPullDownRefresh();
-  // 	}, 1000);
-  // },
+  onLoad: function onLoad() {
+    this.showList = [];
+    // this.getData()
+    setTimeout(function () {
+      console.log('start pulldown');
+    }, 1000);
+    uni.startPullDownRefresh();
+  },
+  onUnload: function onUnload() {
+    uni.hideLoading();
+  },
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    console.log('混入-下拉刷新');
+    if (this.showList) {
+      this.showList = [];
+    }
+    this.page = 1;
+    this.getData();
+    setTimeout(function () {
+      uni.stopPullDownRefresh();
+    }, 1000);
+  },
   methods: {
     getData: function getData() {
       var _this = this;
@@ -222,6 +228,55 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _to
 
         } });
 
+
+    },
+    closeClick: function closeClick(item) {
+      var _this = this;
+
+      console.log(item);
+      uni.getStorage({
+        key: 'userInfo',
+        success: function success(reg) {
+          var datas = {
+            id: item.id,
+            type: 1,
+            re_type: 2,
+            token: reg.data.token };
+
+          console.log('查看取消收藏参数pppp', datas);
+
+          uni.showModal({
+            title: '提示',
+            content: '是否取消该条收藏？',
+            success: function success(rrr) {
+              if (rrr.confirm) {
+                uni.showLoading({
+                  title: '请稍后...' });
+
+                uni.request({
+                  url: _this.$http + '/api/index/relation',
+                  method: 'POST',
+                  data: datas,
+                  success: function success(res) {
+                    uni.hideLoading();
+                    console.log('取消收藏返回数据', res.data.status);
+                    if (res.data.status === 200) {
+                      _this.showList = [];
+                      _this.page = 1;
+                      _this.getData();
+                    } else {
+                      uni.showModal({
+                        title: '提示',
+                        content: '取消失败' });
+
+                    }
+
+                  } });
+
+              }
+            } });
+
+        } });
 
     },
     gotoDetauls: function gotoDetauls(item) {

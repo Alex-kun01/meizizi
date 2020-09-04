@@ -172,14 +172,21 @@ page .content .top_search .search_box .search_btn {
   right: 0;
 }
 page .content .lunbo {
-  width: 750rpx;
+  width: 100%;
   background-color: #FFFFFF;
   box-sizing: border-box;
   padding: 24rpx;
 }
+page .content .lunbo swiper-item {
+  border-radius: 20rpx;
+}
 page .content .lunbo image {
   height: 300rpx !important;
+  width: 701rpx!important;
   border-radius: 20rpx;
+}
+page .content .lunbo .uni-swiper-dots-horizontal {
+  bottom: 20rpx!important;
 }
 page .content .menu_box {
   width: 100%;
@@ -306,120 +313,6 @@ page .content .activity .pic_bom_box .pic_box2 .pic_4 {
   width: 348rpx;
   height: 159rpx;
 }
-page .content .wrap_linshi {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  background-color: #FFFFFF;
-  width: 100%;
-  height: 300rpx;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-page .content .card {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  position: absolute;
-  width: 22px;
-  height: 102px;
-  line-height: 72px;
-  color: #FFFFFF;
-  font-weight: 500;
-  text-align: center;
-  border-radius: 40rpx;
-  -webkit-animation-name: anim;
-  animation-name: anim;
-  -webkit-animation-duration: 2.4s;
-  animation-duration: 2.4s;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-}
-page .content .card view {
-  width: 30rpx;
-  height: 30rpx;
-  text-align: center;
-}
-page .content .card:nth-of-type(6n+1) {
-  background: #008c8c;
-  -webkit-animation-delay: 20ms;
-  animation-delay: 20ms;
-  z-index: 60;
-}
-page .content .card:nth-of-type(6n+2) {
-  background: #ffea4b;
-  -webkit-animation-delay: 40ms;
-  animation-delay: 40ms;
-  z-index: 50;
-}
-page .content .card:nth-of-type(6n+3) {
-  background: #ee9024;
-  -webkit-animation-delay: 80ms;
-  animation-delay: 80ms;
-  z-index: 40;
-}
-page .content .card:nth-of-type(6n+4) {
-  background: #ef532c;
-  -webkit-animation-delay: 100ms;
-  animation-delay: 100ms;
-  z-index: 30;
-}
-page .content .card:nth-of-type(6n+5) {
-  background: #c11943;
-  -webkit-animation-delay: 120ms;
-  animation-delay: 120ms;
-  z-index: 20;
-}
-page .content .card:nth-of-type(6n+6) {
-  background: #c11943;
-  -webkit-animation-delay: 130ms;
-  animation-delay: 130ms;
-  z-index: 10;
-}
-@-webkit-keyframes anim {
-0% {
-    -webkit-transform: translateX(-100px) rotate(0deg);
-    transform: translateX(-100px) rotate(0deg);
-}
-50% {
-    -webkit-transform: translateX(100px) rotate(360deg);
-    transform: translateX(100px) rotate(360deg);
-}
-100% {
-    -webkit-transform: translateX(-100px) rotate(0deg);
-    transform: translateX(-100px) rotate(0deg);
-}
-}
-@keyframes anim {
-0% {
-    -webkit-transform: translateX(-100px) rotate(0deg);
-    transform: translateX(-100px) rotate(0deg);
-}
-50% {
-    -webkit-transform: translateX(100px) rotate(360deg);
-    transform: translateX(100px) rotate(360deg);
-}
-100% {
-    -webkit-transform: translateX(-100px) rotate(0deg);
-    transform: translateX(-100px) rotate(0deg);
-}
-}
 page .content .today {
   width: 750rpx;
   padding: 0 25rpx;
@@ -486,7 +379,7 @@ page .content .today .today_list .item .title {
   font-size: 24rpx;
   color: #272727;
   padding: 0 18rpx;
-  width: 330rpx;
+  width: 300rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -654,7 +547,7 @@ page .content .pic_float {
 }
 page .content .pic_float .content {
   width: 100%;
-  height: 80%;
+  height: 1038rpx;
   overflow: hidden;
 }
 page .content .pic_float .content .targetPic {
@@ -717,17 +610,29 @@ page .content .position_float .content_fl .float_text {
   top: 80rpx;
 }
 page .content .position_float .content_fl .float_text .float1 {
-  font-size: 45rpx;
+  width: 360rpx;
+  font-size: 40rpx;
   font-weight: 500;
   text-align: center;
   color: #fd3325;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 page .content .position_float .content_fl .float_text .float2 {
-  font-size: 35rpx;
+  font-size: 32rpx;
   font-weight: 500;
   text-align: center;
   color: #fd3325;
-  margin-top: 20rpx;
+  margin-top: 15rpx;
+}
+page .content .position_float .content_fl .float_text .float3 {
+  font-size: 26rpx;
+  text-align: center;
+  color: #000000;
+  margin-top: 15rpx;
 }
 page .content .position_float .content_fl .btn_ok {
   width: 270rpx;

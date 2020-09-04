@@ -272,30 +272,33 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { isL
     problemDetalus: function problemDetalus(item) {
       var _this = this;
       console.log('item', item);
-      uni.showLoading({
-        title: '加载中...' });
+      uni.navigateTo({
+        url: './helperInfo?id=' + item.id });
 
-      uni.request({
-        url: this.$http + '/api/goods/helpInfo',
-        method: 'POST',
-        data: {
-          id: item.id },
-
-        success: function success(res) {
-          console.log('问题详情数据', res);
-          if (res.data.status === 200) {
-            _this.title = res.data.data.title;
-            _this.content = res.data.data.content;
-            _this.isShowProblemDetalus = true;
-          } else {
-            uni.showModal({
-              title: '提示',
-              content: '获取详情数据失败' });
-
-          }
-          uni.hideLoading();
-        } });
-
+      // uni.showLoading({
+      // 	title: '加载中...'
+      // })
+      // uni.request({
+      // 	url: this.$http + '/api/goods/helpInfo',
+      // 	method: 'POST',
+      // 	data: {
+      // 		id: item.id
+      // 	},
+      // 	success(res){
+      // 		console.log('问题详情数据', res)
+      // 		if(res.data.status === 200){
+      // 			_this.title = res.data.data.title
+      // 			_this.content = res.data.data.content
+      // 			_this.isShowProblemDetalus = true
+      // 		}else{
+      // 			uni.showModal({
+      // 				title: '提示',
+      // 				content: '获取详情数据失败'
+      // 			})
+      // 		}
+      // 		uni.hideLoading()
+      // 	}
+      // })
     },
     tel: function tel() {
       uni.makePhoneCall({

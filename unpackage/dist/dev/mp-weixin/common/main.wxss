@@ -1,0 +1,8 @@
+
+.weixin-wx{
+	height: 25px;
+	background: #FFFFFF;
+	padding-top: 50rpx;
+	box-sizing: content-box;
+}
+

@@ -265,7 +265,7 @@ var _default =
               limit: 500 },
 
             success: function success(res) {
-              console.log('收货单返回数据', res);
+              console.log('出货单返回数据', res);
               // return
               if (res.data.status == 200) {
 

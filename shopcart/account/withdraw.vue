@@ -37,6 +37,28 @@
 				<text>当前可提现余额{{opt.now_money}}元</text>
 				<text @click="allTiXianClick" style="color: #FF792C;">全部提现</text>
 			</view>
+			<view class="addContent">
+				<view class="choose">
+					<text>账号类型：</text>
+					<picker mode="selector" :range="payArr" @change="typeChange">
+						<view>{{payArr[payValue]}}</view>
+					</picker>
+				</view>
+				<!-- 卡号 -->
+				<view class="carNum" v-if="showType == 1">
+					<text>支付宝账号：</text>
+					<input type="text" v-model="card_id" placeholder="请输入支付宝账号" />
+				</view>
+				<view class="carNum" v-if="showType == 2">
+					<text>开户行：</text>
+					<input type="text" v-model="carPosition" placeholder="请输入开户行" />
+				</view>
+				<view class="carNum" v-if="showType == 2">
+					<text>银行卡卡号：</text>
+					<input type="text" v-model="card_id" placeholder="请输入银行卡号" />
+				</view>
+				
+			</view>
 		</view>
 		<!-- 充值 -->
 		<view class="top_btn"
@@ -54,7 +76,14 @@
 			return {
 				priceValue: '', //提现输入值
 				isActive: 1, // 提现方式 1微信 2支付宝 3银行卡
-				opt:{}
+				payArr: ['请选择账号类型','支付宝','银行卡'],
+				payValue: 0,
+				payType: '选择支付类型',
+				opt:{},
+				card_id: '',
+				carPosition: '',
+				carNum: '',
+				showType: 0
 			}
 		},
 		onLoad(opt){
@@ -70,12 +99,33 @@
 			},
 			// 是否具备提交条件
 			isReady(){
-				return this.priceValue > this.opt.now_money
+				return +this.priceValue > +this.opt.now_money
 			},
 			// 提现
 			submit(){
 				let _this = this
 				console.log(this.isReady())
+				if(this.showType == 0){
+					uni.showModal({
+						title: '提示',
+						content: '请选择账号类型！'
+					})
+					return
+				}
+				if(this.showType == 1 && this.card_id == ''){
+					uni.showModal({
+						title: '提示',
+						content: '请填写账号信息！'
+					})
+					return
+				}
+				if(this.showType == 2 && this.carPosition == ''){
+					uni.showModal({
+						title: '提示',
+						content: '请填写开户行！'
+					})
+					return
+				}
 				
 				if(this.isReady()){
 					uni.showModal({
@@ -91,12 +141,22 @@
 					return
 				}
 				else{
+					let t_type = ''
+					if(_this.showType == 2){
+						t_type = 'bank'
+					}
+					if(_this.showType == 1){
+						t_type = 'alipay'
+					}
 					uni.getStorage({
 						key: 'userInfo',
 						success(reg){
 							let datas = {
 								token: reg.data.token,
-								money: _this.priceValue
+								money: _this.priceValue,
+								card_id: _this.card_id,
+								t_type: t_type,
+								bank: _this.carPosition
 							}
 							uni.request({
 								url: _this.$http + '/api/team/withdrawal',
@@ -126,6 +186,11 @@
 					return
 				}
 				this.isActive = index
+			},
+			typeChange(e){
+				console.log(e.target.value)
+				this.payValue = e.target.value
+				this.showType = e.target.value
 			}
 		}
 	}
@@ -147,6 +212,29 @@
 			width: 100%;
 			height: 100vh;
 			background-color: #F4F4F4;
+			.addContent{
+				margin-top: 10rpx;
+				font-size: 30rpx;
+				.carNum{
+					margin: 30rpx 0;
+					display: flex;
+					align-items: center;
+					text{
+						font-weight: 500;
+					}
+					input{
+						font-size: 28rpx;
+					}
+				}
+				.choose{
+					display: flex;
+					margin: 30rpx 0;
+					text{
+						font-size: 30rpx;
+						font-weight: 500;
+					}
+				}
+			}
 			.menu_box{
 				width: 100%;
 				height: 70rpx;

@@ -394,20 +394,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
 var _getLocations = _interopRequireDefault(__webpack_require__(/*! @/components/getLocations.js */ 25));
 var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -689,12 +677,12 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { ddd
             _this.storeList = store_list; //为你推荐列表
             _this.recoList = reco_list; // 专题精选列表
             _this.likeInfo = likeInfo; // 活动列表
-            console.log('我就要看看有不有ooooooooooooooooooooo', activity_list);_this.activity = activity_list;uni.hideLoading();} else {uni.showModal({ title: '提示', content: '数据请求出错' });}} });}, changeIndicatorDots: function changeIndicatorDots(e) {this.indicatorDots = !this.indicatorDots;}, changeAutoplay: function changeAutoplay(e) {this.autoplay = !this.autoplay;}, intervalChange: function intervalChange(e) {this.interval = e.target.value;}, durationChange: function durationChange(e) {this.duration = e.target.value;}, gotoTarget: function gotoTarget(url) {uni.navigateTo({ url: url });}, moveHandle: function moveHandle() {}, gotoproduct: function gotoproduct(item, index) {console.log('item', item);var img = item.image; // return
-      uni.navigateTo({ url: '../../index/productdetails?id=' + item.id + '&img=' + img });}, // 为您推荐
+            _this.activity = activity_list;uni.hideLoading();} else {uni.showModal({ title: '提示', content: '数据请求出错' });}} });}, changeIndicatorDots: function changeIndicatorDots(e) {this.indicatorDots = !this.indicatorDots;}, changeAutoplay: function changeAutoplay(e) {this.autoplay = !this.autoplay;}, intervalChange: function intervalChange(e) {this.interval = e.target.value;}, durationChange: function durationChange(e) {this.duration = e.target.value;}, gotoTarget: function gotoTarget(url) {uni.navigateTo({ url: url });}, moveHandle: function moveHandle() {}, gotoproduct: function gotoproduct(item, index, type) {var t = 0;if (type) {t = type;}console.log('item', item);var img = item.image; // return
+      uni.navigateTo({ url: '../../index/productdetails?id=' + item.id + '&img=' + img + '&t=' + t });}, // 为您推荐
     tuijianClick: function tuijianClick(url) {uni.showModal({ title: '提示', content: '敬请期待' });}, // 菜单项跳转
     gotomenu: function gotomenu(item, index) {console.log(item, index); // 将部分未规划好的菜单项阻拦下来，并自定义弹窗提示
       // 需要被阻止的菜单下标
-      var onNavigate = [5, 6, 7, 8];if (onNavigate.includes(index)) {console.log('xxx');this.isCustomizeShow = true;return;}var url = null;var condition = item.condition,type = item.type; // 根据type值跳转响应页面  1 详情页面，2 列表页面
+      var onNavigate = [5, 6, 7, 8, 9];if (onNavigate.includes(index)) {console.log('xxx');this.isCustomizeShow = true;return;}var url = null;var condition = item.condition,type = item.type; // 根据type值跳转响应页面  1 详情页面，2 列表页面
       if (type == 1) {url = '../../index/productdetails';} else if (type == 2) {url = '../../index/productlist';} else {return;}var obj = JSON.parse(condition);this.setParameter(obj);uni.navigateTo({ url: url });}, setParameter: function setParameter(obj) {this.$store.commit('setParameter', obj);}, // 跳转购物车
     gotoshop: function gotoshop() {uni.switchTab({ url: '../shopcart/shopcart' });}, // 获取并计算剩余时间
     // time 毫秒数
@@ -718,8 +706,16 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { ddd
     countDown: function countDown() {var _this = this;this.times = setInterval(function () {if (_this.second === 0) {if (_this.minute === 0) {if (_this.hours === 0) {console.log('我进来了');clearInterval(_this.times);return;} else {_this.hours--;_this.minute = 59;_this.second = 60;}} else {_this.minute--;_this.second = 60;}} // 累减
         _this.second--;}, 1000);}, // 扫描二维码
     scanCode: function scanCode() {var _this = this;uni.scanCode({ success: function success(res) {console.log('扫描二维码', res);var arr = JSON.parse(res.result);console.log('arr', arr);if (arr.mzzUrl) {uni.navigateTo({ url: arr.mzzUrl + '?id=' + arr.order_id });} else {uni.showModal({ title: '提示', content: '二维码已失效！' });}} });}, // 显示
-    showCus: function showCus() {this.isCustomizeShow = true;}, showPic: function showPic(url) {this.picFloatUrl = url;this.picFloatIsShow = true;}, closeCusClick: function closeCusClick() {this.isCustomizeShow = false;}, testInsts: function testInsts() {// 添加垃圾代码
-      var num = 1;var mun1 = num * 1;var mun2 = num * 2;var mun3 = num * 3;var mun4 = num * 4;var mun5 = num * 5;
+    showCus: function showCus() {this.isCustomizeShow = true;}, showPic: function showPic(url) {this.picFloatUrl = url;this.picFloatIsShow = true;}, closeCusClick: function closeCusClick() {this.isCustomizeShow = false;
+    },
+    testInsts: function testInsts() {
+      // 添加垃圾代码
+      var num = 1;
+      var mun1 = num * 1;
+      var mun2 = num * 2;
+      var mun3 = num * 3;
+      var mun4 = num * 4;
+      var mun5 = num * 5;
       var mun6 = num * 6;
       var mun7 = num * 7;
       var mun8 = num * 8;

@@ -147,7 +147,8 @@ page .content .problem_detalus .title.data-v-386a2241 {
   font-weight: 500;
   margin-bottom: 30rpx;
 }
-page .content .problem_detalus .content.data-v-386a2241 {
+page .content .problem_detalus .content_con.data-v-386a2241 {
+  width: 100%;
   font-size: 28rpx;
 }
 page .content .problem_detalus image.data-v-386a2241 {

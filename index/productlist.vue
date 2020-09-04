@@ -2,10 +2,13 @@
 	<!-- 产品列表 -->
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<view class="top_search">
 			<view class="search_box">
 				<image @click="search" style="width: 31rpx;height: 30rpx;" src="@/static/index/sosuo@2x.png" mode=""></image>
-				<input confirm-type="search" @confirm="search()" type="text" v-model="searchValue" placeholder="口红 / 唇膏" />
+				<input confirm-type="search" @confirm="search()" type="text" v-model="searchValue" placeholder="美孜孜" />
 			</view>
 			<view class="quxiao"
 			@click="goback"

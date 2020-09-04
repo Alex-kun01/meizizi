@@ -14,10 +14,18 @@ page .content.data-v-fe49e7e8 {
   min-height: 100vh;
   background-color: #F4F4F4;
 }
+page .content .loging_bom.data-v-fe49e7e8 {
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+  background-color: #eee;
+  font-size: 24rpx;
+  text-align: center;
+}
 page .content .search_box.data-v-fe49e7e8 {
   width: 600rpx;
   height: 60rpx;
-  border: 1rpx solid #008c8c;
+  border: 1rpx solid #000000;
   border-radius: 30rpx;
   margin-left: 75rpx;
   margin-top: 24rpx;
@@ -107,6 +115,11 @@ page .content .store_list .item .left_info .pic.data-v-fe49e7e8 {
   -webkit-flex-direction: column;
           flex-direction: column;
   margin-right: 24rpx;
+}
+page .content .store_list .item .left_info .pic #picShow.data-v-fe49e7e8 {
+  min-height: 120rpx;
+  max-height: 120rpx;
+  max-width: 120rpx;
 }
 page .content .store_list .item .right_btn.data-v-fe49e7e8 {
   display: -webkit-box;

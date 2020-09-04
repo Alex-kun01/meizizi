@@ -67,6 +67,8 @@ page .content .band_box .box .title.data-v-d7138f16 {
   margin: 50rpx 0;
 }
 page .content .band_box .box input.data-v-d7138f16 {
+  height: 50rpx;
+  line-height: 50rpx;
   background-color: #eee;
   font-size: 30rpx;
   padding: 10rpx 15rpx;

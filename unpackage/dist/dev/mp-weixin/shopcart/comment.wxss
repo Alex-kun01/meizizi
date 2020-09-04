@@ -75,7 +75,7 @@ page .content .white_box .start_box .start.data-v-e7eeb618 {
 page .content .white_box .start_box .start image.data-v-e7eeb618 {
   width: 37rpx;
   height: 35rpx;
-  margin-right: 22rpx;
+  margin-right: 52rpx;
 }
 page .content .white_box .start_box .start .start_float.data-v-e7eeb618 {
   position: absolute;

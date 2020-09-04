@@ -123,6 +123,8 @@
 						console.log('初始化页面数据', res)
 						_this.userInfo.nickName = res.data.nickname
 						_this.userInfo.phone = res.data.phone
+						_this.userInfo.weixin = res.data.wxChat
+						_this.userInfo.address = res.data.addres
 						if(res.data.sex == 1){
 							_this.current = 0
 							_this.userInfo.sex = '男'
@@ -160,6 +162,8 @@
 						datas.token = res.data.token
 						datas.avatar = _this.imgUrl	
 						datas.sex = _this.userInfo.sex == '男' ? 1 : 2
+						datas.wxChat = _this.userInfo.weixin
+						datas.addres = _this.userInfo.address
 						if(_this.isJieshou){
 							// 进入页面已经获取到生日
 							datas.birthday = _this.isXiugai ? _this.birthday : _this.birthday

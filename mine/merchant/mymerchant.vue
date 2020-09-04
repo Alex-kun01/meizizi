@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<!-- <view class="titleNview-placing"></view> -->
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<!-- 物流商-我的商家 -->
 		<view class="show_list">
 			<view class="item"

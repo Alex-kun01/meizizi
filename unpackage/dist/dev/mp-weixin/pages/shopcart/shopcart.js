@@ -324,7 +324,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
+//
+//
+//
 //
 //
 //
@@ -512,10 +518,7 @@ var _default = { mixins: [_mixins.myMixins], data: function data() {return { isM
       this.$store.commit('setOrderList', this.storeList);uni.navigateTo({ url: '../../index/confirmordermany' });}, // 移入收藏夹
     gotorelation: function gotorelation() {var _this = this;console.log('选中的商品列表', this.goodsList);console.log('移入收藏夹执行了');var targetNum = this.goodsList.length;var newNum = 0;this.goodsList.forEach(function (item) {console.log('查看item数据', item);uni.getStorage({ key: 'userInfo', success: function success(reg) {var datas = { id: item, type: 1, re_type: 1, token: reg.data.token };console.log('查看收藏传递参数xxxxxxxxxxx', datas);uni.request({ url: _this.$http + '/api/index/relation', method: 'POST', data: datas, success: function success(res) {console.log('加入购物车返回数据', res);if (res.data.status == 200) {newNum++;if (newNum == targetNum) {uni.showToast({ title: '收藏成功' });}} else {}} });} });});}, guanliClick: function guanliClick() {this.isMg = true;}, okClick: function okClick() {this.isMg = false;}, moveHandle: function moveHandle() {}, deleteClick: function deleteClick() {this.isDeleteShow = true;}, // 取消删除
     isOnClick: function isOnClick() {this.isDeleteShow = false;}, // 确定删除
-    isOkClick: function isOkClick() {var _this = this;var targetNum = this.showThing.length;var newNum = 0;this.showThing.forEach(function (item) {uni.getStorage({ key: 'userInfo', success: function success(reg) {uni.request({ url: _this.$http + '/api/goods/delCart', method: 'POST', data: { id: item, token: reg.data.token }, success: function success(res) {console.log('删除购物车返回数据', res);if (res.data.status == 200) {newNum++;if (newNum == targetNum) {uni.showToast({ title: '删除成功' });_this.showThing = [];
-                    _this.goodsList = [];
-                    _this.storeList = [];
-                    _this.getData();
+    isOkClick: function isOkClick() {var _this = this;var targetNum = this.showThing.length;var newNum = 0;this.showThing.forEach(function (item) {uni.getStorage({ key: 'userInfo', success: function success(reg) {uni.request({ url: _this.$http + '/api/goods/delCart', method: 'POST', data: { id: item, token: reg.data.token }, success: function success(res) {console.log('删除购物车返回数据', res);if (res.data.status == 200) {newNum++;if (newNum == targetNum) {uni.showToast({ title: '删除成功' });_this.showThing = [];_this.goodsList = [];_this.storeList = [];_this.getData();
                     _this.isDeleteShow = false;
                   }
                 } else {

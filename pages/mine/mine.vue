@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<!-- 顶部区域 -->
 		<view class="top_box">
 			<view class="top_bar">
@@ -500,6 +503,12 @@
 		padding-top: 0;
 		box-sizing: content-box;
 	 }
+	 .weixin-wx{
+	 	height: var(--status-bar-height);
+	 	background: #FF4E03;
+	 	padding-top: 50rpx;
+	 	box-sizing: content-box;
+	 }
 	page{
 		width: 100%;
 		background-color: #F4F4F4;
@@ -513,42 +522,55 @@
 				height: 100%;
 				background-color: rgba(0,0,0,.8);
 				position: absolute;
-				top: 30rpx;
-				.close{
-					width: 30rpx;
-					height: 30rpx;
-					position: absolute;
-					top: 20rpx;
-					right: 20rpx;
-				}
-				.rqcodepic{
-					width: 400rpx;
-					height: 400rpx;
-					margin-top: 30rpx;
-				}
+				top: 0;
+				
 				.box{
 					width: 100%;
-					height: 100%;
-					padding: 60rpx 0;
+					height: 80%;
 					background-color: #FFFFFF;
-					// background-color: pink;
 					position: absolute;
-					bottom: -60rpx;
-					display: flex;
-					justify-content: center;
-					align-items: center;
+					bottom: 0;
+					border-radius: 5rpx 5rpx 0 0;
+					box-sizing: border-box;
+					padding: 24rpx;
+					// display: flex;
+					// align-items: center;
+					// flex-direction: column;
+					// justify-content: center;
 					.position{
 						// background-color: pink;
-						width: 500rpx;
-						// height: 500rpx;
-						text-align: center;
-						margin-bottom: 100rpx;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						padding-top: 15%;
+						.rqcodepic{
+							// 图片
+							// border: 5px solid red;
+							width: 300rpx;
+							height: 300rpx;
+							margin-bottom: 50rpx;
+						}
 						.code_box{
-							margin-top: 30rpx;
-							margin-bottom: 30rpx;
-							
+							width: 100%;
+							height: 100rpx;
+							line-height: 100rpx;
+							text-align: center;
+							// margin-top: 600rpx;
+							// background-color: yellow;
+							text{
+								font-size: 30rpx;
+							}
 						}
 					}
+					.close{
+						width: 30rpx;
+						height: 30rpx;
+						position: absolute;
+						top: 20rpx;
+						right: 20rpx;
+					}
+					
 				}
 			}
 			.top_box{

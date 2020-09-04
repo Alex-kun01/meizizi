@@ -115,7 +115,7 @@
 								limit: 500,
 							},
 							success(res){
-								console.log('收货单返回数据', res)
+								console.log('出货单返回数据', res)
 								// return
 								if(res.data.status == 200){
 									
@@ -202,7 +202,7 @@
 			background-color: #F4F4F4;
 			.user_info{
 				width: 100%;
-				height: 300rpx;
+				// height: 300rpx;
 				background-color: #FFFFFF;
 				margin-top: 24rpx;
 				box-sizing: border-box;
@@ -301,9 +301,8 @@
 				line-height: 80rpx;
 				width: 100%;
 				background-color: #FFFFFF;
-				text-align: right;
-				padding-right: 30rpx;
-				
+				text-align: center;
+				font-size:32rpx;
 			}
 		}
 	}

@@ -130,97 +130,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
 //
 //
 //
@@ -309,10 +220,67 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27); //
 //
 //
 //
-var _default = { mixins: [_mixins.myMixins], data: function data() {return { allPrice: 0.00, // 总余额
+//
+//
+
+// import {myMixins} from '@/components/mixins.js'
+var _default = {
+  // mixins: [myMixins],
+  data: function data() {
+    return {
+      allPrice: 0.00, // 总余额
       now_money: 0.00, // 余额
       frozen_money: 0.00 // 不可提现余额
-    };}, methods: { getData: function getData() {var _this = this;uni.getStorage({ key: 'userInfo', success: function success(reg) {uni.request({ url: _this.$http + '/api/index/userMoney', method: 'POST', data: { token: reg.data.token }, success: function success(res) {console.log('我的钱包返回数据', res);if (res.data.status === 200) {_this.now_money = res.data.data.now_money;_this.frozen_money = res.data.data.frozen_money;_this.allPrice = +_this.now_money + +_this.frozen_money;} else {uni.showModal({ title: '提示', content: '数据获取失败' });}} });} });}, goback: function goback() {uni.navigateBack({});}, gototarget: function gototarget(url) {uni.navigateTo({ url: url + this.now_money });}, gototarget2: function gototarget2(url) {uni.navigateTo({ url: url });} } };exports.default = _default;
+    };
+
+  },
+  onShow: function onShow() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+      uni.getStorage({
+        key: 'userInfo',
+        success: function success(reg) {
+          uni.request({
+            url: _this.$http + '/api/index/userMoney',
+            method: 'POST',
+            data: {
+              token: reg.data.token },
+
+            success: function success(res) {
+              console.log('我的钱包返回数据', res);
+              if (res.data.status === 200) {
+                _this.now_money = +res.data.data.now_money.toFixed(2);
+                _this.frozen_money = +res.data.data.frozen_money.toFixed(2);
+                _this.allPrice = (+_this.now_money + +_this.frozen_money).toFixed(2);
+              } else {
+                uni.showModal({
+                  title: '提示',
+                  content: '数据获取失败' });
+
+              }
+            } });
+
+        } });
+
+    },
+    goback: function goback() {
+      uni.navigateBack({});
+
+
+    },
+    gototarget: function gototarget(url) {
+      uni.navigateTo({
+        url: url + this.now_money });
+
+    },
+    gototarget2: function gototarget2(url) {
+      uni.navigateTo({
+        url: url });
+
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

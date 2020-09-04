@@ -9,6 +9,9 @@
 	@touchend='touchend'
 	
 	>
+	<!-- #ifdef MP-WEIXIN -->
+	<view class="weixin-wx"></view>
+	<!-- #endif -->
 			<view class="titleNview-placing" :id="shangpin"></view>
 			<!-- 顶部搜索 -->
 			<view class="top_search">
@@ -114,9 +117,9 @@
 		<!-- priceTitle -->
 		<view class="price_title">
 			<view class="price">
-				<text style="font-size: 24rpx; color: #F74E06;font-weight: 500;">会员价: </text>
+				<text style="font-size: 24rpx; color: #F74E06;font-weight: 500;">{{priceName}}: </text>
 				<text style="font-size: 36rpx; color: #F74E06;font-weight: 500;margin-right: 14rpx;">￥{{info.vip_price}}</text>
-				<text class="oldPrice">原价:￥{{info.price}}</text>
+				<text class="oldPrice" v-if="opt.t != 1">原价:￥{{info.price}}</text>
 			</view>
 			<view class="title">
 				{{info.store_name}}
@@ -274,7 +277,7 @@
 					</view>
 					<view class="bom_btn">
 						<!-- <image style="width: 23rpx;height: 23rpx;" src="@/static/index/huiyuan@3x(3).png" mode=""></image> -->
-						<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">会员价￥</text>
+						<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">{{priceName}}￥</text>
 						<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;margin-right: 15rpx;">{{item.vip_price}}</text>
 						<text style="font-size: 23rpx;color: #666666;">￥{{item.price}}</text>
 					</view>
@@ -333,14 +336,17 @@
 						<view class="price">
 							<view>
 								<!-- <image style="width: 23rpx;height: 23rpx;" src="@/static/index/huiyuan@3x(6).png" mode=""></image> -->
-								会员价：
+								<text style="font-size: 36rpx; color: #FF5807;">{{priceName}}：</text>
 								<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
 								<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;">{{info.vip_price}}</text>
-								<text style="font-size: 28rpx;margin-left: 30rpx;color: #999;">库存：{{stock}}</text>
+							</view>
+							
+							<view v-if="opt.t != 1">
+								<text style="font-size: 26rpx;color: #999;font-weight: 500;">￥</text>
+								<text style="font-size: 34rpx;color: #999;font-weight: 500;">{{info.price}}</text>
 							</view>
 							<view>
-								<text style="font-size: 26rpx;color: #FF5807;font-weight: 500;">￥</text>
-								<text style="font-size: 34rpx;color: #FF5807;font-weight: 500;">{{info.price}}</text>
+								<text style="font-size: 28rpx;margin-left: 30rpx;color: #999;">库存：{{stock}}</text>
 							</view>
 						</view>
 						
@@ -436,7 +442,8 @@
 					height: 0
 				},
 				// 首页菜单跳转参数
-				parameter: {}
+				parameter: {},
+				priceName: '会员价'
 			}
 		},
 		computed:{
@@ -459,6 +466,9 @@
 		},
 		onLoad(opt){
 			console.log('产品详情opt',opt)
+			if(opt.t == 1){
+				this.priceName = '优享价'
+			}
 			this.opt = opt
 			this.staticImage = opt.img
 			this.parameter = this.$store.state.parameter
@@ -608,24 +618,6 @@
 					return
 				}
 				this.startPageY = event.changedTouches[0].pageY
-			},
-			testInsts(){
-				// 添加垃圾代码
-				let num = 1
-				let mun1 = num * 1
-				let mun2 = num * 2
-				let mun3 = num * 3
-				let mun4 = num * 4
-				let mun5 = num * 5
-				let mun6 = num * 6
-				let mun7 = num * 7
-				let mun8 = num * 8
-				let mun9 = num * 9
-				let mun10 = num * 10
-				let mun11 = num * 11
-				let mun12 = num * 12
-				let muns = mun1+mun2+mun3+mun4+mun5+mun6+mun7+mun8+mun9+mun10+mun11+mun12
-				console.log(muns)
 			},
 			// 手指离开屏幕
 			touchend(event){
@@ -1638,9 +1630,10 @@
 						align-items: center;
 						box-sizing: border-box;
 						padding: 40rpx 0 0 31rpx;
+						
 						.price_box{
 							// width: 100%;
-							height: 130rpx;
+							// height: 130rpx;
 							width: 350rpx;
 							overflow: hidden;
 							text-overflow: ellipsis;
@@ -1648,6 +1641,7 @@
 							display: flex;
 							flex-direction: column;
 							justify-content: space-between;
+							// background-color: pink;
 						}
 						.img{
 							width:232rpx;

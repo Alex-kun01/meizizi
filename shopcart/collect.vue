@@ -21,6 +21,7 @@
 						<text style="font-size: 34rpx;">{{item.price}}</text>
 					</view>
 				</view>
+				<image  class="close" @click="closeClick(item)" src="../static/index/closeX2.png" mode=""></image>
 			</view>
 			<view v-if="isLoading" class="loading">
 				加载中...
@@ -31,9 +32,9 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				page: 1,
@@ -42,24 +43,29 @@
 				showList: []
 			}
 		},
-		// onLoad(){
-		// 	this.showList = []
-		// 	this.getData()
-		// 	  setTimeout(function () {
-		// 		console.log('start pulldown');
-		// 	}, 1000);
-		// 	uni.startPullDownRefresh();
-		// },
-		// // 下拉刷新
-		// onPullDownRefresh(){
-		// 	console.log('混入-下拉刷新')
-		// 	this.page = 1
-		// 		this.showList = []
-		// 	this.getData()
-		// 	 setTimeout(function () {
-		// 		uni.stopPullDownRefresh();
-		// 	}, 1000);
-		// },
+		onLoad(){
+			this.showList = []
+			// this.getData()
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onUnload() {
+			uni.hideLoading()
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			if(this.showList){
+				this.showList = []
+			}
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		methods:{
 			getData(){
 				let _this = this
@@ -91,6 +97,55 @@
 					}
 				})
 				
+			},
+			closeClick(item){
+				let _this = this
+				
+				console.log(item)
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas =  {
+								id: item.id,
+								type: 1,
+								re_type: 2,
+								token: reg.data.token
+							}
+							console.log('查看取消收藏参数pppp', datas)
+						
+						uni.showModal({
+							title: '提示',
+							content: '是否取消该条收藏？',
+							success(rrr){
+								if(rrr.confirm){
+									uni.showLoading({
+										title: '请稍后...'
+									})
+									uni.request({
+										url: _this.$http + '/api/index/relation',
+										method: 'POST',
+										data:datas,
+										success(res){
+											uni.hideLoading()
+											console.log('取消收藏返回数据',res.data.status)
+											if(res.data.status === 200){
+												_this.showList = []
+												_this.page = 1
+												_this.getData()
+											}else{
+												uni.showModal({
+													title: '提示',
+													content: '取消失败'
+												})
+											}
+											
+										}
+									})
+								}
+							}
+						})
+					}
+				})
 			},
 			gotoDetauls(item){
 				console.log('item',item)
@@ -145,6 +200,14 @@
 					border-radius: 12rpx;
 					display: flex;
 					margin-bottom: 24rpx;
+					position: relative;
+					.close{
+						width: 25rpx;
+						height: 25rpx;
+						position: absolute;
+						top: 10rpx;
+						right: 10rpx;
+					}
 					.img{
 						width: 222rpx;
 						height: 198rpx;

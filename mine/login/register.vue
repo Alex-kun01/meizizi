@@ -255,7 +255,7 @@
 			},
 			gotologin(){
 				uni.navigateTo({
-					url:'./login'
+					url:'../../pages/mine/login'
 				})
 			}
 		}

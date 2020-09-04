@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<!-- 购物车 -->
 		<view class="top_bar">
 			<view></view>
@@ -513,10 +516,17 @@
 		padding-top: 0;
 		box-sizing: content-box;
 	 }
+	 .weixin-wx{
+	 	height: var(--status-bar-height);
+	 	background: #F4F4F4;
+	 	padding-top: 50rpx;
+	 	box-sizing: content-box;
+	 }
 	page{
 		width: 100%;
 		background-color: #F4F4F4;
 		.content{
+			min-height: 100vh;
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;

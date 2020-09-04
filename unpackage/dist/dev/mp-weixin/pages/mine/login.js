@@ -481,7 +481,7 @@ var _default =
     // 跳转注册页
     gotoregin: function gotoregin() {
       uni.navigateTo({
-        url: './chooseregin' });
+        url: '../../mine/login/chooseregin' });
 
     },
 
@@ -563,7 +563,14 @@ var _default =
       var data = {
         username: this.phone };
 
+      var type = 0;
 
+
+
+
+      type = 2;
+
+      data.type = type;
       if (!this.isProtocol) {
         uni.showModal({
           title: '提示',
@@ -580,7 +587,6 @@ var _default =
           content: '用户名或密码不正确！' });
 
         console.log('data', data);
-        // return
         uni.request({
           url: this.$http + '/api/index/login',
           method: 'post',

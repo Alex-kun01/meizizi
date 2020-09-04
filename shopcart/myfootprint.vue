@@ -7,6 +7,9 @@
 			<!-- <view class="titles">
 				今日查看
 			</view> -->
+			<view class="all_delete">
+				<text @click="allDeleteClick">全部删除</text>
+			</view>
 			<view class="item"
 			v-for="(item,index) in showList"
 			:key="index"
@@ -25,6 +28,7 @@
 						<text style="font-size: 34rpx;">{{item.price}}</text>
 					</view>
 				</view>
+					<image class="close" @click="closeClick(item)" src="../static/index/closeX2.png" mode=""></image>
 			</view>
 			<view class="loading"
 			v-if="isLoading"
@@ -32,14 +36,13 @@
 				加载中...
 			</view>
 		</view>
-		
 	</view>
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				// 今日查看列表
@@ -49,24 +52,29 @@
 				isLoading: false,
 			}
 		},
-		// onLoad(){
-		// 	this.showList = []
-		// 	this.getData()
-		// 	  setTimeout(function () {
-		// 		console.log('start pulldown');
-		// 	}, 1000);
-		// 	uni.startPullDownRefresh();
-		// },
-		// // 下拉刷新
-		// onPullDownRefresh(){
-		// 	console.log('混入-下拉刷新')
-		// 	this.page = 1
-		// 	this.showList = []
-		// 	this.getData()
-		// 	 setTimeout(function () {
-		// 		uni.stopPullDownRefresh();
-		// 	}, 1000);
-		// },
+		onLoad(){
+			this.showList = []
+			// this.getData()
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onUnload() {
+			uni.hideLoading()
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			if(this.showList){
+				this.showList = []
+			}
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		methods:{
 			gotoDetauls(item){
 				console.log('item', item)
@@ -79,6 +87,86 @@
 				this.isLoading = true
 				this.page++
 				this.getData()
+			},
+			closeClick(item){
+				let _this = this
+				
+				console.log(item)
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						let datas = {
+							token: reg.data.token,
+							id: item.id
+						}
+						uni.showModal({
+							title:'提示',
+							content: '是否删除该条足迹？',
+							success(cof){
+								console.log(cof)
+								if(cof.confirm){
+									uni.request({
+										url: _this.$http + '/api/index/delOneFoot',
+										method: 'POST',
+										data: datas,
+										success(res){
+											console.log(res)
+											if(res.data.status === 200){
+												uni.showToast({
+													title: '删除成功!'
+												})
+												_this.page = 1
+												_this.showList = []
+												_this.getData()
+											}else{
+												uni.showModal({
+													title: '提示',
+													content: '删除失败！'
+												})
+											}
+										}
+									})
+								}
+								if(cof.cancel){
+									return
+								}
+							}
+						})
+					}
+				})
+			},
+			allDeleteClick(){
+				let _this = this
+				uni.getStorage({
+					key: 'userInfo',
+					success(reg){
+						uni.showModal({
+							title: '提示',
+							content: '当前操作将删除全部足迹，是否继续？',
+							success(rrr){
+								if(rrr.confirm){
+									uni.request({
+										url: _this.$http + '/api/index/delFoot',
+										method: 'POST',
+										data: {
+											token: reg.data.token
+										},
+										success(res){
+											if(res.data.status === 200){
+												uni.showToast({
+													title: '删除成功！'
+												})
+												_this.page = 1
+												_this.showList = []
+												_this.getData()
+											}
+										}
+									})
+								}
+							}
+						})
+					}
+				})
 			},
 			// 获取列表数
 			getData(){
@@ -135,6 +223,12 @@
 			height: 100%;
 			min-height: 100vh;
 			background-color: #F4F4F4;
+			.all_delete{
+				font-size: 30rpx;
+				color: #f40;
+				text-align: right;
+				padding-bottom: 20rpx;
+			}
 			.loading{
 				width: 100%;
 				height: 70rpx;
@@ -161,6 +255,14 @@
 					border-radius: 12rpx;
 					display: flex;
 					margin-bottom: 24rpx;
+					position: relative;
+					.close{
+						width: 25rpx;
+						height: 25rpx;
+						position: absolute;
+						top: 10rpx;
+						right: 10rpx;
+					}
 					.img{
 						width: 222rpx;
 						height: 198rpx;

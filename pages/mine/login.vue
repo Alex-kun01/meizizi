@@ -339,7 +339,7 @@
 			// 跳转注册页
 			gotoregin(){
 				uni.navigateTo({
-					url: './chooseregin'
+					url: '../../mine/login/chooseregin'
 				})
 			},
 			
@@ -421,7 +421,14 @@
 				let data = {
 					username: this.phone
 				}
-				
+				let type = 0;
+				//#ifdef APP-PLUS || H5
+					type = 1 // app h5端
+				//#endif
+				//#ifdef MP-WEIXIN
+					type = 2
+				//#endif
+				data.type = type
 				if(!this.isProtocol){
 					uni.showModal({
 						title: '提示',
@@ -438,7 +445,6 @@
 						content: '用户名或密码不正确！'
 					})
 					console.log('data',data)
-					// return
 					uni.request({
 						url: this.$http + '/api/index/login',
 						method:'post',
@@ -571,6 +577,7 @@
 				position: absolute;
 				bottom: 60rpx;
 				left: calc(50% - 90rpx);
+				font-size: 28rpx;
 			}
 			.wchart_login{
 				width: 100%;

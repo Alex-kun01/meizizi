@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
 		<view class="titleNview-placing"></view>
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="weixin-wx"></view>
+		<!-- #endif -->
 		<!-- 评价 -->
 		<view class="top_bar">
 			<view class="img"
@@ -63,7 +66,7 @@
 	export default {
 		data () {
 			return {
-				start: 0, // 星星数
+				start: 1, // 星星数
 				textValue: '', 
 				anonymous: false, // 是否匿名评论
 				imgList: [], //上传图片后的地址列表
@@ -94,8 +97,13 @@
 			
 			// 评分选择星星
 			changeIndex(index){
-				console.log(index)
+				console.log('索引',index)
+				//#ifdef APP-PLUS || H5
 				this.start = index
+				//#endif
+				//#ifdef MP-WEIXIN
+				this.start = index + 1
+				//#endif
 			},
 			// 选择是否匿名
 			changeanonymous(){
@@ -275,6 +283,7 @@
 					display: flex;
 					align-items: center;
 					margin-bottom: 30rpx;
+					// background-color: pink;
 					.title{
 						font-size:34rpx;
 						font-weight:500;
@@ -282,12 +291,11 @@
 						margin-right: 50rpx;
 					}
 					.start{
-						// background-color: pink;
 						position: relative;
 						image{
 							width: 37rpx;
 							height: 35rpx;
-							margin-right: 22rpx;
+							margin-right: 52rpx;
 						}
 						.start_float{
 							position: absolute;

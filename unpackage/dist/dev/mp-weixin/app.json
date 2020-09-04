@@ -63,6 +63,7 @@
         "set/setup",
         "set/personalinfo",
         "set/helpcenter",
+        "set/helperInfo",
         "set/news",
         "set/accountsecurity",
         "set/version",
@@ -150,5 +151,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap62.json"
+  "sitemapLocation": "sitemap9.json"
 }

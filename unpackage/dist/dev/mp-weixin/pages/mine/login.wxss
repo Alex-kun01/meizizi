@@ -24,6 +24,7 @@ page .content .tourist.data-v-157e2966 {
   position: absolute;
   bottom: 60rpx;
   left: calc(50% - 90rpx);
+  font-size: 28rpx;
 }
 page .content .wchart_login.data-v-157e2966 {
   width: 100%;

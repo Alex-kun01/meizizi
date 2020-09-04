@@ -130,48 +130,51 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var _default =
-{
-  mixins: [_mixins.myMixins],
+// import {myMixins} from '@/components/mixins.js'
+var _default = {
+  // mixins: [myMixins],
   data: function data() {
     return {
       // 今日查看列表
@@ -181,24 +184,29 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _to
       isLoading: false };
 
   },
-  // onLoad(){
-  // 	this.showList = []
-  // 	this.getData()
-  // 	  setTimeout(function () {
-  // 		console.log('start pulldown');
-  // 	}, 1000);
-  // 	uni.startPullDownRefresh();
-  // },
-  // // 下拉刷新
-  // onPullDownRefresh(){
-  // 	console.log('混入-下拉刷新')
-  // 	this.page = 1
-  // 	this.showList = []
-  // 	this.getData()
-  // 	 setTimeout(function () {
-  // 		uni.stopPullDownRefresh();
-  // 	}, 1000);
-  // },
+  onLoad: function onLoad() {
+    this.showList = [];
+    // this.getData()
+    setTimeout(function () {
+      console.log('start pulldown');
+    }, 1000);
+    uni.startPullDownRefresh();
+  },
+  onUnload: function onUnload() {
+    uni.hideLoading();
+  },
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    console.log('混入-下拉刷新');
+    if (this.showList) {
+      this.showList = [];
+    }
+    this.page = 1;
+    this.getData();
+    setTimeout(function () {
+      uni.stopPullDownRefresh();
+    }, 1000);
+  },
   methods: {
     gotoDetauls: function gotoDetauls(item) {
       console.log('item', item);
@@ -211,6 +219,86 @@ var _mixins = __webpack_require__(/*! @/components/mixins.js */ 27);function _to
       this.isLoading = true;
       this.page++;
       this.getData();
+    },
+    closeClick: function closeClick(item) {
+      var _this = this;
+
+      console.log(item);
+      uni.getStorage({
+        key: 'userInfo',
+        success: function success(reg) {
+          var datas = {
+            token: reg.data.token,
+            id: item.id };
+
+          uni.showModal({
+            title: '提示',
+            content: '是否删除该条足迹？',
+            success: function success(cof) {
+              console.log(cof);
+              if (cof.confirm) {
+                uni.request({
+                  url: _this.$http + '/api/index/delOneFoot',
+                  method: 'POST',
+                  data: datas,
+                  success: function success(res) {
+                    console.log(res);
+                    if (res.data.status === 200) {
+                      uni.showToast({
+                        title: '删除成功!' });
+
+                      _this.page = 1;
+                      _this.showList = [];
+                      _this.getData();
+                    } else {
+                      uni.showModal({
+                        title: '提示',
+                        content: '删除失败！' });
+
+                    }
+                  } });
+
+              }
+              if (cof.cancel) {
+                return;
+              }
+            } });
+
+        } });
+
+    },
+    allDeleteClick: function allDeleteClick() {
+      var _this = this;
+      uni.getStorage({
+        key: 'userInfo',
+        success: function success(reg) {
+          uni.showModal({
+            title: '提示',
+            content: '当前操作将删除全部足迹，是否继续？',
+            success: function success(rrr) {
+              if (rrr.confirm) {
+                uni.request({
+                  url: _this.$http + '/api/index/delFoot',
+                  method: 'POST',
+                  data: {
+                    token: reg.data.token },
+
+                  success: function success(res) {
+                    if (res.data.status === 200) {
+                      uni.showToast({
+                        title: '删除成功！' });
+
+                      _this.page = 1;
+                      _this.showList = [];
+                      _this.getData();
+                    }
+                  } });
+
+              }
+            } });
+
+        } });
+
     },
     // 获取列表数
     getData: function getData() {

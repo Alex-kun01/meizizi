@@ -24,7 +24,7 @@
 					<view class="right_con">
 						<view class="title_box">
 							<view class="tit_txt">
-								<!-- {{item.store_info}} -->
+								{{item.store_info || ''}}
 							</view>
 							<view class="price_box">
 								<view>
@@ -221,7 +221,7 @@
 											
 							//#ifdef APP-PLUS || H5
 							// 微信app支付
-							datas.server = 3
+							datas.server = 2
 							_this.wxTypePay(datas)
 							//#endif
 						}
@@ -244,11 +244,10 @@
 			},
 			wxTypePay(datas){
 				console.log('参数', datas)
-				return
 				uni.request({
-					url: this.$http + '/api/goods/createOrder',
+					url: this.$http + '/api/goods/cartBuy',
 					method: 'POST',
-					data: orderInfo,
+					data: datas,
 					success(wx) {
 						console.log('f返回值',wx)
 						let {weixin} = wx.data.data
@@ -257,10 +256,9 @@
 							service: 'payment',
 							success(pay) {
 								console.log('pay1',pay)
+								console.log('wxpay',pay.provider.includes("wxpay"))
 								if (pay.provider.includes("wxpay")) {
-									console.log('pay2',pay)
-									console.log('ces',weixin.paySign)
-									console.log(weixin)
+									
 									uni.requestPayment({
 										provider: "wxpay",
 										//#ifdef APP-PLUS || H5
@@ -290,8 +288,8 @@
 										fail(reh) {
 											console.log('weixinPayErr', reh)
 											uni.showModal({
-												title: '支付错误',
-												content: reh.errMsg
+												title: '提示',
+												content: '支付已取消'
 											})
 										}
 									})
@@ -308,7 +306,6 @@
 				uni.getStorage({
 					key:'userInfo',
 					success(reg){
-						
 						_this.orderList.forEach(item =>{
 							delete item.image
 							delete item.goods_name

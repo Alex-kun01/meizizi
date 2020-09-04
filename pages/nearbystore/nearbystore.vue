@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		<!-- <view class="titleNview-placing"></view> -->
 		<!-- 搜索框 -->
 		<view class="search_box">
 			<image src="../../static/index/sosuo@2x.png" mode=""></image>
@@ -20,7 +19,7 @@
 				<image id="yuantou" v-if="item.is_source == 1" src="../../static/nearbystore/yuantoudian@2x.png" mode=""></image>
 				<view class="left_info">
 					<view class="pic">
-						<image :src="item.logo" mode=""></image>
+						<image :src="item.logo" id="picShow" mode=""></image>
 						<view class="box_start" v-if="item.grade != 0">
 							<image style="width: 22rpx;height: 22rpx;" v-for="start in item.grade" :key="start" src="../../static/mine/start.png" mode=""></image>
 						</view>
@@ -28,7 +27,7 @@
 					
 					
 					
-					<view class="con">
+					<view class="con" @click="mapGotoClick(item)">
 						<view class="title">
 							{{item.company || '暂无店铺信息'}}
 						</view>
@@ -59,14 +58,17 @@
 				
 				<image style="width: 61rpx;height: 22rpx;position: absolute;top: 2rpx;left: 27rpx;" v-if="item.isSource" :src="item.isSource" mode=""></image>
 			</view>
+			<view v-if="isLoading" class="loging_bom">
+				加载中...
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data() {
 			return {
 				storeList: [],
@@ -75,10 +77,32 @@
 				long_number: 0,
 				lati_number: 0,
 				searchValue: '', // 搜索value
+				isLoading: false
 			}
 		},
 		onShow() {
 			this.mgetLocation()
+		},
+		onLoad(){
+			// this.showList = []
+			// this.getData()
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
+		},
+		onUnload() {
+			uni.hideLoading()
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			this.storeList = []
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		},
 		methods: {
 			getData(){
@@ -109,7 +133,9 @@
 									newList.forEach(item =>{
 										item.distance = item.distance.toFixed(2)
 									})
-									_this.storeList = newList
+									_this.isLoading = false
+									_this.storeList = [..._this.storeList,...newList]
+									console.log('xooo',_this.storeList.length)
 									uni.hideLoading()
 								}else{
 									uni.showModal({
@@ -132,7 +158,7 @@
 						console.log(res)
 						_this.long_number = res.longitude
 						_this.lati_number = res.latitude
-						_this.getData()
+						// _this.getData()
 					}
 				})
 			},
@@ -163,7 +189,13 @@
 						}  
 					}
 				})
-			}
+			},
+			onReachBottom(e){
+				console.log('触底了')
+				this.isLoading = true
+				this.page++
+				this.getData()
+			},
 		}
 	}
 </script>
@@ -184,11 +216,20 @@ page{
 		height: 100%;
 		min-height: 100vh;
 		background-color: #F4F4F4;
+		.loging_bom{
+			width: 100%;
+			height: 70rpx;
+			line-height: 70rpx;
+			background-color: #eee;
+			font-size: 24rpx;
+			text-align: center;
+		}
 		.search_box{
 			width: 600rpx;
 			height: 60rpx;
 			// background-color: #FFFFFF;
-			border: 1rpx solid #008c8c;
+			// border: 1rpx solid #008c8c;
+			border: 1rpx solid #000000;
 			border-radius: 30rpx;
 			margin-left: 75rpx;
 			margin-top: 24rpx;
@@ -266,6 +307,11 @@ page{
 						flex-direction: column;
 						margin-right: 24rpx;
 						// background-color: pink;
+						#picShow{
+							min-height: 120rpx;
+							max-height: 120rpx;
+							max-width: 120rpx;
+						}
 					}
 				}
 				.right_btn{
