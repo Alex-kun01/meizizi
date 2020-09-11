@@ -129,6 +129,8 @@
 			//#ifdef MP-WEIXIN
 			this.isPayType = 2
 			//#endif
+			this.isMeberBay()
+			
 		},
 		onShow() {
 			let _this = this
@@ -139,6 +141,24 @@
 			// 初始化支付方式存到vuex订单下单参数
 			initServer() {
 				this.$store.commit('setProductOrderInfoServer', this.isPayType)
+			},
+			isMeberBay(){
+				uni.getStorage({
+					key: 'userInfo',
+					success(res){
+						if(res.data.position != 9 || res.data.position != 10){
+							uni.showModal({
+								title: '提示',
+								content: '检测到该用户不是“消费者”，请勿购买产品！',
+								success(reg){
+									uni.navigateBack({
+										
+									})
+								}
+							})
+						}
+					}
+				})
 			},
 			changePayType(index) {
 				this.isPayType = index
