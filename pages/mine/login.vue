@@ -469,6 +469,9 @@
 								uni.switchTab({
 									url: '../../pages/index/index'
 								})
+								// uni.navigateTo({
+								// 	url: '../index/chooseLike'
+								// })
 							}else{
 								uni.showModal({
 									title: '提示',
@@ -526,7 +529,9 @@
 											uni.switchTab({
 												url: '../../pages/index/index'
 											})
-											
+											// uni.navigateTo({
+											// 	url: '../index/chooseLike'
+											// })
 											
 										}else{
 											uni.showModal({

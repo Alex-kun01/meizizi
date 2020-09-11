@@ -150,6 +150,5 @@
       "desc": "你的位置信息将用于附近店铺、路线查询和导航等"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap9.json"
+  "usingComponents": {}
 }

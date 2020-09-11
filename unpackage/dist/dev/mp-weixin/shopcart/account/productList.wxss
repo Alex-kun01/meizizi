@@ -38,6 +38,7 @@ page .content .show_list2.data-v-6cbe0b40 {
   -webkit-align-items: center;
           align-items: center;
   margin-left: 50rpx;
+  font-size: 28rpx;
 }
 page .content .show_list.data-v-6cbe0b40 {
   width: 100%;
@@ -55,7 +56,8 @@ page .content .show_list.data-v-6cbe0b40 {
 page .content .show_list .name.data-v-6cbe0b40 {
   color: #FFFFFF;
   margin-bottom: 20rpx;
-  margin-left: 20rp;
+  margin-left: 20rpx;
+  font-size: 30rpx;
 }
 page .content .show_list .item_box.data-v-6cbe0b40 {
   display: -webkit-box;

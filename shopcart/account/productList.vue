@@ -67,8 +67,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="btn_price">
-			总价格：{{getAllPrice}}
+		<view class="btn_price" v-if="showList.length != 0">
+			<view style="margin-right: 40rpx;">
+				总价格：{{getAllPrice}}
+			</view>
 		</view>
 		
 		<view class="noneShow" v-if="showList.length == 0">
@@ -97,13 +99,10 @@
 			}
 		},
 		onLoad(){
-			//   setTimeout(function () {
-			// 	console.log('start pulldown');
-			// }, 1000);
 			
 		},
 		onShow() {
-			
+			this.getData()
 			uni.startPullDownRefresh();
 		},
 		// 下拉刷新
@@ -271,6 +270,7 @@
 				justify-content: space-between;
 				align-items: center;
 				margin-left: 50rpx;
+				font-size: 28rpx;
 			}
 			.show_list{
 				
@@ -283,7 +283,8 @@
 				.name{
 					color: #FFFFFF;
 					margin-bottom: 20rpx;
-					margin-left: 20rp;
+					margin-left: 20rpx;
+					font-size: 30rpx;
 				}
 				.item_box{
 					display: flex;

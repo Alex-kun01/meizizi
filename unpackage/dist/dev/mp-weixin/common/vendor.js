@@ -1600,6 +1600,215 @@ uni$1;exports.default = _default;
 /***/ }),
 
 /***/ 10:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 11:
+/*!*****************************************!*\
+  !*** E:/信合诚/美孜孜/meizizi/store/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+_vue.default.use(_vuex.default);
+var store = new _vuex.default.Store({
+  state: {
+    ///////////////用户不可清除缓存/////////////
+    // 用户登录信息
+    userInfo: {},
+    // 订单下单参数
+    productOrderInfo: {},
+    // 购物车订单列表
+    orderList: [],
+    // 存放退款商品信息
+    tuiOrderInfo: {},
+
+    //////////////用户可清除缓存数据/////////////
+    // 清除缓存时可清除
+    // 用户当前位置
+    address: {},
+    // 店铺定位信息存放
+    locationInfo: {
+      address: '选择店铺位置' },
+
+    showOrderId: '', // 临时存放订单id
+
+    // 首页菜单跳转参数
+    parameter: {} },
+
+
+  mutations: {
+    setParameter: function setParameter(state, obj) {
+      state.parameter = obj;
+    },
+    setOrderId: function setOrderId(state, str) {
+      state.showOrderId = str;
+    },
+    // 修改定位信息
+    setLocationInfo: function setLocationInfo(state, obj) {
+      state.locationInfo = obj;
+    },
+    // 修改用户信息
+    setUserInfo: function setUserInfo(state, obj) {
+      state.userInfo = obj;
+    },
+    // 修改订单下单参数
+    setProductOrderInfo: function setProductOrderInfo(state, obj) {
+      state.productOrderInfo = obj;
+    },
+    // 修改退款商品信息
+    setTuiOrderInfo: function setTuiOrderInfo(state, obj) {
+      state.tuiOrderInfo = obj;
+    },
+    setOrderList: function setOrderList(state, arr) {
+      state.orderList = arr;
+    },
+    // 修改订单下单参数的支付方式
+    setProductOrderInfoServer: function setProductOrderInfoServer(state, str) {
+      state.productOrderInfo.server = str;
+    },
+    // 修改用户当前位置
+    setAddress: function setAddress(state, obj) {
+      state.address = obj;
+    } },
+
+  actions: {} });var _default =
+
+
+
+store;exports.default = _default;
+
+/***/ }),
+
+/***/ 12:
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -8594,7 +8803,38 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 25:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 35:
 /*!*****************************************************!*\
   !*** E:/信合诚/美孜孜/meizizi/components/getLocations.js ***!
   \*****************************************************/
@@ -8604,7 +8844,7 @@ internalMixin(Vue);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
 
-var _amapWx = _interopRequireDefault(__webpack_require__(/*! ../js_sdk/amap-wx.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //sdk文件路径  需要下载微信小程序sdk文件
+var _amapWx = _interopRequireDefault(__webpack_require__(/*! ../js_sdk/amap-wx.js */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //sdk文件路径  需要下载微信小程序sdk文件
 
 var amapPlugin = new _amapWx.default.AMapWX({
   key: 'f0123884f5087e527addb356ccdf24cc' // 需要自己的高德地图开发者key
@@ -8657,7 +8897,7 @@ function _default(callBack) {
 
 /***/ }),
 
-/***/ 26:
+/***/ 36:
 /*!********************************************!*\
   !*** E:/信合诚/美孜孜/meizizi/js_sdk/amap-wx.js ***!
   \********************************************/
@@ -8668,7 +8908,7 @@ function AMapWX(a) {this.key = a.key, this.requestConfig = { key: a.key, s: "rsx
 
 /***/ }),
 
-/***/ 27:
+/***/ 37:
 /*!***********************************************!*\
   !*** E:/信合诚/美孜孜/meizizi/components/mixins.js ***!
   \***********************************************/
@@ -8704,37 +8944,6 @@ function AMapWX(a) {this.key = a.key, this.requestConfig = { key: a.key, s: "rsx
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
 /***/ 4:
 /*!*************************************!*\
   !*** E:/信合诚/美孜孜/meizizi/pages.json ***!
@@ -8746,18 +8955,18 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 579:
+/***/ 589:
 /*!*********************************************************************************************!*\
   !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
   \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 580);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 590);
 
 /***/ }),
 
-/***/ 580:
+/***/ 590:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -8788,7 +8997,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 581);
+module.exports = __webpack_require__(/*! ./runtime */ 591);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -8805,7 +9014,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 581:
+/***/ 591:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9534,215 +9743,6 @@ if (hadRuntime) {
   })() || Function("return this")()
 );
 
-
-/***/ }),
-
-/***/ 8:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 9:
-/*!*****************************************!*\
-  !*** E:/信合诚/美孜孜/meizizi/store/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 10));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-_vue.default.use(_vuex.default);
-var store = new _vuex.default.Store({
-  state: {
-    ///////////////用户不可清除缓存/////////////
-    // 用户登录信息
-    userInfo: {},
-    // 订单下单参数
-    productOrderInfo: {},
-    // 购物车订单列表
-    orderList: [],
-    // 存放退款商品信息
-    tuiOrderInfo: {},
-
-    //////////////用户可清除缓存数据/////////////
-    // 清除缓存时可清除
-    // 用户当前位置
-    address: {},
-    // 店铺定位信息存放
-    locationInfo: {
-      address: '选择店铺位置' },
-
-    showOrderId: '', // 临时存放订单id
-
-    // 首页菜单跳转参数
-    parameter: {} },
-
-
-  mutations: {
-    setParameter: function setParameter(state, obj) {
-      state.parameter = obj;
-    },
-    setOrderId: function setOrderId(state, str) {
-      state.showOrderId = str;
-    },
-    // 修改定位信息
-    setLocationInfo: function setLocationInfo(state, obj) {
-      state.locationInfo = obj;
-    },
-    // 修改用户信息
-    setUserInfo: function setUserInfo(state, obj) {
-      state.userInfo = obj;
-    },
-    // 修改订单下单参数
-    setProductOrderInfo: function setProductOrderInfo(state, obj) {
-      state.productOrderInfo = obj;
-    },
-    // 修改退款商品信息
-    setTuiOrderInfo: function setTuiOrderInfo(state, obj) {
-      state.tuiOrderInfo = obj;
-    },
-    setOrderList: function setOrderList(state, arr) {
-      state.orderList = arr;
-    },
-    // 修改订单下单参数的支付方式
-    setProductOrderInfoServer: function setProductOrderInfoServer(state, str) {
-      state.productOrderInfo.server = str;
-    },
-    // 修改用户当前位置
-    setAddress: function setAddress(state, obj) {
-      state.address = obj;
-    } },
-
-  actions: {} });var _default =
-
-
-
-store;exports.default = _default;
 
 /***/ })
 

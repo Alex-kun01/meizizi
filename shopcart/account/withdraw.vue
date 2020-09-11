@@ -119,12 +119,22 @@
 					})
 					return
 				}
-				if(this.showType == 2 && this.carPosition == ''){
-					uni.showModal({
-						title: '提示',
-						content: '请填写开户行！'
-					})
-					return
+				if(this.showType == 2){
+					if(this.carPosition == ''){
+						uni.showModal({
+							title: '提示',
+							content: '请填写开户行！'
+						})
+						return
+					}
+					if(this.card_id == ''){
+						uni.showModal({
+							title: '提示',
+							content: '请填写账号信息！'
+						})
+						return
+					}
+					
 				}
 				
 				if(this.isReady()){

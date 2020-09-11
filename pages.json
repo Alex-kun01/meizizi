@@ -567,6 +567,14 @@
 			}
 		},
 		// #endif
+		// {
+		// 	"path":"pages/index/chooseLike",
+		// 	"style":{
+		// 		// "navigationBarTitleText": "" ,
+		// 		"navigationBarBackgroundColor": "#1c1e1f",
+		// 		"navigationStyle":"custom"
+		// 	}
+		// },
 		{
 			"path": "pages/mine/login",
 			"style": { 

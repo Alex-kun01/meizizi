@@ -134,20 +134,21 @@
 </template>
 
 <script>
-	import {myMixins} from '@/components/mixins.js'
+	// import {myMixins} from '@/components/mixins.js'
 	export default {
-		mixins: [myMixins],
+		// mixins: [myMixins],
 		data () {
 			return {
 				isActive: 1, // 1自动补货 2手动补货 
 				isLoading: false,
 				titleList: ['单价','现有库存','所需库存','报警线',],
 				page: 1,
-				limit: 10,
+				limit: 1000,
 				info: {
 				},
 				showList: [],
-				opt: {}
+				opt: {},
+				key: true, // 防抖
 			}
 		},
 		computed:{
@@ -177,11 +178,37 @@
 			if(opt.show){
 				this.opt = opt
 			}
+			this.showList = []
 			// this.getData()
+			  setTimeout(function () {
+				console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
 		},
-		onShow(){
+		onUnload() {
+			uni.hideLoading()
+		},
+		// 下拉刷新
+		onPullDownRefresh(){
+			console.log('混入-下拉刷新')
+			if(this.showList){
+				this.showList = []
+			}
+			this.page = 1
+			this.getData()
+			 setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
+		// onLoad(opt){
+		// 	if(opt.show){
+		// 		this.opt = opt
+		// 	}
+		// 	// this.getData()
+		// },
+		// onShow(){
 			
-		},
+		// },
 		methods:{
 			// 请求数据
 			getData(){
@@ -304,6 +331,11 @@
 			// 提交
 			submitClick(){
 				let _this = this
+				if(!this.key) return uni.showModal({
+					title: '提示',
+					content: '请勿重复提交'
+				})
+				this.key = false
 				console.log(this.isSubmitOk)
 				if(this.isSubmitOk){
 					uni.showModal({
@@ -342,9 +374,11 @@
 							data:datas,
 							success(res){
 								console.log('手动补货返回数据',res)
+								
 								if(res.data.status == 200){
+									// _this.key = true
 									uni.showToast({
-										title: '操作成功!'
+										title: res.data.msg
 									})
 								}else{
 									uni.showModal({

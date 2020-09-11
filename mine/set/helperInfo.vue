@@ -48,13 +48,18 @@
 							_this.title = res.data.data.title
 							
 							let cons = res.data.data.content
+							
 							let ins = cons.split('</p>')
+							console.log(ins)
 							let newContetn = []
+							
 							ins.forEach(item =>{
 								newContetn.push(item.replace(/style=""/g, "style='width:100%;margin:-8px 0'")+"</p>")
 							})
 							let targetContent = newContetn.join(',')
 							_this.content = targetContent.replace(/,/g,'')
+							
+							
 						}else{
 							uni.showModal({
 								title: '提示',

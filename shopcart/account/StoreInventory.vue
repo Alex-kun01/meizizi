@@ -173,6 +173,7 @@
 				display: flex;
 				box-sizing: border-box;
 				padding: 0 24rpx;
+				font-size: 32rpx;
 				picker{
 					width: 500rpx;
 				}
@@ -202,6 +203,7 @@
 				color: #008c8c;
 				margin: 20rpx 0;
 				font-weight: 500;
+				font-size: 32rpx;
 			}
 			.sub_mit{
 				width: 700rpx;
