@@ -5,7 +5,7 @@
 		<!-- #ifdef MP-WEIXIN -->
 		<view class="weixin-wx"></view>
 		<!-- #endif -->
-		<view class="top_search">
+		<!-- <view class="top_search">
 			<view class="location_box"
 				@click="reClick"
 			>
@@ -27,15 +27,13 @@
 			@click="gotoshop"
 			>
 				<image src="@/static/index/gouwuche@2x.png" mode=""></image>
-				<!-- <image src="@/static/index/gouwuche@8x.png" mode=""></image> -->
 				<view class="float">{{cart_count}}</view>
 			</view>
 			<view style="position: relative;">
 				<image @click="gotoTarget('../../mine/set/news')" src="@/static/index/xiaoxi.png" mode=""></image>
-				<!-- <image  @click="gotoTarget('../mine/set/news')"  src="@/static/mine/kefu@2x.png" mode=""></image> -->
 			</view>
 			
-		</view>
+		</view> -->
 		
 		<!-- <navigator url="../../shopcart/comment">临时跳转</navigator> -->
 		

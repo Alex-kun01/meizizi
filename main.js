@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
 // 请求地址
-Vue.prototype.$http = 'https://www.mzz2020.com' // 'http://192.168.31.68' ///
+Vue.prototype.$http = 'https://www.mzz2020.com' // 'http://192.168.31.68' //
 // 客服电话
 Vue.prototype.$mobel = '17780156403'
 // 退换货

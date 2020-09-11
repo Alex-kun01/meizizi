@@ -465,13 +465,14 @@
 										console.log('本地储存的数据', res)
 									}
 								})
-								// return
-								uni.switchTab({
-									url: '../../pages/index/index'
+								uni.navigateTo({
+									url: '../index/chooseLike'
 								})
-								// uni.navigateTo({
-								// 	url: '../index/chooseLike'
+								// return
+								// uni.switchTab({
+								// 	url: '../../pages/index/index'
 								// })
+								
 							}else{
 								uni.showModal({
 									title: '提示',
@@ -526,12 +527,12 @@
 												}
 											})
 											// return
-											uni.switchTab({
-												url: '../../pages/index/index'
-											})
-											// uni.navigateTo({
-											// 	url: '../index/chooseLike'
+											// uni.switchTab({
+											// 	url: '../../pages/index/index'
 											// })
+											uni.navigateTo({
+												url: '../index/chooseLike'
+											})
 											
 										}else{
 											uni.showModal({
