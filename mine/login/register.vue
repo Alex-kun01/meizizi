@@ -70,7 +70,8 @@
 				captcha: '', // 验证码
 				isShowCode: false, //
 				number:60, // 倒计时时间
-				timers: ''
+				timers: '',
+				openid: ''
 			}
 		},
 		computed:{
@@ -92,7 +93,7 @@
 			}
 		},
 		onLoad(){
-			
+		   this.openid = this.$store.state.openid
 		},
 		onShow(){
 			
@@ -165,12 +166,17 @@
 				uni.showLoading({
 					title: '正在登录...'
 				})
+				let datas = {
+					phone: _this.phone,
+					//#ifdef MP-WEIXIN
+					openid: _this.openid,
+					//#endif
+				}
+				console.log('查看直接登录参数', datas)
 				uni.request({
 					url: _this.$http + '/api/index/phoneLogin',
 					method: 'POST',
-					data: {
-						phone: _this.phone
-					},
+					data: datas,
 					success(backres){
 						console.log('验证码用户信息', backres.data.data)
 						if(backres.data.status === 200){

@@ -443,7 +443,8 @@
 				},
 				// 首页菜单跳转参数
 				parameter: {},
-				priceName: '会员价'
+				priceName: '会员价',
+				is_vip: 0
 			}
 		},
 		computed:{
@@ -489,13 +490,6 @@
 						console.log('屏幕高度',res)
 						return
 						_this.jsHeig = res.screenHeight
-				        // console.log(res.model);
-				        // console.log(res.pixelRatio);
-				        // console.log(res.windowWidth);
-				        // console.log(res.windowHeight);
-				        // console.log(res.language);
-				        // console.log(res.version);
-				        // console.log(res.platform);
 				    }
 				});
 			},
@@ -562,17 +556,13 @@
 							 let Newdesscrp = newbox.join(',').replace(/,/g,'')
 							 _this.info.description = Newdesscrp
 							 console.log(Newdesscrp)
-							_this.stock = res.data.data.info.stock
-							_this.reco_list = res.data.data.reco_list
-							_this.productValue = res.data.data.productValue
-							_this.productAttr = res.data.data.productAttr
-							// _this.staticImage = res.data.data.info.image
-							let newEvaList = res.data.data.eva_list 
-							
-							// newEvaList.eva_list.forEach(item =>{
-							// 	item.avatar = _this.$http + item.avatar
-							// })
-							// console.log('修改后', newEvaList)
+							 const {info,reco_list,productValue,productAttr,eva_list,is_vip} = res.data.data
+							_this.stock = info.stock
+							_this.reco_list = reco_list
+							_this.productValue = productValue
+							_this.productAttr = productAttr
+							_this.is_vip = is_vip
+							let newEvaList = eva_list
 							_this.evaList = newEvaList
 							const { windowHeight } = uni.getSystemInfoSync();
 							console.log('屏幕高度查看', windowHeight*2 + 'rpx')
@@ -782,6 +772,13 @@
 				console.log('我被点击了')
 				let _this = this
 				this.initcanshu()
+				if(this.is_vip == 1 && uni.getStorageSync('userInfo').is_member == 1){
+					uni.showModal({
+						title: '提示',
+						content: '您已经是会员了，请不要购买此产品！'
+					})
+					return
+				}
 				console.log('判断是否可以提交', this.isSubmitOk)
 				if(!this.isSubmitOk && !this.isNoType){
 					uni.showModal({

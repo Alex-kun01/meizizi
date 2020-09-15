@@ -15,18 +15,39 @@
 	export default {
 		data () {
 			return {
-				img: "http://www.mzz2020.com/uploads/attach/2020/08/20200818/a18aa4c9beae01affd689a5cffbbb48d.png",
+				img: "",
 				num: 3, // 倒计时时间
 				timer: null, // 计时器
 			}
 		},
 		onLoad(){
-			this.daojishi()
+			this.getData()
 		},
 		onShow(){
 			
 		},
 		methods:{
+			getData(){
+				let _this = this
+				uni.request({
+					url: _this.$http + '/api/guide_index',
+					method:'GET',
+					success(res){
+						console.log('res',res)
+						if(res.data.status === 200){
+							const {num,img} = res.data.data
+							_this.img = img
+							_this.num = +num
+							_this.daojishi()
+						}else{
+							uni.showModal({
+								title:'提示',
+								content: res.data.msg
+							})
+						}
+					}
+				})
+			},
 			moveHandle(){},
 			// 倒计时
 			daojishi(){

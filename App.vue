@@ -129,6 +129,8 @@
 </script>
 
 <style>
+	@import "colorui/main.css";
+	@import "colorui/icon.css";
 	.weixin-wx{
 		height: var(--status-bar-height);
 		background: #FFFFFF;

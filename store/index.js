@@ -6,6 +6,7 @@ const store = new Vuex.Store({
 		///////////////用户不可清除缓存/////////////
 		// 用户登录信息
 		userInfo:{},
+		openid:'', // 小程序openid
 		// 订单下单参数
 		productOrderInfo:{},
 		// 购物车订单列表
@@ -28,6 +29,9 @@ const store = new Vuex.Store({
 		
 	},
 	mutations:{
+		setOpenid(state,openid){
+			state.openid = openid
+		},
 		setParameter(state,obj){
 			state.parameter = obj
 		},

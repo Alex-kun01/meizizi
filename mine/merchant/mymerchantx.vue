@@ -167,9 +167,6 @@
 					if(+item.need_stock + +item.stock > +item.total_stock){
 						arr.push(1)
 					}
-					// if(item.need_stock == 0){
-					// 	arr.push(1)
-					// }
 				})
 				return arr.includes(1)
 			}
@@ -179,7 +176,6 @@
 				this.opt = opt
 			}
 			this.showList = []
-			// this.getData()
 			  setTimeout(function () {
 				console.log('start pulldown');
 			}, 1000);
@@ -200,15 +196,6 @@
 				uni.stopPullDownRefresh();
 			}, 1000);
 		},
-		// onLoad(opt){
-		// 	if(opt.show){
-		// 		this.opt = opt
-		// 	}
-		// 	// this.getData()
-		// },
-		// onShow(){
-			
-		// },
 		methods:{
 			// 请求数据
 			getData(){

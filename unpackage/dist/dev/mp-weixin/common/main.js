@@ -17,7 +17,7 @@ _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 _vue.default.prototype.$store = _index.default;
 // 请求地址
-_vue.default.prototype.$http = 'https://www.mzz2020.com';
+_vue.default.prototype.$http = 'https://www.mzz2020.com'; // 'http://192.168.31.68' // 'https://www.mzz2020.com' //
 // 客服电话
 _vue.default.prototype.$mobel = '17780156403';
 // 退换货

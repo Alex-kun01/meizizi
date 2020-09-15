@@ -338,6 +338,9 @@
 			},
 			// 跳转注册页
 			gotoregin(){
+				//#ifdef MP-WEIXIN
+				this.$store.commit('setOpenid', this.openid)
+				//#endif
 				uni.navigateTo({
 					url: '../../mine/login/chooseregin'
 				})
@@ -465,13 +468,9 @@
 										console.log('本地储存的数据', res)
 									}
 								})
-								// return
 								uni.switchTab({
 									url: '../../pages/index/index'
 								})
-								// uni.navigateTo({
-								// 	url: '../index/chooseLike'
-								// })
 							}else{
 								uni.showModal({
 									title: '提示',
@@ -496,8 +495,7 @@
 						method: 'POST',
 						data: {
 							phone: _this.phone,
-							code: _this.invitationCode,
-							openid: _this.openid
+							code: _this.invitationCode
 						},
 						success(reh){
 							console.log('判断验证码返回',reh)
@@ -507,7 +505,8 @@
 									url: _this.$http + '/api/index/phoneLogin',
 									method: 'POST',
 									data:{
-										phone: _this.phone
+										phone: _this.phone,
+										openid: _this.openid
 									},
 									success(backres){
 										console.log('验证码用户信息', backres.data.data)
@@ -525,14 +524,9 @@
 													console.log('本地储存的数据', res)
 												}
 											})
-											// return
 											uni.switchTab({
 												url: '../../pages/index/index'
 											})
-											// uni.navigateTo({
-											// 	url: '../index/chooseLike'
-											// })
-											
 										}else{
 											uni.showModal({
 												title: '提示',

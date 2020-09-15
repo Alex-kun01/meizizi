@@ -45,6 +45,7 @@
 </template>
 
 <script>
+	import {webscoket,sendSocketMessage} from '@/components/webscoket.js'
 	export default {
 		data() {
 			return {
@@ -73,6 +74,11 @@
 					}
 				]
 			};
+		},
+		onLoad() {
+			let {uid} = uni.getStorageSync('userInfo')
+			const wok = webscoket(uid)
+			console.log('wok', wok)
 		},
 		methods: {
 			// 发送点击事件
